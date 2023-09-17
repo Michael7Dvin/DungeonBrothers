@@ -1,25 +1,25 @@
 ﻿using Infrastructure.CodeBase.StateMachine.Interfaces;
 using Infrastructure.GameFSM;
-using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 
 namespace Infrastructure.Initialization
 {
-    public class Bootstrapper : MonoBehaviour
+    public class Bootstrapper : IInitializable
     {
         private IStateMachine _stateMachine;
 
         [Inject]
         private void Construct(IStateMachine stateMachine,
-            BootstrapState bootstrapState)
+            InitializationState initializationState,
+            GameplayState gameplayState)
         {
             _stateMachine = stateMachine;
             
-            _stateMachine.AddState(bootstrapState);
-            
-            Initialize();
+            _stateMachine.AddState(initializationState);
+            _stateMachine.AddState(gameplayState);
         }
 
-        public void Initialize() => _stateMachine.Enter<BootstrapState>();
+        public void Initialize() => _stateMachine.Enter<InitializationState>();
     }
 }

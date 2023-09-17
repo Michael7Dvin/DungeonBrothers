@@ -3,23 +3,23 @@ using UnityEngine;
 
 namespace Infrastructure.GameFSM
 {
-    public class BootstrapState : IState
+    public class InitializationState : IState
     {
         private readonly IStateMachine _stateMachine;
 
-        public BootstrapState(IStateMachine stateMachine)
+        public InitializationState(IStateMachine stateMachine)
         {
             _stateMachine = stateMachine;
         }
 
         public void Exit()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("22");
         }
 
         public void Enter()
         {
-            Debug.Log("work");
+            _stateMachine.Enter<GameplayState>();
         }
     }
 }

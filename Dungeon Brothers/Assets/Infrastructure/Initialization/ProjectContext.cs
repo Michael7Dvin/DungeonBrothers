@@ -15,8 +15,10 @@ namespace Infrastructure.Initialization
 
         private void BindStateMachine(IContainerBuilder builder)
         {
+            builder.Register<Bootstrapper>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<IStateMachine, StateMachine>(Lifetime.Singleton);
-            builder.Register<BootstrapState>(Lifetime.Singleton);
+            builder.Register<InitializationState>(Lifetime.Singleton);
+            builder.Register<GameplayState>(Lifetime.Singleton);
         }
     }
 }
