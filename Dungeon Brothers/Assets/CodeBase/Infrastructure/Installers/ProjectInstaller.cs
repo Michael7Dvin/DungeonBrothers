@@ -1,6 +1,11 @@
-﻿using CodeBase.Infrastructure.GameFSM.FSM;
+﻿using CodeBase.Infrastructure.Addressable;
+using CodeBase.Infrastructure.GameFSM.FSM;
 using CodeBase.Infrastructure.GameFSM.States;
 using CodeBase.Infrastructure.Services.Logging;
+using CodeBase.Infrastructure.Services.SceneLoading;
+using CodeBase.Infrastructure.StaticDataProviding;
+using Infrastructure.Services.ResourcesLoading;
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -8,6 +13,8 @@ namespace CodeBase.Infrastructure.Installers
 {
     public class ProjectInstaller : LifetimeScope
     {
+        [SerializeField] private AllAssetsAddresses _allAssetsAddresses;
+        
         protected override void Configure(IContainerBuilder builder)
         {
             RegisterStateMachine(builder);
@@ -24,7 +31,13 @@ namespace CodeBase.Infrastructure.Installers
 
         private void RegisterServices(IContainerBuilder builder)
         {
+            builder
+                .Register<IStaticDataProvider, StaticDataProvider>(Lifetime.Singleton)
+                .WithParameter(_allAssetsAddresses);
+            
             builder.Register<ICustomLogger, CustomLogger>(Lifetime.Singleton);
+            builder.Register<ISceneLoader, SceneLoader>(Lifetime.Singleton);
+            builder.Register<IAddressablesLoader, AddressablesLoader>(Lifetime.Singleton);
         }
     }
 }

@@ -6,7 +6,5 @@ namespace CodeBase.Infrastructure.StaticDataProviding
     public interface IStaticDataProvider
     {
         AllAssetsAddresses AssetsAddresses { get; }
-        
-        ScenesData ScenesData { get; }
     }
 }
