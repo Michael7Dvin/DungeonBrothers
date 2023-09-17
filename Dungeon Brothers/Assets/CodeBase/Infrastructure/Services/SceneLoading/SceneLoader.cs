@@ -1,4 +1,5 @@
-﻿using CodeBase.Infrastructure.Services.Logging;
+﻿using System;
+using CodeBase.Infrastructure.Services.Logging;
 using CodeBase.Infrastructure.StaticDataProviding;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -31,7 +32,7 @@ namespace CodeBase.Infrastructure.Services.SceneLoading
                     await Load(_scenes.Level);
                     break;
                 default:
-                    _logger.LogError($"Unsupported {nameof(SceneType)}: '{type}'");
+                    _logger.LogError(new Exception($"Unsupported {nameof(SceneType)}: '{type}'"));
                     break;
             }    
         }
