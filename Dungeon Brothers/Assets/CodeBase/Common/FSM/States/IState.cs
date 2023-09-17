@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.CodeBase.StateMachine.Interfaces
+﻿namespace CodeBase.Common.FSM.States
 {
     public interface IState : IExitableState
     { 
