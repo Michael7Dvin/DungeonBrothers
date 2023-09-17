@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Infrastructure.Services.SceneLoading
+namespace CodeBase.Infrastructure.Services.SceneLoading
 {
     [CreateAssetMenu(fileName = "Scenes Data", menuName = "Scenes Data")]
     public class ScenesData : ScriptableObject

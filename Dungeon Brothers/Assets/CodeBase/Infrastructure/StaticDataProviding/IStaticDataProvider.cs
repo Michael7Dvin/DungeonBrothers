@@ -1,7 +1,7 @@
-using Infrastructure.Addressable;
-using Infrastructure.Services.SceneLoading;
+using CodeBase.Infrastructure.Addressable;
+using CodeBase.Infrastructure.Services.SceneLoading;
 
-namespace Infrastructure.StaticDataProviding
+namespace CodeBase.Infrastructure.StaticDataProviding
 {
     public interface IStaticDataProvider
     {

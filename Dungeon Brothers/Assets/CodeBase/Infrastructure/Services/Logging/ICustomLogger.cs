@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Services.Logging
+﻿namespace CodeBase.Infrastructure.Services.Logging
 {
     public interface ICustomLogger
     {

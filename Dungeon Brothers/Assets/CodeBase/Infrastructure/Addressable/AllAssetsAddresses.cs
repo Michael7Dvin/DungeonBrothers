@@ -1,7 +1,7 @@
-using Infrastructure.Services.SceneLoading;
+using CodeBase.Infrastructure.Services.SceneLoading;
 using UnityEngine;
 
-namespace Infrastructure.Addressable
+namespace CodeBase.Infrastructure.Addressable
 {
     [CreateAssetMenu(menuName = "Addresses/AllAssetsAddresses", fileName = "AllAssetsAddresses")]
     public class AllAssetsAddresses : ScriptableObject

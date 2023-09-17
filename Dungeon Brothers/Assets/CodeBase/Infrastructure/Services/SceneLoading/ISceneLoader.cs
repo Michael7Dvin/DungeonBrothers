@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine.SceneManagement;
 
-namespace Infrastructure.Services.SceneLoading
+namespace CodeBase.Infrastructure.Services.SceneLoading
 {
     public interface ISceneLoader
     {
