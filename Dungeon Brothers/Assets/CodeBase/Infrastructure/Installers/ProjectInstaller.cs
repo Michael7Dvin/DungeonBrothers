@@ -1,12 +1,11 @@
-﻿using Infrastructure.CodeBase.StateMachine;
-using Infrastructure.CodeBase.StateMachine.Interfaces;
-using Infrastructure.GameFSM;
+﻿using CodeBase.Infrastructure.GameFSM.FSM;
+using CodeBase.Infrastructure.GameFSM.States;
 using VContainer;
 using VContainer.Unity;
 
-namespace Infrastructure.Initialization
+namespace CodeBase.Infrastructure.Installers
 {
-    public class ProjectContext : LifetimeScope
+    public class ProjectInstaller : LifetimeScope
     {
         protected override void Configure(IContainerBuilder builder)
         {
@@ -16,7 +15,7 @@ namespace Infrastructure.Initialization
         private void BindStateMachine(IContainerBuilder builder)
         {
             builder.Register<Bootstrapper>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<IStateMachine, StateMachine>(Lifetime.Singleton);
+            builder.Register<IGameStateMachine, GameStateMachine>(Lifetime.Singleton);
             builder.Register<InitializationState>(Lifetime.Singleton);
             builder.Register<GameplayState>(Lifetime.Singleton);
         }

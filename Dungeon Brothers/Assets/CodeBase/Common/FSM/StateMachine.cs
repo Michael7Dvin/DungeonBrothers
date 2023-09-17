@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Infrastructure.CodeBase.StateMachine.Interfaces;
+using CodeBase.Common.FSM.States;
 using UnityEngine;
 
-namespace Infrastructure.CodeBase.StateMachine
+namespace CodeBase.Common.FSM
 {
     public class StateMachine : IStateMachine
     {
@@ -11,7 +11,7 @@ namespace Infrastructure.CodeBase.StateMachine
 
         private IExitableState _activeState;
 
-        public void Enter<TState>() where TState : class, IState
+        public void Enter<TState>() where TState : IState
         {
             _activeState?.Exit();
 
@@ -23,7 +23,7 @@ namespace Infrastructure.CodeBase.StateMachine
             }
             
             else
-                Debug.LogError($"{typeof(TState)}, Not Found");
+                Debug.LogError($"{typeof(TState)}, not found");
         }
 
         public void Enter<TState, TArgs>(TArgs args) where TState : IStateWithArgument<TArgs>
@@ -33,9 +33,10 @@ namespace Infrastructure.CodeBase.StateMachine
             if (_states[typeof(TState)] is TState state) 
                 state.Enter(args);
             else
-                Debug.LogError($"{typeof(TState)}, Not Found");
+                Debug.LogError($"{typeof(TState)}, not found");
         }
 
-        public void AddState<TState>(TState state) where TState : IExitableState => _states.Add(typeof(TState), state);
+        public void AddState<TState>(TState state) where TState : IExitableState => 
+            _states.Add(typeof(TState), state);
     }
 }

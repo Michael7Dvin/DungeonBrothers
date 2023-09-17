@@ -1,8 +1,10 @@
-﻿namespace Infrastructure.CodeBase.StateMachine.Interfaces
+﻿using CodeBase.Common.FSM.States;
+
+namespace CodeBase.Common.FSM
 {
     public interface IStateMachine
     {
-        void Enter<TState>() where TState : class, IState;
+        void Enter<TState>() where TState : IState;
         
         void Enter<TState, TArgs>(TArgs args) where TState : IStateWithArgument<TArgs>;
         
