@@ -5,13 +5,11 @@ namespace CodeBase.Infrastructure.StaticDataProviding
 {
     public class StaticDataProvider : IStaticDataProvider
     {
-        public StaticDataProvider(AllAssetsAddresses allAssetsAddresses, ScenesData scenesData)
+        public StaticDataProvider(AllAssetsAddresses allAssetsAddresses)
         {
             AssetsAddresses = allAssetsAddresses;
-            ScenesData = scenesData;
         }
 
         public AllAssetsAddresses AssetsAddresses { get; }
-        public ScenesData ScenesData { get; }
     }
 }

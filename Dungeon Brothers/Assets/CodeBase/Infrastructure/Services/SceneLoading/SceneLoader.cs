@@ -1,6 +1,7 @@
 ﻿using CodeBase.Infrastructure.Services.Logging;
 using CodeBase.Infrastructure.StaticDataProviding;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
@@ -16,7 +17,7 @@ namespace CodeBase.Infrastructure.Services.SceneLoading
         public SceneLoader(IStaticDataProvider staticDataProvider, 
             ICustomLogger logger)
         {
-            _scenes = staticDataProvider.ScenesData;
+            _scenes = staticDataProvider.AssetsAddresses.ScenesData;
             _logger = logger;
         }
 
@@ -26,11 +27,8 @@ namespace CodeBase.Infrastructure.Services.SceneLoading
         {
             switch (type)
             {
-                case SceneType.MainMenu:
-                    await Load(_scenes.MainMenu);
-                    break;
-                case SceneType.Island:
-                    await Load(_scenes.Island);
+                case SceneType.Level:
+                    await Load(_scenes.Level);
                     break;
                 default:
                     _logger.LogError($"Unsupported {nameof(SceneType)}: '{type}'");
