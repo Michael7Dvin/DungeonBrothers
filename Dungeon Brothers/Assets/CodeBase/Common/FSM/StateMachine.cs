@@ -27,8 +27,6 @@ namespace CodeBase.Common.FSM
                 
                 state.Enter();
             }
-            else
-                _logger.LogError($"{typeof(TState)}, not found");
         }
 
         public void Enter<TState, TArgs>(TArgs args) where TState : IStateWithArgument<TArgs>
@@ -37,8 +35,6 @@ namespace CodeBase.Common.FSM
 
             if (_states[typeof(TState)] is TState state) 
                 state.Enter(args);
-            else
-                _logger.LogError($"{typeof(TState)}, not found");
         }
 
         public void AddState<TState>(TState state) where TState : IExitableState => 

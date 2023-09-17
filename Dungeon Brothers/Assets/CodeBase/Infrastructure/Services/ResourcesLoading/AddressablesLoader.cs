@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Infrastructure.Services.Logging;
 using Cysharp.Threading.Tasks;
@@ -22,7 +23,8 @@ namespace Infrastructure.Services.ResourcesLoading
         {
             if (assetReference.RuntimeKeyIsValid() == false)
             {
-                _logger.LogError("AssetReference is null");
+                _logger.LogError(new Exception("AssetReference is null"));
+                
                 return null;
             }
 
@@ -43,8 +45,10 @@ namespace Infrastructure.Services.ResourcesLoading
 
             if (gameObject.TryGetComponent(out T component))
                 return component;
-
-            _logger.LogError($"AssetReference: '{assetReference}' has no required component: '{nameof(T)}' attached");
+            
+            _logger.LogError(
+                new Exception($"AssetReference: '{assetReference}' has no required component: " + $"'{nameof(T)}' attached"));
+            
             return null;
         }
 

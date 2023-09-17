@@ -1,16 +1,40 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.Logging
 {
     public class CustomLogger : ICustomLogger
     {
-        public void Log(object message) => 
-            Debug.Log(message);
+        private readonly ILogWriter _logWriter;
 
-        public void LogWarning(object message) => 
-            Debug.LogWarning(message);
+        public CustomLogger(ILogWriter logWriter)
+        {
+            _logWriter = logWriter;
+            
+            _logWriter.Create();
+        }
 
-        public void LogError(object message) => 
-            Debug.LogError(message);
+        public void Log(object message)
+        {
+            _logWriter.Write(new LogMessage(LogType.Log, message.ToString()));
+            
+            Debug.Log($"{message}");
+        }
+        
+
+        public void LogWarning(object message) 
+        {
+            _logWriter.Write(new LogMessage(LogType.Warning, message.ToString()));
+            
+            Debug.LogWarning($"{message}");
+        }
+        
+
+        public void LogError(Exception exception) 
+        {
+            _logWriter.Write(new LogMessage(LogType.Exception, exception.Message));
+            
+            throw exception;
+        }
     }
 }

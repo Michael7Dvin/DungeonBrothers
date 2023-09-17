@@ -38,6 +38,7 @@ namespace CodeBase.Infrastructure.Installers
             builder.Register<ICustomLogger, CustomLogger>(Lifetime.Singleton);
             builder.Register<ISceneLoader, SceneLoader>(Lifetime.Singleton);
             builder.Register<IAddressablesLoader, AddressablesLoader>(Lifetime.Singleton);
+            builder.Register<ILogWriter, LogWriter>(Lifetime.Singleton);
         }
     }
 }
