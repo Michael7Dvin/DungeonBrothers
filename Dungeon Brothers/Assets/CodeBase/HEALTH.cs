@@ -1,14 +1,17 @@
 ﻿using System;
 using CodeBase.Infrastructure.Services.Logging;
+using UnityEngine;
+using VContainer;
 
 namespace CodeBase
 {
-    public class HEALTH_FOR_UNIT_TEST_DEBUG
+    public class HEALTH : MonoBehaviour
     {
-        private readonly ICustomLogger _logger;
-        private readonly I_SOME_SERVICE_FOR_UNIT_TEST_DEBUG _someService;
+        private ICustomLogger _logger;
+        private I_SOME_SERVICE _someService;
 
-        public HEALTH_FOR_UNIT_TEST_DEBUG(ICustomLogger logger, I_SOME_SERVICE_FOR_UNIT_TEST_DEBUG someService)
+        [Inject]
+        public void InjectDependencies(ICustomLogger logger, I_SOME_SERVICE someService)
         {
             _logger = logger;
             _someService = someService;
