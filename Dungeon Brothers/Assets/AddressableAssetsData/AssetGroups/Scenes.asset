@@ -12,11 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
   m_Name: Scenes
   m_EditorClassIdentifier: 
-  m_GroupName: Packed Assets
+  m_GroupName: Scenes
   m_Data:
     m_SerializedData: []
   m_GUID: 89b7f1c6b40f5d54ca4ca240ccfb8b6a
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 5859347b6d51e8044bb8feb6a5465175
+    m_Address: Assets/Scenes/Level.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cd9846c08b2b1fc4fa9b10c9ae46250d, type: 2}
   m_SchemaSet:

@@ -1,6 +1,8 @@
-﻿using CodeBase.Infrastructure.Addressable;
+﻿using System.Threading.Tasks;
+using CodeBase.Infrastructure.Addressable;
 using CodeBase.Infrastructure.GameFSM.FSM;
 using CodeBase.Infrastructure.GameFSM.States;
+using CodeBase.Infrastructure.Services.Factories.TileFactory;
 using CodeBase.Infrastructure.Services.Logging;
 using CodeBase.Infrastructure.Services.ResourcesLoading;
 using CodeBase.Infrastructure.Services.SceneLoading;
@@ -39,6 +41,7 @@ namespace CodeBase.Infrastructure.Installers
             builder.Register<ISceneLoader, SceneLoader>(Lifetime.Singleton);
             builder.Register<IAddressablesLoader, AddressablesLoader>(Lifetime.Singleton);
             builder.Register<ILogWriter, LogWriter>(Lifetime.Singleton);
+            builder.Register<ITileFactory, TileFactory>(Lifetime.Singleton);
         }
     }
 }
