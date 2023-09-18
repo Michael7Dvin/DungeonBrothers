@@ -6,8 +6,8 @@ namespace CodeBase.Gameplay.Services.TurnQueue
 {
     public interface ITurnQueue
     {
-        IEnumerable<ICharacter> Units { get; }
-        ICharacter ActiveUnit { get; }
+        IEnumerable<ICharacter> Characters { get; }
+        ICharacter ActiveCharacter { get; }
 
         event Action<ICharacter> NewTurnStarted; 
 

@@ -14,9 +14,9 @@ namespace CodeBase.Tests
             int dexterity,
             int initiative)
         {
-            ICharacter character1 = new Character(new CharacterStats(level, intelligence, strength, dexterity, initiative),
+            ICharacter character = new Character(new CharacterStats(level, intelligence, strength, dexterity, initiative),
                 new CharacterLogic());
-            return character1;
+            return character;
         }
 
         public static CharactersProvider CharactersProvider()

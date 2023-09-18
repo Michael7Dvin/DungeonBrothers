@@ -2,12 +2,12 @@
 {
     public struct CharacterStats
     {
-        public int Level { get; private set; }
-        public int Intelligence { get; private set; }
-        public int Strength { get; private set; }
-        public int Dexterity { get; private set; }
-        public int Initiative { get; private set; }
-        public int TotalStats { get; private set; }
+        public int Level { get; }
+        public int Intelligence { get; }
+        public int Strength { get; }
+        public int Dexterity { get; }
+        public int Initiative { get; }
+        public int TotalStats => Intelligence + Strength + Dexterity + Initiative;
 
         public CharacterStats(int level,
             int intelligence, 
@@ -20,8 +20,6 @@
             Strength = strength;
             Dexterity = dexterity;
             Initiative = initiative;
-
-            TotalStats = Intelligence + Strength + Dexterity + Initiative;
         }
     }
 }

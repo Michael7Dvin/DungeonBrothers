@@ -14,8 +14,8 @@ namespace CodeBase.Gameplay.Services.TurnQueue
         private readonly ICharactersProvider _charactersProvider;
         private readonly ICustomLogger _logger;
 
-        private readonly LinkedList<ICharacter> _units = new();
-        private LinkedListNode<ICharacter> _activeUnitNode;
+        private readonly LinkedList<ICharacter> _characters = new();
+        private LinkedListNode<ICharacter> _activeCharacterNode;
 
         public TurnQueue(IRandomService randomService, 
             ICharactersProvider charactersProvider,
@@ -26,8 +26,8 @@ namespace CodeBase.Gameplay.Services.TurnQueue
             _logger = logger;
         }
 
-        public IEnumerable<ICharacter> Units => _units;
-        public ICharacter ActiveUnit => _activeUnitNode.Value;
+        public IEnumerable<ICharacter> Characters => _characters;
+        public ICharacter ActiveCharacter => _activeCharacterNode.Value;
         public event Action<ICharacter> NewTurnStarted;
 
         public void Initialize()
@@ -41,37 +41,37 @@ namespace CodeBase.Gameplay.Services.TurnQueue
             _charactersProvider.Spawned -= Add;
             _charactersProvider.Died -= Remove;
             
-            _units.Clear();
-            _activeUnitNode = null;
+            _characters.Clear();
+            _activeCharacterNode = null;
         }
 
         public void SetNextTurn()
         {
-            if (_activeUnitNode == _units.First)
-                _activeUnitNode = _units.Last;
+            if (_activeCharacterNode == _characters.First)
+                _activeCharacterNode = _characters.Last;
             else
-                _activeUnitNode = _activeUnitNode.Previous;
+                _activeCharacterNode = _activeCharacterNode.Previous;
             
-            NewTurnStarted?.Invoke(ActiveUnit);
+            NewTurnStarted?.Invoke(ActiveCharacter);
         }
         
         public void SetFirstTurn()
         {
-            _activeUnitNode = _units.Last;
-            NewTurnStarted?.Invoke(ActiveUnit);
+            _activeCharacterNode = _characters.Last;
+            NewTurnStarted?.Invoke(ActiveCharacter);
         }
 
         private void Add(ICharacter character)
         {
-            if (_units.Count == 0)
+            if (_characters.Count == 0)
             {
-                _units.AddFirst(character);
+                _characters.AddFirst(character);
                 return;
             }
 
             int newCharacterInitiative = character.CharacterStats.Initiative;
             
-            LinkedListNode<ICharacter> currentCharacter = _units.First;
+            LinkedListNode<ICharacter> currentCharacter = _characters.First;
 
             while (currentCharacter != null)
             {
@@ -85,13 +85,13 @@ namespace CodeBase.Gameplay.Services.TurnQueue
 
                 if (newCharacterInitiative < currentCharacterInitiative)
                 {
-                    _units.AddBefore(currentCharacter, character);
+                    _characters.AddBefore(currentCharacter, character);
                     return;
                 }
 
-                if (currentCharacter == _units.Last)
+                if (currentCharacter == _characters.Last)
                 {
-                    _units.AddLast(character);
+                    _characters.AddLast(character);
                     return;
                 }
 
@@ -105,35 +105,35 @@ namespace CodeBase.Gameplay.Services.TurnQueue
             {
                 if (currentCharacter.Value.CharacterStats.TotalStats == newCharacter.CharacterStats.TotalStats)
                 {
-                    if (_randomService.DoFiftyFifty()) _units.AddBefore(currentCharacter, newCharacter);
+                    if (_randomService.DoFiftyFifty()) _characters.AddBefore(currentCharacter, newCharacter);
                     return;
                 }
                 
                 if (currentCharacter.Value.CharacterStats.TotalStats > newCharacter.CharacterStats.TotalStats)
                 {
-                    _units.AddBefore(currentCharacter, newCharacter);
+                    _characters.AddBefore(currentCharacter, newCharacter);
                     return;
                 }
             }
 
             if (currentCharacter.Value.CharacterStats.Level > newCharacter.CharacterStats.Level)
             {
-                _units.AddBefore(currentCharacter, newCharacter);
+                _characters.AddBefore(currentCharacter, newCharacter);
                 return;
             }
             
-            if (currentCharacter == _units.Last)
+            if (currentCharacter == _characters.Last)
             {
-                _units.AddLast(newCharacter);
+                _characters.AddLast(newCharacter);
             }
         }
 
         private void Remove(ICharacter character)
         {
-            if (character == _activeUnitNode.Value)
-                _logger.LogError(new Exception($"Unable to remove {nameof(ActiveUnit)}. Feature not implemented"));
+            if (character == _activeCharacterNode.Value)
+                _logger.LogError(new Exception($"Unable to remove {nameof(ActiveCharacter)}. Feature not implemented"));
 
-            _units.Remove(character);
+            _characters.Remove(character);
         }
     }
 }
