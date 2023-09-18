@@ -7,6 +7,6 @@ namespace CodeBase.Infrastructure.Services.Factories.TileFactory
     public interface ITileFactory
     {
         UniTask WarmUp();
-        UniTask<Tile> Create(Vector3 position, Vector2Int coordinates);
+        UniTask<Tile> Create(Vector3 position, Vector2Int coordinates, Transform parent = null);
     }
 }

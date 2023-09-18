@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using CodeBase.Gameplay.Services.MapGenerator;
 using CodeBase.Infrastructure.Addressable;
 using CodeBase.Infrastructure.GameFSM.FSM;
 using CodeBase.Infrastructure.GameFSM.States;
@@ -42,6 +42,7 @@ namespace CodeBase.Infrastructure.Installers
             builder.Register<IAddressablesLoader, AddressablesLoader>(Lifetime.Singleton);
             builder.Register<ILogWriter, LogWriter>(Lifetime.Singleton);
             builder.Register<ITileFactory, TileFactory>(Lifetime.Singleton);
+            builder.Register<IMapGenerator, MapGenerator>(Lifetime.Singleton);
         }
     }
 }

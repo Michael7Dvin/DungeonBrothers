@@ -27,10 +27,10 @@ namespace CodeBase.Infrastructure.Services.Factories.TileFactory
         public async UniTask WarmUp() => 
             await _addressablesLoader.LoadComponent<Tile>(_tileReference);
 
-        public async UniTask<Tile> Create(Vector3 position, Vector2Int coordinates)
+        public async UniTask<Tile> Create(Vector3 position, Vector2Int coordinates, Transform parent)
         {
             Tile prefab = await _addressablesLoader.LoadComponent<Tile>(_tileReference);
-            Tile tile = _objectResolver.Instantiate(prefab, position, Quaternion.identity);
+            Tile tile = _objectResolver.Instantiate(prefab, position, Quaternion.identity, parent);
             tile.Construct(coordinates);
             return tile;
         }
