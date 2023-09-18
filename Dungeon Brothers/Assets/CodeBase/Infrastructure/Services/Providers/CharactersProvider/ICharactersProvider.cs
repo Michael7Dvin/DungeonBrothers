@@ -7,7 +7,6 @@ namespace CodeBase.Infrastructure.Services.UnitsProvider
 {
     public interface ICharactersProvider
     {
-        public List<CharacterConfig> CharacterConfigs { get; }
         event Action CharactersAmountChanged; 
         event Action<ICharacter> Spawned;
         event Action<ICharacter> Died;

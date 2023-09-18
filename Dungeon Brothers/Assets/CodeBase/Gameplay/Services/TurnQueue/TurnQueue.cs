@@ -68,6 +68,7 @@ namespace CodeBase.Gameplay.Services.TurnQueue
             if (_characters.Count == 0)
             {
                 _characters.AddFirst(character);
+                
                 AddedToQueue?.Invoke(character);
                 return;
             }

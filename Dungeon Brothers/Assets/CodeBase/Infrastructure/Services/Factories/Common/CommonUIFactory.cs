@@ -1,5 +1,7 @@
-﻿using CodeBase.Infrastructure.Addressable.UI.Common;
+﻿using CodeBase.Gameplay.UI.TurnQueue;
+using CodeBase.Infrastructure.Addressable.UI.Common;
 using CodeBase.Infrastructure.Services.Providers.UIProvider;
+using CodeBase.Infrastructure.Services.UnitsProvider;
 using CodeBase.Infrastructure.StaticDataProviding;
 using Cysharp.Threading.Tasks;
 using Infrastructure.Services.ResourcesLoading;
@@ -15,18 +17,18 @@ namespace CodeBase.Infrastructure.Services.Factories.Common
         private readonly IObjectResolver _objectResolver;
         private readonly IAddressablesLoader _addressablesLoader;
         private readonly IUIProvider _uiProvider;
-        
+
         private CommonUIAddresses _commonUIAddresses;
 
         public CommonUIFactory(IObjectResolver objectResolver,
-            AddressablesLoader addressablesLoader,
+            IAddressablesLoader addressablesLoader,
             IUIProvider uiProvider,
             IStaticDataProvider staticDataProvider)
         {
             _objectResolver = objectResolver;
             _addressablesLoader = addressablesLoader;
             _uiProvider = uiProvider;
-            _commonUIAddresses = staticDataProvider.AssetsAddresses.AllUIAddresses.CommonUiAddresses;
+            _commonUIAddresses = staticDataProvider.AllStaticData.AssetsAddresses.AllUIAddresses.CommonUiAddresses;
         }
 
         public async UniTask WarmUp()
@@ -47,13 +49,13 @@ namespace CodeBase.Infrastructure.Services.Factories.Common
         private async UniTask<Canvas> CreateCanvas()
         {
             Canvas canvas = await _addressablesLoader.LoadComponent<Canvas>(_commonUIAddresses.Canvas);
-
+            
             return _objectResolver.Instantiate(canvas);
         }
 
         private async UniTask<EventSystem> CreateEventSystem()
         {
-            EventSystem eventSystem = await _addressablesLoader.LoadComponent<EventSystem>(_commonUIAddresses.Canvas);
+            EventSystem eventSystem = await _addressablesLoader.LoadComponent<EventSystem>(_commonUIAddresses.EventSystem);
 
             return _objectResolver.Instantiate(eventSystem);
         }

@@ -6,8 +6,8 @@ namespace CodeBase.Infrastructure.Services.Providers.UIProvider
 {
     public class UIProvider : IUIProvider
     {
-        private Observable<Canvas> _canvas;
-        private Observable<EventSystem> _eventSystem;
+        private readonly Observable<Canvas> _canvas = new();
+        private readonly Observable<EventSystem> _eventSystem = new();
 
         public IReadOnlyObservable<Canvas> Canvas => _canvas;
         public IReadOnlyObservable<EventSystem> EventSystem => _eventSystem;

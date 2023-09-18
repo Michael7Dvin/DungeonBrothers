@@ -47,7 +47,7 @@ namespace Infrastructure.Services.ResourcesLoading
                 return component;
             
             _logger.LogError(
-                new Exception($"AssetReference: '{assetReference}' has no required component: " + $"'{nameof(T)}' attached"));
+                new Exception($"AssetReference: '{assetReference}' has no required component: " + $"'{typeof(T)}' attached"));
             
             return null;
         }
