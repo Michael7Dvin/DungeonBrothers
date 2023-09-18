@@ -2,9 +2,9 @@
 using CodeBase.Infrastructure.GameFSM.FSM;
 using CodeBase.Infrastructure.GameFSM.States;
 using CodeBase.Infrastructure.Services.Logging;
+using CodeBase.Infrastructure.Services.ResourcesLoading;
 using CodeBase.Infrastructure.Services.SceneLoading;
-using CodeBase.Infrastructure.StaticDataProviding;
-using Infrastructure.Services.ResourcesLoading;
+using CodeBase.Infrastructure.Services.StaticDataProviding;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

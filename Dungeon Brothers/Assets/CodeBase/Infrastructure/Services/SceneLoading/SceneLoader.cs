@@ -1,6 +1,6 @@
 ﻿using System;
 using CodeBase.Infrastructure.Services.Logging;
-using CodeBase.Infrastructure.StaticDataProviding;
+using CodeBase.Infrastructure.Services.StaticDataProviding;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -12,13 +12,13 @@ namespace CodeBase.Infrastructure.Services.SceneLoading
 {
     public class SceneLoader : ISceneLoader
     {
-        private readonly ScenesData _scenes;
+        private readonly ScenesAddresses _scenes;
         private readonly ICustomLogger _logger;
 
         public SceneLoader(IStaticDataProvider staticDataProvider, 
             ICustomLogger logger)
         {
-            _scenes = staticDataProvider.AssetsAddresses.ScenesData;
+            _scenes = staticDataProvider.AssetsAddresses.Scenes;
             _logger = logger;
         }
 

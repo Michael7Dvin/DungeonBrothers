@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 513a6b547d3f43fc802827862e225e30, type: 3}
-  m_Name: SceneData
+  m_Script: {fileID: 11500000, guid: 5834b5087d578d24c926ce20cd31e6d6, type: 3}
+  m_Name: Common_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
-  <Level>k__BackingField:
-    m_AssetGUID: 5859347b6d51e8044bb8feb6a5465175
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
+  m_Group: {fileID: 11400000, guid: 682c24c9bda3fa4498834fdcc38a70a6, type: 2}
+  m_StaticContent: 0

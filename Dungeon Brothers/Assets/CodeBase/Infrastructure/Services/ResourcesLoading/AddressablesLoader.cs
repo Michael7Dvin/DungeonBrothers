@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace Infrastructure.Services.ResourcesLoading
+namespace CodeBase.Infrastructure.Services.ResourcesLoading
 {
     public class AddressablesLoader : IAddressablesLoader
     {

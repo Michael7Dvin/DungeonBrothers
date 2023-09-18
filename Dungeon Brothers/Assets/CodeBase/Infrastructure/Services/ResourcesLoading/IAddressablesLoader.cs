@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Infrastructure.Services.ResourcesLoading
+namespace CodeBase.Infrastructure.Services.ResourcesLoading
 {
     public interface IAddressablesLoader
     {
