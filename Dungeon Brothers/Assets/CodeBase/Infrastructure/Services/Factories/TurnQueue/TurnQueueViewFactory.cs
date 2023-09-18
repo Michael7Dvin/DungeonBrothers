@@ -1,9 +1,11 @@
-﻿using CodeBase.Infrastructure.Services.Providers.UIProvider;
+﻿using CodeBase.Gameplay.UI.TurnQueue;
+using CodeBase.Infrastructure.Services.Providers.UIProvider;
 using CodeBase.Infrastructure.Services.UnitsProvider;
 using CodeBase.Infrastructure.StaticDataProviding;
 using Cysharp.Threading.Tasks;
 using Infrastructure.Services.ResourcesLoading;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using VContainer;
 using VContainer.Unity;
 
@@ -35,18 +37,25 @@ namespace CodeBase.Infrastructure.Services.Factories.TurnQueue
                 .GameplayUIAddresses.TurnQueueView);
         }
 
-        public async UniTask Create()
+        public async UniTask<CharacterInTurnQueueIcon> Create(AssetReferenceGameObject iconReference)
         {
             Canvas canvas = _uiProvider.Canvas.Value;
             Transform root = canvas.transform.root;
+
+            if (!_turnQueueViewPrefab) await CreateTurnQueueViewPrefab(root);
+
+            GameObject iconLoaded = await _addressablesLoader.LoadGameObject(iconReference);
             
-            if (!_turnQueueViewPrefab)
-            {
-                GameObject reference = await _addressablesLoader.LoadGameObject(_staticDataProvider.AssetsAddresses
-                    .AllUIAddresses.GameplayUIAddresses.TurnQueueView);
+            return _objectResolver.Instantiate(iconLoaded, _turnQueueViewPrefab.transform)
+                .GetComponent<CharacterInTurnQueueIcon>();
+        }
+
+        private async UniTask CreateTurnQueueViewPrefab(Transform root)
+        {
+            GameObject reference = await _addressablesLoader.LoadGameObject(_staticDataProvider.AssetsAddresses
+                .AllUIAddresses.GameplayUIAddresses.TurnQueueView);
                 
-                _turnQueueViewPrefab = _objectResolver.Instantiate(reference, root);
-            }
+            _turnQueueViewPrefab = _objectResolver.Instantiate(reference, root);
         }
     }
 }

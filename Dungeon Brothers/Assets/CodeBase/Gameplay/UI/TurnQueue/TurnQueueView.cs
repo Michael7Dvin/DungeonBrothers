@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Configs.Character;
+using CodeBase.Infrastructure.Services.Factories.TurnQueue;
 using CodeBase.Infrastructure.Services.UnitsProvider;
 using CodeBase.Infrastructure.StaticDataProviding;
 using Cysharp.Threading.Tasks;
@@ -17,43 +19,72 @@ namespace CodeBase.Gameplay.UI.TurnQueue
     {
         private readonly ITurnQueue _turnQueue;
         private readonly IAddressablesLoader _addressablesLoader;
-        private readonly IObjectResolver _objectResolver;
+        private readonly ITurnQueueViewFactory _turnQueueViewFactory;
         private readonly AllCharactersConfigs _allCharactersConfigs;
 
+        private List<CharacterInTurnQueueIcon> _iconQueue;
         private ICharacter _currentCharacter;
+        
+        private const int MAXVISUALIZEICONS = 5;
         
         public TurnQueueView(ITurnQueue turnQueue,
             AddressablesLoader addressablesLoader,
-            IObjectResolver objectResolver,
-            IStaticDataProvider staticDataProvider)
+            ITurnQueueViewFactory turnQueueViewFactory,
+            StaticDataProvider staticDataProvider)
         {
             _turnQueue = turnQueue;
             _addressablesLoader = addressablesLoader;
-            _objectResolver = objectResolver;
+            _turnQueueViewFactory = turnQueueViewFactory;
             _allCharactersConfigs = staticDataProvider.AllCharactersConfigs;
         }
 
-        public async UniTask VisualizeIcons()
+        public void SubscribeToEvents()
         {
-            if (_currentCharacter == null)
-            {
-                _currentCharacter = _turnQueue.Characters.Last();
-            }
+            _turnQueue.AddedToQueue += ReOrganizeIcons;
+            _turnQueue.NewTurnStarted += ReOrganizeIcons;
+        }
+        
+        public void UnSubscribeToEvents()
+        {
+            _turnQueue.AddedToQueue -= ReOrganizeIcons;
+            _turnQueue.NewTurnStarted -= ReOrganizeIcons;
+        }
+        
+        private async void ReOrganizeIcons(ICharacter character)
+        {
+            ResetIcons();
 
-            foreach (var characterConfig in _allCharactersConfigs.CharacterConfigs)
+            foreach (var currentCharacter in _turnQueue.Characters)
             {
-                if (characterConfig.CharacterID == _currentCharacter.CharacterID)
+                foreach (var characterConfig in _allCharactersConfigs.CharacterConfigs)
                 {
-                    await LoadImage(characterConfig.Image);
+                    if (characterConfig.CharacterID == currentCharacter.CharacterID)
+                    {
+                        CharacterInTurnQueueIcon characterInTurnQueueIcon =
+                            await _turnQueueViewFactory.Create(characterConfig.Image);
+
+                        characterInTurnQueueIcon.gameObject.SetActive(false);
+                        _iconQueue.Add(characterInTurnQueueIcon);
+                    }
                 }
             }
+            
+            VisualizeIcons();
         }
 
-        private async UniTask LoadImage(AssetReferenceGameObject imageReference)
+        private void ResetIcons()
         {
-            GameObject imageLoaded = await _addressablesLoader.LoadGameObject(imageReference);
-
-            GameObject imagePrefab = _objectResolver.Instantiate(imageLoaded);
+            foreach (var icon in _iconQueue) icon.Destroy();
+            
+            _iconQueue.Clear();
+        }
+        
+        private void VisualizeIcons()
+        {
+            for (int i = _iconQueue.Count; i-MAXVISUALIZEICONS < i; i--)
+            {
+                _iconQueue[i].gameObject.SetActive(true);
+            }
         }
     }
 }

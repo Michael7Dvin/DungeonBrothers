@@ -9,17 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dfb87e4cb24468482e46d2c9cab29eb, type: 3}
-  m_Name: Hero
+  m_Script: {fileID: 11500000, guid: d23b976eb4f94627b52797cb2298505a, type: 3}
+  m_Name: GameplayUIAddresses
   m_EditorClassIdentifier: 
-  CharacterID: 0
-  Image:
-    m_AssetGUID: e285b6ab3b1ced44ab4e957fe82f0ce6
+  <TurnQueueView>k__BackingField:
+    m_AssetGUID: f2d3ec125a826534bb3ab455bbc9f8ff
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  Level: 1
-  Initiative: 2
-  Intelligence: 1
-  Strength: 1
-  Dexterity: 1
