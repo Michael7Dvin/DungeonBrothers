@@ -3,7 +3,6 @@ using CodeBase.Common.FSM.States;
 using CodeBase.Gameplay.Services.MapGenerator;
 using CodeBase.Gameplay.Services.MapService;
 using CodeBase.Gameplay.Tiles;
-using UnityEngine;
 
 namespace CodeBase.Infrastructure.GameFSM.States
 {
@@ -22,12 +21,6 @@ namespace CodeBase.Infrastructure.GameFSM.States
         {
             List<Tile> tiles = await _mapGenerator.GenerateMap();
             _mapService.ResetMap(tiles);
-
-            foreach (Tile tile in _mapService.GetNeighbors(new Vector2Int(3,3)))
-            {
-                Object.Destroy(tile.gameObject);
-            }
-
         }
 
         public void Exit()
