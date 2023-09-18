@@ -19,8 +19,8 @@ namespace CodeBase.Tests
             ITurnQueue turnQueue = Setup.TurnQueue(charactersProvider);
 
             // Act.
-            charactersProvider.Add(characterWithLessInitiative);
-            charactersProvider.Add(characterWithBiggerInitiative);
+            charactersProvider.Add(characterWithLessInitiative, null);
+            charactersProvider.Add(characterWithBiggerInitiative, null);
 
             // Assert.
             turnQueue.Characters.Last().Should().Be(characterWithBiggerInitiative);
@@ -36,8 +36,8 @@ namespace CodeBase.Tests
             ITurnQueue turnQueue = Setup.TurnQueue(charactersProvider);
 
             // Act.
-            charactersProvider.Add(characterWithLessLevel);
-            charactersProvider.Add(characterWithBiggerLevel);
+            charactersProvider.Add(characterWithLessLevel, null);
+            charactersProvider.Add(characterWithBiggerLevel, null);
 
             // Assert.
             turnQueue.Characters.Last().Should().Be(characterWithBiggerLevel);
@@ -53,8 +53,8 @@ namespace CodeBase.Tests
             ITurnQueue turnQueue = Setup.TurnQueue(charactersProvider);
 
             // Act.
-            charactersProvider.Add(characterWithLessTotalStats);
-            charactersProvider.Add(characterWithBiggerTotalStats);
+            charactersProvider.Add(characterWithLessTotalStats, null);
+            charactersProvider.Add(characterWithBiggerTotalStats, null);
 
             // Assert.
             turnQueue.Characters.Last().Should().Be(characterWithBiggerTotalStats);

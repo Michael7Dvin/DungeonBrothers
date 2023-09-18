@@ -2,6 +2,7 @@
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Configs.Character;
+using CodeBase.Infrastructure.Services.UnitsProvider;
 using CodeBase.Infrastructure.StaticDataProviding;
 using Cysharp.Threading.Tasks;
 using Infrastructure.Services.ResourcesLoading;
@@ -15,21 +16,21 @@ namespace CodeBase.Gameplay.UI.TurnQueue
     public class TurnQueueView
     {
         private readonly ITurnQueue _turnQueue;
-        private readonly AllCharactersConfigs _allCharactersConfigs;
         private readonly IAddressablesLoader _addressablesLoader;
         private readonly IObjectResolver _objectResolver;
+        private readonly AllCharactersConfigs _allCharactersConfigs;
 
         private ICharacter _currentCharacter;
         
         public TurnQueueView(ITurnQueue turnQueue,
-            IStaticDataProvider staticDataProvider,
             AddressablesLoader addressablesLoader,
-            IObjectResolver objectResolver)
+            IObjectResolver objectResolver,
+            IStaticDataProvider staticDataProvider)
         {
             _turnQueue = turnQueue;
-            _allCharactersConfigs = staticDataProvider.AllCharactersConfigs;
             _addressablesLoader = addressablesLoader;
             _objectResolver = objectResolver;
+            _allCharactersConfigs = staticDataProvider.AllCharactersConfigs;
         }
 
         public async UniTask VisualizeIcons()
