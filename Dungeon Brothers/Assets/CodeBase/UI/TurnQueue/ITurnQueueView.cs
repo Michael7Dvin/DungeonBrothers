@@ -1,6 +1,7 @@
 using CodeBase.Gameplay.Characters;
+using Cysharp.Threading.Tasks;
 
-namespace CodeBase.UI.TurnQueue
+namespace CodeBase.Gameplay.UI.TurnQueue
 {
     public interface ITurnQueueView
     {

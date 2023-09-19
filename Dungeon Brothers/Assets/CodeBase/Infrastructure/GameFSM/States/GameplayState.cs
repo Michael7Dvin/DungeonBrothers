@@ -13,7 +13,9 @@ namespace CodeBase.Infrastructure.GameFSM.States
         private readonly IMapGenerator _mapGenerator;
         private readonly IMapService _mapService;
 
-        public GameplayState(ISceneLoader sceneLoader, IMapGenerator mapGenerator, IMapService mapService)
+        public GameplayState(ISceneLoader sceneLoader, 
+            IMapGenerator mapGenerator, 
+            IMapService mapService)
         {
             _sceneLoader = sceneLoader;
             _mapGenerator = mapGenerator;
