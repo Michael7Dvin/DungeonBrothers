@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: AllAssetsAddresses
   m_EditorClassIdentifier: 
   <ScenesData>k__BackingField: {fileID: 11400000, guid: 3ebec514883b6fc45b393e59081254aa, type: 2}
+  <AllUIAddresses>k__BackingField: {fileID: 11400000, guid: ab3223d87c0b0a14a864fadf8b10a88b, type: 2}

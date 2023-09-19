@@ -1,6 +1,7 @@
 ﻿using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.Randomise;
 using CodeBase.Gameplay.Services.TurnQueue;
+using CodeBase.Gameplay.UI.TurnQueue;
 using CodeBase.Infrastructure.Services.Logging;
 using CodeBase.Infrastructure.Services.UnitsProvider;
 
@@ -14,7 +15,8 @@ namespace CodeBase.Tests
             int dexterity,
             int initiative)
         {
-            ICharacter character = new Character(new CharacterStats(level, intelligence, strength, dexterity, initiative),
+            ICharacter character = new Character(new CharacterID(),
+                new CharacterStats(level, intelligence, strength, dexterity, initiative),
                 new CharacterLogic());
             return character;
         }

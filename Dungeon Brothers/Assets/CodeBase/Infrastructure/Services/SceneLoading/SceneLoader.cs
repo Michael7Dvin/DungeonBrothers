@@ -18,7 +18,7 @@ namespace CodeBase.Infrastructure.Services.SceneLoading
         public SceneLoader(IStaticDataProvider staticDataProvider, 
             ICustomLogger logger)
         {
-            _scenes = staticDataProvider.AssetsAddresses.ScenesData;
+            _scenes = staticDataProvider.AllStaticData.AssetsAddresses.ScenesData;
             _logger = logger;
         }
 

@@ -17,6 +17,8 @@ namespace CodeBase.Gameplay.Services.TurnQueue
         private readonly LinkedList<ICharacter> _characters = new();
         private LinkedListNode<ICharacter> _activeCharacterNode;
 
+        public event Action<ICharacter> AddedToQueue;
+
         public TurnQueue(IRandomService randomService, 
             ICharactersProvider charactersProvider,
             ICustomLogger logger)
@@ -66,6 +68,8 @@ namespace CodeBase.Gameplay.Services.TurnQueue
             if (_characters.Count == 0)
             {
                 _characters.AddFirst(character);
+                
+                AddedToQueue?.Invoke(character);
                 return;
             }
 
@@ -80,18 +84,21 @@ namespace CodeBase.Gameplay.Services.TurnQueue
                 if (newCharacterInitiative == currentCharacterInitiative)
                 {
                     CompareByStats(currentCharacter, character);
+                    AddedToQueue?.Invoke(character);
                     return;
                 }
 
                 if (newCharacterInitiative < currentCharacterInitiative)
                 {
                     _characters.AddBefore(currentCharacter, character);
+                    AddedToQueue?.Invoke(character);
                     return;
                 }
 
                 if (currentCharacter == _characters.Last)
                 {
                     _characters.AddLast(character);
+                    AddedToQueue?.Invoke(character);
                     return;
                 }
 
@@ -105,13 +112,18 @@ namespace CodeBase.Gameplay.Services.TurnQueue
             {
                 if (currentCharacter.Value.CharacterStats.TotalStats == newCharacter.CharacterStats.TotalStats)
                 {
-                    if (_randomService.DoFiftyFifty()) _characters.AddBefore(currentCharacter, newCharacter);
-                    return;
+                    if (_randomService.DoFiftyFifty())
+                    {
+                        _characters.AddBefore(currentCharacter, newCharacter);
+                        AddedToQueue?.Invoke(newCharacter);
+                        return;
+                    }
                 }
                 
                 if (currentCharacter.Value.CharacterStats.TotalStats > newCharacter.CharacterStats.TotalStats)
                 {
                     _characters.AddBefore(currentCharacter, newCharacter);
+                    AddedToQueue?.Invoke(newCharacter);
                     return;
                 }
             }
@@ -119,12 +131,14 @@ namespace CodeBase.Gameplay.Services.TurnQueue
             if (currentCharacter.Value.CharacterStats.Level > newCharacter.CharacterStats.Level)
             {
                 _characters.AddBefore(currentCharacter, newCharacter);
+                AddedToQueue?.Invoke(newCharacter);
                 return;
             }
             
             if (currentCharacter == _characters.Last)
             {
                 _characters.AddLast(newCharacter);
+                AddedToQueue?.Invoke(newCharacter);
             }
         }
 
