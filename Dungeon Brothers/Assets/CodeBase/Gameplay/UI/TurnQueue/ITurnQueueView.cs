@@ -5,6 +5,6 @@ namespace CodeBase.Gameplay.UI.TurnQueue
     public interface ITurnQueueView
     {
         public void SubscribeToEvents();
-        public void ReOrganizeIcons(ICharacter character);
+        public void ReorganizeIcons(ICharacter character);
     }
 }

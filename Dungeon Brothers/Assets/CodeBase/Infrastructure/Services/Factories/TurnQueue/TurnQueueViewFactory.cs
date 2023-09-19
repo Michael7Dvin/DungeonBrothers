@@ -14,7 +14,7 @@ namespace CodeBase.Infrastructure.Services.Factories.TurnQueue
     public class TurnQueueViewFactory : ITurnQueueViewFactory
     {
         private readonly IAddressablesLoader _addressablesLoader;
-        private readonly IStaticDataProvider _staticDataProvider;
+        private readonly AssetReferenceGameObject _turnQueueView;
         private readonly IObjectResolver _objectResolver;
         private readonly IUIProvider _uiProvider;
 
@@ -27,14 +27,13 @@ namespace CodeBase.Infrastructure.Services.Factories.TurnQueue
         {
             _addressablesLoader = addressablesLoader;
             _objectResolver = objectResolver;
-            _staticDataProvider = staticDataProvider;
+            _turnQueueView = staticDataProvider.AllStaticData.AssetsAddresses.AllUIAddresses.GameplayUIAddresses.TurnQueueView;
             _uiProvider = uiProvider;
         }
 
         public async UniTask WarmUp()
         {
-            await _addressablesLoader.LoadGameObject(_staticDataProvider.AllStaticData.AssetsAddresses.AllUIAddresses
-                .GameplayUIAddresses.TurnQueueView);
+            await _addressablesLoader.LoadGameObject(_turnQueueView);
         }
 
         public async UniTask<CharacterInTurnQueueIcon> Create(AssetReferenceGameObject iconReference,
@@ -58,8 +57,7 @@ namespace CodeBase.Infrastructure.Services.Factories.TurnQueue
 
         private async UniTask CreateTurnQueueViewPrefab(Transform root)
         {
-            GameObject reference = await _addressablesLoader.LoadGameObject(_staticDataProvider.AllStaticData.AssetsAddresses
-                .AllUIAddresses.GameplayUIAddresses.TurnQueueView);
+            GameObject reference = await _addressablesLoader.LoadGameObject(_turnQueueView);
                 
             _turnQueueViewPrefab = _objectResolver.Instantiate(reference, root);
         }

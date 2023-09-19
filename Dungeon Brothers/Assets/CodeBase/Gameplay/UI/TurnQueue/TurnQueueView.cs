@@ -16,10 +16,10 @@ namespace CodeBase.Gameplay.UI.TurnQueue
         private readonly ITurnQueueViewFactory _turnQueueViewFactory;
         private readonly AllCharactersConfigs _allCharactersConfigs;
 
-        private readonly List<CharacterInTurnQueueIcon> _iconQueue = new();
+        private readonly List<CharacterInTurnQueueIcon> _charactersIconsQueue = new();
         private ICharacter _currentCharacter;
         
-        private const int MAXVISUALIZEICONS = 5;
+        private const int MaxVisualizedIcons = 5;
         
         public TurnQueueView(ITurnQueue turnQueue,
             IAddressablesLoader addressablesLoader,
@@ -34,61 +34,60 @@ namespace CodeBase.Gameplay.UI.TurnQueue
 
         public void SubscribeToEvents()
         {
-            _turnQueue.AddedToQueue += ReOrganizeIcons;
-            _turnQueue.NewTurnStarted += ReOrganizeIcons;
+            _turnQueue.AddedToQueue += ReorganizeIcons;
+            _turnQueue.NewTurnStarted += ReorganizeIcons;
         }
         
         public void UnSubscribeToEvents()
         {
-            _turnQueue.AddedToQueue -= ReOrganizeIcons;
-            _turnQueue.NewTurnStarted -= ReOrganizeIcons;
+            _turnQueue.AddedToQueue -= ReorganizeIcons;
+            _turnQueue.NewTurnStarted -= ReorganizeIcons;
         }
         
-        public async void ReOrganizeIcons(ICharacter character)
+        public async void ReorganizeIcons(ICharacter character)
         {
             ResetIcons();
 
             foreach (var currentCharacter in _turnQueue.Characters)
             {
-                foreach (var characterConfig in _allCharactersConfigs.CharacterConfigs)
+                if (_allCharactersConfigs.CharacterConfigs.TryGetValue(currentCharacter.CharacterID,
+                        out CharacterConfig characterConfig))
                 {
-                    if (characterConfig.CharacterID == currentCharacter.CharacterID)
-                    {
-                        CharacterInTurnQueueIcon characterInTurnQueueIcon =
-                            await _turnQueueViewFactory.Create(characterConfig.Image, characterConfig.CharacterID);
+                    CharacterInTurnQueueIcon characterInTurnQueueIcon =
+                        await _turnQueueViewFactory.Create(characterConfig.Image, characterConfig.CharacterID);
 
-                        characterInTurnQueueIcon.gameObject.SetActive(false);
-                        _iconQueue.Add(characterInTurnQueueIcon);
-                    }
+                    characterInTurnQueueIcon.gameObject.SetActive(false);
+                    _charactersIconsQueue.Add(characterInTurnQueueIcon);
                 }
             }
             
-            VisualizeIcons();
+            EnableIcons();
         }
 
         private void ResetIcons()
         {
-            foreach (var icon in _iconQueue) icon.Destroy();
+            foreach (var icon in _charactersIconsQueue)
+                icon.Destroy();
             
-            _iconQueue.Clear();
+            _charactersIconsQueue.Clear();
         }
         
-        private void VisualizeIcons()
+        private void EnableIcons()
         {
-            if (_iconQueue.Count <= MAXVISUALIZEICONS)
+            if (_charactersIconsQueue.Count <= MaxVisualizedIcons)
             {
-                for (int i = _iconQueue.Count - 1; i >= 0; i--)
+                for (int i = _charactersIconsQueue.Count - 1; i >= 0; i--)
                 {
-                    _iconQueue[i].gameObject.SetActive(true);
+                    _charactersIconsQueue[i].gameObject.SetActive(true);
                 }
                 return;
             }
 
-            int maxVisualizeIcons = _iconQueue.Count - 1 - MAXVISUALIZEICONS;
+            int maxVisualizeIcons = _charactersIconsQueue.Count - 1 - MaxVisualizedIcons;
             
-            for (int i = _iconQueue.Count - 1; i > maxVisualizeIcons; i--)
+            for (int i = _charactersIconsQueue.Count - 1; i > maxVisualizeIcons; i--)
             {
-                _iconQueue[i].gameObject.SetActive(true);
+                _charactersIconsQueue[i].gameObject.SetActive(true);
             }
         }
     }
