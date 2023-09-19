@@ -2,7 +2,6 @@
 using CodeBase.Infrastructure.Services.Logging;
 using CodeBase.Infrastructure.Services.StaticDataProviding;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;

@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace CodeBase.Infrastructure.Services.ResourcesLoading
+namespace CodeBase.Infrastructure.Addressable.Loader
 {
     public class AddressablesLoader : IAddressablesLoader
     {
@@ -47,7 +47,7 @@ namespace CodeBase.Infrastructure.Services.ResourcesLoading
                 return component;
             
             _logger.LogError(
-                new Exception($"AssetReference: '{assetReference}' has no required component: " + $"'{nameof(T)}' attached"));
+                new Exception($"AssetReference: '{assetReference}' has no required component: " + $"'{typeof(T)}' attached"));
             
             return null;
         }

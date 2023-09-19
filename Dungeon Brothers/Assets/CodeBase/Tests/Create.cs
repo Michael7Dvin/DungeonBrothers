@@ -3,6 +3,12 @@ using CodeBase.Gameplay.Services.MapService;
 using CodeBase.Gameplay.Tiles;
 using UnityEngine;
 
+using CodeBase.Gameplay.Characters;
+using CodeBase.Gameplay.Services.Random;
+using CodeBase.Gameplay.Services.TurnQueue;
+using CodeBase.Infrastructure.Services.Logging;
+using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
+
 namespace CodeBase.Tests
 {
     public class Create
@@ -33,6 +39,30 @@ namespace CodeBase.Tests
         {
             IMapService mapService = new Gameplay.Services.MapService.MapService();
             return mapService;
+        }
+        public static ICharacter Character(int level,
+            int intelligence, 
+            int strength, 
+            int dexterity,
+            int initiative)
+        {
+            ICharacter character = new Character(new CharacterID(),
+                new CharacterStats(level, intelligence, strength, dexterity, initiative),
+                new CharacterLogic());
+            return character;
+        }
+
+        public static CharactersProvider CharactersProvider()
+        {
+            CharactersProvider charactersProvider = new CharactersProvider();
+            return charactersProvider;
+        }
+
+        public static TurnQueue TurnQueue(CharactersProvider charactersProvider)
+        {
+            TurnQueue turnQueue = new TurnQueue(new RandomService(), charactersProvider,
+                new CustomLogger(new LogWriter()));
+            return turnQueue;
         }
     }
 }

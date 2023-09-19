@@ -3,7 +3,7 @@ using UnityEngine.AddressableAssets;
 
 namespace CodeBase.Infrastructure.Services.SceneLoading
 {
-    [CreateAssetMenu(fileName = "SceneData", menuName = "Addresses/SceneData")]
+    [CreateAssetMenu(menuName = "StaticData/Addresses/Scenes", fileName = "SceneAddresses")]
     public class ScenesAddresses : ScriptableObject
     {
         [field: SerializeField] public AssetReference Level { get; private set; }

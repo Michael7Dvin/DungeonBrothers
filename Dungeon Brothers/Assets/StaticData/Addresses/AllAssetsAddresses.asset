@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8c48c50ef2340e38683733b6587f29b, type: 3}
   m_Name: AllAssetsAddresses
   m_EditorClassIdentifier: 
-  <Scenes>k__BackingField: {fileID: 11400000, guid: 3ebec514883b6fc45b393e59081254aa, type: 2}
+  <Scenes>k__BackingField: {fileID: 11400000, guid: bdbff76dd5d78c84ea31f73fa05ef19a, type: 2}
   <Tile>k__BackingField:
     m_AssetGUID: 14815a0c489f913449e3f584be6ed54d
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  <AllUIAddresses>k__BackingField: {fileID: 11400000, guid: ab3223d87c0b0a14a864fadf8b10a88b, type: 2}

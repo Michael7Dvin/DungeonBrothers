@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 513a6b547d3f43fc802827862e225e30, type: 3}
-  m_Name: ScenesAddresses
+  m_Script: {fileID: 11500000, guid: d23b976eb4f94627b52797cb2298505a, type: 3}
+  m_Name: GameplayUIAddresses
   m_EditorClassIdentifier: 
-  <Level>k__BackingField:
-    m_AssetGUID: 5859347b6d51e8044bb8feb6a5465175
+  <TurnQueueView>k__BackingField:
+    m_AssetGUID: f2d3ec125a826534bb3ab455bbc9f8ff
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

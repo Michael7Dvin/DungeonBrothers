@@ -1,14 +1,17 @@
-﻿using CodeBase.Infrastructure.Addressable;
+﻿using CodeBase.Infrastructure.Addressable.Addresses;
+using CodeBase.Infrastructure.Configs.Character;
 
 namespace CodeBase.Infrastructure.Services.StaticDataProviding
 {
     public class StaticDataProvider : IStaticDataProvider
     {
-        public StaticDataProvider(AllAssetsAddresses allAssetsAddresses)
+        public StaticDataProvider(AllStaticData allStaticData)
         {
-            AssetsAddresses = allAssetsAddresses;
+            AssetsAddresses = allStaticData.AssetsAddresses;
+            AllCharactersConfigs = allStaticData.AllCharactersConfigs;
         }
 
         public AllAssetsAddresses AssetsAddresses { get; }
+        public AllCharactersConfigs AllCharactersConfigs { get; }
     }
 }

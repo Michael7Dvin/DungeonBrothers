@@ -1,5 +1,5 @@
 ﻿using CodeBase.Gameplay.Tiles;
-using CodeBase.Infrastructure.Services.ResourcesLoading;
+using CodeBase.Infrastructure.Addressable.Loader;
 using CodeBase.Infrastructure.Services.StaticDataProviding;
 using Cysharp.Threading.Tasks;
 using UnityEngine;

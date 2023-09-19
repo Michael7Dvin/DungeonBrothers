@@ -6,6 +6,5 @@ namespace CodeBase.Infrastructure.Services.SceneLoading
     public enum SceneType
     {
         Level = 0,
-        island = 1
     }
 }

@@ -2,6 +2,8 @@
 using CodeBase.Gameplay.Services.MapService;
 using CodeBase.Gameplay.Tiles;
 using UnityEngine;
+using CodeBase.Gameplay.Services.TurnQueue;
+using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
 
 namespace CodeBase.Tests
 {
@@ -19,6 +21,13 @@ namespace CodeBase.Tests
             IMapService mapService = Create.MapService();
             mapService.ResetMap(tiles);
             return mapService;
+        }
+        
+        public static ITurnQueue TurnQueue(CharactersProvider charactersProvider)
+        {
+            ITurnQueue turnQueue = Create.TurnQueue(charactersProvider);
+            turnQueue.Initialize();
+            return turnQueue;
         }
     }
 }
