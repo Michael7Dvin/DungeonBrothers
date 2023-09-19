@@ -1,9 +1,11 @@
-﻿using CodeBase.Gameplay.UI.TurnQueue;
+﻿
+
+using CodeBase.Gameplay.Characters;
+using CodeBase.Infrastructure.Addressable.Loader;
 using CodeBase.Infrastructure.Services.Providers.UIProvider;
-using CodeBase.Infrastructure.Services.UnitsProvider;
-using CodeBase.Infrastructure.StaticDataProviding;
+using CodeBase.Infrastructure.Services.StaticDataProviding;
+using CodeBase.UI.TurnQueue;
 using Cysharp.Threading.Tasks;
-using Infrastructure.Services.ResourcesLoading;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using VContainer;
@@ -27,7 +29,7 @@ namespace CodeBase.Infrastructure.Services.Factories.TurnQueue
         {
             _addressablesLoader = addressablesLoader;
             _objectResolver = objectResolver;
-            _turnQueueView = staticDataProvider.AllStaticData.AssetsAddresses.AllUIAddresses.GameplayUIAddresses.TurnQueueView;
+            _turnQueueView = staticDataProvider.AssetsAddresses.AllUIAddresses.GameplayUIAddresses.TurnQueueView;
             _uiProvider = uiProvider;
         }
 

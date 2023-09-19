@@ -1,4 +1,4 @@
-﻿namespace CodeBase.Gameplay.UI.TurnQueue
+﻿namespace CodeBase.Gameplay.Characters
 {
     public enum CharacterID
     {

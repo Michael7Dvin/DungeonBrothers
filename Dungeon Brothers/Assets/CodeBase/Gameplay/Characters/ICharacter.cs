@@ -1,5 +1,3 @@
-using CodeBase.Gameplay.UI.TurnQueue;
-
 namespace CodeBase.Gameplay.Characters
 {
     public interface ICharacter

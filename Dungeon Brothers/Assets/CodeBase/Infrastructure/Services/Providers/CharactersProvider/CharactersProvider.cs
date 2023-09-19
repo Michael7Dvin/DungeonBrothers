@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Infrastructure.Configs.Character;
 
-namespace CodeBase.Infrastructure.Services.UnitsProvider
+namespace CodeBase.Infrastructure.Services.Providers.CharactersProvider
 {
     public class CharactersProvider : ICharactersProvider
     {

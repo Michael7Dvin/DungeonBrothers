@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.TurnQueue;
-using CodeBase.Infrastructure.Services.UnitsProvider;
+using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
 using FluentAssertions;
 using NUnit.Framework;
 
