@@ -2,6 +2,7 @@ using CodeBase.Gameplay.Services.MapGenerator;
 using CodeBase.Gameplay.Services.MapService;
 using CodeBase.Gameplay.Services.Random;
 using CodeBase.Gameplay.Services.TurnQueue;
+using CodeBase.Gameplay.UI.TurnQueue;
 using CodeBase.Infrastructure.Addressable.Loader;
 using CodeBase.Infrastructure.GameFSM.FSM;
 using CodeBase.Infrastructure.GameFSM.States;

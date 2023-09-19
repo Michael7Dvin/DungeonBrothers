@@ -9,7 +9,7 @@ namespace CodeBase.Gameplay.Services.TurnQueue
         IEnumerable<ICharacter> Characters { get; }
         ICharacter ActiveCharacter { get; }
 
-        event Action<ICharacter> NewTurnStarted; 
+        event Action NewTurnStarted; 
         public event Action<ICharacter> AddedToQueue;
 
         void Initialize();

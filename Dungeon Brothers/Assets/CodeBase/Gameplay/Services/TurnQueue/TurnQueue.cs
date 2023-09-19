@@ -4,7 +4,6 @@ using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.Random;
 using CodeBase.Infrastructure.Services.Logging;
 using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
-using UnityEngine;
 
 namespace CodeBase.Gameplay.Services.TurnQueue
 {
@@ -30,7 +29,7 @@ namespace CodeBase.Gameplay.Services.TurnQueue
 
         public IEnumerable<ICharacter> Characters => _characters;
         public ICharacter ActiveCharacter => _activeCharacterNode.Value;
-        public event Action<ICharacter> NewTurnStarted;
+        public event Action NewTurnStarted;
 
         public void Initialize()
         {
@@ -54,13 +53,13 @@ namespace CodeBase.Gameplay.Services.TurnQueue
             else
                 _activeCharacterNode = _activeCharacterNode.Previous;
             
-            NewTurnStarted?.Invoke(ActiveCharacter);
+            NewTurnStarted?.Invoke();
         }
         
         public void SetFirstTurn()
         {
             _activeCharacterNode = _characters.Last;
-            NewTurnStarted?.Invoke(ActiveCharacter);
+            NewTurnStarted?.Invoke();
         }
 
         private void Add(ICharacter character)
@@ -83,9 +82,12 @@ namespace CodeBase.Gameplay.Services.TurnQueue
 
                 if (newCharacterInitiative == currentCharacterInitiative)
                 {
-                    CompareByStats(currentCharacter, character);
-                    AddedToQueue?.Invoke(character);
-                    return;
+                    if (_randomService.DoFiftyFifty())
+                    {
+                        _characters.AddBefore(currentCharacter, character);
+                        AddedToQueue?.Invoke(character);
+                        return;
+                    }
                 }
 
                 if (newCharacterInitiative < currentCharacterInitiative)
@@ -103,42 +105,6 @@ namespace CodeBase.Gameplay.Services.TurnQueue
                 }
 
                 currentCharacter = currentCharacter.Next;
-            }
-        }
-
-        private void CompareByStats(LinkedListNode<ICharacter> currentCharacter, ICharacter newCharacter)
-        {
-            if (currentCharacter.Value.CharacterStats.Level == newCharacter.CharacterStats.Level)
-            {
-                if (currentCharacter.Value.CharacterStats.TotalStats == newCharacter.CharacterStats.TotalStats)
-                {
-                    if (_randomService.DoFiftyFifty())
-                    {
-                        _characters.AddBefore(currentCharacter, newCharacter);
-                        AddedToQueue?.Invoke(newCharacter);
-                        return;
-                    }
-                }
-                
-                if (currentCharacter.Value.CharacterStats.TotalStats > newCharacter.CharacterStats.TotalStats)
-                {
-                    _characters.AddBefore(currentCharacter, newCharacter);
-                    AddedToQueue?.Invoke(newCharacter);
-                    return;
-                }
-            }
-
-            if (currentCharacter.Value.CharacterStats.Level > newCharacter.CharacterStats.Level)
-            {
-                _characters.AddBefore(currentCharacter, newCharacter);
-                AddedToQueue?.Invoke(newCharacter);
-                return;
-            }
-            
-            if (currentCharacter == _characters.Last)
-            {
-                _characters.AddLast(newCharacter);
-                AddedToQueue?.Invoke(newCharacter);
             }
         }
 

@@ -27,38 +27,20 @@ namespace CodeBase.Tests
         }
         
         [Test]
-        public void WhenAddingInQueue_AndInitiativeEqualsAndOneLevelIsBigger_ThenBiggerLevelShouldBeLast()
+        public void WhenAddingInQueue_AndInitiativesEquals_ThenOneWillBeRandom()
         {
             // Arrange.
-            ICharacter characterWithLessLevel = Create.Character(1, 1, 1, 1, 1);
-            ICharacter characterWithBiggerLevel = Create.Character(4, 1, 1, 1, 1);
+            ICharacter characterWithSameStats1 = Create.Character(1, 1, 1, 1, 1);
+            ICharacter characterWithSameStats2 = Create.Character(1, 1, 1, 1, 1);
             CharactersProvider charactersProvider = Create.CharactersProvider();
             ITurnQueue turnQueue = Setup.TurnQueue(charactersProvider);
 
             // Act.
-            charactersProvider.Add(characterWithLessLevel, null);
-            charactersProvider.Add(characterWithBiggerLevel, null);
+            charactersProvider.Add(characterWithSameStats1, null);
+            charactersProvider.Add(characterWithSameStats2, null);
 
             // Assert.
-            turnQueue.Characters.Last().Should().Be(characterWithBiggerLevel);
+            turnQueue.Characters.Last().Should().Be(characterWithSameStats2);
         }
-        
-        [Test]
-        public void WhenAddingInQueue_AndInitiativeAndLevelEqualsAndOneTotalStatsIsBigger_ThenBiggerTotalStatsShouldBeLast()
-        {
-            // Arrange.
-            ICharacter characterWithLessTotalStats = Create.Character(4, 1,1,1,1);
-            ICharacter characterWithBiggerTotalStats = Create.Character(4, 1, 5, 1, 1);
-            CharactersProvider charactersProvider = Create.CharactersProvider();
-            ITurnQueue turnQueue = Setup.TurnQueue(charactersProvider);
-
-            // Act.
-            charactersProvider.Add(characterWithLessTotalStats, null);
-            charactersProvider.Add(characterWithBiggerTotalStats, null);
-
-            // Assert.
-            turnQueue.Characters.Last().Should().Be(characterWithBiggerTotalStats);
-        }
-        
     }
 }
