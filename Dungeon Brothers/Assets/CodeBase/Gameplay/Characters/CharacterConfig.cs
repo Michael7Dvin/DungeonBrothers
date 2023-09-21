@@ -10,6 +10,7 @@ namespace CodeBase.Infrastructure.Configs.Character
     {
         public CharacterID CharacterID;
         public AssetReferenceGameObject Image;
+        public AssetReferenceGameObject CharacterPrefab;
 
         [FoldoutGroup("Stats")]
         public int Level;

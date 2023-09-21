@@ -11,6 +11,7 @@ using CodeBase.Infrastructure.Services.Factories.TurnQueue;
 using CodeBase.Infrastructure.Services.Factories.UI;
 using CodeBase.Infrastructure.Services.Logging;
 using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
+using CodeBase.Infrastructure.Services.Providers.ServiceProvider;
 using CodeBase.Infrastructure.Services.Providers.UIProvider;
 using CodeBase.Infrastructure.Services.SceneLoading;
 using CodeBase.Infrastructure.Services.StaticDataProviding;
@@ -29,7 +30,6 @@ namespace CodeBase.Infrastructure.Installers
         {
             RegisterStateMachine(builder);
             RegisterServices(builder);
-            RegisterFactories(builder);
             RegisterStaticDataProvider(builder);
         }
 
@@ -47,22 +47,12 @@ namespace CodeBase.Infrastructure.Installers
             builder.Register<ISceneLoader, SceneLoader>(Lifetime.Singleton);
             builder.Register<IAddressablesLoader, AddressablesLoader>(Lifetime.Singleton);
             builder.Register<ILogWriter, LogWriter>(Lifetime.Singleton);
-            builder.Register<ITileFactory, TileFactory>(Lifetime.Singleton);
-            builder.Register<IMapGenerator, MapGenerator>(Lifetime.Singleton);
-            builder.Register<IMapService, MapService>(Lifetime.Singleton);
-            builder.Register<ITurnQueue, TurnQueue>(Lifetime.Singleton);
-            builder.Register<ITurnQueueView, TurnQueueView>(Lifetime.Singleton);
             builder.Register<IUIProvider, UIProvider>(Lifetime.Singleton);
             builder.Register<IRandomService, RandomService>(Lifetime.Singleton);
             builder.Register<ICharactersProvider, CharactersProvider>(Lifetime.Singleton);
+            builder.Register<IServiceProvider, ServiceProvider>(Lifetime.Singleton);
         }
-
-        private void RegisterFactories(IContainerBuilder builder)
-        {
-            builder.Register<ICommonUIFactory, CommonUIFactory>(Lifetime.Singleton);
-            builder.Register<ITurnQueueViewFactory, TurnQueueViewFactory>(Lifetime.Singleton);
-        }
-
+        
         private void RegisterStaticDataProvider(IContainerBuilder builder)
         {
             builder

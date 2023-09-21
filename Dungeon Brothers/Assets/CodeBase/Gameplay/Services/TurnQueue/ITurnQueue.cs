@@ -10,8 +10,9 @@ namespace CodeBase.Gameplay.Services.TurnQueue
         ICharacter ActiveCharacter { get; }
 
         event Action NewTurnStarted; 
-        public event Action<ICharacter> AddedToQueue;
-
+        event Action<ICharacter> AddedToQueue;
+        event Action Reseted;
+        
         void Initialize();
         void CleanUp();
 

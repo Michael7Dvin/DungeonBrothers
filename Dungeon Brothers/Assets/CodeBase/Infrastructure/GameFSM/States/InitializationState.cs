@@ -6,18 +6,15 @@ namespace CodeBase.Infrastructure.GameFSM.States
 {
     public class InitializationState : IState
     {
-        private readonly ICommonUIFactory _commonUIFactory;
         private readonly IGameStateMachine _gameStateMachine;
 
-        public InitializationState(ICommonUIFactory commonUIFactory, IGameStateMachine gameStateMachine)
+        public InitializationState(IGameStateMachine gameStateMachine)
         {
-            _commonUIFactory = commonUIFactory;
             _gameStateMachine = gameStateMachine;
         }
 
-        public async void Enter()
+        public void Enter()
         {
-            await _commonUIFactory.Create();
             _gameStateMachine.Enter<GameplayState>();
         }
 

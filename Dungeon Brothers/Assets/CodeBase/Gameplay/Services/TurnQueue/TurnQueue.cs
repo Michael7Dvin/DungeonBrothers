@@ -17,6 +17,7 @@ namespace CodeBase.Gameplay.Services.TurnQueue
         private LinkedListNode<ICharacter> _activeCharacterNode;
 
         public event Action<ICharacter> AddedToQueue;
+        public event Action Reseted;
 
         public TurnQueue(IRandomService randomService, 
             ICharactersProvider charactersProvider,
@@ -41,6 +42,8 @@ namespace CodeBase.Gameplay.Services.TurnQueue
         {
             _charactersProvider.Spawned -= Add;
             _charactersProvider.Died -= Remove;
+            
+            Reseted?.Invoke();
             
             _characters.Clear();
             _activeCharacterNode = null;
