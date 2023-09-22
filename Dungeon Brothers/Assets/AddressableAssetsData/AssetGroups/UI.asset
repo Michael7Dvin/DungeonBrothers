@@ -22,8 +22,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 43108a6b6a8baf447bec7477857e15a9
-    m_Address: Assets/Prefabs/Enemy.prefab
+  - m_GUID: 435712f4ad2566c47aa0e38528a55772
+    m_Address: Assets/Prefabs/Characters/Enemies/Demon/DemonHeadUI.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -32,13 +32,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e285b6ab3b1ced44ab4e957fe82f0ce6
-    m_Address: Assets/Prefabs/Hero.prefab
+  - m_GUID: 3fa64a58af77cf44e9a2f9893340bbd7
+    m_Address: Assets/Prefabs/Characters/Enemies/Skelet/SkeletHeadUI.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f2d3ec125a826534bb3ab455bbc9f8ff
     m_Address: Assets/Prefabs/TurnQueueUI.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a7f98156373a8094198f8a69993a2714
+    m_Address: Assets/Prefabs/Characters/Heroes/Knight/KnightHeadUI.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

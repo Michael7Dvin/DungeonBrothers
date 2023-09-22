@@ -6,7 +6,7 @@ namespace CodeBase.UI.TurnQueue.Button
     public class SkipTurnViewModel
     {
         private ITurnQueue _turnQueue;
-        
+
         [Inject]
         public void Inject(ITurnQueue turnQueue)
         {

@@ -14,18 +14,20 @@ namespace CodeBase.Gameplay.UI.TurnQueue
         public void Construct(TurnQueueViewModel turnQueueViewModel)
         {
             _turnQueueViewModel = turnQueueViewModel;
+            
+           Enable();
         }
         
-        private void OnEnable()
+        private void Enable()
         {
             _turnQueueViewModel.ListChanged += ReorganizeChildPosition;
             _turnQueueViewModel.EnableIcons += EnableIcons;
             _turnQueueViewModel.DisableIcons += DisableIcons;
-            
+                
             _turnQueueViewModel.OnEnable();
         }
 
-        private void OnDisable()
+        private void Disable()
         {
             _turnQueueViewModel.ListChanged -= ReorganizeChildPosition;
             _turnQueueViewModel.EnableIcons -= EnableIcons;

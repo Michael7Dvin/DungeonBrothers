@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CodeBase.Gameplay.Characters;
+using CodeBase.UI.TurnQueue;
 
 namespace CodeBase.Gameplay.Services.TurnQueue
 {
@@ -10,7 +11,7 @@ namespace CodeBase.Gameplay.Services.TurnQueue
         ICharacter ActiveCharacter { get; }
 
         event Action NewTurnStarted; 
-        event Action<ICharacter> AddedToQueue;
+        event Action<ICharacter, CharacterInTurnQueueIcon> AddedToQueue;
         event Action Reseted;
         
         void Initialize();

@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
 using CodeBase.Gameplay.Characters;
+using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Addressable.Loader;
 using CodeBase.Infrastructure.Configs.Character;
+using CodeBase.Infrastructure.Services.Factories.TurnQueue;
+using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
+using CodeBase.UI.TurnQueue;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using VContainer;
@@ -13,12 +17,19 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
     {
         private readonly IAddressablesLoader _addressablesLoader;
         private readonly IObjectResolver _objectResolver;
+        private readonly ICharactersProvider _charactersProvider;
+        private readonly ITurnQueue _turnQueue;
+        private readonly ITurnQueueViewFactory _turnQueueViewFactory;
 
         public CharacterFactory(IAddressablesLoader addressablesLoader,
-            IObjectResolver objectResolver)
+            IObjectResolver objectResolver,
+            ICharactersProvider charactersProvider,
+            ITurnQueueViewFactory turnQueueViewFactory)
         {
             _addressablesLoader = addressablesLoader;
             _objectResolver = objectResolver;
+            _charactersProvider = charactersProvider;
+            _turnQueueViewFactory = turnQueueViewFactory;
         }
 
         public async UniTask WarmUp(List<CharacterConfig> characterConfigs)
@@ -31,8 +42,8 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
 
         public async UniTask<ICharacter> Create(CharacterConfig config)
         {
-            GameObject prefabLoaded = await _addressablesLoader.LoadGameObject(config.CharacterPrefab);
-            GameObject characterPrefab = _objectResolver.Instantiate(prefabLoaded);
+            GameObject prefab = await _addressablesLoader.LoadGameObject(config.CharacterPrefab);
+            GameObject gameObject = _objectResolver.Instantiate(prefab);
             
             CharacterStats characterStats = CreateCharacterStats(config);
 
@@ -41,6 +52,11 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
             Character character = new Character();
             
             character.Construct(config.CharacterID, characterStats, characterLogic);
+
+            CharacterInTurnQueueIcon icon = await _turnQueueViewFactory.CreateIcon(config.Image, config.CharacterID);
+            icon.gameObject.SetActive(false);
+            
+            _charactersProvider.Add(character, icon);
 
             return character;
         }

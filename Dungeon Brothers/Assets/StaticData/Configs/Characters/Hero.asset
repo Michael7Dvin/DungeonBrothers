@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterID: 0
   Image:
-    m_AssetGUID: e285b6ab3b1ced44ab4e957fe82f0ce6
+    m_AssetGUID: a7f98156373a8094198f8a69993a2714
     m_SubObjectName: 
     m_SubObjectType: 
-    m_EditorAssetChanged: 0
+    m_EditorAssetChanged: 1
   CharacterPrefab:
-    m_AssetGUID: 43108a6b6a8baf447bec7477857e15a9
+    m_AssetGUID: c370c96a8e554cb4bb78e9150d614de6
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

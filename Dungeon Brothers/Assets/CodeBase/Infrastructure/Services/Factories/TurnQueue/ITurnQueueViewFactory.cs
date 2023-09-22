@@ -9,7 +9,9 @@ namespace CodeBase.Infrastructure.Services.Factories.TurnQueue
     public interface ITurnQueueViewFactory
     {
         public UniTask WarmUp();
-        public UniTask<CharacterInTurnQueueIcon> Create(AssetReferenceGameObject iconReference,
+        public UniTask<CharacterInTurnQueueIcon> CreateIcon(AssetReferenceGameObject iconReference,
             CharacterID characterID);
+
+        public UniTask CreateTurnQueueView();
     }
 }
