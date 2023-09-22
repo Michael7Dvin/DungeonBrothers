@@ -2,6 +2,7 @@ using CodeBase.Gameplay.Services.MapGenerator;
 using CodeBase.Gameplay.Services.MapService;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.UI.TurnQueue;
+using CodeBase.Infrastructure.Services.Factories.Buttons;
 using CodeBase.Infrastructure.Services.Factories.Characters;
 using CodeBase.Infrastructure.Services.Factories.TileFactory;
 using CodeBase.Infrastructure.Services.Factories.TurnQueue;
@@ -28,6 +29,7 @@ namespace CodeBase.Infrastructure.Installers
             builder.Register<ICommonUIFactory, CommonUIFactory>(Lifetime.Singleton);
             builder.Register<ITurnQueueViewFactory, TurnQueueViewFactory>(Lifetime.Singleton);
             builder.Register<ICharacterFactory, CharacterFactory>(Lifetime.Singleton);
+            builder.Register<IButtonsFactory, ButtonsFactory>(Lifetime.Singleton);
         }
 
         private void RegisterServices(IContainerBuilder builder)

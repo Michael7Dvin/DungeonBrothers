@@ -1,6 +1,7 @@
 ﻿
 
 using CodeBase.Gameplay.Characters;
+using CodeBase.Gameplay.UI.TurnQueue;
 using CodeBase.Infrastructure.Addressable.Loader;
 using CodeBase.Infrastructure.Services.Providers.UIProvider;
 using CodeBase.Infrastructure.Services.StaticDataProviding;
@@ -22,6 +23,7 @@ namespace CodeBase.Infrastructure.Services.Factories.TurnQueue
 
         private GameObject _turnQueueViewPrefab;
         
+        
         public TurnQueueViewFactory(IAddressablesLoader addressablesLoader,
             IObjectResolver objectResolver,
             IStaticDataProvider staticDataProvider,
@@ -38,23 +40,50 @@ namespace CodeBase.Infrastructure.Services.Factories.TurnQueue
             await _addressablesLoader.LoadGameObject(_turnQueueView);
         }
 
-        public async UniTask<CharacterInTurnQueueIcon> Create(AssetReferenceGameObject iconReference,
+
+        public async UniTask CreateTurnQueueView()
+        {
+            Transform root = _uiProvider.Canvas.Value.transform;
+            
+            await CreateTurnQueueViewPrefab(root);
+                
+            TurnQueueViewModel turnQueueViewModel = CreateTurnQueueViewModel();
+
+            ConstructTurnQueueView(turnQueueViewModel);
+        }
+
+        public async UniTask<CharacterInTurnQueueIcon> CreateIcon(AssetReferenceGameObject iconReference,
             CharacterID characterID)
         {
-            Canvas canvas = _uiProvider.Canvas.Value;
-            Transform root = canvas.transform.root;
-
-            if (_turnQueueViewPrefab == null) 
-                await CreateTurnQueueViewPrefab(root);
-
             GameObject iconLoaded = await _addressablesLoader.LoadGameObject(iconReference);
 
             GameObject prefab = _objectResolver.Instantiate(iconLoaded, _turnQueueViewPrefab.transform);
+            
+            return ConstructCharacterInTurnQueueIcon(prefab, characterID);
+        }
 
+        private void ConstructTurnQueueView(TurnQueueViewModel turnQueuePresenter)
+        {
+            TurnQueueView turnQueueView = _turnQueueViewPrefab.AddComponent<TurnQueueView>();
+            
+            turnQueueView.Construct(turnQueuePresenter); 
+        }
+        
+        private CharacterInTurnQueueIcon ConstructCharacterInTurnQueueIcon(GameObject prefab,
+            CharacterID characterID)
+        {
             CharacterInTurnQueueIcon icon = prefab.GetComponent<CharacterInTurnQueueIcon>();
             icon.Construct(characterID);
-
             return icon;
+        }
+
+        private TurnQueueViewModel CreateTurnQueueViewModel()
+        {
+            TurnQueueViewModel turnQueuePresenter = new TurnQueueViewModel();
+            
+            _objectResolver.Inject(turnQueuePresenter);
+
+            return turnQueuePresenter;
         }
 
         private async UniTask CreateTurnQueueViewPrefab(Transform root)

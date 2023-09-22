@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.TurnQueue;
-using CodeBase.Infrastructure.Configs.Character;
-using CodeBase.Infrastructure.Services.Factories.TurnQueue;
 using VContainer;
 
 namespace CodeBase.UI.TurnQueue
@@ -12,9 +10,6 @@ namespace CodeBase.UI.TurnQueue
     public class TurnQueueViewModel
     {
         private ITurnQueue _turnQueue;
-        private ITurnQueueViewFactory _turnQueueViewFactory;
-        
-        private readonly AllCharactersConfigs _allCharactersConfigs;
 
         private List<CharacterInTurnQueueIcon> _charactersIconsQueue = new();
         private IReadOnlyList<CharacterInTurnQueueIcon> CharacterIconsQueue => _charactersIconsQueue;
@@ -26,11 +21,9 @@ namespace CodeBase.UI.TurnQueue
         private ICharacter _currentCharacter;
         
         [Inject]
-        public void Construct(ITurnQueue turnQueue,
-            ITurnQueueViewFactory turnQueueViewFactory)
+        public void Inject(ITurnQueue turnQueue)
         {
             _turnQueue = turnQueue;
-            _turnQueueViewFactory = turnQueueViewFactory;
         }
         
         public void OnEnable()
@@ -55,30 +48,19 @@ namespace CodeBase.UI.TurnQueue
             _charactersIconsQueue.Clear();
         }
         
-        private async void ReorganizeIcons(ICharacter character)
+        private void ReorganizeIcons(ICharacter character, CharacterInTurnQueueIcon characterInTurnQueueIcon)
         {
-            if (_allCharactersConfigs.CharacterConfigs.TryGetValue(character.CharacterID,
-                    out CharacterConfig characterConfig))
+            for (int i = 0; i < _turnQueue.Characters.Count(); i++)
             {
-                CharacterInTurnQueueIcon characterInTurnQueueIcon =
-                    await _turnQueueViewFactory.Create(characterConfig.Image, characterConfig.CharacterID);
+                List<ICharacter> characters = _turnQueue.Characters.ToList();
 
-                characterInTurnQueueIcon.gameObject.SetActive(false);
-
-                for (int i = 0; i < _turnQueue.Characters.Count(); i++)
+                if (characters[i] == character)
                 {
-                    List<ICharacter> characters = _turnQueue.Characters.ToList();
-
-                    if (characters[i] == character)
-                    {
-                        int positionInList = i;
+                    int positionInList = i;
                         
-                        _charactersIconsQueue.Insert(positionInList, characterInTurnQueueIcon);
-
-                        ListChanged?.Invoke(CharacterIconsQueue);
-                        
-                        EnableIcons?.Invoke(CharacterIconsQueue);
-                    }
+                    _charactersIconsQueue.Insert(positionInList, characterInTurnQueueIcon);
+                    ListChanged?.Invoke(CharacterIconsQueue);
+                    EnableIcons?.Invoke(CharacterIconsQueue); 
                 }
             }
         }

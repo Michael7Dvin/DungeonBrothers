@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Characters
+  m_EditorClassIdentifier: 
+  m_GroupName: Characters
+  m_Data:
+    m_SerializedData: []
+  m_GUID: d4cadda21f8399a4293cb639e6a4db7a
+  m_SerializeEntries:
+  - m_GUID: f38cd231cffd45549beff7ff4235ddee
+    m_Address: Assets/Prefabs/Characters/Enemies/Demon/Demon.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c370c96a8e554cb4bb78e9150d614de6
+    m_Address: Assets/Prefabs/Characters/Heroes/Knight/Knight.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4c23e8d2f607e0f4480088e73a29dae9
+    m_Address: Assets/Prefabs/Characters/Enemies/Skelet/Skelet.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: cd9846c08b2b1fc4fa9b10c9ae46250d, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 67a869c97784f6e44a2cee6b8a93f153, type: 2}
+    - {fileID: 11400000, guid: 138870fdacdb6684687e3cb0b466276b, type: 2}

@@ -1,6 +1,5 @@
 ﻿using CodeBase.Common.FSM.States;
 using CodeBase.Infrastructure.GameFSM.FSM;
-using CodeBase.Infrastructure.Services.Factories.UI;
 
 namespace CodeBase.Infrastructure.GameFSM.States
 {

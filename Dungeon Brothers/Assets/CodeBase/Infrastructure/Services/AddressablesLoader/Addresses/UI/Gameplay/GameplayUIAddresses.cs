@@ -7,5 +7,6 @@ namespace CodeBase.Infrastructure.Addressable.Addresses.UI.Gameplay
     public class GameplayUIAddresses : ScriptableObject
     {
         [field: SerializeField] public AssetReferenceGameObject TurnQueueView { get; private set; }
+        [field: SerializeField] public AssetReferenceGameObject SkipTurnButton { get; private set; }
     }
 }
