@@ -6,6 +6,6 @@ namespace CodeBase.Gameplay.Characters
         
         public CharacterStats CharacterStats { get; }
         
-        public CharacterLogic CharacterLogic { get; }
+        public ICharacterLogic CharacterLogic { get; }
     }
 }

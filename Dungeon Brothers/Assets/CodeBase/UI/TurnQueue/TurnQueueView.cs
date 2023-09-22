@@ -1,130 +1,68 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.Services.TurnQueue;
-using CodeBase.Infrastructure.Configs.Character;
-using CodeBase.Infrastructure.Services.Factories.TurnQueue;
-using CodeBase.Infrastructure.Services.StaticDataProviding;
 using CodeBase.UI.TurnQueue;
+using UnityEngine;
+using VContainer;
 
 namespace CodeBase.Gameplay.UI.TurnQueue
 {
-    public class TurnQueueView : ITurnQueueView
+    public class TurnQueueView : MonoBehaviour
     {
-        private readonly ITurnQueue _turnQueue;
-        private readonly ITurnQueueViewFactory _turnQueueViewFactory;
-        private readonly AllCharactersConfigs _allCharactersConfigs;
+        private TurnQueueViewModel _turnQueueViewModel;
 
-        private List<CharacterInTurnQueueIcon> _charactersIconsQueue = new();
-        private ICharacter _currentCharacter;
-        
         private const int MaxVisualizedIcons = 5;
         
-        public TurnQueueView(ITurnQueue turnQueue,
-            ITurnQueueViewFactory turnQueueViewFactory,
-            IStaticDataProvider staticDataProvider)
+        public void Construct(TurnQueueViewModel turnQueueViewModel)
         {
-            _turnQueue = turnQueue;
-            _turnQueueViewFactory = turnQueueViewFactory;
-            _allCharactersConfigs = staticDataProvider.AllCharactersConfigs;
-        }
-
-        public void SubscribeToEvents()
-        {
-            _turnQueue.AddedToQueue += ReorganizeIcons;
-            _turnQueue.NewTurnStarted += ShiftIcons;
+            _turnQueueViewModel = turnQueueViewModel;
         }
         
-        public void UnSubscribeToEvents()
+        private void OnEnable()
         {
-            _turnQueue.AddedToQueue -= ReorganizeIcons;
-            _turnQueue.NewTurnStarted -= ShiftIcons;
-        }
-        
-        public async void ReorganizeIcons(ICharacter character)
-        {
-            if (_allCharactersConfigs.CharacterConfigs.TryGetValue(character.CharacterID,
-                    out CharacterConfig characterConfig))
-            {
-                CharacterInTurnQueueIcon characterInTurnQueueIcon =
-                    await _turnQueueViewFactory.Create(characterConfig.Image, characterConfig.CharacterID);
-
-                characterInTurnQueueIcon.gameObject.SetActive(false);
-
-                for (int i = 0; i < _turnQueue.Characters.Count(); i++)
-                {
-                    List<ICharacter> characters = _turnQueue.Characters.ToList();
-
-                    if (characters[i] == character)
-                    {
-                        int positionInList = i;
-                        
-                        _charactersIconsQueue.Insert(positionInList, characterInTurnQueueIcon);
-                        EnableIcons();
-                        ReorganizeChildPosition();
-                    }
-                }
-            }
-        }
-
-        private void ResetIcons()
-        {
-            foreach (var icon in _charactersIconsQueue)
-                icon.Destroy();
+            _turnQueueViewModel.ListChanged += ReorganizeChildPosition;
+            _turnQueueViewModel.EnableIcons += EnableIcons;
+            _turnQueueViewModel.DisableIcons += DisableIcons;
             
-            _charactersIconsQueue.Clear();
+            _turnQueueViewModel.OnEnable();
         }
 
-        private void DisableIcons()
+        private void OnDisable()
         {
-            foreach (var icon in _charactersIconsQueue) 
+            _turnQueueViewModel.ListChanged -= ReorganizeChildPosition;
+            _turnQueueViewModel.EnableIcons -= EnableIcons;
+            _turnQueueViewModel.DisableIcons -= DisableIcons;
+            
+            _turnQueueViewModel.OnDisable();
+        }
+
+        private void DisableIcons(IReadOnlyList<CharacterInTurnQueueIcon> characterInTurnQueueIcons)
+        {
+            foreach (var icon in characterInTurnQueueIcons) 
                 icon.gameObject.SetActive(false);
         }
 
-        private void ShiftIcons()
+        private void ReorganizeChildPosition(IReadOnlyList<CharacterInTurnQueueIcon> characterInTurnQueueIcons)
         {
-            if (_charactersIconsQueue != null)
-            {
-                DisableIcons();
-                
-                int shift = 1;
-                
-                _charactersIconsQueue = _charactersIconsQueue
-                    .Skip(_charactersIconsQueue.Count - shift)
-                    .Take(shift)
-                    .Concat(_charactersIconsQueue
-                        .Take(_charactersIconsQueue.Count - shift))
-                    .ToList();
-
-                ReorganizeChildPosition();
-
-                EnableIcons();
-            }
-        }
-
-        private void ReorganizeChildPosition()
-        {
-            for (int i = 0; i < _charactersIconsQueue.Count; i++)
-                _charactersIconsQueue[i].transform.SetSiblingIndex(i);
+            for (int i = 0; i < characterInTurnQueueIcons.Count; i++)
+                characterInTurnQueueIcons[i].transform.SetSiblingIndex(i);
         }
         
         
-        private void EnableIcons()
+        private void EnableIcons(IReadOnlyList<CharacterInTurnQueueIcon> characterInTurnQueueIcons)
         {
-            if (_charactersIconsQueue.Count <= MaxVisualizedIcons)
+            if (characterInTurnQueueIcons.Count <= MaxVisualizedIcons)
             {
-                for (int i = _charactersIconsQueue.Count - 1; i >= 0; i--)
+                for (int i = characterInTurnQueueIcons.Count - 1; i >= 0; i--)
                 {
-                    _charactersIconsQueue[i].gameObject.SetActive(true);
+                    characterInTurnQueueIcons[i].gameObject.SetActive(true);
                 }
                 return;
             }
 
-            int maxVisualizeIcons = _charactersIconsQueue.Count - 1 - MaxVisualizedIcons;
+            int maxVisualizeIcons = characterInTurnQueueIcons.Count - 1 - MaxVisualizedIcons;
             
-            for (int i = _charactersIconsQueue.Count - 1; i > maxVisualizeIcons; i--)
+            for (int i = characterInTurnQueueIcons.Count - 1; i > maxVisualizeIcons; i--)
             {
-                _charactersIconsQueue[i].gameObject.SetActive(true);
+                characterInTurnQueueIcons[i].gameObject.SetActive(true);
             }
         }
     }

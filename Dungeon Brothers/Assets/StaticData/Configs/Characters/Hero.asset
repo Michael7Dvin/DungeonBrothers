@@ -18,6 +18,11 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  CharacterPrefab:
+    m_AssetGUID: 43108a6b6a8baf447bec7477857e15a9
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   Level: 1
   Initiative: 2
   Intelligence: 1

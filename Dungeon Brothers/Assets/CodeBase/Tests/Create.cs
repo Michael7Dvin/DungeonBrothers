@@ -46,9 +46,12 @@ namespace CodeBase.Tests
             int dexterity,
             int initiative)
         {
-            ICharacter character = new Character(new CharacterID(),
+            Character character = new Character();
+            
+            character.Construct(new CharacterID(),
                 new CharacterStats(level, intelligence, strength, dexterity, initiative),
                 new CharacterLogic());
+            
             return character;
         }
 

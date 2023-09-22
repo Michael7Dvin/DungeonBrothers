@@ -2,17 +2,17 @@
 {
     public class Character : ICharacter
     {
-        public Character(CharacterID characterID, 
+        public void Construct(CharacterID characterID, 
             CharacterStats characterStats,
-            CharacterLogic characterLogic)
+            ICharacterLogic characterLogic)
         {
             CharacterID = characterID;
             CharacterStats = characterStats;
             CharacterLogic = characterLogic;
         }
 
-        public CharacterID CharacterID { get; }
-        public CharacterStats CharacterStats { get; }
-        public CharacterLogic CharacterLogic { get; }
+        public CharacterID CharacterID { get; private set; }
+        public CharacterStats CharacterStats { get; private set; }
+        public ICharacterLogic CharacterLogic { get; private set; }
     }
 }
