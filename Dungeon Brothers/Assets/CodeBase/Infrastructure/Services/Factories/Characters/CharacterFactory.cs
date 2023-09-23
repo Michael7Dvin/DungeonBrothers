@@ -33,24 +33,24 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
 
         public async UniTask WarmUp(List<CharacterConfig> characterConfigs)
         {
-            foreach (var character in characterConfigs)
-                await _addressablesLoader.LoadGameObject(character.CharacterPrefab);
+            foreach (var character in characterConfigs) 
+                await _addressablesLoader.LoadGameObject(character.Prefab);
         }
 
-        public async UniTask<ICharacter> Create(CharacterConfig config)
+        public async UniTask<Character> Create(CharacterConfig config)
         {
-            GameObject prefab = await _addressablesLoader.LoadGameObject(config.CharacterPrefab);
+            GameObject prefab = await _addressablesLoader.LoadGameObject(config.Prefab);
             GameObject gameObject = _objectResolver.Instantiate(prefab);
             
             CharacterStats characterStats = CreateCharacterStats(config);
 
             ICharacterLogic characterLogic = CreateCharacterLogic(config);
-            
-            Character character = new Character();
-            
-            character.Construct(config.CharacterID, characterStats, characterLogic);
 
-            CharacterInTurnQueueIcon icon = await _turnQueueViewFactory.CreateIcon(config.Image, config.CharacterID);
+            Character character = gameObject.GetComponent<Character>();
+            
+            character.Construct(config.ID, config.Team ,characterStats, characterLogic);
+
+            CharacterInTurnQueueIcon icon = await _turnQueueViewFactory.CreateIcon(config.Image, config.ID);
             icon.gameObject.SetActive(false);
             
             _charactersProvider.Add(character, icon);

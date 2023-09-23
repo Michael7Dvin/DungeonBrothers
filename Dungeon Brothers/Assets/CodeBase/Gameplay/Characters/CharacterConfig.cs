@@ -7,9 +7,15 @@ namespace CodeBase.Gameplay.Characters
     [CreateAssetMenu(menuName = "StaticData/Configs/Characters/Character", fileName = "CharacterConfig")]
     public class CharacterConfig : ScriptableObject
     {
-        public CharacterID CharacterID;
+        [TitleGroup("Info")]
+        public CharacterID ID;
+        [TitleGroup("Info")]
+        public CharacterTeam Team;
+        
+        [TitleGroup("Prefabs")]
         public AssetReferenceGameObject Image;
-        public AssetReferenceGameObject CharacterPrefab;
+        [TitleGroup("Prefabs")]
+        public AssetReferenceGameObject Prefab;
 
         [FoldoutGroup("Stats")]
         public int Level;

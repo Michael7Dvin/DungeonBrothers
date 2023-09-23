@@ -8,12 +8,12 @@ namespace CodeBase.Infrastructure.Services.Providers.CharactersProvider
     public interface ICharactersProvider
     {
         event Action CharactersAmountChanged; 
-        event Action<ICharacter, CharacterInTurnQueueIcon> Spawned;
-        event Action<ICharacter> Died;
+        event Action<Character, CharacterInTurnQueueIcon> Spawned;
+        event Action<Character> Died;
         
-        public IReadOnlyDictionary<ICharacter, CharacterInTurnQueueIcon> Characters { get; }
+        public IReadOnlyDictionary<Character, CharacterInTurnQueueIcon> Characters { get; }
 
-        void Add(ICharacter character,
+        void Add(Character character,
             CharacterInTurnQueueIcon characterInTurnQueueIcon);
     }
 }

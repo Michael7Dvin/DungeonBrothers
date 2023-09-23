@@ -7,11 +7,12 @@ namespace CodeBase.Gameplay.Services.TurnQueue
 {
     public interface ITurnQueue
     {
-        IEnumerable<ICharacter> Characters { get; }
-        ICharacter ActiveCharacter { get; }
+        IEnumerable<Character> Characters { get; }
+        Character ActiveCharacter { get; }
 
         event Action NewTurnStarted; 
-        event Action<ICharacter, CharacterInTurnQueueIcon> AddedToQueue;
+        event Action FirstTurnStarted; 
+        event Action<Character, CharacterInTurnQueueIcon> AddedToQueue;
         event Action Reseted;
         
         void Initialize();

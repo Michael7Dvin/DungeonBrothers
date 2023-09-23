@@ -7,14 +7,14 @@ namespace CodeBase.Infrastructure.Services.Providers.CharactersProvider
 {
     public class CharactersProvider : ICharactersProvider
     {
-        private readonly Dictionary<ICharacter, CharacterInTurnQueueIcon> _characters = new();
-        public IReadOnlyDictionary<ICharacter, CharacterInTurnQueueIcon> Characters => _characters;
+        private readonly Dictionary<Character, CharacterInTurnQueueIcon> _characters = new();
+        public IReadOnlyDictionary<Character, CharacterInTurnQueueIcon> Characters => _characters;
         
         public event Action CharactersAmountChanged;
-        public event Action<ICharacter, CharacterInTurnQueueIcon> Spawned;
-        public event Action<ICharacter> Died;
+        public event Action<Character, CharacterInTurnQueueIcon> Spawned;
+        public event Action<Character> Died;
         
-        public void Add(ICharacter character,
+        public void Add(Character character,
             CharacterInTurnQueueIcon characterInTurnQueueIcon)
         {
             _characters.Add(character, characterInTurnQueueIcon);
@@ -29,7 +29,7 @@ namespace CodeBase.Infrastructure.Services.Providers.CharactersProvider
             }
         }
 
-        private void Remove(ICharacter character)
+        private void Remove(Character character)
         {
             
             _characters.Remove(character);
