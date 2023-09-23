@@ -6,7 +6,7 @@ namespace CodeBase.UI.TurnQueue.Button
 {
     public class SkipTurnView : MonoBehaviour
     {
-        [SerializeField] private BaseButton _button;
+        [SerializeField] private SelectableButton _selectableButton;
         private SkipTurnViewModel _skipTurnViewModel;
 
         public void Construct(SkipTurnViewModel skipTurnViewModel)
@@ -25,12 +25,12 @@ namespace CodeBase.UI.TurnQueue.Button
         
         private void OnEnable() 
         {
-            _button.Cliked += OnClick;
+            _selectableButton.Cliked += OnClick;
           
         }
         private void OnDisable()
         {
-            _button.Cliked -= OnClick;
+            _selectableButton.Cliked -= OnClick;
            
         }
             
