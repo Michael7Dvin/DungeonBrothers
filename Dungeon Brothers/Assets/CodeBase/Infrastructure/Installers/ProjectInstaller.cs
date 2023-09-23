@@ -2,19 +2,18 @@ using CodeBase.Gameplay.Services.MapGenerator;
 using CodeBase.Gameplay.Services.MapService;
 using CodeBase.Gameplay.Services.Random;
 using CodeBase.Gameplay.Services.TurnQueue;
-using CodeBase.Gameplay.UI.TurnQueue;
-using CodeBase.Infrastructure.Addressable.Loader;
 using CodeBase.Infrastructure.GameFSM.FSM;
 using CodeBase.Infrastructure.GameFSM.States;
+using CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
 using CodeBase.Infrastructure.Services.Factories.TileFactory;
 using CodeBase.Infrastructure.Services.Factories.TurnQueue;
 using CodeBase.Infrastructure.Services.Factories.UI;
-using CodeBase.Infrastructure.Services.Logging;
+using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
-using CodeBase.Infrastructure.Services.Providers.ServiceProvider;
-using CodeBase.Infrastructure.Services.Providers.UIProvider;
+using CodeBase.Infrastructure.Services.Providers.SceneServicesProvider;
 using CodeBase.Infrastructure.Services.SceneLoading;
-using CodeBase.Infrastructure.Services.StaticDataProviding;
+using CodeBase.Infrastructure.Services.StaticDataProvider;
+using CodeBase.UI.Services.UIProvider;
 using CodeBase.UI.TurnQueue;
 using UnityEngine;
 using VContainer;
@@ -50,7 +49,7 @@ namespace CodeBase.Infrastructure.Installers
             builder.Register<IUIProvider, UIProvider>(Lifetime.Singleton);
             builder.Register<IRandomService, RandomService>(Lifetime.Singleton);
             builder.Register<ICharactersProvider, CharactersProvider>(Lifetime.Singleton);
-            builder.Register<IServiceProvider, ServiceProvider>(Lifetime.Singleton);
+            builder.Register<ISceneServicesProvider, SceneServicesProvider>(Lifetime.Singleton);
         }
         
         private void RegisterStaticDataProvider(IContainerBuilder builder)

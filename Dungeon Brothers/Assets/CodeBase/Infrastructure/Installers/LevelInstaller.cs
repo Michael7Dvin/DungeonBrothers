@@ -1,15 +1,12 @@
 using CodeBase.Gameplay.Services.MapGenerator;
 using CodeBase.Gameplay.Services.MapService;
 using CodeBase.Gameplay.Services.TurnQueue;
-using CodeBase.Gameplay.UI.TurnQueue;
 using CodeBase.Infrastructure.Services.Factories.Buttons;
 using CodeBase.Infrastructure.Services.Factories.Characters;
 using CodeBase.Infrastructure.Services.Factories.TileFactory;
 using CodeBase.Infrastructure.Services.Factories.TurnQueue;
 using CodeBase.Infrastructure.Services.Factories.UI;
-using CodeBase.Infrastructure.Services.Providers.LevelData;
-using CodeBase.Infrastructure.Services.Providers.LevelDataProvider;
-using CodeBase.Infrastructure.Services.Providers.ServiceProvider;
+using CodeBase.Infrastructure.Services.Providers.LevelSpawner;
 using VContainer;
 using VContainer.Unity;
 
@@ -38,7 +35,7 @@ namespace CodeBase.Infrastructure.Installers
             builder.Register<IMapGenerator, MapGenerator>(Lifetime.Singleton);
             builder.Register<IMapService, MapService>(Lifetime.Singleton);
 
-            builder.Register<LevelDataProvider>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
+            builder.Register<LevelSpawner>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
         }
     }
 }

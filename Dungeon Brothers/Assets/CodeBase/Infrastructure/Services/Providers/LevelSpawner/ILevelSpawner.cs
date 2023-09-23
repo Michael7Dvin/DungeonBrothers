@@ -1,9 +1,9 @@
 ﻿using Cysharp.Threading.Tasks;
 using VContainer.Unity;
 
-namespace CodeBase.Infrastructure.Services.Providers.LevelDataProvider
+namespace CodeBase.Infrastructure.Services.Providers.LevelSpawner
 {
-    public interface ILevelDataProvider : IInitializable
+    public interface ILevelSpawner : IInitializable
     {
         public UniTask WarmUp();
         

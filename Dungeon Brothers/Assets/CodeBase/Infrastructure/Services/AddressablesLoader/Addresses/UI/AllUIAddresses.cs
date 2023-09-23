@@ -1,8 +1,8 @@
-﻿using CodeBase.Infrastructure.Addressable.Addresses.UI.Common;
-using CodeBase.Infrastructure.Addressable.Addresses.UI.Gameplay;
+﻿using CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI.Common;
+using CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI.Gameplay;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure.Addressable.Addresses.UI
+namespace CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI
 {
     [CreateAssetMenu(menuName = "StaticData/Addresses/UI/All", fileName = "AllUIAddresses")]
     public class AllUIAddresses : ScriptableObject

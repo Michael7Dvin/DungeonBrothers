@@ -6,7 +6,7 @@ using UnityEngine;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.Random;
 using CodeBase.Gameplay.Services.TurnQueue;
-using CodeBase.Infrastructure.Services.Logging;
+using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
 
 namespace CodeBase.Tests

@@ -1,8 +1,8 @@
-using CodeBase.Infrastructure.Addressable.Addresses;
-using CodeBase.Infrastructure.Configs.Character;
+using CodeBase.Gameplay.Characters;
+using CodeBase.Infrastructure.Services.AddressablesLoader.Addresses;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure.Services.StaticDataProviding
+namespace CodeBase.Infrastructure.Services.StaticDataProvider
 {
     [CreateAssetMenu(menuName = "StaticData/All", fileName = "AllStaticData")]
     public class AllStaticData : ScriptableObject
