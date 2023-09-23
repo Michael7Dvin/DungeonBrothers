@@ -2,14 +2,14 @@
 using CodeBase.Common.FSM.States;
 using CodeBase.Infrastructure.Services.Logger;
 
-namespace CodeBase.Infrastructure.GameFSM.FSM
+namespace CodeBase.Infrastructure.StateMachines.App.FSM
 {
-    public class GameStateMachine : IGameStateMachine
+    public class AppStateMachine : IAppStateMachine
     {
         private readonly ICustomLogger _logger;
         private readonly StateMachine _stateMachine;
 
-        public GameStateMachine(ICustomLogger logger)
+        public AppStateMachine(ICustomLogger logger)
         {
             _logger = logger;
             _stateMachine = new StateMachine(_logger);
@@ -17,14 +17,8 @@ namespace CodeBase.Infrastructure.GameFSM.FSM
 
         public void Enter<TState>() where TState : IState
         {
-            _logger.Log($"Entered: {typeof(TState).Name}");
+            _logger.Log($"App State Entered: '{typeof(TState).Name}'");
             _stateMachine.Enter<TState>();
-        }
-
-        public void Enter<TState, TArgument>(TArgument argument) where TState : IStateWithArgument<TArgument>
-        {
-            _logger.Log($"Entered: {typeof(TState).Name}");
-            _stateMachine.Enter<TState, TArgument>(argument);
         }
 
         public void Add<TState>(TState state) where TState : IExitableState =>

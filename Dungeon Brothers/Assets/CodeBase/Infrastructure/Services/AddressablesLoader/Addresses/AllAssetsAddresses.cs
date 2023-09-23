@@ -1,5 +1,5 @@
 using CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI;
-using CodeBase.Infrastructure.Services.SceneLoading;
+using CodeBase.Infrastructure.Services.SceneLoader;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 

@@ -7,7 +7,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
-namespace CodeBase.Infrastructure.Services.SceneLoading
+namespace CodeBase.Infrastructure.Services.SceneLoader
 {
     public class SceneLoader : ISceneLoader
     {
@@ -34,6 +34,8 @@ namespace CodeBase.Infrastructure.Services.SceneLoading
                     _logger.LogError(new Exception($"Unsupported {nameof(SceneType)}: '{type}'"));
                     break;
             }    
+            
+            _logger.Log($"Load scene: '{type}'");
         }
 
         private async UniTask Load(AssetReference sceneReference)

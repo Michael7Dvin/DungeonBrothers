@@ -1,8 +1,8 @@
 using CodeBase.Common.FSM.States;
 
-namespace CodeBase.Infrastructure.GameFSM.FSM
+namespace CodeBase.Infrastructure.StateMachines.Gameplay.FSM
 {
-    public interface IGameStateMachine
+    public interface IGameplayStateMachine
     {
         void Enter<TState>() where TState : IState;
         void Enter<TState, TArgument>(TArgument argument) where TState : IStateWithArgument<TArgument>;

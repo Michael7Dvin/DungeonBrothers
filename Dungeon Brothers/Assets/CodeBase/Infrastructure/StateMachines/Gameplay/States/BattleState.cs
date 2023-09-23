@@ -1,22 +1,19 @@
 ﻿using CodeBase.Common.FSM.States;
 using CodeBase.Gameplay.Services.TurnQueue;
 
-namespace CodeBase.Infrastructure.GameFSM.States
+namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
 {
-    public class GameplayState : IState
+    public class BattleState : IState
     {
         private readonly ITurnQueue _turnQueue;
 
-        public GameplayState(ITurnQueue turnQueue)
+        public BattleState(ITurnQueue turnQueue)
         {
             _turnQueue = turnQueue;
         }
 
-        public void Enter()
-        {
-            _turnQueue.Initialize();
+        public void Enter() => 
             _turnQueue.SetFirstTurn();
-        }
 
         public void Exit()
         {
