@@ -47,6 +47,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 17ff4d730c00d834ca412254b8538e7b
+    m_Address: Assets/Prefabs/UI/Skip/SkipButton.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cd9846c08b2b1fc4fa9b10c9ae46250d, type: 2}
   m_SchemaSet:
