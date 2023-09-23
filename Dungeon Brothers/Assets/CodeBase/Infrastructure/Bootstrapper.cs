@@ -10,11 +10,13 @@ namespace CodeBase.Infrastructure
         
         private Bootstrapper(IGameStateMachine stateMachine,
             InitializationState initializationState,
+            LevelLoadingState levelLoadingState,
             GameplayState gameplayState)
         {
             _stateMachine = stateMachine;
             
             _stateMachine.Add(initializationState);
+            _stateMachine.Add(levelLoadingState);
             _stateMachine.Add(gameplayState);
         }
 
