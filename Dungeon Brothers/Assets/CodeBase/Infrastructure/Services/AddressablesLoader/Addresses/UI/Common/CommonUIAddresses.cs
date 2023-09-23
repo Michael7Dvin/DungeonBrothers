@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace CodeBase.Infrastructure.Addressable.Addresses.UI.Common
+namespace CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI.Common
 {
     [CreateAssetMenu(menuName = "StaticData/Addresses/UI/Common", fileName = "CommonUIAddresses")]
     public class CommonUIAddresses : ScriptableObject

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CodeBase.Common.FSM.States;
-using CodeBase.Infrastructure.Services.Logging;
+using CodeBase.Infrastructure.Services.Logger;
 
 namespace CodeBase.Common.FSM
 {
