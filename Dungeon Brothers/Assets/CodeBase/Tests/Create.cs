@@ -16,6 +16,7 @@ namespace CodeBase.Tests
         public static Tile Tile()
         {
             Tile tile = new GameObject().AddComponent<Tile>();
+            
             return tile;
         }
 
@@ -40,15 +41,15 @@ namespace CodeBase.Tests
             IMapService mapService = new Gameplay.Services.MapService.MapService();
             return mapService;
         }
-        public static ICharacter Character(int level,
+        public static Character Character(int level,
             int intelligence, 
             int strength, 
             int dexterity,
             int initiative)
         {
-            Character character = new Character();
+            Character character = new GameObject().AddComponent<Character>();
             
-            character.Construct(new CharacterID(),
+            character.Construct(new CharacterID(),new CharacterTeam(),
                 new CharacterStats(level, intelligence, strength, dexterity, initiative),
                 new CharacterLogic());
             
@@ -66,6 +67,12 @@ namespace CodeBase.Tests
             TurnQueue turnQueue = new TurnQueue(new RandomService(), charactersProvider,
                 new CustomLogger(new LogWriter()));
             return turnQueue;
+        }
+
+        public static TileView TileView(Material material)
+        {
+            TileView tileView = new TileView(material);
+            return tileView;
         }
     }
 }

@@ -12,7 +12,10 @@ namespace CodeBase.Tests
         public static Tile Tile(Vector2Int coordinates)
         {
             Tile tile = Create.Tile();
-            tile.Construct(coordinates);
+
+            TileView tileView = Create.TileView(tile.GetComponent<Material>());
+
+            tile.Construct(coordinates,tileView);
             return tile;
         }
 

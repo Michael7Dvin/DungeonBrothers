@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dfb87e4cb24468482e46d2c9cab29eb, type: 3}
   m_Name: Hero
   m_EditorClassIdentifier: 
-  CharacterID: 0
+  ID: 0
+  Team: 0
   Image:
     m_AssetGUID: a7f98156373a8094198f8a69993a2714
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 1
-  CharacterPrefab:
+  Prefab:
     m_AssetGUID: c370c96a8e554cb4bb78e9150d614de6
     m_SubObjectName: 
     m_SubObjectType: 

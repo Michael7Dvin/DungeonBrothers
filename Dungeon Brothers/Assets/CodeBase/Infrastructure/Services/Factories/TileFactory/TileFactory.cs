@@ -31,7 +31,12 @@ namespace CodeBase.Infrastructure.Services.Factories.TileFactory
         {
             Tile prefab = await _addressablesLoader.LoadComponent<Tile>(_tileReference);
             Tile tile = _objectResolver.Instantiate(prefab, position, Quaternion.identity, parent);
-            tile.Construct(coordinates);
+
+            SpriteRenderer spriteRenderer = tile.GetComponent<SpriteRenderer>();
+            Material material = spriteRenderer.material;
+            TileView tileView = new TileView(material);
+            tile.Construct(coordinates, tileView);
+            _objectResolver.Inject(tile);
             return tile;
         }
     }
