@@ -9,7 +9,7 @@ namespace CodeBase.Gameplay.Services.MapGenerator
     public class MapGenerator : IMapGenerator
     {
         private const int ColumnsCount = 6;
-        private const int RowsCount = 8;
+        private const int RowsCount = 10;
         private const int DistanceBetweenTiles = 1;
         
         private readonly ITileFactory _tileFactory;
@@ -19,14 +19,13 @@ namespace CodeBase.Gameplay.Services.MapGenerator
             _tileFactory = tileFactory;
         }
 
-        private Vector3 CenteringOffset => new(-6f, -6f, 0f);
+        private Vector3 CenteringOffset => new(-2.5f, -4.5f, 0f);
 
         public async UniTask<List<Tile>> GenerateMap()
         {
             List<Tile> tiles = new(ColumnsCount * RowsCount);
 
             GameObject root = new("Tiles");
-            root.transform.position += CenteringOffset;
        
             for (int row = 0; row < RowsCount; row++)
             {
@@ -40,6 +39,8 @@ namespace CodeBase.Gameplay.Services.MapGenerator
                 }
             }
             
+            root.transform.position += CenteringOffset;
+
             return tiles;
         }
     }
