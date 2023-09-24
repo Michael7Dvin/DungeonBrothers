@@ -8,6 +8,6 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
     {
         public UniTask WarmUp(List<CharacterConfig> characterConfigs);
 
-        public UniTask<ICharacter> Create(CharacterConfig config);
+        public UniTask<Character> Create(CharacterConfig config);
     }
 }

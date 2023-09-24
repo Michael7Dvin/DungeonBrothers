@@ -48,11 +48,11 @@ namespace CodeBase.UI.TurnQueue
             _charactersIconsQueue.Clear();
         }
         
-        private void ReorganizeIcons(ICharacter character, CharacterInTurnQueueIcon characterInTurnQueueIcon)
+        private void ReorganizeIcons(Character character, CharacterInTurnQueueIcon characterInTurnQueueIcon)
         {
             for (int i = 0; i < _turnQueue.Characters.Count(); i++)
             {
-                List<ICharacter> characters = _turnQueue.Characters.ToList();
+                List<Character> characters = _turnQueue.Characters.ToList();
 
                 if (characters[i] == character)
                 {

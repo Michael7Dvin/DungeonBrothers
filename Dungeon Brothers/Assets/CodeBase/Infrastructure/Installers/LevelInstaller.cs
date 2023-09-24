@@ -1,6 +1,7 @@
 using CodeBase.Gameplay.Services.MapGenerator;
 using CodeBase.Gameplay.Services.MapService;
 using CodeBase.Gameplay.Services.TurnQueue;
+using CodeBase.Gameplay.Tiles.Visualisation;
 using CodeBase.Infrastructure.Services.Factories.Buttons;
 using CodeBase.Infrastructure.Services.Factories.Characters;
 using CodeBase.Infrastructure.Services.Factories.TileFactory;
@@ -48,6 +49,7 @@ namespace CodeBase.Infrastructure.Installers
             builder.Register<IMapGenerator, MapGenerator>(Lifetime.Singleton);
             builder.Register<IMapService, MapService>(Lifetime.Singleton);
             builder.Register<ILevelSpawner, LevelSpawner>(Lifetime.Singleton);
+            builder.Register<ITileVisualizationActiveCharacter, TileVisualizationActiveCharacter>(Lifetime.Singleton);
         }
     }
 }

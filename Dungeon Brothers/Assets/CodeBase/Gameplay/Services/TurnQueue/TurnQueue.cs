@@ -14,11 +14,13 @@ namespace CodeBase.Gameplay.Services.TurnQueue
         private readonly ICharactersProvider _charactersProvider;
         private readonly ICustomLogger _logger;
 
-        private readonly LinkedList<ICharacter> _characters = new();
-        private LinkedListNode<ICharacter> _activeCharacterNode;
+        private readonly LinkedList<Character> _characters = new();
+        private LinkedListNode<Character> _activeCharacterNode;
 
-        public event Action<ICharacter, CharacterInTurnQueueIcon> AddedToQueue;
+        public event Action<Character, CharacterInTurnQueueIcon> AddedToQueue;
         public event Action Reseted;
+        public event Action NewTurnStarted;
+        public event Action FirstTurnStarted;
 
         public TurnQueue(IRandomService randomService, 
             ICharactersProvider charactersProvider,
@@ -29,9 +31,8 @@ namespace CodeBase.Gameplay.Services.TurnQueue
             _logger = logger;
         }
 
-        public IEnumerable<ICharacter> Characters => _characters;
-        public ICharacter ActiveCharacter => _activeCharacterNode.Value;
-        public event Action NewTurnStarted;
+        public IEnumerable<Character> Characters => _characters;
+        public Character ActiveCharacter => _activeCharacterNode.Value;
 
         public void Initialize()
         {
@@ -60,10 +61,14 @@ namespace CodeBase.Gameplay.Services.TurnQueue
 
             NewTurnStarted?.Invoke();
         }
-        
-        public void SetFirstTurn() => _activeCharacterNode = _characters.Last;
 
-        private void Add(ICharacter character,
+        public void SetFirstTurn()
+        {
+            _activeCharacterNode = _characters.Last;
+            
+        } 
+
+        private void Add(Character character,
             CharacterInTurnQueueIcon characterInTurnQueueIcon)
         {
             if (_characters.Count == 0)
@@ -76,7 +81,7 @@ namespace CodeBase.Gameplay.Services.TurnQueue
 
             int newCharacterInitiative = character.CharacterStats.Initiative;
             
-            LinkedListNode<ICharacter> currentCharacter = _characters.First;
+            LinkedListNode<Character> currentCharacter = _characters.First;
 
             while (currentCharacter != null)
             {
@@ -110,7 +115,7 @@ namespace CodeBase.Gameplay.Services.TurnQueue
             }
         }
 
-        private void Remove(ICharacter character)
+        private void Remove(Character character)
         {
             if (character == _activeCharacterNode.Value)
                 _logger.LogError(new Exception($"Unable to remove {nameof(ActiveCharacter)}. Feature not implemented"));

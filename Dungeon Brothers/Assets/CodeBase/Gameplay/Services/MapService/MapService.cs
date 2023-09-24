@@ -27,8 +27,11 @@ namespace CodeBase.Gameplay.Services.MapService
         {
             _tiles.Clear();
 
-            foreach (Tile tile in map) 
+            foreach (Tile tile in map)
+            {
                 _tiles[tile.Coordinates] = tile;
+            }
+                
         }
         
         public bool TryGetTile(Vector2Int coordinates, out Tile tile)
@@ -42,7 +45,7 @@ namespace CodeBase.Gameplay.Services.MapService
             tile = null;
             return false;
         }
-
+        
         public List<Tile> GetNeighbors(Vector2Int coordinates)
         {
             List<Tile> neighbors = new(MaxNeighborsCount);
