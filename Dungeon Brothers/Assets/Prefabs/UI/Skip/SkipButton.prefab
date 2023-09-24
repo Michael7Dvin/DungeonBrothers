@@ -12,8 +12,10 @@ GameObject:
   - component: {fileID: 6711821069088752969}
   - component: {fileID: 7365943157198205286}
   - component: {fileID: 3197337101951639199}
-  - component: {fileID: 7497593236902119280}
   - component: {fileID: 5502073994183570379}
+  - component: {fileID: -855526639866593696}
+  - component: {fileID: 355600952903532755}
+  - component: {fileID: 7303118210384134371}
   m_Layer: 5
   m_Name: SkipButton
   m_TagString: Untagged
@@ -93,18 +95,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
---- !u!114 &7497593236902119280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8204691390822142713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69f44da649de472fa969882459107bde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5502073994183570379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,7 +107,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11f47afb84e14eed873aca366c3f89ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _button: {fileID: 7497593236902119280}
+  _selectableButton: {fileID: -855526639866593696}
+--- !u!114 &-855526639866593696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8204691390822142713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8313ebf927dd47a4a833dc72f1502277, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectableButtonAnimation: {fileID: 355600952903532755}
+--- !u!114 &355600952903532755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8204691390822142713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4538f1a7d60b4aaa84ec967239a5002a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scaleAnimation: {fileID: 7303118210384134371}
+  _config: {fileID: 11400000, guid: ddf8833a69c708048ac6bcc5f4ec3bc8, type: 2}
+--- !u!114 &7303118210384134371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8204691390822142713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8db25abb3c3344c2b786230dde3925bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8917861877444148402
 GameObject:
   m_ObjectHideFlags: 0
