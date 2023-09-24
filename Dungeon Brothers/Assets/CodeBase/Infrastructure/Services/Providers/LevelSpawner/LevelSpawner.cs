@@ -3,22 +3,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.MapGenerator;
+using CodeBase.Gameplay.Services.MapService;
+using CodeBase.Gameplay.Spawner.CharacterSpawner;
 using CodeBase.Infrastructure.Services.Factories.Buttons;
 using CodeBase.Infrastructure.Services.Factories.Characters;
 using CodeBase.Infrastructure.Services.Factories.TurnQueue;
 using CodeBase.Infrastructure.Services.Factories.UI;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.Providers.LevelSpawner
 {
     public class LevelSpawner : ILevelSpawner
     {
         private readonly IMapGenerator _mapGenerator;
+        private readonly IMapService _mapService;
         private readonly ICommonUIFactory _commonUIFactory;
         private readonly ICharacterFactory _characterFactory;
         private readonly ITurnQueueViewFactory _turnQueueViewFactory;
         private readonly IButtonsFactory _buttonsFactory;
+        private readonly ICharactersSpawner _charactersSpawner;
         private readonly Dictionary<CharacterID, CharacterConfig> _charactersConfigs;
 
         public LevelSpawner(ICommonUIFactory commonUIFactory,
@@ -26,6 +31,8 @@ namespace CodeBase.Infrastructure.Services.Providers.LevelSpawner
             ITurnQueueViewFactory turnQueueViewFactory,
             IMapGenerator mapGenerator,
             IButtonsFactory buttonsFactory,
+            ICharactersSpawner charactersSpawner,
+            IMapService mapService,
             IStaticDataProvider staticDataProvider)
         {
             _commonUIFactory = commonUIFactory;
@@ -33,6 +40,8 @@ namespace CodeBase.Infrastructure.Services.Providers.LevelSpawner
             _turnQueueViewFactory = turnQueueViewFactory;
             _mapGenerator = mapGenerator;
             _buttonsFactory = buttonsFactory;
+            _charactersSpawner = charactersSpawner;
+            _mapService = mapService;
             _charactersConfigs = staticDataProvider.AllCharactersConfigs.CharacterConfigs;
         }
         
@@ -45,7 +54,7 @@ namespace CodeBase.Infrastructure.Services.Providers.LevelSpawner
 
         public async UniTask Spawn()
         {
-            await _mapGenerator.GenerateMap();
+            _mapService.ResetMap(await _mapGenerator.GenerateMap());
             
             await CreateUI();
             await CreateCharacters();
@@ -60,11 +69,18 @@ namespace CodeBase.Infrastructure.Services.Providers.LevelSpawner
 
         private async UniTask CreateCharacters()
         {
-            await _characterFactory.Create(_charactersConfigs[CharacterID.Hero]);
-            await _characterFactory.Create(_charactersConfigs[CharacterID.Enemy]);
-            await _characterFactory.Create(_charactersConfigs[CharacterID.Enemy]);
-            await _characterFactory.Create(_charactersConfigs[CharacterID.Enemy]);
-            await _characterFactory.Create(_charactersConfigs[CharacterID.Enemy]);
+            Dictionary<Vector2Int, CharacterConfig> charactersToSpawn = new()
+            {
+                { new Vector2Int(0, 0), _charactersConfigs[CharacterID.Hero] },
+                { new Vector2Int(1, 0), _charactersConfigs[CharacterID.Enemy] },
+                { new Vector2Int(2,0), _charactersConfigs[CharacterID.Enemy] },
+                { new Vector2Int(3,0), _charactersConfigs[CharacterID.Enemy] },
+                { new Vector2Int(4,0), _charactersConfigs[CharacterID.Enemy] }
+            };
+            
+            Debug.Log("2");
+
+            await _charactersSpawner.Spawn(charactersToSpawn);
         }
     }
 }
