@@ -1,10 +1,9 @@
 ﻿
 
 using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.UI.TurnQueue;
-using CodeBase.Infrastructure.Addressable.Loader;
-using CodeBase.Infrastructure.Services.Providers.UIProvider;
-using CodeBase.Infrastructure.Services.StaticDataProviding;
+using CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
+using CodeBase.Infrastructure.Services.StaticDataProvider;
+using CodeBase.UI.Services.UIProvider;
 using CodeBase.UI.TurnQueue;
 using Cysharp.Threading.Tasks;
 using UnityEngine;

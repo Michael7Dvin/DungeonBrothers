@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Gameplay.Characters;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure.Configs.Character
+namespace CodeBase.Gameplay.Characters
 {
     [CreateAssetMenu(menuName = "StaticData/Configs/Characters/All", fileName = "AllCharactersConfigs")]
     public class AllCharactersConfigs : SerializedScriptableObject

@@ -1,7 +1,7 @@
-using CodeBase.Infrastructure.Addressable.Addresses;
-using CodeBase.Infrastructure.Configs.Character;
+using CodeBase.Gameplay.Characters;
+using CodeBase.Infrastructure.Services.AddressablesLoader.Addresses;
 
-namespace CodeBase.Infrastructure.Services.StaticDataProviding
+namespace CodeBase.Infrastructure.Services.StaticDataProvider
 {
     public interface IStaticDataProvider
     {

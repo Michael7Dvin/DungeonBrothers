@@ -1,6 +1,6 @@
 ﻿using CodeBase.Common.FSM;
 using CodeBase.Common.FSM.States;
-using CodeBase.Infrastructure.Services.Logging;
+using CodeBase.Infrastructure.Services.Logger;
 
 namespace CodeBase.Infrastructure.GameFSM.FSM
 {
