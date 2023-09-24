@@ -1,12 +1,13 @@
 using CodeBase.Gameplay.Services.Random;
-using CodeBase.Infrastructure.GameFSM.FSM;
-using CodeBase.Infrastructure.GameFSM.States;
 using CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
 using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
-using CodeBase.Infrastructure.Services.Providers.SceneServicesProvider;
-using CodeBase.Infrastructure.Services.SceneLoading;
+using CodeBase.Infrastructure.Services.SceneLoader;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
+using CodeBase.Infrastructure.StateMachines.App;
+using CodeBase.Infrastructure.StateMachines.App.FSM;
+using CodeBase.Infrastructure.StateMachines.App.States;
+using CodeBase.Infrastructure.StateMachines.Gameplay.States;
 using CodeBase.UI.Services.UIProvider;
 using UnityEngine;
 using VContainer;
@@ -27,12 +28,10 @@ namespace CodeBase.Infrastructure.Installers
 
         private void RegisterStateMachine(IContainerBuilder builder)
         {
-            builder.Register<Bootstrapper>(Lifetime.Singleton).AsImplementedInterfaces();
-            
-            builder.Register<IGameStateMachine, GameStateMachine>(Lifetime.Singleton);
+            builder.Register<AppBootstrapper>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<IAppStateMachine, AppStateMachine>(Lifetime.Singleton);
             
             builder.Register<InitializationState>(Lifetime.Singleton);
-            builder.Register<LevelLoadingState>(Lifetime.Singleton);
             builder.Register<GameplayState>(Lifetime.Singleton);
         }
 
@@ -45,7 +44,6 @@ namespace CodeBase.Infrastructure.Installers
             builder.Register<IUIProvider, UIProvider>(Lifetime.Singleton);
             builder.Register<IRandomService, RandomService>(Lifetime.Singleton);
             builder.Register<ICharactersProvider, CharactersProvider>(Lifetime.Singleton);
-            builder.Register<ISceneServicesProvider, SceneServicesProvider>(Lifetime.Singleton);
         }
         
         private void RegisterStaticDataProvider(IContainerBuilder builder)

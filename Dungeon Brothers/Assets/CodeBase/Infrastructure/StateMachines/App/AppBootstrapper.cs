@@ -1,22 +1,21 @@
-﻿using CodeBase.Infrastructure.GameFSM.FSM;
-using CodeBase.Infrastructure.GameFSM.States;
+﻿using CodeBase.Infrastructure.StateMachines.App.FSM;
+using CodeBase.Infrastructure.StateMachines.App.States;
+using CodeBase.Infrastructure.StateMachines.Gameplay.States;
 using VContainer.Unity;
 
-namespace CodeBase.Infrastructure
+namespace CodeBase.Infrastructure.StateMachines.App
 {
-    public class Bootstrapper : IInitializable
+    public class AppBootstrapper : IInitializable
     {
-        private readonly IGameStateMachine _stateMachine;
+        private readonly IAppStateMachine _stateMachine;
         
-        private Bootstrapper(IGameStateMachine stateMachine,
+        private AppBootstrapper(IAppStateMachine stateMachine,
             InitializationState initializationState,
-            LevelLoadingState levelLoadingState,
             GameplayState gameplayState)
         {
             _stateMachine = stateMachine;
             
             _stateMachine.Add(initializationState);
-            _stateMachine.Add(levelLoadingState);
             _stateMachine.Add(gameplayState);
         }
 

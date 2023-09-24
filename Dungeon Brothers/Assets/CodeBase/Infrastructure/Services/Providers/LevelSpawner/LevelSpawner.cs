@@ -7,7 +7,6 @@ using CodeBase.Infrastructure.Services.Factories.Buttons;
 using CodeBase.Infrastructure.Services.Factories.Characters;
 using CodeBase.Infrastructure.Services.Factories.TurnQueue;
 using CodeBase.Infrastructure.Services.Factories.UI;
-using CodeBase.Infrastructure.Services.Providers.SceneServicesProvider;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
 using Cysharp.Threading.Tasks;
 
@@ -15,7 +14,6 @@ namespace CodeBase.Infrastructure.Services.Providers.LevelSpawner
 {
     public class LevelSpawner : ILevelSpawner
     {
-        private readonly ISceneServicesProvider _sceneServicesProvider;
         private readonly IMapGenerator _mapGenerator;
         private readonly ICommonUIFactory _commonUIFactory;
         private readonly ICharacterFactory _characterFactory;
@@ -23,15 +21,13 @@ namespace CodeBase.Infrastructure.Services.Providers.LevelSpawner
         private readonly IButtonsFactory _buttonsFactory;
         private readonly Dictionary<CharacterID, CharacterConfig> _charactersConfigs;
 
-        public LevelSpawner(ISceneServicesProvider sceneServicesProvider,
-            ICommonUIFactory commonUIFactory,
+        public LevelSpawner(ICommonUIFactory commonUIFactory,
             ICharacterFactory characterFactory,
             ITurnQueueViewFactory turnQueueViewFactory,
             IMapGenerator mapGenerator,
             IButtonsFactory buttonsFactory,
             IStaticDataProvider staticDataProvider)
         {
-            _sceneServicesProvider = sceneServicesProvider;
             _commonUIFactory = commonUIFactory;
             _characterFactory = characterFactory;
             _turnQueueViewFactory = turnQueueViewFactory;
@@ -39,10 +35,7 @@ namespace CodeBase.Infrastructure.Services.Providers.LevelSpawner
             _buttonsFactory = buttonsFactory;
             _charactersConfigs = staticDataProvider.AllCharactersConfigs.CharacterConfigs;
         }
-
-        public void Initialize() => 
-            _sceneServicesProvider.SetLevelDataProvider(this);
-
+        
         public async UniTask WarmUp()
         {
             await _commonUIFactory.WarmUp();
