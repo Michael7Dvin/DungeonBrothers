@@ -1,5 +1,6 @@
 ﻿using CodeBase.Common.FSM.States;
 using CodeBase.Infrastructure.GameFSM.FSM;
+using DG.Tweening;
 
 namespace CodeBase.Infrastructure.GameFSM.States
 {
@@ -15,6 +16,8 @@ namespace CodeBase.Infrastructure.GameFSM.States
         public void Enter()
         {
             _gameStateMachine.Enter<GameplayState>();
+
+            DOTween.Init();
         }
 
         public void Exit()

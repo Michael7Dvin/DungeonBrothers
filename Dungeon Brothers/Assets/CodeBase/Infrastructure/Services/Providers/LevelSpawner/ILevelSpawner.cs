@@ -7,6 +7,6 @@ namespace CodeBase.Infrastructure.Services.Providers.LevelSpawner
     {
         public UniTask WarmUp();
         
-        public UniTask CreateLevel();
+        public UniTask Spawn();
     }
 }

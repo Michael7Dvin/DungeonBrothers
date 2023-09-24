@@ -1,20 +1,13 @@
-using CodeBase.Gameplay.Services.MapGenerator;
-using CodeBase.Gameplay.Services.MapService;
 using CodeBase.Gameplay.Services.Random;
-using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.GameFSM.FSM;
 using CodeBase.Infrastructure.GameFSM.States;
 using CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
-using CodeBase.Infrastructure.Services.Factories.TileFactory;
-using CodeBase.Infrastructure.Services.Factories.TurnQueue;
-using CodeBase.Infrastructure.Services.Factories.UI;
 using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
 using CodeBase.Infrastructure.Services.Providers.SceneServicesProvider;
 using CodeBase.Infrastructure.Services.SceneLoading;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
 using CodeBase.UI.Services.UIProvider;
-using CodeBase.UI.TurnQueue;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -35,8 +28,11 @@ namespace CodeBase.Infrastructure.Installers
         private void RegisterStateMachine(IContainerBuilder builder)
         {
             builder.Register<Bootstrapper>(Lifetime.Singleton).AsImplementedInterfaces();
+            
             builder.Register<IGameStateMachine, GameStateMachine>(Lifetime.Singleton);
+            
             builder.Register<InitializationState>(Lifetime.Singleton);
+            builder.Register<LevelLoadingState>(Lifetime.Singleton);
             builder.Register<GameplayState>(Lifetime.Singleton);
         }
 

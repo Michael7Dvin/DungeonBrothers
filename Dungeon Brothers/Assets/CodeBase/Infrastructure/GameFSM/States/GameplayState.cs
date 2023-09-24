@@ -1,25 +1,21 @@
 ﻿using CodeBase.Common.FSM.States;
-using CodeBase.Infrastructure.Services.Providers.SceneServicesProvider;
-using CodeBase.Infrastructure.Services.SceneLoading;
+using CodeBase.Gameplay.Services.TurnQueue;
 
 namespace CodeBase.Infrastructure.GameFSM.States
 {
     public class GameplayState : IState
     {
-        private readonly ISceneLoader _sceneLoader;
-        private readonly ISceneServicesProvider _sceneServicesProvider;
+        private readonly ITurnQueue _turnQueue;
 
-        public GameplayState(ISceneLoader sceneLoader, 
-            ISceneServicesProvider sceneServicesProvider)
+        public GameplayState(ITurnQueue turnQueue)
         {
-            _sceneLoader = sceneLoader;
-            _sceneServicesProvider = sceneServicesProvider;
+            _turnQueue = turnQueue;
         }
 
-        public async void Enter()
+        public void Enter()
         {
-            await _sceneLoader.Load(SceneType.Level);
-            await _sceneServicesProvider.LevelSpawner.CreateLevel();
+            _turnQueue.Initialize();
+            _turnQueue.SetFirstTurn();
         }
 
         public void Exit()
