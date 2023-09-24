@@ -41,7 +41,7 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
         {
             GameObject prefab = await _addressablesLoader.LoadGameObject(config.Prefab);
             GameObject gameObject = _objectResolver.Instantiate(prefab);
-            
+
             CharacterStats characterStats = CreateCharacterStats(config);
 
             ICharacterLogic characterLogic = CreateCharacterLogic(config);

@@ -10,6 +10,8 @@ namespace CodeBase.Gameplay.Tiles
         private ICustomLogger _customLogger;
         public bool IsOccupied { get; private set; }
         
+        public bool IsWalkable { get; private set; }
+        
         public void Construct(Vector2Int coordinates,
             TileView tileView)
         {
