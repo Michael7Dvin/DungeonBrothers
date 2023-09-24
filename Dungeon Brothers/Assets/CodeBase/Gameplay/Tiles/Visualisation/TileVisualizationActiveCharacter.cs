@@ -36,11 +36,10 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
             _turnQueue.FirstTurnStarted -= HighlightOutlineTile;
         }
 
-        private void HighlightOutlineTile()
+        private void HighlightOutlineTile(Character character)
         {
             DisableHighlightOutline();
             
-            Character character = GetActiveCharacter();
             Transform transform = character.transform;
 
             Vector2Int position = 
@@ -79,6 +78,5 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
                 _lastTile.TileView.ChangeOutLineColor(Color.white);
             }
         }
-        private Character GetActiveCharacter() => _turnQueue.ActiveCharacter;
     }
 }

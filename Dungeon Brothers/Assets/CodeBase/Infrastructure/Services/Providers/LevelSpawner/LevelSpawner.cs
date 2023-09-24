@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.MapGenerator;
 using CodeBase.Gameplay.Services.MapService;
+using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Spawner.CharacterSpawner;
 using CodeBase.Infrastructure.Services.Factories.Buttons;
 using CodeBase.Infrastructure.Services.Factories.Characters;
@@ -78,8 +79,6 @@ namespace CodeBase.Infrastructure.Services.Providers.LevelSpawner
                 { new Vector2Int(4,0), _charactersConfigs[CharacterID.Enemy] }
             };
             
-            Debug.Log("2");
-
             await _charactersSpawner.Spawn(charactersToSpawn);
         }
     }

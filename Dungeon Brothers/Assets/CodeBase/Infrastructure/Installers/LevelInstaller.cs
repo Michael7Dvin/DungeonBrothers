@@ -1,5 +1,7 @@
 using CodeBase.Gameplay.Services.MapGenerator;
 using CodeBase.Gameplay.Services.MapService;
+using CodeBase.Gameplay.Services.Move;
+using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Spawner.CharacterSpawner;
 using CodeBase.Gameplay.Tiles.Visualisation;
@@ -52,5 +54,8 @@ namespace CodeBase.Infrastructure.Installers
             builder.Register<ILevelSpawner, LevelSpawner>(Lifetime.Singleton);
             builder.Register<ITileVisualizationActiveCharacter, TileVisualizationActiveCharacter>(Lifetime.Singleton);
             builder.Register<ICharactersSpawner, CharactersSpawner>(Lifetime.Singleton);
-        } }
+            builder.Register<IPathFinder, PathFinder>(Lifetime.Singleton);
+            builder.Register<IMoverService, MoverService>(Lifetime.Singleton);
+        } 
+    }
 }

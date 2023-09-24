@@ -10,8 +10,8 @@ namespace CodeBase.Gameplay.Services.TurnQueue
         IEnumerable<Character> Characters { get; }
         Character ActiveCharacter { get; }
 
-        event Action NewTurnStarted; 
-        event Action FirstTurnStarted; 
+        event Action<Character> NewTurnStarted; 
+        event Action<Character> FirstTurnStarted; 
         event Action<Character, CharacterInTurnQueueIcon> AddedToQueue;
         event Action Reseted;
         

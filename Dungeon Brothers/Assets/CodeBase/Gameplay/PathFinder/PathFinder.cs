@@ -33,7 +33,7 @@ namespace CodeBase.Gameplay.Services.PathFinder
                 {
                     Vector2Int neighborCoordinates = neighbor.Coordinates;
                     bool isNeighborWalkable = neighbor.IsWalkable;
-                    int distance = distances[calculatingTile] + 1;
+                    int distance = distances[calculatingTile]++;
 
                     if (isNeighborWalkable == false)
                     {

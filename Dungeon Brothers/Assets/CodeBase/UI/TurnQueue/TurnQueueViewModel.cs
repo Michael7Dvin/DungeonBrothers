@@ -65,7 +65,7 @@ namespace CodeBase.UI.TurnQueue
             }
         }
         
-        private void ShiftIcons()
+        private void ShiftIcons(Character character)
         {
             if (_charactersIconsQueue != null)
             {

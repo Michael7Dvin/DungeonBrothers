@@ -13,8 +13,8 @@ namespace CodeBase.Tests
         public void WhenAddingInQueue_AndOneInitiativeIsBigger_ThenBiggerInitiativeShouldBeLast()
         {
             // Arrange.
-            Character characterWithLessInitiative = Create.Character(1, 1, 1, 1, 1);
-            Character characterWithBiggerInitiative = Create.Character(1, 1, 1, 1, 5);
+            Character characterWithLessInitiative = Create.Character(1, 1, 1, 1, 1, 2, false);
+            Character characterWithBiggerInitiative = Create.Character(1, 1, 1, 1, 5, 2, false);
             CharactersProvider charactersProvider = Create.CharactersProvider();
             ITurnQueue turnQueue = Setup.TurnQueue(charactersProvider);
 
@@ -30,8 +30,8 @@ namespace CodeBase.Tests
         public void WhenAddingInQueue_AndInitiativesEquals_ThenOneWillBeRandom()
         {
             // Arrange.
-            Character characterWithSameStats1 = Create.Character(1, 1, 1, 1, 1);
-            Character characterWithSameStats2 = Create.Character(1, 1, 1, 1, 1);
+            Character characterWithSameStats1 = Create.Character(1, 1, 1, 1, 1, 2 ,false);
+            Character characterWithSameStats2 = Create.Character(1, 1, 1, 1, 1, 2 ,false);
             CharactersProvider charactersProvider = Create.CharactersProvider();
             ITurnQueue turnQueue = Setup.TurnQueue(charactersProvider);
 

@@ -19,8 +19,8 @@ namespace CodeBase.Gameplay.Services.TurnQueue
 
         public event Action<Character, CharacterInTurnQueueIcon> AddedToQueue;
         public event Action Reseted;
-        public event Action NewTurnStarted;
-        public event Action FirstTurnStarted;
+        public event Action<Character> NewTurnStarted;
+        public event Action<Character> FirstTurnStarted;
 
         public TurnQueue(IRandomService randomService, 
             ICharactersProvider charactersProvider,
@@ -59,13 +59,14 @@ namespace CodeBase.Gameplay.Services.TurnQueue
                 _activeCharacterNode = _activeCharacterNode.Previous;
 
 
-            NewTurnStarted?.Invoke();
+            NewTurnStarted?.Invoke(_activeCharacterNode.Value);
         }
 
         public void SetFirstTurn()
         {
             _activeCharacterNode = _characters.Last;
             
+            FirstTurnStarted?.Invoke(_activeCharacterNode.Value);
         } 
 
         private void Add(Character character,

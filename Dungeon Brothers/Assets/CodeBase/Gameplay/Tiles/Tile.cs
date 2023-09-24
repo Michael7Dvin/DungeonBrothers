@@ -2,6 +2,7 @@ using System;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Infrastructure.Services.Logger;
 using UnityEngine;
+using VContainer;
 
 namespace CodeBase.Gameplay.Tiles
 {
@@ -18,9 +19,10 @@ namespace CodeBase.Gameplay.Tiles
             Coordinates = coordinates;
 
             TileView = tileView;
+            IsWalkable = true;
         }
 
-        
+        [Inject]
         public void Inject(ICustomLogger customLogger)
         {
             _customLogger = customLogger;
@@ -37,8 +39,11 @@ namespace CodeBase.Gameplay.Tiles
                 _customLogger.LogError(new Exception("Tile is occupied"));
 
             IsOccupied = true;
+            IsWalkable = false;
 
             Character = character;
         }
+        
+        
     }
 }

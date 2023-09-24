@@ -61,7 +61,7 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
         private CharacterStats CreateCharacterStats(CharacterConfig config)
         {
             return new CharacterStats(config.Level, config.Intelligence, config.Strength, config.Dexterity,
-                config.Initiative);
+                config.Initiative, config.MovePoints, config);
         }
 
         private ICharacterLogic CreateCharacterLogic(CharacterConfig config)

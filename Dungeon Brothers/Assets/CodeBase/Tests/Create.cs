@@ -45,12 +45,14 @@ namespace CodeBase.Tests
             int intelligence, 
             int strength, 
             int dexterity,
-            int initiative)
+            int initiative,
+            int movablePoints,
+            bool isMoveThroughObstacles)
         {
             Character character = new GameObject().AddComponent<Character>();
             
             character.Construct(new CharacterID(),new CharacterTeam(),
-                new CharacterStats(level, intelligence, strength, dexterity, initiative),
+                new CharacterStats(level, intelligence, strength, dexterity, initiative, movablePoints, isMoveThroughObstacles),
                 new CharacterLogic());
             
             return character;
