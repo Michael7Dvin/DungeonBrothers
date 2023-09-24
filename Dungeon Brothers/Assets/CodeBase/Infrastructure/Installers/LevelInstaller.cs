@@ -1,15 +1,15 @@
 using CodeBase.Gameplay.Services.MapGenerator;
 using CodeBase.Gameplay.Services.MapService;
 using CodeBase.Gameplay.Services.TurnQueue;
-using CodeBase.Gameplay.UI.TurnQueue;
 using CodeBase.Infrastructure.Services.Factories.Buttons;
 using CodeBase.Infrastructure.Services.Factories.Characters;
 using CodeBase.Infrastructure.Services.Factories.TileFactory;
 using CodeBase.Infrastructure.Services.Factories.TurnQueue;
 using CodeBase.Infrastructure.Services.Factories.UI;
-using CodeBase.Infrastructure.Services.Providers.LevelData;
-using CodeBase.Infrastructure.Services.Providers.LevelDataProvider;
-using CodeBase.Infrastructure.Services.Providers.ServiceProvider;
+using CodeBase.Infrastructure.Services.Providers.LevelSpawner;
+using CodeBase.Infrastructure.StateMachines.Gameplay;
+using CodeBase.Infrastructure.StateMachines.Gameplay.FSM;
+using CodeBase.Infrastructure.StateMachines.Gameplay.States;
 using VContainer;
 using VContainer.Unity;
 
@@ -19,8 +19,18 @@ namespace CodeBase.Infrastructure.Installers
     {
         protected override void Configure(IContainerBuilder builder)
         {
+            RegisterStateMachine(builder);
             RegisterServices(builder);
             RegisterFactories(builder);
+        }
+
+        private void RegisterStateMachine(IContainerBuilder builder)
+        {
+            builder.Register<GameplayBootstrapper>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<IGameplayStateMachine, GameplayStateMachine>(Lifetime.Singleton);
+
+            builder.Register<LevelLoadingState>(Lifetime.Singleton);
+            builder.Register<BattleState>(Lifetime.Singleton);
         }
 
         private void RegisterFactories(IContainerBuilder builder)
@@ -37,8 +47,7 @@ namespace CodeBase.Infrastructure.Installers
             builder.Register<ITurnQueue, TurnQueue>(Lifetime.Singleton);
             builder.Register<IMapGenerator, MapGenerator>(Lifetime.Singleton);
             builder.Register<IMapService, MapService>(Lifetime.Singleton);
-
-            builder.Register<LevelDataProvider>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
+            builder.Register<ILevelSpawner, LevelSpawner>(Lifetime.Singleton);
         }
     }
 }

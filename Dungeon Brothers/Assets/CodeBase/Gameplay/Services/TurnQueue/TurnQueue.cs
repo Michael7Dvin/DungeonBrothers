@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.Random;
-using CodeBase.Infrastructure.Services.Logging;
+using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
 using CodeBase.UI.TurnQueue;
 

@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using CodeBase.UI.TurnQueue;
 using UnityEngine;
-using VContainer;
 
-namespace CodeBase.Gameplay.UI.TurnQueue
+namespace CodeBase.UI.TurnQueue
 {
     public class TurnQueueView : MonoBehaviour
     {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using CodeBase.Gameplay.Characters;
-using CodeBase.Infrastructure.Configs.Character;
 using CodeBase.UI.TurnQueue;
 
 namespace CodeBase.Infrastructure.Services.Providers.CharactersProvider

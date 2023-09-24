@@ -1,6 +1,6 @@
 ﻿using CodeBase.Gameplay.Tiles;
-using CodeBase.Infrastructure.Addressable.Loader;
-using CodeBase.Infrastructure.Services.StaticDataProviding;
+using CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
+using CodeBase.Infrastructure.Services.StaticDataProvider;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;

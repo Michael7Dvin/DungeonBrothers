@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.TurnQueue;
-using CodeBase.Infrastructure.Addressable.Loader;
-using CodeBase.Infrastructure.Configs.Character;
+using CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
 using CodeBase.Infrastructure.Services.Factories.TurnQueue;
 using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
 using CodeBase.UI.TurnQueue;
@@ -35,9 +34,7 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
         public async UniTask WarmUp(List<CharacterConfig> characterConfigs)
         {
             foreach (var character in characterConfigs)
-            {
                 await _addressablesLoader.LoadGameObject(character.CharacterPrefab);
-            }
         }
 
         public async UniTask<ICharacter> Create(CharacterConfig config)
