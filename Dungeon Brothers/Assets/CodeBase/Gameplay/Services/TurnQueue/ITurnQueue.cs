@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CodeBase.Common.Observables;
 using CodeBase.Gameplay.Characters;
 using CodeBase.UI.TurnQueue;
 
@@ -8,10 +9,11 @@ namespace CodeBase.Gameplay.Services.TurnQueue
     public interface ITurnQueue
     {
         IEnumerable<Character> Characters { get; }
-        Character ActiveCharacter { get; }
 
+        public IReadOnlyObservable<Character> ActiveCharacter { get; }
+        
         event Action<Character> NewTurnStarted; 
-        event Action<Character> FirstTurnStarted; 
+       
         event Action<Character, CharacterInTurnQueueIcon> AddedToQueue;
         event Action Reseted;
         

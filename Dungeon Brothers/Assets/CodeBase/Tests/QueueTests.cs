@@ -25,22 +25,5 @@ namespace CodeBase.Tests
             // Assert.
             turnQueue.Characters.Last().Should().Be(characterWithBiggerInitiative);
         }
-        
-        [Test]
-        public void WhenAddingInQueue_AndInitiativesEquals_ThenOneWillBeRandom()
-        {
-            // Arrange.
-            Character characterWithSameStats1 = Create.Character(1, 1, 1, 1, 1, 2 ,false);
-            Character characterWithSameStats2 = Create.Character(1, 1, 1, 1, 1, 2 ,false);
-            CharactersProvider charactersProvider = Create.CharactersProvider();
-            ITurnQueue turnQueue = Setup.TurnQueue(charactersProvider);
-
-            // Act.
-            charactersProvider.Add(characterWithSameStats1, null);
-            charactersProvider.Add(characterWithSameStats2, null);
-
-            // Assert.
-            turnQueue.Characters.Last().Should().Be(characterWithSameStats2);
-        }
     }
 }

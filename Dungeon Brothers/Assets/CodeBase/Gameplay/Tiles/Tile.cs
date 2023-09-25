@@ -10,8 +10,10 @@ namespace CodeBase.Gameplay.Tiles
     {
         private ICustomLogger _customLogger;
         public bool IsOccupied { get; private set; }
-        
         public bool IsWalkable { get; private set; }
+        public TileView TileView { get; private set; }
+        public Vector2Int Coordinates { get; private set; }
+        public ICharacter Character { get; private set; }
         
         public void Construct(Vector2Int coordinates,
             TileView tileView)
@@ -27,12 +29,14 @@ namespace CodeBase.Gameplay.Tiles
         {
             _customLogger = customLogger;
         }
-
-        public TileView TileView { get; private set; }
-        public Vector2Int Coordinates { get; private set; }
         
-        public ICharacter Character { get; private set; }
-
+        public void ResetTile()
+        {
+            Character = null;
+            IsOccupied = false;
+            IsWalkable = true;
+        }
+        
         public void Occupy(ICharacter character)
         {
             if (IsOccupied)
@@ -43,7 +47,5 @@ namespace CodeBase.Gameplay.Tiles
 
             Character = character;
         }
-        
-        
     }
 }

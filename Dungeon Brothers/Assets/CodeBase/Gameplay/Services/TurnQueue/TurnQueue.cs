@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CodeBase.Common.Observables;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.Random;
 using CodeBase.Infrastructure.Services.Logger;
@@ -17,11 +18,14 @@ namespace CodeBase.Gameplay.Services.TurnQueue
         private readonly LinkedList<Character> _characters = new();
         private LinkedListNode<Character> _activeCharacterNode;
 
+        private readonly Observable<Character> _activeCharacter = new();
+        
+        public IReadOnlyObservable<Character> ActiveCharacter => _activeCharacter;
         public event Action<Character, CharacterInTurnQueueIcon> AddedToQueue;
         public event Action Reseted;
         public event Action<Character> NewTurnStarted;
-        public event Action<Character> FirstTurnStarted;
-
+        public IEnumerable<Character> Characters => _characters;
+        
         public TurnQueue(IRandomService randomService, 
             ICharactersProvider charactersProvider,
             ICustomLogger logger)
@@ -30,10 +34,7 @@ namespace CodeBase.Gameplay.Services.TurnQueue
             _charactersProvider = charactersProvider;
             _logger = logger;
         }
-
-        public IEnumerable<Character> Characters => _characters;
-        public Character ActiveCharacter => _activeCharacterNode.Value;
-
+        
         public void Initialize()
         {
             _charactersProvider.Spawned += Add;
@@ -49,26 +50,34 @@ namespace CodeBase.Gameplay.Services.TurnQueue
             
             _characters.Clear();
             _activeCharacterNode = null;
+            UpdateActiveCharacter();
         }
 
         public void SetNextTurn()
         {
             if (_activeCharacterNode == _characters.First)
+            {
                 _activeCharacterNode = _characters.Last;
+                UpdateActiveCharacter();
+            }
             else
+            {
                 _activeCharacterNode = _activeCharacterNode.Previous;
-
-
+                UpdateActiveCharacter();
+            }
+            
             NewTurnStarted?.Invoke(_activeCharacterNode.Value);
         }
 
         public void SetFirstTurn()
         {
             _activeCharacterNode = _characters.Last;
-            
-            FirstTurnStarted?.Invoke(_activeCharacterNode.Value);
-        } 
+            UpdateActiveCharacter();
+        }
 
+        private void UpdateActiveCharacter() =>
+            _activeCharacter.Value = _activeCharacterNode.Value;
+        
         private void Add(Character character,
             CharacterInTurnQueueIcon characterInTurnQueueIcon)
         {

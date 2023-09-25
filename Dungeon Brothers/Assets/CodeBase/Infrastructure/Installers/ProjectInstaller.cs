@@ -1,6 +1,8 @@
 using CodeBase.Gameplay.Services.Random;
 using CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
+using CodeBase.Infrastructure.Services.InputService;
 using CodeBase.Infrastructure.Services.Logger;
+using CodeBase.Infrastructure.Services.Providers.CameraProvider;
 using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
 using CodeBase.Infrastructure.Services.SceneLoader;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
@@ -23,7 +25,7 @@ namespace CodeBase.Infrastructure.Installers
         {
             RegisterStateMachine(builder);
             RegisterServices(builder);
-            RegisterStaticDataProvider(builder);
+            RegisterProviders(builder);
         }
 
         private void RegisterStateMachine(IContainerBuilder builder)
@@ -41,13 +43,16 @@ namespace CodeBase.Infrastructure.Installers
             builder.Register<ISceneLoader, SceneLoader>(Lifetime.Singleton);
             builder.Register<IAddressablesLoader, AddressablesLoader>(Lifetime.Singleton);
             builder.Register<ILogWriter, LogWriter>(Lifetime.Singleton);
-            builder.Register<IUIProvider, UIProvider>(Lifetime.Singleton);
             builder.Register<IRandomService, RandomService>(Lifetime.Singleton);
-            builder.Register<ICharactersProvider, CharactersProvider>(Lifetime.Singleton);
+            builder.Register<IInputService, InputService>(Lifetime.Singleton);
         }
-        
-        private void RegisterStaticDataProvider(IContainerBuilder builder)
+
+        private void RegisterProviders(IContainerBuilder builder)
         {
+            builder.Register<IUIProvider, UIProvider>(Lifetime.Singleton);
+            builder.Register<ICharactersProvider, CharactersProvider>(Lifetime.Singleton);
+            builder.Register<ICameraProvider, CameraProvider>(Lifetime.Singleton);
+            
             builder
                 .Register<IStaticDataProvider, StaticDataProvider>(Lifetime.Singleton)
                 .WithParameter(_allStaticData);

@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using CodeBase.Gameplay.Services.MapService;
+using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Tiles;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.Services.PathFinder
+namespace CodeBase.Gameplay.PathFinder
 {
     public class PathFinder : IPathFinder
     {
@@ -33,7 +34,7 @@ namespace CodeBase.Gameplay.Services.PathFinder
                 {
                     Vector2Int neighborCoordinates = neighbor.Coordinates;
                     bool isNeighborWalkable = neighbor.IsWalkable;
-                    int distance = distances[calculatingTile]++;
+                    int distance = distances[calculatingTile] + 1;
 
                     if (isNeighborWalkable == false)
                     {

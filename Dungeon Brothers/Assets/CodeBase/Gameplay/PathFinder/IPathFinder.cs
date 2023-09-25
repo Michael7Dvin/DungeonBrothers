@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using CodeBase.Gameplay.Services.PathFinder;
+using UnityEngine;
 
-namespace CodeBase.Gameplay.Services.PathFinder
+namespace CodeBase.Gameplay.PathFinder
 {
     public interface IPathFinder
     {

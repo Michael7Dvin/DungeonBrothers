@@ -2,11 +2,13 @@
 using System.Linq;
 using System.Threading.Tasks;
 using CodeBase.Gameplay.Characters;
+using CodeBase.Gameplay.Services.InteractionsService;
 using CodeBase.Gameplay.Services.MapGenerator;
 using CodeBase.Gameplay.Services.MapService;
 using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Spawner.CharacterSpawner;
 using CodeBase.Infrastructure.Services.Factories.Buttons;
+using CodeBase.Infrastructure.Services.Factories.Camera;
 using CodeBase.Infrastructure.Services.Factories.Characters;
 using CodeBase.Infrastructure.Services.Factories.TurnQueue;
 using CodeBase.Infrastructure.Services.Factories.UI;
@@ -25,6 +27,8 @@ namespace CodeBase.Infrastructure.Services.Providers.LevelSpawner
         private readonly ITurnQueueViewFactory _turnQueueViewFactory;
         private readonly IButtonsFactory _buttonsFactory;
         private readonly ICharactersSpawner _charactersSpawner;
+        private readonly IInteractionService _interactionService;
+        private readonly ICameraFactory _cameraFactory;
         private readonly Dictionary<CharacterID, CharacterConfig> _charactersConfigs;
 
         public LevelSpawner(ICommonUIFactory commonUIFactory,
@@ -34,6 +38,8 @@ namespace CodeBase.Infrastructure.Services.Providers.LevelSpawner
             IButtonsFactory buttonsFactory,
             ICharactersSpawner charactersSpawner,
             IMapService mapService,
+            IInteractionService interactionService,
+            ICameraFactory cameraFactory,
             IStaticDataProvider staticDataProvider)
         {
             _commonUIFactory = commonUIFactory;
@@ -43,6 +49,8 @@ namespace CodeBase.Infrastructure.Services.Providers.LevelSpawner
             _buttonsFactory = buttonsFactory;
             _charactersSpawner = charactersSpawner;
             _mapService = mapService;
+            _interactionService = interactionService;
+            _cameraFactory = cameraFactory;
             _charactersConfigs = staticDataProvider.AllCharactersConfigs.CharacterConfigs;
         }
         
@@ -50,6 +58,7 @@ namespace CodeBase.Infrastructure.Services.Providers.LevelSpawner
         {
             await _commonUIFactory.WarmUp();
             await _buttonsFactory.WarmUp();
+            await _cameraFactory.WarmUp();
             await _characterFactory.WarmUp(_charactersConfigs.Values.ToList());
         }
 
@@ -59,9 +68,15 @@ namespace CodeBase.Infrastructure.Services.Providers.LevelSpawner
             
             await CreateUI();
             await CreateCharacters();
+            await CreateCamera();
+            
+            _interactionService.Enable();
         }
 
-        private async Task CreateUI()
+        private async UniTask CreateCamera() =>
+            await _cameraFactory.Create();
+        
+        private async UniTask CreateUI()
         {
             await _commonUIFactory.Create();
             await _turnQueueViewFactory.CreateTurnQueueView();
@@ -73,7 +88,6 @@ namespace CodeBase.Infrastructure.Services.Providers.LevelSpawner
             Dictionary<Vector2Int, CharacterConfig> charactersToSpawn = new()
             {
                 { new Vector2Int(0, 0), _charactersConfigs[CharacterID.Hero] },
-                { new Vector2Int(1, 0), _charactersConfigs[CharacterID.Enemy] },
                 { new Vector2Int(2,0), _charactersConfigs[CharacterID.Enemy] },
                 { new Vector2Int(3,0), _charactersConfigs[CharacterID.Enemy] },
                 { new Vector2Int(4,0), _charactersConfigs[CharacterID.Enemy] }

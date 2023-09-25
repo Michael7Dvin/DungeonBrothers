@@ -24,10 +24,8 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
 
         public void Enter()
         {
+            _moverService.Enable();
             _turnQueue.SetFirstTurn();
-            _moverService.CalculatePaths(_turnQueue.ActiveCharacter);
-            if (_mapService.TryGetTile(new Vector2Int(0,6), out Tile tile))
-                _moverService.Move(tile, _turnQueue.ActiveCharacter);
         }
             
 
