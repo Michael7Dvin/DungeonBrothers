@@ -17,7 +17,6 @@ namespace CodeBase.Gameplay.Services.Move
         private readonly IPathFinder _pathFinder;
         private readonly IMapService _mapService;
         private readonly ITurnQueue _turnQueue;
-        private readonly IInteractionService _interactionService;
 
         private PathFindingResults _pathFindingResults;
 
@@ -25,13 +24,11 @@ namespace CodeBase.Gameplay.Services.Move
 
         public MoverService(IPathFinder pathFinder, 
             IMapService mapService,
-            ITurnQueue turnQueue,
-            IInteractionService interactionService)
+            ITurnQueue turnQueue)
         {
             _pathFinder = pathFinder;
             _mapService = mapService;
             _turnQueue = turnQueue;
-            _interactionService = interactionService;
         }
         
         public int CurrentMovePoints { get; private set; }
@@ -39,13 +36,11 @@ namespace CodeBase.Gameplay.Services.Move
         public void Enable()
         {
             _turnQueue.ActiveCharacter.Changed += ResetMovePoints;
-            _interactionService.CurrentTile.Changed += Move;
         }
 
         public void Disable()
         {
             _turnQueue.ActiveCharacter.Changed -= ResetMovePoints;
-            _interactionService.CurrentTile.Changed -= Move;
         }
         
         public void Move(Tile tile)

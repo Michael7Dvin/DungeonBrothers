@@ -16,6 +16,7 @@ namespace CodeBase.Gameplay.Services.InteractionsService
         private readonly IInputService _inputService;
         private readonly IRaycastService _raycastService;
         private readonly ICameraProvider _cameraProvider;
+        private readonly IMoverService _moverService;
 
         private readonly Observable<Tile> _currentTile = new();
 
@@ -23,11 +24,13 @@ namespace CodeBase.Gameplay.Services.InteractionsService
 
         public InteractionService(IInputService inputService,
             IRaycastService raycastService,
-            ICameraProvider cameraProvider)
+            ICameraProvider cameraProvider,
+            IMoverService moverService)
         {
             _inputService = inputService;
             _raycastService = raycastService;
             _cameraProvider = cameraProvider;
+            _moverService = moverService;
         }
 
         private void GetTileOnTouch(Vector2 touchPosition)
@@ -35,7 +38,10 @@ namespace CodeBase.Gameplay.Services.InteractionsService
             Ray ray = _cameraProvider.Camera.ScreenPointToRay(new Vector3(touchPosition.x, touchPosition.y, 0));
 
             if (_raycastService.TryRaycast(ray.origin, ray.direction, out Tile tile))
+            {
+                _moverService.Move(tile);
                 _currentTile.Value = tile;
+            }
         }
         
         public void Enable()
