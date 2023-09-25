@@ -30,7 +30,7 @@ namespace CodeBase.Gameplay.Tiles
             _customLogger = customLogger;
         }
         
-        public void ResetTile()
+        public void Release()
         {
             Character = null;
             IsOccupied = false;

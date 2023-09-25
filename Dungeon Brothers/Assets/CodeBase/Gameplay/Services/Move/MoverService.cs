@@ -20,7 +20,6 @@ namespace CodeBase.Gameplay.Services.Move
         private readonly IInteractionService _interactionService;
 
         private PathFindingResults _pathFindingResults;
-        public int CurrentMovePoints { get; private set; }
 
         public event Action<Character> IsMoved; 
 
@@ -34,6 +33,8 @@ namespace CodeBase.Gameplay.Services.Move
             _turnQueue = turnQueue;
             _interactionService = interactionService;
         }
+        
+        public int CurrentMovePoints { get; private set; }
 
         public void Enable()
         {
@@ -57,15 +58,15 @@ namespace CodeBase.Gameplay.Services.Move
             if (_pathFindingResults.IsMovableAt(tile.Coordinates) == false)
                 return;
             
-            List<Vector2Int> _paths = _pathFindingResults.GetPathTo(tile.Coordinates);
-            int pathCost = _paths.Count;
+            List<Vector2Int> path = _pathFindingResults.GetPathTo(tile.Coordinates);
+            int pathCost = path.Count;
             CurrentMovePoints -= pathCost;
                 
             if (CurrentMovePoints < 0)
                 return;
             
-            if (_mapService.TryGetTile(character.Coordinate.Value, out Tile previousTile)) 
-                previousTile.ResetTile();
+            if (_mapService.TryGetTile(character.Coordinate, out Tile previousTile)) 
+                previousTile.Release();
             
             Vector3 position = tile.transform.position;
             
@@ -82,7 +83,7 @@ namespace CodeBase.Gameplay.Services.Move
         
         private void CalculatePaths(Character character)
         {
-            Vector2Int startPosition = character.Coordinate.Value;
+            Vector2Int startPosition = character.Coordinate;
             bool isMoveThroughObstacles = character.CharacterStats.IsMoveThroughObstacles;
 
             PathFindingResults pathFindingResults =

@@ -45,7 +45,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
         {
             DisableHighlightOutline();
 
-            Vector2Int position = character.Coordinate.Value;
+            Vector2Int position = character.Coordinate;
 
             if (_mapService.TryGetTile(position, out Tile tile))
             {

@@ -13,7 +13,7 @@ namespace CodeBase.Gameplay.Services.InteractionsService
 {
     public class InteractionService : IInteractionService
     {
-        private readonly IInputService _input;
+        private readonly IInputService _inputService;
         private readonly IRaycastService _raycastService;
         private readonly ICameraProvider _cameraProvider;
 
@@ -21,11 +21,11 @@ namespace CodeBase.Gameplay.Services.InteractionsService
 
         public IReadOnlyObservable<Tile> CurrentTile => _currentTile;
 
-        public InteractionService(IInputService input,
+        public InteractionService(IInputService inputService,
             IRaycastService raycastService,
             ICameraProvider cameraProvider)
         {
-            _input = input;
+            _inputService = inputService;
             _raycastService = raycastService;
             _cameraProvider = cameraProvider;
         }
@@ -40,12 +40,12 @@ namespace CodeBase.Gameplay.Services.InteractionsService
         
         public void Enable()
         {
-            _input.PositionTouched += GetTileOnTouch;
+            _inputService.PositionTouched += GetTileOnTouch;
         }
 
         public void Disable()
         {
-            _input.PositionTouched -= GetTileOnTouch;
+            _inputService.PositionTouched -= GetTileOnTouch;
         } 
     }
 }
