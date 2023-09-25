@@ -1,7 +1,7 @@
 using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.InteractionsService;
+using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.MapGenerator;
-using CodeBase.Gameplay.Services.MapService;
 using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Services.Raycast;
 using CodeBase.Gameplay.Services.TurnQueue;

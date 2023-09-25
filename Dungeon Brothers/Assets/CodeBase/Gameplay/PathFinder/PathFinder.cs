@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Gameplay.Services.MapService;
+using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Tiles;
 using UnityEngine;

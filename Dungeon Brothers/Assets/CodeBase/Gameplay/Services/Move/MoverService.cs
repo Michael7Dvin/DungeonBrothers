@@ -4,7 +4,7 @@ using System.Linq;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.InteractionsService;
-using CodeBase.Gameplay.Services.MapService;
+using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Tiles;
@@ -57,7 +57,7 @@ namespace CodeBase.Gameplay.Services.Move
             int pathCost = path.Count;
             CurrentMovePoints -= pathCost;
                 
-            if (CurrentMovePoints < 0)
+            if (CurrentMovePoints <= 0)
                 return;
             
             if (_mapService.TryGetTile(character.Coordinate, out Tile previousTile)) 

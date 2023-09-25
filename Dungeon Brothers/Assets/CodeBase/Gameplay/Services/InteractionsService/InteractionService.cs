@@ -1,6 +1,5 @@
 ﻿using CodeBase.Common.Observables;
 using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.Services.MapService;
 using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Services.Raycast;
 using CodeBase.Gameplay.Services.TurnQueue;
