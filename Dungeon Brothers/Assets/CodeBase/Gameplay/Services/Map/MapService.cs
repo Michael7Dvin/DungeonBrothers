@@ -2,7 +2,7 @@
 using CodeBase.Gameplay.Tiles;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.Services.MapService
+namespace CodeBase.Gameplay.Services.Map
 {
     public class MapService : IMapService
     {

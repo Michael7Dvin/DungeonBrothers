@@ -1,5 +1,5 @@
 ﻿using CodeBase.Common.FSM.States;
-using CodeBase.Gameplay.Services.MapService;
+using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Tiles;

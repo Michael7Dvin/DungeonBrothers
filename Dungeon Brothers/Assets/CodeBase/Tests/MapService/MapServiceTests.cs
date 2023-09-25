@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CodeBase.Gameplay.Services.MapService;
+using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Tiles;
 using FluentAssertions;
 using NUnit.Framework;

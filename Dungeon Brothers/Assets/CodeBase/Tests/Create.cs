@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Gameplay.Services.MapService;
 using CodeBase.Gameplay.Tiles;
 using UnityEngine;
 
 using CodeBase.Gameplay.Characters;
+using CodeBase.Gameplay.PathFinder;
+using CodeBase.Gameplay.Services.Map;
+using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Services.Random;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.Logger;
@@ -38,7 +40,7 @@ namespace CodeBase.Tests
 
         public static IMapService MapService()
         {
-            IMapService mapService = new Gameplay.Services.MapService.MapService();
+            IMapService mapService = new Gameplay.Services.Map.MapService();
             return mapService;
         }
         public static Character Character(int level,
@@ -75,6 +77,16 @@ namespace CodeBase.Tests
         {
             TileView tileView = new TileView(material);
             return tileView;
+        }
+
+        public static IPathFinder PathFinder(IMapService mapService)
+        {
+            return new PathFinder(mapService);
+        }
+        
+        public static IMoverService MoverService(IPathFinder pathFinder, IMapService mapService, ITurnQueue turnQueue)
+        {
+            return new MoverService(pathFinder, mapService, turnQueue);
         }
     }
 }

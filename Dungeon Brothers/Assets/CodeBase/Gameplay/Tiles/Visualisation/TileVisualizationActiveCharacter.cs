@@ -1,6 +1,6 @@
 ﻿using System;
 using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.Services.MapService;
+using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.Logger;

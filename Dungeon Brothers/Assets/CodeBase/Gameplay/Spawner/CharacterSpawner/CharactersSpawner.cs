@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.Services.MapService;
+using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Tiles;
 using CodeBase.Infrastructure.Services.Factories.Characters;
 using Cysharp.Threading.Tasks;
