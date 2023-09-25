@@ -17,6 +17,11 @@ namespace CodeBase.Gameplay.Characters
         [TitleGroup("Prefabs")]
         public AssetReferenceGameObject Prefab;
 
+        [TitleGroup("Movement")]
+        public int MovePoints;
+        [TitleGroup("Movement")]
+        public bool IsMoveThroughObstacles;
+        
         [FoldoutGroup("Stats")]
         public int Level;
         [FoldoutGroup("Stats")]

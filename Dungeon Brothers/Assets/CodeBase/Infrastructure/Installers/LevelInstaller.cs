@@ -1,9 +1,14 @@
+using CodeBase.Gameplay.PathFinder;
+using CodeBase.Gameplay.Services.InteractionsService;
 using CodeBase.Gameplay.Services.MapGenerator;
 using CodeBase.Gameplay.Services.MapService;
+using CodeBase.Gameplay.Services.Move;
+using CodeBase.Gameplay.Services.Raycast;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Spawner.CharacterSpawner;
 using CodeBase.Gameplay.Tiles.Visualisation;
 using CodeBase.Infrastructure.Services.Factories.Buttons;
+using CodeBase.Infrastructure.Services.Factories.Camera;
 using CodeBase.Infrastructure.Services.Factories.Characters;
 using CodeBase.Infrastructure.Services.Factories.TileFactory;
 using CodeBase.Infrastructure.Services.Factories.TurnQueue;
@@ -12,6 +17,7 @@ using CodeBase.Infrastructure.Services.Providers.LevelSpawner;
 using CodeBase.Infrastructure.StateMachines.Gameplay;
 using CodeBase.Infrastructure.StateMachines.Gameplay.FSM;
 using CodeBase.Infrastructure.StateMachines.Gameplay.States;
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -42,6 +48,7 @@ namespace CodeBase.Infrastructure.Installers
             builder.Register<ITurnQueueViewFactory, TurnQueueViewFactory>(Lifetime.Singleton);
             builder.Register<ICharacterFactory, CharacterFactory>(Lifetime.Singleton);
             builder.Register<IButtonsFactory, ButtonsFactory>(Lifetime.Singleton);
+            builder.Register<ICameraFactory, CameraFactory>(Lifetime.Singleton);
         }
 
         private void RegisterServices(IContainerBuilder builder)
@@ -52,5 +59,10 @@ namespace CodeBase.Infrastructure.Installers
             builder.Register<ILevelSpawner, LevelSpawner>(Lifetime.Singleton);
             builder.Register<ITileVisualizationActiveCharacter, TileVisualizationActiveCharacter>(Lifetime.Singleton);
             builder.Register<ICharactersSpawner, CharactersSpawner>(Lifetime.Singleton);
-        } }
+            builder.Register<IPathFinder, PathFinder>(Lifetime.Singleton);
+            builder.Register<IMoverService, MoverService>(Lifetime.Singleton);
+            builder.Register<IInteractionService, InteractionService>(Lifetime.Singleton);
+            builder.Register<IRaycastService, RaycastService>(Lifetime.Singleton);
+        } 
+    }
 }

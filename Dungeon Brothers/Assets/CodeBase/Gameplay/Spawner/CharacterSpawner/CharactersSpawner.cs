@@ -26,12 +26,11 @@ namespace CodeBase.Gameplay.Spawner.CharacterSpawner
             {
                 if (_mapService.TryGetTile(character.Key, out Tile tile))
                 {
-                    Debug.Log("1");
-                    
                     Character prefab = await _characterFactory.Create(character.Value);
                     Transform transform = tile.transform;
                     
                     prefab.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+                    prefab.UpdateCoordinate(tile.Coordinates);
                     
                     tile.Occupy(prefab);
                 }

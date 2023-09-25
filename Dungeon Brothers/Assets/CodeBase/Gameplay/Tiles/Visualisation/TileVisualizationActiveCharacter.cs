@@ -1,6 +1,7 @@
 ﻿using System;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.MapService;
+using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.Logger;
 using UnityEngine;
@@ -12,39 +13,39 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
         private readonly ITurnQueue _turnQueue;
         private readonly IMapService _mapService;
         private readonly ICustomLogger _customLogger;
+        private readonly IMoverService _moverService;
 
         private Tile _lastTile;
+        private Character _lastActiveCharacter;
 
         public TileVisualizationActiveCharacter(ITurnQueue turnQueue, 
             IMapService mapService,
-            ICustomLogger customLogger)
+            ICustomLogger customLogger,
+            IMoverService moverService)
         {
             _turnQueue = turnQueue;
             _mapService = mapService;
             _customLogger = customLogger;
+            _moverService = moverService;
         }
 
         public void Initialize()
         {
-            _turnQueue.NewTurnStarted += HighlightOutlineTile;
-            _turnQueue.FirstTurnStarted += HighlightOutlineTile;
+            _turnQueue.ActiveCharacter.Changed += HighlightOutlineTile;
+            _moverService.IsMoved += HighlightOutlineTile;
         }
 
         public void CleanUp()
         {
-            _turnQueue.NewTurnStarted -= HighlightOutlineTile;
-            _turnQueue.FirstTurnStarted -= HighlightOutlineTile;
+            _moverService.IsMoved -= HighlightOutlineTile;
+            _turnQueue.ActiveCharacter.Changed -= HighlightOutlineTile;
         }
 
-        private void HighlightOutlineTile()
+        private void HighlightOutlineTile(Character character)
         {
             DisableHighlightOutline();
-            
-            Character character = GetActiveCharacter();
-            Transform transform = character.transform;
 
-            Vector2Int position = 
-                new Vector2Int((int)transform.position.x, (int)transform.position.y);
+            Vector2Int position = character.Coordinate;
 
             if (_mapService.TryGetTile(position, out Tile tile))
             {
@@ -54,14 +55,16 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
                 {
                     case CharacterTeam.Enemy:
                     {
-                        tile.TileView.SwitchOutLine(true);
+                        ActiveHighlightOutline(tile);
+                        tile.TileView.ChangeHighlightColor(Color.red);
                         tile.TileView.ChangeOutLineColor(Color.red);
                         break;
                     }
                     case CharacterTeam.Ally:
                     {
-                        tile.TileView.SwitchOutLine(true);
+                        ActiveHighlightOutline(tile);
                         tile.TileView.ChangeOutLineColor(Color.green);
+                        tile.TileView.ChangeHighlightColor(Color.green);
                         break;
                     }
                     default:
@@ -71,14 +74,20 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
             }
         }
 
+        private void ActiveHighlightOutline(Tile tile)
+        {
+            tile.TileView.SwitchHighlight(true);
+            tile.TileView.SwitchOutLine(true);
+        }
+        
         private void DisableHighlightOutline()
         {
             if (_lastTile != null)
             {
+                _lastTile.TileView.SwitchHighlight(false);
                 _lastTile.TileView.SwitchOutLine(false);
                 _lastTile.TileView.ChangeOutLineColor(Color.white);
             }
         }
-        private Character GetActiveCharacter() => _turnQueue.ActiveCharacter;
     }
 }

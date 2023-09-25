@@ -10,6 +10,7 @@ namespace CodeBase.Infrastructure.Services.AddressablesLoader.Addresses
     {
         [field: SerializeField] public ScenesAddresses Scenes { get; private set; }
         [field: SerializeField] public AssetReferenceGameObject Tile { get; private set; }
+        [field: SerializeField] public AssetReferenceGameObject Camera { get; private set; }
         [field: SerializeField] public AllUIAddresses AllUIAddresses { get; private set; }
     }
 }
