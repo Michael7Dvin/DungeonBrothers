@@ -3,9 +3,11 @@ using CodeBase.Gameplay.Services.InteractionsService;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.MapGenerator;
 using CodeBase.Gameplay.Services.Move;
+using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Services.Raycast;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Spawner.CharacterSpawner;
+using CodeBase.Gameplay.Tiles;
 using CodeBase.Gameplay.Tiles.Visualisation;
 using CodeBase.Infrastructure.Services.Factories.Buttons;
 using CodeBase.Infrastructure.Services.Factories.Camera;
@@ -63,6 +65,9 @@ namespace CodeBase.Infrastructure.Installers
             builder.Register<IMoverService, MoverService>(Lifetime.Singleton);
             builder.Register<IInteractionService, InteractionService>(Lifetime.Singleton);
             builder.Register<IRaycastService, RaycastService>(Lifetime.Singleton);
+            builder.Register<IPathFinderVisualization, PathFinderVisualization>(Lifetime.Singleton);
+            builder.Register<ISelectedTileVisualisation, SelectedTileVisualisation>(Lifetime.Singleton);
+            builder.Register<ITileSelector, TileSelector>(Lifetime.Singleton);
         } 
     }
 }

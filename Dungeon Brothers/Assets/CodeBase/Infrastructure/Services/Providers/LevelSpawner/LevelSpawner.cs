@@ -70,7 +70,7 @@ namespace CodeBase.Infrastructure.Services.Providers.LevelSpawner
             await CreateCharacters();
             await CreateCamera();
             
-            _interactionService.Enable();
+            _interactionService.Initialize();
         }
 
         private async UniTask CreateCamera() =>

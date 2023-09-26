@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CodeBase.Common.Observables;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Tiles;
@@ -10,6 +11,9 @@ namespace CodeBase.Gameplay.PathFinder
     {
         private readonly IMapService _mapService;
 
+        private readonly Observable<PathFindingResults> _pathFindingResults = new();
+        public IReadOnlyObservable<PathFindingResults> PathFindingResults => _pathFindingResults;
+        
         public PathFinder(IMapService mapService)
         {
             _mapService = mapService;
@@ -63,7 +67,8 @@ namespace CodeBase.Gameplay.PathFinder
             }
 
             obstacles.Remove(start);
-            return new PathFindingResults(paths, obstacles);
+            _pathFindingResults.Value = new PathFindingResults(paths, obstacles);
+            return _pathFindingResults.Value;
         }
     }
 }

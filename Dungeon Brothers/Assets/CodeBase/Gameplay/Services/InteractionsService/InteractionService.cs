@@ -12,45 +12,29 @@ namespace CodeBase.Gameplay.Services.InteractionsService
 {
     public class InteractionService : IInteractionService
     {
-        private readonly IInputService _inputService;
-        private readonly IRaycastService _raycastService;
-        private readonly ICameraProvider _cameraProvider;
         private readonly IMoverService _moverService;
-
-        private readonly Observable<Tile> _currentTile = new();
-
-        public IReadOnlyObservable<Tile> CurrentTile => _currentTile;
-
-        public InteractionService(IInputService inputService,
-            IRaycastService raycastService,
-            ICameraProvider cameraProvider,
-            IMoverService moverService)
+        private readonly ITileSelector _tileSelector;
+        
+        public InteractionService(IMoverService moverService,
+            ITileSelector tileSelector)
         {
-            _inputService = inputService;
-            _raycastService = raycastService;
-            _cameraProvider = cameraProvider;
             _moverService = moverService;
+            _tileSelector = tileSelector;
         }
 
-        private void GetTileOnTouch(Vector2 touchPosition)
+        private void GetTileOnTouch(Tile tile)
         {
-            Ray ray = _cameraProvider.Camera.ScreenPointToRay(new Vector3(touchPosition.x, touchPosition.y, 0));
-
-            if (_raycastService.TryRaycast(ray.origin, ray.direction, out Tile tile))
-            {
-                _moverService.Move(tile);
-                _currentTile.Value = tile;
-            }
+            _moverService.Move(tile);
         }
         
-        public void Enable()
+        public void Initialize()
         {
-            _inputService.PositionTouched += GetTileOnTouch;
+            _tileSelector.CurrentTile.Changed += GetTileOnTouch;
         }
 
         public void Disable()
         {
-            _inputService.PositionTouched -= GetTileOnTouch;
+            _tileSelector.CurrentTile.Changed -= GetTileOnTouch;
         } 
     }
 }

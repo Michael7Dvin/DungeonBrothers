@@ -5,10 +5,8 @@ namespace CodeBase.Gameplay.Services.InteractionsService
 {
     public interface IInteractionService
     {
-        public void Enable();
+        public void Initialize();
 
         public void Disable();
-        
-        public IReadOnlyObservable<Tile> CurrentTile { get; }
     }
 }
