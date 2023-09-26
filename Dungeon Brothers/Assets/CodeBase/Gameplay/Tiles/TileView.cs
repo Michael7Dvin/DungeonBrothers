@@ -10,9 +10,6 @@ namespace CodeBase.Gameplay.Tiles
         private readonly int _highlightColorID = Shader.PropertyToID("_HighlightColor");
 
         private readonly Material _tileMaterial;
-        
-        public Color CurrentOutlineColor { get; private set; }
-        public bool IsOutlineActive { get; private set; }
 
         public TileView(Material material)
         {
@@ -27,19 +24,13 @@ namespace CodeBase.Gameplay.Tiles
             ChangeOutLineColor(Color.white);
         }
 
-        public void SwitchOutLine(bool isEnabled)
-        {
+        public void SwitchOutLine(bool isEnabled) => 
             SetBool(_enableOutlineID, isEnabled);
-            IsOutlineActive = isEnabled;
-        } 
-            
 
-        public void ChangeOutLineColor(Color color) 
-        {
+
+        public void ChangeOutLineColor(Color color) => 
             SetColor(_outlineColorID, color);
-            CurrentOutlineColor = color;
-        }
-        
+
         public void SwitchHighlight(bool isEnabled) => 
             SetBool(_enableHighLightID, isEnabled);
 

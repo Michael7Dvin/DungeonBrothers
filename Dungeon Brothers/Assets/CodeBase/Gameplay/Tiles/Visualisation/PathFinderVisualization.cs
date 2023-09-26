@@ -36,7 +36,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
             _pathFinder.PathFindingResults.Changed -= VisualizeWalkableTiles;
         }
 
-        public void VisualizeWalkableTiles(PathFindingResults pathFindingResults)
+        private void VisualizeWalkableTiles(PathFindingResults pathFindingResults)
         {
             ResetLastTilesView();
             _lastTiles = new List<Tile>();

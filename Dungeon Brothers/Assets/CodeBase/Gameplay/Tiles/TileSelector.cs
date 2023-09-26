@@ -43,9 +43,9 @@ namespace CodeBase.Gameplay.Tiles
             
             if (_raycastService.TryRaycast(ray.origin, ray.direction, out Tile tile))
             {
-                if (_currentTile.Value != null)
+                if (_currentTile.Value != null) 
                     _previousTile.Value = _currentTile.Value;
-                
+
                 _currentTile.Value = tile;
             }
         }

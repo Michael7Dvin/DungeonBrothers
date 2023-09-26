@@ -1,4 +1,5 @@
-﻿using CodeBase.Gameplay.Services.InteractionsService;
+﻿using System;
+using CodeBase.Gameplay.Characters;
 using UnityEngine;
 
 namespace CodeBase.Gameplay.Tiles.Visualisation
@@ -27,11 +28,16 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
         
         private void VisualizeSelectedTile(Tile tile)
         {
+            if (tile == _tileSelector.PreviousTile.Value)
+                return;
+            
             tile.TileView.SwitchOutLine(true);
             tile.TileView.ChangeOutLineColor(Color.yellow);
         }
 
-        private void ResetLastTile(Tile tile) => 
-            tile.TileView.ResetTileView();
+        private void ResetLastTile(Tile tile)
+        {
+            _tileSelector.PreviousTile.Value.TileView.ResetTileView();
+        }
     }
 }
