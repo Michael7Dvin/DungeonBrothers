@@ -15,18 +15,27 @@ namespace CodeBase.Gameplay.Tiles
         {
             _tileMaterial = material;
         }
-        
+
+        public void ResetTileView()
+        {
+            SwitchHighlight(false);
+            SwitchOutLine(false);
+            ChangeHighlightColor(Color.white);
+            ChangeOutLineColor(Color.white);
+        }
+
         public void SwitchOutLine(bool isEnabled) => 
             SetBool(_enableOutlineID, isEnabled);
 
-        public void ChangeOutLineColor(Color color) =>
+
+        public void ChangeOutLineColor(Color color) => 
             SetColor(_outlineColorID, color);
-        
+
         public void SwitchHighlight(bool isEnabled) => 
             SetBool(_enableHighLightID, isEnabled);
 
-        public void ChangeHighlightColor(Color color) => 
-            SetColor(_highlightColorID, color);
+        public void ChangeHighlightColor(Color color) => SetColor(_highlightColorID, color);
+
 
         private void SetColor(int propertyID, Color color) => 
             _tileMaterial.SetColor(propertyID, color);

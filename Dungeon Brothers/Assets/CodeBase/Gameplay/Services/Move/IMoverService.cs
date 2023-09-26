@@ -1,5 +1,6 @@
 ﻿using System;
 using CodeBase.Gameplay.Characters;
+using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Tiles;
 using UnityEngine;
 
@@ -11,7 +12,9 @@ namespace CodeBase.Gameplay.Services.Move
 
         public void Enable();
         public void Disable();
-        
+
+        public PathFindingResults PathFindingResults { get; }
+
         public event Action<Character> IsMoved; 
     }
 }

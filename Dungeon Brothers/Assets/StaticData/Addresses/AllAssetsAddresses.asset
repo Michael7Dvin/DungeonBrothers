@@ -18,4 +18,9 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  <Camera>k__BackingField:
+    m_AssetGUID: 4dc5c7501c81bb44392bf2624b925fa9
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   <AllUIAddresses>k__BackingField: {fileID: 11400000, guid: ab3223d87c0b0a14a864fadf8b10a88b, type: 2}

@@ -18,7 +18,7 @@ namespace CodeBase.Gameplay.Services.Move
         private readonly IMapService _mapService;
         private readonly ITurnQueue _turnQueue;
 
-        private PathFindingResults _pathFindingResults;
+        public PathFindingResults PathFindingResults { get; private set; }
 
         public event Action<Character> IsMoved; 
 
@@ -36,28 +36,32 @@ namespace CodeBase.Gameplay.Services.Move
         public void Enable()
         {
             _turnQueue.ActiveCharacter.Changed += ResetMovePoints;
+            _turnQueue.ActiveCharacter.Changed += CalculatePaths;
+            IsMoved += CalculatePaths;
         }
 
         public void Disable()
         {
             _turnQueue.ActiveCharacter.Changed -= ResetMovePoints;
+            _turnQueue.ActiveCharacter.Changed -= CalculatePaths;
+            IsMoved += CalculatePaths;
         }
         
         public void Move(Tile tile)
         {
             Character character = _turnQueue.ActiveCharacter.Value;
-            
-            if (CurrentMovePoints > 0)
-                CalculatePaths(character);
-            
-            if (_pathFindingResults.IsMovableAt(tile.Coordinates) == false)
+
+            if (tile.Coordinates == character.Coordinate)
                 return;
             
-            List<Vector2Int> path = _pathFindingResults.GetPathTo(tile.Coordinates);
+            if (PathFindingResults.IsMovableAt(tile.Coordinates) == false)
+                return;
+
+            List<Vector2Int> path = PathFindingResults.GetPathTo(tile.Coordinates);
             int pathCost = path.Count;
             CurrentMovePoints -= pathCost;
                 
-            if (CurrentMovePoints <= 0)
+            if (CurrentMovePoints < 0)
                 return;
             
             if (_mapService.TryGetTile(character.Coordinate, out Tile previousTile)) 
@@ -84,7 +88,7 @@ namespace CodeBase.Gameplay.Services.Move
             PathFindingResults pathFindingResults =
                 _pathFinder.CalculatePaths(startPosition, CurrentMovePoints, isMoveThroughObstacles);
 
-            _pathFindingResults = pathFindingResults;
+            PathFindingResults = pathFindingResults;
         }
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hero
   m_EditorClassIdentifier: 
   ID: 0
-  Team: 0
+  Team: 1
   Image:
     m_AssetGUID: a7f98156373a8094198f8a69993a2714
     m_SubObjectName: 
@@ -24,7 +24,7 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  MovePoints: 5
+  MovePoints: 2
   IsMoveThroughObstacles: 0
   Level: 1
   Initiative: 10

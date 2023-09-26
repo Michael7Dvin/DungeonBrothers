@@ -14,6 +14,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
         private readonly IMapService _mapService;
         private readonly ICustomLogger _customLogger;
         private readonly IMoverService _moverService;
+        private readonly ITileSelector _tileSelector;
 
         private Tile _lastTile;
         private Character _lastActiveCharacter;
@@ -21,25 +22,33 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
         public TileVisualizationActiveCharacter(ITurnQueue turnQueue, 
             IMapService mapService,
             ICustomLogger customLogger,
-            IMoverService moverService)
+            IMoverService moverService,
+            ITileSelector tileSelector)
         {
             _turnQueue = turnQueue;
             _mapService = mapService;
             _customLogger = customLogger;
             _moverService = moverService;
+            _tileSelector = tileSelector;
         }
 
         public void Initialize()
         {
             _turnQueue.ActiveCharacter.Changed += HighlightOutlineTile;
             _moverService.IsMoved += HighlightOutlineTile;
+            _tileSelector.PreviousTile.Changed += HighlightOutlineTile;
         }
 
         public void CleanUp()
         {
             _moverService.IsMoved -= HighlightOutlineTile;
             _turnQueue.ActiveCharacter.Changed -= HighlightOutlineTile;
+            _tileSelector.PreviousTile.Changed -= HighlightOutlineTile;
         }
+
+
+        private void HighlightOutlineTile(Tile tile) => 
+            HighlightOutlineTile(_turnQueue.ActiveCharacter.Value);
 
         private void HighlightOutlineTile(Character character)
         {
