@@ -62,7 +62,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
             {
                 foreach (Tile tile in _lastTiles)
                 {
-                    if (_turnQueue.ActiveCharacter.Value.Coordinate == tile.Coordinates)
+                    if (_turnQueue.ActiveCharacter.Value.Coordinate == tile.TileLogic.Coordinates)
                         continue;
 
                     tile.TileView.ResetTileView();

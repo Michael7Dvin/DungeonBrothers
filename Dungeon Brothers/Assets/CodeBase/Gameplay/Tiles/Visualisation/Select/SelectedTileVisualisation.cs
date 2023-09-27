@@ -77,7 +77,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
 
         private void ResetTileWithCharacter(Tile previousTile)
         {
-            switch (previousTile.Character.CharacterTeam)
+            switch (previousTile.TileLogic.Character.CharacterTeam)
             {
                 case CharacterTeam.Enemy:
                     previousTile.TileView.ChangeOutLineColor(_tileColorConfig.EnemyTile);
@@ -86,15 +86,16 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
                     previousTile.TileView.ChangeOutLineColor(_tileColorConfig.AllyTile);
                     break;
                 default:
-                    _customLogger.LogError(new Exception($"{previousTile.Character.CharacterTeam}, not found"));
+                    _customLogger.LogError(
+                        new Exception($"{previousTile.TileLogic.Character.CharacterTeam}, not found"));
                     break;
             }
         }
 
         private bool TryResetMovableTile(Tile previousTile) =>
-            _pathFinder.PathFindingResults.Value.IsMovableAt(previousTile.Coordinates);
+            _pathFinder.PathFindingResults.Value.IsMovableAt(previousTile.TileLogic.Coordinates);
         
         private bool TryResetTileView(Tile previousTile) =>
-            previousTile.Character == null || previousTile.Character != _turnQueue.ActiveCharacter.Value;
+            previousTile.TileLogic.Character == null || previousTile.TileLogic.Character != _turnQueue.ActiveCharacter.Value;
     }
 }

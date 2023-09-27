@@ -88,5 +88,10 @@ namespace CodeBase.Tests
         {
             return new MoverService(pathFinder, mapService, turnQueue);
         }
+
+        public static TileLogic TileLogic(Vector2Int coordinate)
+        {
+            return new TileLogic(false, true, coordinate);
+        }
     }
 }

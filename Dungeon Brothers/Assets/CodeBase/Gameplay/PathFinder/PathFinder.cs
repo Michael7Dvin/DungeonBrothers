@@ -36,8 +36,8 @@ namespace CodeBase.Gameplay.PathFinder
 
                 foreach (Tile neighbor in _mapService.GetNeighbors(calculatingTile))
                 {
-                    Vector2Int neighborCoordinates = neighbor.Coordinates;
-                    bool isNeighborWalkable = neighbor.IsWalkable;
+                    Vector2Int neighborCoordinates = neighbor.TileLogic.Coordinates;
+                    bool isNeighborWalkable = neighbor.TileLogic.IsWalkable;
                     int distance = distances[calculatingTile] + 1;
 
                     if (isNeighborWalkable == false)

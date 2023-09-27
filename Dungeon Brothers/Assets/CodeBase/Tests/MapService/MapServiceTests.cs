@@ -37,7 +37,7 @@ namespace CodeBase.Tests.MapService
             // Act.
             foreach (Tile tile in tiles)
             {
-                List<Tile> neighbors = mapService.GetNeighbors(tile.Coordinates);
+                List<Tile> neighbors = mapService.GetNeighbors(tile.TileLogic.Coordinates);
                 tilesNeighborsCounts.Add(tile, neighbors.Count);
             }
 

@@ -32,12 +32,25 @@ namespace CodeBase.Infrastructure.Services.Factories.TileFactory
             Tile prefab = await _addressablesLoader.LoadComponent<Tile>(_tileReference);
             Tile tile = _objectResolver.Instantiate(prefab, position, Quaternion.identity, parent);
 
+            TileView tileView = CreateTileView(tile);
+            TileLogic tileLogic = CreateTileLogic(coordinates);
+            tile.Construct(tileLogic, tileView);
+            
+            return tile;
+        }
+
+        private TileLogic CreateTileLogic(Vector2Int coordinate)
+        {
+            TileLogic tileLogic = new TileLogic(false, true, coordinate);
+            _objectResolver.Inject(tileLogic);
+            return tileLogic;
+        }
+
+        private TileView CreateTileView(Tile tile)
+        {
             SpriteRenderer spriteRenderer = tile.GetComponent<SpriteRenderer>();
             Material material = spriteRenderer.material;
-            TileView tileView = new TileView(material);
-            tile.Construct(coordinates, tileView);
-            _objectResolver.Inject(tile);
-            return tile;
+            return new TileView(material);
         }
     }
 }
