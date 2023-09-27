@@ -4,6 +4,7 @@ using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.Logger;
+using CodeBase.Infrastructure.Services.StaticDataProvider;
 using UnityEngine;
 
 namespace CodeBase.Gameplay.Tiles.Visualisation
@@ -14,7 +15,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
         private readonly IMapService _mapService;
         private readonly ICustomLogger _customLogger;
         private readonly IMoverService _moverService;
-        private readonly ITileSelector _tileSelector;
+        private readonly TileColorConfig _tileColorConfig;
 
         private Tile _lastTile;
         private Character _lastActiveCharacter;
@@ -23,33 +24,27 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
             IMapService mapService,
             ICustomLogger customLogger,
             IMoverService moverService,
-            ITileSelector tileSelector)
+            IStaticDataProvider staticDataProvider)
         {
             _turnQueue = turnQueue;
             _mapService = mapService;
             _customLogger = customLogger;
             _moverService = moverService;
-            _tileSelector = tileSelector;
+            _tileColorConfig = staticDataProvider.TileColorConfig;
         }
 
         public void Initialize()
         {
             _turnQueue.ActiveCharacter.Changed += HighlightOutlineTile;
             _moverService.IsMoved += HighlightOutlineTile;
-            _tileSelector.PreviousTile.Changed += HighlightOutlineTile;
         }
 
         public void CleanUp()
         {
             _moverService.IsMoved -= HighlightOutlineTile;
             _turnQueue.ActiveCharacter.Changed -= HighlightOutlineTile;
-            _tileSelector.PreviousTile.Changed -= HighlightOutlineTile;
         }
-
-
-        private void HighlightOutlineTile(Tile tile) => 
-            HighlightOutlineTile(_turnQueue.ActiveCharacter.Value);
-
+        
         private void HighlightOutlineTile(Character character)
         {
             DisableHighlightOutline();
@@ -65,15 +60,15 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
                     case CharacterTeam.Enemy:
                     {
                         ActiveHighlightOutline(tile);
-                        tile.TileView.ChangeHighlightColor(Color.red);
-                        tile.TileView.ChangeOutLineColor(Color.red);
+                        tile.TileView.ChangeHighlightColor(_tileColorConfig.EnemyTile);
+                        tile.TileView.ChangeOutLineColor(_tileColorConfig.EnemyTile);
                         break;
                     }
                     case CharacterTeam.Ally:
                     {
                         ActiveHighlightOutline(tile);
-                        tile.TileView.ChangeOutLineColor(Color.green);
-                        tile.TileView.ChangeHighlightColor(Color.green);
+                        tile.TileView.ChangeOutLineColor(_tileColorConfig.AllyTile);
+                        tile.TileView.ChangeHighlightColor(_tileColorConfig.AllyTile);
                         break;
                     }
                     default:

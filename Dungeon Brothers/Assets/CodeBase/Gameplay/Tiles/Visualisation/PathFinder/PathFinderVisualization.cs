@@ -4,6 +4,7 @@ using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Services.TurnQueue;
+using CodeBase.Infrastructure.Services.StaticDataProvider;
 using UnityEngine;
 
 namespace CodeBase.Gameplay.Tiles.Visualisation
@@ -14,16 +15,19 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
         private readonly IMapService _mapService;
         private readonly IMoverService _moverService;
         private readonly ITurnQueue _turnQueue;
+        private readonly TileColorConfig _tileColorConfig;
 
-        private List<Tile> _lastTiles = new();
+        private readonly List<Tile> _lastTiles = new();
 
         public PathFinderVisualization(IPathFinder pathFinder,
             IMapService mapService,
-            ITurnQueue turnQueue)
+            ITurnQueue turnQueue,
+            IStaticDataProvider staticDataProvider)
         {
             _pathFinder = pathFinder;
             _mapService = mapService;;
             _turnQueue = turnQueue;
+            _tileColorConfig = staticDataProvider.TileColorConfig;
         }
 
         public void Initialize()
@@ -39,8 +43,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
         private void VisualizeWalkableTiles(PathFindingResults pathFindingResults)
         {
             ResetLastTilesView();
-            _lastTiles = new List<Tile>();
-            
+
             foreach (var coordinate in pathFindingResults.WalkableCoordinates)
             {
                 if (_mapService.TryGetTile(coordinate, out Tile tile))
@@ -48,7 +51,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
                     _lastTiles.Add(tile);
                     
                     tile.TileView.SwitchHighlight(true);
-                    tile.TileView.ChangeHighlightColor(Color.blue);
+                    tile.TileView.ChangeHighlightColor(_tileColorConfig.WalkableColorTile);
                 }
             }
         }

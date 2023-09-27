@@ -24,7 +24,8 @@ namespace CodeBase.Gameplay.Services.InteractionsService
 
         private void GetTileOnTouch(Tile tile)
         {
-            _moverService.Move(tile);
+            if (_tileSelector.CurrentTile.Value == _tileSelector.PreviousTile.Value)
+                _moverService.Move(tile);
         }
         
         public void Initialize()

@@ -3,6 +3,7 @@ using CodeBase.Gameplay.Services.InteractionsService;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Tiles;
 using CodeBase.Gameplay.Tiles.Visualisation;
+using CodeBase.Gameplay.Tiles.Visualisation.Path;
 using CodeBase.Infrastructure.Services.InputService;
 using CodeBase.Infrastructure.Services.Providers.LevelSpawner;
 using CodeBase.Infrastructure.StateMachines.Gameplay.FSM;
@@ -19,6 +20,7 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
         private readonly IPathFinderVisualization _pathFinderVisualization;
         private readonly ISelectedTileVisualisation _selectedTileVisualisation;
         private readonly ITileSelector _tileSelector;
+        private readonly IVisualizationPathToTile _visualizationPathToTile;
         
         public LevelLoadingState(ILevelSpawner levelSpawner, 
             ITurnQueue turnQueue, 
@@ -28,7 +30,8 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
             ITileVisualizationActiveCharacter tileVisualizationActiveCharacter,
             IPathFinderVisualization pathFinderVisualization,
             ISelectedTileVisualisation selectedTileVisualisation,
-            ITileSelector tileSelector)
+            ITileSelector tileSelector,
+            IVisualizationPathToTile visualizationPathToTile)
         {
             _levelSpawner = levelSpawner;
             _turnQueue = turnQueue;
@@ -38,6 +41,7 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
             _pathFinderVisualization = pathFinderVisualization;
             _selectedTileVisualisation = selectedTileVisualisation;
             _tileSelector = tileSelector;
+            _visualizationPathToTile = visualizationPathToTile;
         }
 
         public async void Enter()
@@ -46,6 +50,7 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
             _inputService.EnableInput();
             _turnQueue.Initialize();
             _tileSelector.Initialize();
+            _visualizationPathToTile.Initialize();
             _selectedTileVisualisation.Initialize();
             _visualizationActiveCharacter.Initialize();
             _pathFinderVisualization.Initialize();
