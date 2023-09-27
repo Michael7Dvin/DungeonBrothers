@@ -8,44 +8,20 @@ namespace CodeBase.Gameplay.Tiles
 {
     public class Tile : MonoBehaviour
     {
-        private ICustomLogger _customLogger;
-        public bool IsOccupied { get; private set; }
-        public bool IsWalkable { get; private set; }
+        public TileLogic TileLogic { get; private set; }
         public TileView TileView { get; private set; }
-        public Vector2Int Coordinates { get; private set; }
-        public ICharacter Character { get; private set; }
-        
-        public void Construct(Vector2Int coordinates,
+
+        public void Construct(TileLogic tileLogic,
             TileView tileView)
         {
-            Coordinates = coordinates;
-
             TileView = tileView;
-            IsWalkable = true;
+            TileLogic = tileLogic;
         }
 
-        [Inject]
-        public void Inject(ICustomLogger customLogger)
-        {
-            _customLogger = customLogger;
-        }
-        
         public void Release()
         {
-            Character = null;
-            IsOccupied = false;
-            IsWalkable = true;
-        }
-        
-        public void Occupy(ICharacter character)
-        {
-            if (IsOccupied)
-                _customLogger.LogError(new Exception("Tile is occupied"));
-
-            IsOccupied = true;
-            IsWalkable = false;
-
-            Character = character;
+            TileLogic.Release();
+            TileView.ResetTileView();
         }
     }
 }

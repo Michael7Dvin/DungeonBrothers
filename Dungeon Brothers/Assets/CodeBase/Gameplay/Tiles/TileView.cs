@@ -34,7 +34,8 @@ namespace CodeBase.Gameplay.Tiles
         public void SwitchHighlight(bool isEnabled) => 
             SetBool(_enableHighLightID, isEnabled);
 
-        public void ChangeHighlightColor(Color color) => SetColor(_highlightColorID, color);
+        public void ChangeHighlightColor(Color color) => 
+            SetColor(_highlightColorID, color);
 
 
         private void SetColor(int propertyID, Color color) => 

@@ -17,8 +17,9 @@ namespace CodeBase.Tests
             Tile tile = Create.Tile();
 
             TileView tileView = Create.TileView(tile.GetComponent<Material>());
+            TileLogic tileLogic = Create.TileLogic(coordinates);
 
-            tile.Construct(coordinates,tileView);
+            tile.Construct(tileLogic, tileView);
             return tile;
         }
 
@@ -48,11 +49,11 @@ namespace CodeBase.Tests
         public static void ObstaclesAroundZeroPosition(IMapService mapService, Character character)
         {
             if (mapService.TryGetTile(new Vector2Int(0, 1), out Tile obstacleTileOnRight))
-                obstacleTileOnRight.Occupy(character);
+                obstacleTileOnRight.TileLogic.Occupy(character);
             if (mapService.TryGetTile(new Vector2Int(1, 0), out Tile obstacleTileOnTop))
-                obstacleTileOnTop.Occupy(character);
+                obstacleTileOnTop.TileLogic.Occupy(character);
             if (mapService.TryGetTile(new Vector2Int(1, 1), out Tile obstacleTileOnTopRight))
-                obstacleTileOnTopRight.Occupy(character);
+                obstacleTileOnTopRight.TileLogic.Occupy(character);
         }
     }
 }

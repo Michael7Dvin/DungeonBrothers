@@ -33,7 +33,7 @@ namespace CodeBase.Tests.Moving
                 moverService.Move(tile);
 
             // Assert.
-            character.Coordinate.Should().Be(tile.Coordinates);
+            character.Coordinate.Should().Be(tile.TileLogic.Coordinates);
         }
         
         [Test]
@@ -59,7 +59,7 @@ namespace CodeBase.Tests.Moving
                 moverService.Move(tile);
 
             // Assert.
-            character.Coordinate.Should().Be(tile.Coordinates);
+            character.Coordinate.Should().Be(tile.TileLogic.Coordinates);
         }
 
         [Test]
@@ -76,7 +76,7 @@ namespace CodeBase.Tests.Moving
             moverService.Enable();
             
             if (mapService.TryGetTile(new Vector2Int(0,1), out Tile obstacleTileOnRight))
-                obstacleTileOnRight.Occupy(character);
+                obstacleTileOnRight.TileLogic.Occupy(character);
             // Act.
             Vector2Int initialPosition = character.Coordinate;
             

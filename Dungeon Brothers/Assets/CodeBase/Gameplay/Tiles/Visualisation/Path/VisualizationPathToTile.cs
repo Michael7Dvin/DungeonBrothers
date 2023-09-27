@@ -51,10 +51,11 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Path
             
             PathFindingResults pathFindingResults = _pathFinder.PathFindingResults.Value;
             
-            if (pathFindingResults.WalkableCoordinates.Contains(currentTile.Coordinates) == false)
+            if (pathFindingResults.WalkableCoordinates.Contains(currentTile.TileLogic.Coordinates) == false)
                 return;
             
-            List<Vector2Int> _tilesCoordinates = _pathFinder.PathFindingResults.Value.GetPathTo(currentTile.Coordinates);
+            List<Vector2Int> _tilesCoordinates =
+                _pathFinder.PathFindingResults.Value.GetPathTo(currentTile.TileLogic.Coordinates);
 
             foreach (Vector2Int coordinate in _tilesCoordinates)
             {

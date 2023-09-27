@@ -29,7 +29,7 @@ namespace CodeBase.Gameplay.Services.Map
 
             foreach (Tile tile in map)
             {
-                _tiles[tile.Coordinates] = tile;
+                _tiles[tile.TileLogic.Coordinates] = tile;
             }
                 
         }

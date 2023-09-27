@@ -51,13 +51,13 @@ namespace CodeBase.Gameplay.Services.Move
         {
             Character character = _turnQueue.ActiveCharacter.Value;
 
-            if (tile.Coordinates == character.Coordinate)
+            if (tile.TileLogic.Coordinates == character.Coordinate)
                 return;
             
-            if (PathFindingResults.IsMovableAt(tile.Coordinates) == false)
+            if (PathFindingResults.IsMovableAt(tile.TileLogic.Coordinates) == false)
                 return;
 
-            List<Vector2Int> path = PathFindingResults.GetPathTo(tile.Coordinates);
+            List<Vector2Int> path = PathFindingResults.GetPathTo(tile.TileLogic.Coordinates);
             int pathCost = path.Count;
             CurrentMovePoints -= pathCost;
                 
@@ -69,8 +69,8 @@ namespace CodeBase.Gameplay.Services.Move
             
             Vector3 position = tile.transform.position;
             
-            character.UpdateCoordinate(tile.Coordinates);
-            tile.Occupy(character);
+            character.UpdateCoordinate(tile.TileLogic.Coordinates);
+            tile.TileLogic.Occupy(character);
             
             character.transform.position = position;
             
