@@ -56,7 +56,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Path
             
             List<Vector2Int> _tilesCoordinates = _pathFinder.PathFindingResults.Value.GetPathTo(currentTile.Coordinates);
 
-            foreach (var coordinate in _tilesCoordinates)
+            foreach (Vector2Int coordinate in _tilesCoordinates)
             {
                 if (_mapService.TryGetTile(coordinate, out Tile tile))
                 {
@@ -68,7 +68,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Path
 
         private void ResetLastTiles()
         {
-            foreach (var tile in _lastTiles) 
+            foreach (Tile tile in _lastTiles) 
                 tile.TileView.ChangeHighlightColor(_tileColorConfig.WalkableColorTile);
             
             _lastTiles.Clear();

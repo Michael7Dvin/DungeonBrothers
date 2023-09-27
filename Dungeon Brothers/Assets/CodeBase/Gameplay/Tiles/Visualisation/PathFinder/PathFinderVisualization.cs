@@ -44,7 +44,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
         {
             ResetLastTilesView();
 
-            foreach (var coordinate in pathFindingResults.WalkableCoordinates)
+            foreach (Vector2Int coordinate in pathFindingResults.WalkableCoordinates)
             {
                 if (_mapService.TryGetTile(coordinate, out Tile tile))
                 {
@@ -60,7 +60,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
         {
             if (_lastTiles.Count > 0)
             {
-                foreach (var tile in _lastTiles)
+                foreach (Tile tile in _lastTiles)
                 {
                     if (_turnQueue.ActiveCharacter.Value.Coordinate == tile.Coordinates)
                         continue;

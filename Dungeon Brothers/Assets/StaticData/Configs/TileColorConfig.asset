@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb10b989815e46faab43f6cdf18611f4, type: 3}
   m_Name: TileColorConfig
   m_EditorClassIdentifier: 
-  <PathToTileColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-  <WalkableColorTile>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-  <EnemyTile>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-  <AllyTile>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-  <SelectedTileColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  <PathToTileColor>k__BackingField: {r: 0.4906105, g: 0.990566, b: 0.97631854, a: 0}
+  <WalkableColorTile>k__BackingField: {r: 0.34109113, g: 0.46624857, b: 0.990566, a: 0}
+  <EnemyTile>k__BackingField: {r: 1, g: 0, b: 0, a: 0}
+  <AllyTile>k__BackingField: {r: 0.3160377, g: 1, b: 0.3160377, a: 0}
+  <SelectedTileColor>k__BackingField: {r: 0.97819215, g: 1, b: 0.042452812, a: 0}
