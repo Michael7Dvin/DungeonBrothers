@@ -9,6 +9,7 @@ using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Spawner.CharacterSpawner;
 using CodeBase.Gameplay.Tiles;
 using CodeBase.Gameplay.Tiles.Visualisation;
+using CodeBase.Gameplay.Tiles.Visualisation.Path;
 using CodeBase.Infrastructure.Services.Factories.Buttons;
 using CodeBase.Infrastructure.Services.Factories.Camera;
 using CodeBase.Infrastructure.Services.Factories.Characters;
@@ -68,6 +69,7 @@ namespace CodeBase.Infrastructure.Installers
             builder.Register<IPathFinderVisualization, PathFinderVisualization>(Lifetime.Singleton);
             builder.Register<ISelectedTileVisualisation, SelectedTileVisualisation>(Lifetime.Singleton);
             builder.Register<ITileSelector, TileSelector>(Lifetime.Singleton);
+            builder.Register<IVisualizationPathToTile, VisualizationPathToTile>(Lifetime.Singleton);
         } 
     }
 }
