@@ -15,7 +15,7 @@ namespace CodeBase.Tests
         public static Tile Tile(Vector2Int coordinates)
         {
             Tile tile = Create.Tile();
-
+            
             TileView tileView = Create.TileView(tile.GetComponent<Material>());
             TileLogic tileLogic = Create.TileLogic(coordinates);
 
@@ -40,7 +40,7 @@ namespace CodeBase.Tests
         public static IMoverService MoverService(IMapService mapService, ITurnQueue turnQueue)
         {
             IPathFinder pathFinder = Create.PathFinder(mapService);
-
+            
             IMoverService moverService = Create.MoverService(pathFinder, mapService, turnQueue);
 
             return moverService;

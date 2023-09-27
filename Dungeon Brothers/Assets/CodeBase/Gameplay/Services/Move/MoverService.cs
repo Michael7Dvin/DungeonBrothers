@@ -8,6 +8,7 @@ using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Tiles;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace CodeBase.Gameplay.Services.Move
@@ -71,9 +72,9 @@ namespace CodeBase.Gameplay.Services.Move
             
             character.UpdateCoordinate(tile.TileLogic.Coordinates);
             tile.TileLogic.Occupy(character);
-            
-            character.transform.position = position;
-            
+
+            character.CharacterAnimation.PlayMoveAnimation(position);
+
             IsMoved?.Invoke(character);
         }
 

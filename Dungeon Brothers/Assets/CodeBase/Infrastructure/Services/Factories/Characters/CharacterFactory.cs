@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using CodeBase.Gameplay.Animations.Move;
 using CodeBase.Gameplay.Characters;
+using CodeBase.Gameplay.Characters.View;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
 using CodeBase.Infrastructure.Services.Factories.TurnQueue;
@@ -48,7 +50,9 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
 
             Character character = gameObject.GetComponent<Character>();
             
-            character.Construct(config.ID, config.Team ,characterStats, characterLogic);
+            CharacterAnimation characterAnimation = CreateCharacterAnimation(gameObject);
+            
+            character.Construct(config.ID, config.Team ,characterStats, characterLogic, characterAnimation);
 
             CharacterInTurnQueueIcon icon = await _turnQueueViewFactory.CreateIcon(config.Image, config.ID);
             icon.gameObject.SetActive(false);
@@ -56,6 +60,15 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
             _charactersProvider.Add(character, icon);
 
             return character;
+        }
+
+        private CharacterAnimation CreateCharacterAnimation(GameObject prefab)
+        {
+            MoveAnimation moveAnimation = prefab.GetComponent<MoveAnimation>();
+            
+            CharacterAnimation characterAnimation = new CharacterAnimation(moveAnimation);
+            _objectResolver.Inject(characterAnimation);
+            return characterAnimation;
         }
 
         private CharacterStats CreateCharacterStats(CharacterConfig config)
