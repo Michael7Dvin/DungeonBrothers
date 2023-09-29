@@ -5,7 +5,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "BoundfoxStudios.FluentAssertions",
-        "DungeonBrothers"
+        "DungeonBrothers",
+        "UniTask"
     ],
     "includePlatforms": [
         "Editor"

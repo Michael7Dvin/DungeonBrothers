@@ -2,6 +2,7 @@
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Tiles;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace CodeBase.Gameplay.Services.Move

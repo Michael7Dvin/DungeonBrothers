@@ -1,15 +1,20 @@
 ﻿using System.Collections.Generic;
+using CodeBase.Gameplay.Animations.Move;
 using CodeBase.Gameplay.Tiles;
 using UnityEngine;
 
 using CodeBase.Gameplay.Characters;
+using CodeBase.Gameplay.Characters.View;
 using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
+using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Services.Random;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
+using NSubstitute;
+using NSubstitute.ReceivedExtensions;
 
 namespace CodeBase.Tests
 {
@@ -17,7 +22,9 @@ namespace CodeBase.Tests
     {
         public static Tile Tile()
         {
-            Tile tile = new GameObject().AddComponent<Tile>();
+            GameObject prefab = new GameObject();
+            prefab.AddComponent<SpriteRenderer>();
+            Tile tile = prefab.AddComponent<Tile>();
             
             return tile;
         }
@@ -52,12 +59,19 @@ namespace CodeBase.Tests
             bool isMoveThroughObstacles)
         {
             Character character = new GameObject().AddComponent<Character>();
+
+           MoveAnimation moveAnimation = MoveAnimation();
             
             character.Construct(new CharacterID(),new CharacterTeam(),
                 new CharacterStats(level, intelligence, strength, dexterity, initiative, movablePoints, isMoveThroughObstacles),
-                new CharacterLogic());
+                new CharacterLogic(), new CharacterAnimation(moveAnimation));
             
             return character;
+        }
+
+        public static MoveAnimation MoveAnimation()
+        {
+            return new GameObject().AddComponent<MoveAnimation>();
         }
 
         public static CharactersProvider CharactersProvider()
@@ -81,12 +95,16 @@ namespace CodeBase.Tests
 
         public static IPathFinder PathFinder(IMapService mapService)
         {
-            return new PathFinder(mapService);
+            IPathFinder pathFinder = new PathFinder(mapService);
+            
+            return pathFinder;
         }
-        
+
         public static IMoverService MoverService(IPathFinder pathFinder, IMapService mapService, ITurnQueue turnQueue)
         {
-            return new MoverService(pathFinder, mapService, turnQueue);
+            MoverService moverService = new MoverService(pathFinder, mapService, turnQueue);
+            
+            return moverService;
         }
 
         public static TileLogic TileLogic(Vector2Int coordinate)

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace CodeBase.Gameplay.Services.PathFinder
 {
-    public readonly struct PathFindingResults
+    public struct PathFindingResults
     {
         public readonly IReadOnlyDictionary<Vector2Int, Tile> Obstacles;
         

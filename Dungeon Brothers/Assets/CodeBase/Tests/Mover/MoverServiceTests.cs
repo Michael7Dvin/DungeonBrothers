@@ -28,11 +28,11 @@ namespace CodeBase.Tests.Moving
             charactersProvider.Add(character, null);
             
             turnQueue.SetFirstTurn();
-            
-            if (mapService.TryGetTile(new Vector2Int(3, 1), out Tile tile)) 
+
+            if (mapService.TryGetTile(new Vector2Int(3, 1), out Tile tile))
                 moverService.Move(tile);
 
-            // Assert.
+                // Assert.
             character.Coordinate.Should().Be(tile.TileLogic.Coordinates);
         }
         
