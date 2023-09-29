@@ -62,9 +62,9 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
             return character;
         }
 
-        private CharacterAnimation CreateCharacterAnimation(GameObject prefab)
+        private CharacterAnimation CreateCharacterAnimation(GameObject gameObject)
         {
-            MoveAnimation moveAnimation = prefab.GetComponent<MoveAnimation>();
+            MoveAnimation moveAnimation = gameObject.GetComponent<MoveAnimation>();
             
             CharacterAnimation characterAnimation = new CharacterAnimation(moveAnimation);
             _objectResolver.Inject(characterAnimation);
