@@ -1,11 +1,11 @@
-using CodeBase.Common.Observables;
+using UniRx;
 
 namespace CodeBase.Gameplay.Tiles
 {
     public interface ITileSelector
     {
-        public IReadOnlyObservable<Tile> CurrentTile { get; }
-        public IReadOnlyObservable<Tile> PreviousTile { get; }
+        public IReadOnlyReactiveProperty<Tile> CurrentTile { get; }
+        public IReadOnlyReactiveProperty<Tile> PreviousTile { get; }
 
         public void Initialize();
 

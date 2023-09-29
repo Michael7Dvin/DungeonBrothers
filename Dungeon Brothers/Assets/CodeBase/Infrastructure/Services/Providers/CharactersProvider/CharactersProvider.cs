@@ -2,26 +2,27 @@ using System;
 using System.Collections.Generic;
 using CodeBase.Gameplay.Characters;
 using CodeBase.UI.TurnQueue;
+using UniRx;
 
 namespace CodeBase.Infrastructure.Services.Providers.CharactersProvider
 {
     public class CharactersProvider : ICharactersProvider
     {
         private readonly Dictionary<Character, CharacterInTurnQueueIcon> _characters = new();
-        public IReadOnlyDictionary<Character, CharacterInTurnQueueIcon> Characters => _characters;
+        private readonly ReactiveCommand<(Character, CharacterInTurnQueueIcon)> _spawned = new();
+        private readonly ReactiveCommand<Character> _died = new();
         
-        public event Action CharactersAmountChanged;
-        public event Action<Character, CharacterInTurnQueueIcon> Spawned;
-        public event Action<Character> Died;
+        public IObservable<(Character, CharacterInTurnQueueIcon)> Spawned => _spawned;
+        public IObservable<Character> Died => _died;
+        public IReadOnlyDictionary<Character, CharacterInTurnQueueIcon> Characters => _characters;
         
         public void Add(Character character,
             CharacterInTurnQueueIcon characterInTurnQueueIcon)
         {
             _characters.Add(character, characterInTurnQueueIcon);
             character.CharacterLogic.Died += OnUnitDied;
-            Spawned?.Invoke(character, characterInTurnQueueIcon);
-            CharactersAmountChanged?.Invoke();
-            
+            _spawned.Execute((character, characterInTurnQueueIcon));
+
             void OnUnitDied()
             {
                 character.CharacterLogic.Died -= OnUnitDied;
@@ -31,10 +32,8 @@ namespace CodeBase.Infrastructure.Services.Providers.CharactersProvider
 
         private void Remove(Character character)
         {
-            
             _characters.Remove(character);
-            Died?.Invoke(character);
-            CharactersAmountChanged?.Invoke();
+            _died?.Execute(character);
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Common.Observables;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Tiles;
+using UniRx;
 using UnityEngine;
 
 namespace CodeBase.Gameplay.PathFinder
@@ -11,8 +11,8 @@ namespace CodeBase.Gameplay.PathFinder
     {
         private readonly IMapService _mapService;
 
-        private readonly Observable<PathFindingResults> _pathFindingResults = new();
-        public IReadOnlyObservable<PathFindingResults> PathFindingResults => _pathFindingResults;
+        private readonly ReactiveProperty<PathFindingResults> _pathFindingResults = new();
+        public IReadOnlyReactiveProperty<PathFindingResults> PathFindingResults => _pathFindingResults;
         
         public PathFinder(IMapService mapService)
         {

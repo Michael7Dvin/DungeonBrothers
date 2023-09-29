@@ -42,7 +42,7 @@ namespace CodeBase.Infrastructure.Services.Factories.TurnQueue
 
         public async UniTask CreateTurnQueueView()
         {
-            Transform root = _uiProvider.Canvas.Value.transform;
+            Transform root = _uiProvider.Canvas.transform;
             
             await CreateTurnQueueViewPrefab(root);
                 

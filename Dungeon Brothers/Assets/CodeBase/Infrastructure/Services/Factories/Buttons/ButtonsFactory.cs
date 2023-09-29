@@ -38,7 +38,7 @@ namespace CodeBase.Infrastructure.Services.Factories.Buttons
         
         public async UniTask CreateSkipTurnButton()
         {
-            Transform root = _uiProvider.Canvas.Value.transform;
+            Transform root = _uiProvider.Canvas.transform;
             
             GameObject prefab = await _addressablesLoader.LoadGameObject(_gameplayUIAddresses.SkipTurnButton);
 

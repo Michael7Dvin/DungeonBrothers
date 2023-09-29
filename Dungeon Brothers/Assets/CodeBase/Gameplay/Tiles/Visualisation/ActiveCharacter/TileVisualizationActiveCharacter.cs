@@ -5,6 +5,7 @@ using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
+using UniRx;
 using UnityEngine;
 
 namespace CodeBase.Gameplay.Tiles.Visualisation
@@ -16,6 +17,8 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
         private readonly ICustomLogger _customLogger;
         private readonly IMoverService _moverService;
         private readonly TileColorConfig _tileColorConfig;
+
+        private readonly CompositeDisposable _disposable = new();
 
         private Tile _lastTile;
         private Character _lastActiveCharacter;
@@ -35,23 +38,25 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
 
         public void Initialize()
         {
-            _turnQueue.ActiveCharacter.Changed += HighlightOutlineTile;
-            _moverService.IsMoved += HighlightOutlineTile;
+            _turnQueue.ActiveCharacter
+                .Skip(1)
+                .Subscribe(HighlightOutlineTile)
+                .AddTo(_disposable);
+
+            _moverService.IsMoved
+                .Subscribe(HighlightOutlineTile)
+                .AddTo(_disposable);
         }
 
-        public void CleanUp()
-        {
-            _moverService.IsMoved -= HighlightOutlineTile;
-            _turnQueue.ActiveCharacter.Changed -= HighlightOutlineTile;
-        }
-        
+        public void CleanUp() => 
+            _disposable.Clear();
+
         private void HighlightOutlineTile(Character character)
         {
-            DisableHighlightOutline();
-
-            Vector2Int position = character.Coordinate;
-
-            if (_mapService.TryGetTile(position, out Tile tile))
+            if (_lastTile != null)
+                DisableHighlightOutline();
+            
+            if (_mapService.TryGetTile(character.Coordinate, out Tile tile))
             {
                 _lastTile = tile;
                 
@@ -59,21 +64,23 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
                 {
                     case CharacterTeam.Enemy:
                     {
-                        ActiveHighlightOutline(tile);
-                        tile.TileView.ChangeHighlightColor(_tileColorConfig.EnemyTile);
-                        tile.TileView.ChangeOutLineColor(_tileColorConfig.EnemyTile);
+                        ActiveHighlightOutline(_lastTile);
+                        _lastTile.TileView.ChangeHighlightColor(_tileColorConfig.EnemyTile);
+                        _lastTile.TileView.ChangeOutLineColor(_tileColorConfig.EnemyTile);
                         break;
                     }
                     case CharacterTeam.Ally:
                     {
-                        ActiveHighlightOutline(tile);
-                        tile.TileView.ChangeOutLineColor(_tileColorConfig.AllyTile);
-                        tile.TileView.ChangeHighlightColor(_tileColorConfig.AllyTile);
+                        ActiveHighlightOutline(_lastTile);
+                        _lastTile.TileView.ChangeOutLineColor(_tileColorConfig.AllyTile);
+                        _lastTile.TileView.ChangeHighlightColor(_tileColorConfig.AllyTile);
                         break;
                     }
                     default:
                         _customLogger.LogError(new Exception($"{nameof(character.CharacterTeam)}, does not exist"));
                         break;
+                
+                    
                 }
             }
         }
@@ -86,12 +93,9 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
         
         private void DisableHighlightOutline()
         {
-            if (_lastTile != null)
-            {
-                _lastTile.TileView.SwitchHighlight(false);
-                _lastTile.TileView.SwitchOutLine(false);
-                _lastTile.TileView.ChangeOutLineColor(Color.white);
-            }
+            _lastTile.TileView.SwitchHighlight(false);
+            _lastTile.TileView.SwitchOutLine(false);
+            _lastTile.TileView.ChangeOutLineColor(Color.white);
         }
     }
 }

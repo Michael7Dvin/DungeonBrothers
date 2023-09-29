@@ -59,12 +59,10 @@ namespace CodeBase.Tests
             bool isMoveThroughObstacles)
         {
             Character character = new GameObject().AddComponent<Character>();
-
-           MoveAnimation moveAnimation = MoveAnimation();
             
             character.Construct(new CharacterID(),new CharacterTeam(),
                 new CharacterStats(level, intelligence, strength, dexterity, initiative, movablePoints, isMoveThroughObstacles),
-                new CharacterLogic(), new CharacterAnimation(moveAnimation));
+                new CharacterLogic());
             
             return character;
         }

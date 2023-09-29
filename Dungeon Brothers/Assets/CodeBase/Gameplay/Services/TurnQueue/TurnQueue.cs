@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using CodeBase.Common.Observables;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.Random;
 using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
 using CodeBase.UI.TurnQueue;
+using UniRx;
+using UnityEngine;
 
 namespace CodeBase.Gameplay.Services.TurnQueue
 {
@@ -15,15 +16,22 @@ namespace CodeBase.Gameplay.Services.TurnQueue
         private readonly ICharactersProvider _charactersProvider;
         private readonly ICustomLogger _logger;
 
+        private readonly CompositeDisposable _disposable = new();
+        
         private readonly LinkedList<Character> _characters = new();
         private LinkedListNode<Character> _activeCharacterNode;
 
-        private readonly Observable<Character> _activeCharacter = new();
+        private readonly ReactiveProperty<Character> _activeCharacter = new();
         
-        public IReadOnlyObservable<Character> ActiveCharacter => _activeCharacter;
-        public event Action<Character, CharacterInTurnQueueIcon> AddedToQueue;
-        public event Action Reseted;
-        public event Action<Character> NewTurnStarted;
+        private readonly ReactiveCommand<(Character, CharacterInTurnQueueIcon)> _addedToQueue = new();
+        private readonly ReactiveCommand _reseted = new();
+        private readonly ReactiveCommand<Character> _newTurnStarted = new();
+
+        public IObservable<(Character, CharacterInTurnQueueIcon)> AddedToQueue => _addedToQueue;
+        public IObservable<Unit> Reseted => _reseted;
+        public IObservable<Character> NewTurnStarted => _newTurnStarted;
+        
+        public IReadOnlyReactiveProperty<Character> ActiveCharacter => _activeCharacter;
         public IEnumerable<Character> Characters => _characters;
         
         public TurnQueue(IRandomService randomService, 
@@ -37,16 +45,21 @@ namespace CodeBase.Gameplay.Services.TurnQueue
         
         public void Initialize()
         {
-            _charactersProvider.Spawned += Add;
-            _charactersProvider.Died += Remove;
+            _charactersProvider.Spawned
+                .Subscribe(character => Add(character.Item1, character.Item2))
+                .AddTo(_disposable);
+
+
+            _charactersProvider.Died
+                .Subscribe(Remove)
+                .AddTo(_disposable);
         }
         
         public void CleanUp()
         {
-            _charactersProvider.Spawned -= Add;
-            _charactersProvider.Died -= Remove;
-            
-            Reseted?.Invoke();
+            _disposable.Clear();
+
+            _reseted.Execute();
             
             _characters.Clear();
             _activeCharacterNode = null;
@@ -66,7 +79,9 @@ namespace CodeBase.Gameplay.Services.TurnQueue
                 UpdateActiveCharacter();
             }
             
-            NewTurnStarted?.Invoke(_activeCharacterNode.Value);
+            Debug.Log(_activeCharacter.Value);
+            
+            _newTurnStarted.Execute(_activeCharacterNode.Value);
         }
 
         public void SetFirstTurn()
@@ -85,7 +100,7 @@ namespace CodeBase.Gameplay.Services.TurnQueue
             {
                 _characters.AddFirst(character);
                 
-                AddedToQueue?.Invoke(character, characterInTurnQueueIcon);
+                _addedToQueue.Execute((character, characterInTurnQueueIcon));
                 return;
             }
 
@@ -102,7 +117,7 @@ namespace CodeBase.Gameplay.Services.TurnQueue
                     if (_randomService.DoFiftyFifty())
                     {
                         _characters.AddBefore(currentCharacter, character);
-                        AddedToQueue?.Invoke(character, characterInTurnQueueIcon);
+                        _addedToQueue.Execute((character, characterInTurnQueueIcon));
                         return;
                     }
                 }
@@ -110,14 +125,14 @@ namespace CodeBase.Gameplay.Services.TurnQueue
                 if (newCharacterInitiative < currentCharacterInitiative)
                 {
                     _characters.AddBefore(currentCharacter, character);
-                    AddedToQueue?.Invoke(character, characterInTurnQueueIcon);
+                    _addedToQueue.Execute((character, characterInTurnQueueIcon));
                     return;
                 }
 
                 if (currentCharacter == _characters.Last)
                 {
                     _characters.AddLast(character);
-                    AddedToQueue?.Invoke(character, characterInTurnQueueIcon);
+                    _addedToQueue.Execute((character, characterInTurnQueueIcon));
                     return;
                 }
 

@@ -5,6 +5,7 @@ using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
+using UniRx;
 using UnityEngine;
 
 namespace CodeBase.Gameplay.Tiles.Visualisation
@@ -16,6 +17,8 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
         private readonly IMoverService _moverService;
         private readonly ITurnQueue _turnQueue;
         private readonly TileColorConfig _tileColorConfig;
+
+        private readonly CompositeDisposable _disposable = new();
 
         private readonly List<Tile> _lastTiles = new();
 
@@ -32,12 +35,15 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
 
         public void Initialize()
         {
-            _pathFinder.PathFindingResults.Changed += VisualizeWalkableTiles;
+            _pathFinder.PathFindingResults
+                .Skip(1)
+                .Subscribe(VisualizeWalkableTiles)
+                .AddTo(_disposable);
         }
 
         public void Disable()
         {
-            _pathFinder.PathFindingResults.Changed -= VisualizeWalkableTiles;
+            _disposable.Clear();
         }
 
         private void VisualizeWalkableTiles(PathFindingResults pathFindingResults)

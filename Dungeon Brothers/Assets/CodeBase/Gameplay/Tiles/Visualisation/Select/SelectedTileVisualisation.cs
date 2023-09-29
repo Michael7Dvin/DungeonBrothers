@@ -5,6 +5,7 @@ using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
+using UniRx;
 using UnityEngine;
 
 namespace CodeBase.Gameplay.Tiles.Visualisation
@@ -15,6 +16,8 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
         private readonly ITurnQueue _turnQueue;
         private readonly IPathFinder _pathFinder;
         private readonly ICustomLogger _customLogger;
+        
+        private readonly CompositeDisposable _disposable = new();
 
         private readonly TileColorConfig _tileColorConfig;
         
@@ -33,48 +36,48 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
 
         public void Initialize()
         {
-            _tileSelector.CurrentTile.Changed += VisualizeSelectedTile;
-            _tileSelector.CurrentTile.Changed += ResetLastTile;
+            _tileSelector.CurrentTile
+                .Where(tile => tile != _tileSelector.PreviousTile.Value)
+                .Subscribe(VisualizeSelectedTile)
+                .AddTo(_disposable);
+
+            _tileSelector.PreviousTile
+                .Where(tile => tile != null)
+                .Subscribe(tile =>
+                {
+                    if (TryResetMovableTile(tile))
+                    {
+                        ResetMovableTile(tile);
+                        return;
+                    }
+
+                    if (TryResetTileView(tile))
+                    {
+                        ResetTileView(tile);
+                        return;
+                    }
+
+                    ResetTileWithCharacter(tile);
+                })
+                .AddTo(_disposable);
         }
 
-        public void Disable()
-        {
-            _tileSelector.CurrentTile.Changed -= VisualizeSelectedTile;
-            _tileSelector.CurrentTile.Changed -= ResetLastTile;
-        }
-        
-        
+        public void Disable() => 
+            _disposable.Clear();
+
+
         private void VisualizeSelectedTile(Tile tile)
         {
-            if (tile == _tileSelector.PreviousTile.Value)
-                return;
-            
             tile.TileView.SwitchOutLine(true);
             tile.TileView.ChangeOutLineColor(_tileColorConfig.SelectedTileColor);
         }
 
-        private void ResetLastTile(Tile tile)
-        {
-            Tile previousTile = _tileSelector.PreviousTile.Value;
-            
-            if (previousTile == null)
-                return;
+        private void ResetMovableTile(Tile tile) =>
+            tile.TileView.SwitchOutLine(false);
 
-            if (TryResetMovableTile(previousTile))
-            {
-                previousTile.TileView.SwitchOutLine(false);
-                return;
-            }
-
-            if (TryResetTileView(previousTile))
-            {
-                previousTile.TileView.ResetTileView();
-                return;
-            }
-
-            ResetTileWithCharacter(previousTile);
-        }
-
+        private void ResetTileView(Tile tile) =>
+            tile.TileView.ResetTileView();
+        
         private void ResetTileWithCharacter(Tile previousTile)
         {
             switch (previousTile.TileLogic.Character.CharacterTeam)
@@ -96,6 +99,6 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
             _pathFinder.PathFindingResults.Value.IsMovableAt(previousTile.TileLogic.Coordinates);
         
         private bool TryResetTileView(Tile previousTile) =>
-            previousTile.TileLogic.Character == null || previousTile.TileLogic.Character != _turnQueue.ActiveCharacter.Value;
+            previousTile.TileLogic.Character != _turnQueue.ActiveCharacter.Value;
     }
 }

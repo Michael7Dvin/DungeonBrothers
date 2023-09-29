@@ -1,4 +1,3 @@
-using CodeBase.Common.Observables;
 using UnityEngine;
 
 namespace CodeBase.Gameplay.Characters

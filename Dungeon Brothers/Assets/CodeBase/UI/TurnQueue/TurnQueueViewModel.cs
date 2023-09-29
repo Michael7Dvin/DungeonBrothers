@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.TurnQueue;
+using UniRx;
+using UnityEngine;
 using VContainer;
 
 namespace CodeBase.UI.TurnQueue
@@ -10,16 +12,21 @@ namespace CodeBase.UI.TurnQueue
     public class TurnQueueViewModel
     {
         private ITurnQueue _turnQueue;
+        private readonly CompositeDisposable _disposable = new();
 
         private List<CharacterInTurnQueueIcon> _charactersIconsQueue = new();
         private IReadOnlyList<CharacterInTurnQueueIcon> CharacterIconsQueue => _charactersIconsQueue;
 
-        public event Action<IReadOnlyList<CharacterInTurnQueueIcon>> ListChanged;
-        public event Action<IReadOnlyList<CharacterInTurnQueueIcon>> DisableIcons;
-        public event Action<IReadOnlyList<CharacterInTurnQueueIcon>> EnableIcons;
-        
+        private readonly ReactiveCommand<IReadOnlyList<CharacterInTurnQueueIcon>> _listChanged = new();
+        private readonly ReactiveCommand<IReadOnlyList<CharacterInTurnQueueIcon>> _disableIcons = new();
+        private readonly ReactiveCommand<IReadOnlyList<CharacterInTurnQueueIcon>> _enableIcons = new();
+
         private ICharacter _currentCharacter;
         
+        public IObservable<IReadOnlyList<CharacterInTurnQueueIcon>> ListChanged => _listChanged;
+        public IObservable<IReadOnlyList<CharacterInTurnQueueIcon>> DisableIcons => _disableIcons;
+        public IObservable<IReadOnlyList<CharacterInTurnQueueIcon>> EnableIcons => _enableIcons;
+
         [Inject]
         public void Inject(ITurnQueue turnQueue)
         {
@@ -28,17 +35,25 @@ namespace CodeBase.UI.TurnQueue
         
         public void OnEnable()
         {
-            _turnQueue.AddedToQueue += ReorganizeIcons;
-            _turnQueue.NewTurnStarted += ShiftIcons;
-            _turnQueue.Reseted += ClearIcons;
+            _turnQueue.AddedToQueue
+                .Subscribe(character => ReorganizeIcons(character.Item1, character.Item2))
+                .AddTo(_disposable);
+
+            _turnQueue.NewTurnStarted
+                .Subscribe(character =>
+                {
+                    if (_charactersIconsQueue != null)
+                        ShiftIcons(character);
+                })
+                .AddTo(_disposable);
+
+            _turnQueue.Reseted
+                .Subscribe(unit => ClearIcons())
+                .AddTo(_disposable);
         }
         
-        public void OnDisable()
-        {
-            _turnQueue.Reseted -= ClearIcons;
-            _turnQueue.AddedToQueue -= ReorganizeIcons;
-            _turnQueue.NewTurnStarted -= ShiftIcons;
-        }
+        public void OnDisable() => 
+            _disposable.Clear();
 
         public void ClearIcons()
         {
@@ -59,30 +74,31 @@ namespace CodeBase.UI.TurnQueue
                     int positionInList = i;
                         
                     _charactersIconsQueue.Insert(positionInList, characterInTurnQueueIcon);
-                    ListChanged?.Invoke(CharacterIconsQueue);
-                    EnableIcons?.Invoke(CharacterIconsQueue); 
+                    
+                    _listChanged.Execute(CharacterIconsQueue);
+                    _enableIcons.Execute(CharacterIconsQueue); 
                 }
             }
         }
         
         private void ShiftIcons(Character character)
         {
-            if (_charactersIconsQueue != null)
-            {
-                DisableIcons?.Invoke(CharacterIconsQueue);
+            
+            Debug.Log("1");
+            _disableIcons.Execute(CharacterIconsQueue);
                 
-                int shift = 1;
+            int shift = 1;
                 
-                _charactersIconsQueue = _charactersIconsQueue
-                    .Skip(_charactersIconsQueue.Count - shift)
-                    .Take(shift)
-                    .Concat(_charactersIconsQueue
-                        .Take(_charactersIconsQueue.Count - shift))
-                    .ToList();
+            _charactersIconsQueue = _charactersIconsQueue
+                .Skip(_charactersIconsQueue.Count - shift)
+                .Take(shift)
+                .Concat(_charactersIconsQueue
+                    .Take(_charactersIconsQueue.Count - shift))
+                .ToList();
                 
-                ListChanged?.Invoke(CharacterIconsQueue);
-                EnableIcons?.Invoke(CharacterIconsQueue);
-            }
+            _listChanged.Execute(CharacterIconsQueue);
+            _enableIcons.Execute(CharacterIconsQueue); 
+            
         }
     }
 }

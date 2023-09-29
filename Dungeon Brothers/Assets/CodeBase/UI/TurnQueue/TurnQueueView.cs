@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using UniRx;
 using UnityEngine;
 
 namespace CodeBase.UI.TurnQueue
@@ -6,7 +8,8 @@ namespace CodeBase.UI.TurnQueue
     public class TurnQueueView : MonoBehaviour
     {
         private TurnQueueViewModel _turnQueueViewModel;
-
+        private readonly CompositeDisposable _disposable = new();
+        
         private const int MaxVisualizedIcons = 5;
         
         public void Construct(TurnQueueViewModel turnQueueViewModel)
@@ -18,18 +21,24 @@ namespace CodeBase.UI.TurnQueue
         
         private void Enable()
         {
-            _turnQueueViewModel.ListChanged += ReorganizeChildPosition;
-            _turnQueueViewModel.EnableIcons += EnableIcons;
-            _turnQueueViewModel.DisableIcons += DisableIcons;
-                
+            _turnQueueViewModel.ListChanged
+                .Subscribe(ReorganizeChildPosition)
+                .AddTo(_disposable); 
+            
+            _turnQueueViewModel.EnableIcons
+                .Subscribe(EnableIcons)
+                .AddTo(_disposable); 
+            
+            _turnQueueViewModel.DisableIcons
+                .Subscribe(DisableIcons)
+                .AddTo(_disposable);
+
             _turnQueueViewModel.OnEnable();
         }
 
         private void Disable()
         {
-            _turnQueueViewModel.ListChanged -= ReorganizeChildPosition;
-            _turnQueueViewModel.EnableIcons -= EnableIcons;
-            _turnQueueViewModel.DisableIcons -= DisableIcons;
+            _disposable.Clear();
             
             _turnQueueViewModel.OnDisable();
         }

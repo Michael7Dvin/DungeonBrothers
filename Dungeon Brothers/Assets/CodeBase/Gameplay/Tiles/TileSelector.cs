@@ -1,7 +1,7 @@
-﻿using CodeBase.Common.Observables;
-using CodeBase.Gameplay.Services.Raycast;
+﻿using CodeBase.Gameplay.Services.Raycast;
 using CodeBase.Infrastructure.Services.InputService;
 using CodeBase.Infrastructure.Services.Providers.CameraProvider;
+using UniRx;
 using UnityEngine;
 
 namespace CodeBase.Gameplay.Tiles
@@ -11,6 +11,7 @@ namespace CodeBase.Gameplay.Tiles
         private readonly IRaycastService _raycastService;
         private readonly IInputService _inputService;
         private readonly ICameraProvider _cameraProvider;
+        private readonly CompositeDisposable _disposable = new();
 
         public TileSelector(IRaycastService raycastService,
             IInputService inputService,
@@ -21,32 +22,32 @@ namespace CodeBase.Gameplay.Tiles
             _cameraProvider = cameraProvider;
         }
 
-        private readonly Observable<Tile> _currentTile = new();
-        private readonly Observable<Tile> _previousTile = new();
-
-        public IReadOnlyObservable<Tile> CurrentTile => _currentTile;
-        public IReadOnlyObservable<Tile> PreviousTile => _previousTile;
+        private readonly ReactiveProperty<Tile> _currentTile = new();
+        private readonly ReactiveProperty<Tile> _previousTile = new();
+        public IReadOnlyReactiveProperty<Tile> PreviousTile => _previousTile;
+        public IReadOnlyReactiveProperty<Tile> CurrentTile => _currentTile;
 
         public void Initialize()
         {
-            _inputService.PositionTouched += SelectTile;
+            _inputService.PositionTouched
+                .Skip(1)
+                .Subscribe(SelectTile)
+                .AddTo(_disposable);
         }
 
-        public void Disable()
-        {
-            _inputService.PositionTouched -= SelectTile;
-        }
+        public void Disable() =>
+            _disposable.Clear();
 
         private void SelectTile(Vector2 tilePosition)
         {
-            Ray ray = _cameraProvider.Camera.ScreenPointToRay(tilePosition);
+            Ray ray = _cameraProvider.Camera.ScreenPointToRay(new Vector3(tilePosition.x, tilePosition.y, 0));
             
             if (_raycastService.TryRaycast(ray.origin, ray.direction, out Tile tile))
             {
-                if (_currentTile.Value != null) 
-                    _previousTile.Value = _currentTile.Value;
+                if (_currentTile.Value != null)
+                    _previousTile.SetValueAndForceNotify(_currentTile.Value);
 
-                _currentTile.Value = tile;
+                _currentTile.SetValueAndForceNotify(tile);
             }
         }
     }
