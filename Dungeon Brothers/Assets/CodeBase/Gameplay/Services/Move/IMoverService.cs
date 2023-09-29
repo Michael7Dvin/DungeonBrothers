@@ -16,6 +16,6 @@ namespace CodeBase.Gameplay.Services.Move
 
         public PathFindingResults PathFindingResults { get; }
 
-        public event Action<Character> IsMoved; 
+        public IObservable<Character> IsMoved { get; }
     }
 }

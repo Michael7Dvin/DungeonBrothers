@@ -9,6 +9,8 @@ using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Tiles;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using UniRx;
 using UnityEngine;
 
 namespace CodeBase.Gameplay.Services.Move
@@ -18,10 +20,13 @@ namespace CodeBase.Gameplay.Services.Move
         private readonly IPathFinder _pathFinder;
         private readonly IMapService _mapService;
         private readonly ITurnQueue _turnQueue;
+        private readonly CompositeDisposable _disposable = new();
 
         public PathFindingResults PathFindingResults { get; private set; }
 
-        public event Action<Character> IsMoved; 
+        private readonly ReactiveCommand<Character> _isMoved = new();
+
+        public IObservable<Character> IsMoved => _isMoved;
 
         public MoverService(IPathFinder pathFinder, 
             IMapService mapService,
@@ -36,18 +41,23 @@ namespace CodeBase.Gameplay.Services.Move
 
         public void Enable()
         {
-            _turnQueue.ActiveCharacter.Changed += ResetMovePoints;
-            _turnQueue.ActiveCharacter.Changed += CalculatePaths;
-            IsMoved += CalculatePaths;
+            _turnQueue.ActiveCharacter
+                .Skip(1)
+                .Subscribe(character =>
+                {
+                    ResetMovePoints(character);
+                    CalculatePaths(character);
+                })
+                .AddTo(_disposable);
+            
+            IsMoved
+                .Subscribe(CalculatePaths)
+                .AddTo(_disposable);
         }
 
-        public void Disable()
-        {
-            _turnQueue.ActiveCharacter.Changed -= ResetMovePoints;
-            _turnQueue.ActiveCharacter.Changed -= CalculatePaths;
-            IsMoved += CalculatePaths;
-        }
-        
+        public void Disable() => 
+            _disposable.Clear();
+
         public void Move(Tile tile)
         {
             Character character = _turnQueue.ActiveCharacter.Value;
@@ -68,15 +78,27 @@ namespace CodeBase.Gameplay.Services.Move
             if (_mapService.TryGetTile(character.Coordinate, out Tile previousTile)) 
                 previousTile.Release();
             
-            Vector3 position = tile.transform.position;
-            
             character.UpdateCoordinate(tile.TileLogic.Coordinates);
             tile.TileLogic.Occupy(character);
 
-            character.CharacterAnimation.PlayMoveAnimation(position);
-
-            IsMoved?.Invoke(character);
+            Move(path, character);
+            
+            _isMoved.Execute(character);
         }
+
+        private void Move(List<Vector2Int> path, Character character)
+        {
+            List<Vector3> newPath = new();
+
+            foreach (var point in path)
+            {
+                if(_mapService.TryGetTile(point, out Tile tile))
+                    newPath.Add(tile.transform.position);
+            }
+            
+            character.transform.DOPath(newPath.ToArray(), 1).Play();
+        }
+        
 
         private void ResetMovePoints(Character character) =>
             CurrentMovePoints = character.CharacterStats.MovePoints;

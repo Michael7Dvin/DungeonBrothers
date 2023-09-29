@@ -1,13 +1,6 @@
-﻿using CodeBase.Common.Observables;
-using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.Services.Move;
-using CodeBase.Gameplay.Services.Raycast;
-using CodeBase.Gameplay.Services.TurnQueue;
+﻿using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Tiles;
-using CodeBase.Infrastructure.Services.InputService;
-using CodeBase.Infrastructure.Services.Providers.CameraProvider;
-using Cysharp.Threading.Tasks;
-using UnityEngine;
+using UniRx;
 
 namespace CodeBase.Gameplay.Services.InteractionsService
 {
@@ -15,6 +8,7 @@ namespace CodeBase.Gameplay.Services.InteractionsService
     {
         private readonly IMoverService _moverService;
         private readonly ITileSelector _tileSelector;
+        private readonly CompositeDisposable _disposable = new();
         
         public InteractionService(IMoverService moverService,
             ITileSelector tileSelector)
@@ -22,21 +16,17 @@ namespace CodeBase.Gameplay.Services.InteractionsService
             _moverService = moverService;
             _tileSelector = tileSelector;
         }
-
-        private void GetTileOnTouch(Tile tile)
-        {
-            if (_tileSelector.CurrentTile.Value == _tileSelector.PreviousTile.Value)
-                _moverService.Move(tile);
-        }
         
         public void Initialize()
         {
-            _tileSelector.CurrentTile.Changed += GetTileOnTouch;
+            _tileSelector.CurrentTile
+                .Skip(1)
+                .Where(tile => _tileSelector.PreviousTile.Value == tile)
+                .Subscribe(_moverService.Move)
+                .AddTo(_disposable);
         }
 
-        public void Disable()
-        {
-            _tileSelector.CurrentTile.Changed -= GetTileOnTouch;
-        } 
+        public void Disable() => 
+            _disposable.Clear();
     }
 }

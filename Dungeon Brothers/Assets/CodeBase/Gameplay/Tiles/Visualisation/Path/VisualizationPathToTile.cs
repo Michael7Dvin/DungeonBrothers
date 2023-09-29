@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.Map;
-using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
+using UniRx;
 using UnityEngine;
 
 namespace CodeBase.Gameplay.Tiles.Visualisation.Path
@@ -13,6 +12,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Path
         private readonly ITileSelector _tileSelector;
         private readonly IPathFinder _pathFinder;
         private readonly IMapService _mapService;
+        private readonly CompositeDisposable _disposable = new();
 
         private readonly TileColorConfig _tileColorConfig;
 
@@ -31,29 +31,26 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Path
 
         public void Initialize()
         {
-            _tileSelector.CurrentTile.Changed += Visualize;
+            _tileSelector.CurrentTile
+                .Skip(1)
+                .Where(tile => _pathFinder.PathFindingResults.Value.IsMovableAt(tile.TileLogic.Coordinates))
+                .Subscribe(tile =>
+                {
+                    ResetLastTiles();
+                    
+                    if (tile == _tileSelector.PreviousTile.Value)
+                        _lastTiles.Clear();
+                    else
+                        Visualize(tile);
+                })
+                .AddTo(_disposable);
         }
 
-        public void Disable()
-        {
-            _tileSelector.CurrentTile.Changed -= Visualize;
-        }
-        
+        public void Disable() => 
+            _disposable.Clear();
+
         private void Visualize(Tile currentTile)
         {
-            if (currentTile == _tileSelector.PreviousTile.Value)
-            {
-                _lastTiles.Clear();
-                return;
-            }
-            
-            ResetLastTiles();
-            
-            PathFindingResults pathFindingResults = _pathFinder.PathFindingResults.Value;
-            
-            if (pathFindingResults.WalkableCoordinates.Contains(currentTile.TileLogic.Coordinates) == false)
-                return;
-            
             List<Vector2Int> _tilesCoordinates =
                 _pathFinder.PathFindingResults.Value.GetPathTo(currentTile.TileLogic.Coordinates);
 

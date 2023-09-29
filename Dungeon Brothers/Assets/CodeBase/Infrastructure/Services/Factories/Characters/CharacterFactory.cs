@@ -52,7 +52,7 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
             
             CharacterAnimation characterAnimation = CreateCharacterAnimation(gameObject);
             
-            character.Construct(config.ID, config.Team ,characterStats, characterLogic, characterAnimation);
+            character.Construct(config.ID, config.Team ,characterStats, characterLogic);
 
             CharacterInTurnQueueIcon icon = await _turnQueueViewFactory.CreateIcon(config.Image, config.ID);
             icon.gameObject.SetActive(false);

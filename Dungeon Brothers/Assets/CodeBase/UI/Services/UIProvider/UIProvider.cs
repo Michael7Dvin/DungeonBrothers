@@ -1,18 +1,14 @@
-﻿using CodeBase.Common.Observables;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace CodeBase.UI.Services.UIProvider
 {
     public class UIProvider : IUIProvider
     {
-        private readonly Observable<Canvas> _canvas = new();
-        private readonly Observable<EventSystem> _eventSystem = new();
+        public Canvas Canvas { get; private set; }
+        public EventSystem EventSystem { get; private set; }
         
-        public IReadOnlyObservable<Canvas> Canvas => _canvas;
-        public IReadOnlyObservable<EventSystem> EventSystem => _eventSystem;
-        
-        public void SetCanvasToProvider(Canvas canvas) => _canvas.Value = canvas;
-        public void SetEventSystemToProvider(EventSystem eventSystem) => _eventSystem.Value = eventSystem;
+        public void SetCanvasToProvider(Canvas canvas) => Canvas = canvas;
+        public void SetEventSystemToProvider(EventSystem eventSystem) => EventSystem = eventSystem;
     }
 }

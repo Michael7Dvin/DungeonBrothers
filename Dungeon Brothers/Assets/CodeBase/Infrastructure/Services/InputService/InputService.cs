@@ -1,4 +1,4 @@
-﻿using System;
+﻿using UniRx;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.InputService
@@ -6,18 +6,15 @@ namespace CodeBase.Infrastructure.Services.InputService
     public class InputService : IInputService
     {
         private readonly PlayerInput _playerInput = new();
-        
-        public event Action<Vector2> PositionTouched;
-        public event Action ContactTouched;
 
-        private void OnTouched()
-        {
-            PositionTouched?.Invoke(_playerInput.Interactions.PrimaryFingerPosition.ReadValue<Vector2>());
-            ContactTouched?.Invoke();
-        }
+        private readonly ReactiveProperty<Vector2> _positionTouched = new();
+        public IReadOnlyReactiveProperty<Vector2> PositionTouched => _positionTouched;
 
-        public void Initialization() => 
-            _playerInput.Interactions.PrimaryFingerTouch.started += _ => OnTouched();
+        private void OnClicked() => 
+            _positionTouched.SetValueAndForceNotify(_playerInput.Interactions.PrimaryFingerPosition.ReadValue<Vector2>());
+
+        public void Initialization() =>
+            _playerInput.Interactions.PrimaryFingerTouch.performed += _ => OnClicked();
 
         public void DisableInput() => _playerInput.Disable();
 

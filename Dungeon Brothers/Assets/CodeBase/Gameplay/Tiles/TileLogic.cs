@@ -14,7 +14,7 @@ namespace CodeBase.Gameplay.Tiles
         public bool IsWalkable { get; private set; }
         
         public Vector2Int Coordinates { get; private set; }
-        public ICharacter Character { get; private set; }
+        public Character Character { get; private set; }
 
 
         public TileLogic(bool isOccupied, bool isWalkable, Vector2Int coordinates)
@@ -36,7 +36,7 @@ namespace CodeBase.Gameplay.Tiles
             IsWalkable = true;
         }
         
-        public void Occupy(ICharacter character)
+        public void Occupy(Character character)
         {
             if (IsOccupied)
                 _customLogger.LogError(new Exception("Tile is occupied"));
