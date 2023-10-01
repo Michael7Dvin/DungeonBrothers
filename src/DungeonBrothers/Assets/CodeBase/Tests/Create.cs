@@ -5,6 +5,7 @@ using UnityEngine;
 
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Characters.CharacterInfo;
+using CodeBase.Gameplay.Characters.Logic;
 using CodeBase.Gameplay.Characters.View;
 using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.Map;
@@ -59,8 +60,8 @@ namespace CodeBase.Tests
             bool isMoveThroughObstacles)
         {
             Character character = new GameObject().AddComponent<Character>();
-            
-            character.Construct(new CharacterID(),new CharacterTeam(), new MovementStats(5, false),
+
+            character.Construct(new CharacterID(), new CharacterTeam(), new MovementStats(5, false),
                 new CharacterStats(level, intelligence, strength, dexterity, initiative),
                 new CharacterLogic());
             
