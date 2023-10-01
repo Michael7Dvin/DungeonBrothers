@@ -5,6 +5,7 @@ using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Tiles;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UniRx;
 using UnityEngine;
@@ -17,13 +18,12 @@ namespace CodeBase.Gameplay.Services.Move
         private readonly IMapService _mapService;
         private readonly ITurnQueue _turnQueue;
         private readonly CompositeDisposable _disposable = new();
-
-        public PathFindingResults PathFindingResults { get; private set; }
-
         private readonly ReactiveCommand<ICharacter> _isMoved = new();
 
-        public IObservable<ICharacter> IsMoved => _isMoved;
-
+        private const float _duration = 2;
+        private int _currentMovePoints;
+        public PathFindingResults PathFindingResults { get; private set; }
+        
         public MoverService(IPathFinder pathFinder, 
             IMapService mapService,
             ITurnQueue turnQueue)
@@ -33,7 +33,7 @@ namespace CodeBase.Gameplay.Services.Move
             _turnQueue = turnQueue;
         }
         
-        public int CurrentMovePoints { get; private set; }
+        public IObservable<ICharacter> IsMoved => _isMoved;
 
         public void Enable()
         {
@@ -45,16 +45,12 @@ namespace CodeBase.Gameplay.Services.Move
                     CalculatePaths(character);
                 })
                 .AddTo(_disposable);
-            
-            IsMoved
-                .Subscribe(CalculatePaths)
-                .AddTo(_disposable);
         }
 
         public void Disable() => 
             _disposable.Clear();
 
-        public void Move(Tile tile)
+        public async UniTask Move(Tile tile)
         {
             ICharacter character = _turnQueue.ActiveCharacter.Value;
 
@@ -66,9 +62,9 @@ namespace CodeBase.Gameplay.Services.Move
 
             List<Vector2Int> path = PathFindingResults.GetPathTo(tile.Logic.Coordinates);
             int pathCost = path.Count;
-            CurrentMovePoints -= pathCost;
+            _currentMovePoints -= pathCost;
                 
-            if (CurrentMovePoints < 0)
+            if (_currentMovePoints < 0)
                 return;
             
             if (_mapService.TryGetTile(character.Coordinate, out Tile previousTile)) 
@@ -77,12 +73,13 @@ namespace CodeBase.Gameplay.Services.Move
             character.UpdateCoordinate(tile.Logic.Coordinates);
             tile.Logic.Occupy(character);
 
-            Move(path, character);
+            await Move(path, character);
             
+            CalculatePaths(character);
             _isMoved.Execute(character);
         }
 
-        private void Move(List<Vector2Int> path, ICharacter character)
+        private async UniTask Move(List<Vector2Int> path, ICharacter character)
         {
             List<Vector3> newPath = new();
 
@@ -92,12 +89,16 @@ namespace CodeBase.Gameplay.Services.Move
                     newPath.Add(tile.transform.position);
             }
             
-            character.Transform.DOPath(newPath.ToArray(), 1).Play();
+            await character.Transform
+                .DOPath(newPath.ToArray(), _duration)
+                .Play()
+                .SetEase(Ease.OutQuart)
+                .ToUniTask();
         }
         
 
         private void ResetMovePoints(ICharacter character) =>
-            CurrentMovePoints = character.MovementStats.MovePoints;
+            _currentMovePoints = character.MovementStats.MovePoints;
         
         private void CalculatePaths(ICharacter character)
         {
@@ -105,7 +106,7 @@ namespace CodeBase.Gameplay.Services.Move
             bool isMoveThroughObstacles = character.MovementStats.IsMoveThroughObstacles;
 
             PathFindingResults pathFindingResults =
-                _pathFinder.CalculatePaths(startPosition, CurrentMovePoints, isMoveThroughObstacles);
+                _pathFinder.CalculatePaths(startPosition, _currentMovePoints, isMoveThroughObstacles);
 
             PathFindingResults = pathFindingResults;
         }

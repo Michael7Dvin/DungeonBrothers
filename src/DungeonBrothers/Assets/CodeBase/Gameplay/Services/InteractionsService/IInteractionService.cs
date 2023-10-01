@@ -3,5 +3,7 @@
     public interface IInteractionService
     {
         public void Initialize();
+        
+        public bool IsInteract { get; }
     }
 }

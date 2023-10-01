@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CodeBase.Gameplay.PathFinder;
+using CodeBase.Gameplay.Services.InteractionsService;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
@@ -12,6 +13,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Path
         private readonly ITileSelector _tileSelector;
         private readonly IPathFinder _pathFinder;
         private readonly IMapService _mapService;
+        private readonly IInteractionService _interactionService;
         private readonly CompositeDisposable _disposable = new();
 
         private readonly TileColorConfig _tileColorConfig;
@@ -21,11 +23,13 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Path
         public VisualizationPathToTile(ITileSelector tileSelector, 
             IPathFinder pathFinder,
             IMapService mapService,
+            IInteractionService interactionService,
             IStaticDataProvider staticDataProvider)
         {
             _tileSelector = tileSelector;
             _pathFinder = pathFinder;
             _mapService = mapService;
+            _interactionService = interactionService;
             _tileColorConfig = staticDataProvider.TileColorConfig;
         }
 
@@ -33,6 +37,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Path
         {
             _tileSelector.CurrentTile
                 .Skip(1)
+                .Where(tile => _interactionService.IsInteract == false)
                 .Where(tile => _pathFinder.PathFindingResults.Value.IsMovableAt(tile.Logic.Coordinates))
                 .Subscribe(tile =>
                 {
