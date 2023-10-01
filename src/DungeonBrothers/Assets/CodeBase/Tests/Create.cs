@@ -1,12 +1,6 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Gameplay.Animations.Move;
 using CodeBase.Gameplay.Tiles;
 using UnityEngine;
-
-using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.Characters.CharacterInfo;
-using CodeBase.Gameplay.Characters.Logic;
-using CodeBase.Gameplay.Characters.View;
 using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
@@ -14,8 +8,6 @@ using CodeBase.Gameplay.Services.Random;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
-using NSubstitute;
-using NSubstitute.ReceivedExtensions;
 
 namespace CodeBase.Tests
 {
@@ -46,70 +38,25 @@ namespace CodeBase.Tests
             return tiles;
         }
 
-        public static IMapService MapService()
-        {
-            IMapService mapService = new Gameplay.Services.Map.MapService();
-            return mapService;
-        }
-        public static Character Character(int level,
-            int intelligence, 
-            int strength, 
-            int dexterity,
-            int initiative,
-            int movablePoints,
-            bool isMoveThroughObstacles)
-        {
-            Character character = new GameObject().AddComponent<Character>();
+        public static IMapService MapService() => 
+            new Gameplay.Services.Map.MapService();
 
-            character.Construct(new CharacterID(), new CharacterTeam(), new MovementStats(5, false),
-                new CharacterStats(level, intelligence, strength, dexterity, initiative),
-                new CharacterLogic());
-            
-            return character;
-        }
+        public static ICharactersProvider CharactersProvider() => 
+            new CharactersProvider();
 
-        public static MoveAnimation MoveAnimation()
-        {
-            return new GameObject().AddComponent<MoveAnimation>();
-        }
+        public static ITurnQueue TurnQueue(ICharactersProvider charactersProvider) => 
+            new Gameplay.Services.TurnQueue.TurnQueue(new RandomService(), charactersProvider, new CustomLogger(new LogWriter()));
 
-        public static CharactersProvider CharactersProvider()
-        {
-            CharactersProvider charactersProvider = new CharactersProvider();
-            return charactersProvider;
-        }
+        public static TileView TileView(Material material) => 
+            new(material);
 
-        public static TurnQueue TurnQueue(CharactersProvider charactersProvider)
-        {
-            TurnQueue turnQueue = new TurnQueue(new RandomService(), charactersProvider,
-                new CustomLogger(new LogWriter()));
-            return turnQueue;
-        }
+        public static IPathFinder PathFinder(IMapService mapService) => 
+            new PathFinder(mapService);
 
-        public static TileView TileView(Material material)
-        {
-            TileView tileView = new TileView(material);
-            return tileView;
-        }
+        public static IMoverService MoverService(IPathFinder pathFinder, IMapService mapService, ITurnQueue turnQueue) => 
+            new Gameplay.Services.Move.MoverService(pathFinder, mapService, turnQueue);
 
-        public static IPathFinder PathFinder(IMapService mapService)
-        {
-            IPathFinder pathFinder = new PathFinder(mapService);
-            
-            return pathFinder;
-        }
-
-        public static IMoverService MoverService(IPathFinder pathFinder, IMapService mapService, ITurnQueue turnQueue)
-        {
-            Gameplay.Services.Move.MoverService moverService = 
-                new Gameplay.Services.Move.MoverService(pathFinder, mapService, turnQueue);
-            
-            return moverService;
-        }
-
-        public static TileLogic TileLogic(Vector2Int coordinate)
-        {
-            return new TileLogic(false, true, coordinate);
-        }
+        public static TileLogic TileLogic(Vector2Int coordinate) =>
+            new(false, true, coordinate);
     }
 }

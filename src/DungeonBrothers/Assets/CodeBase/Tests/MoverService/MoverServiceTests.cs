@@ -1,12 +1,7 @@
 ﻿using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
-using CodeBase.Gameplay.Services.TurnQueue;
-using CodeBase.Gameplay.Tiles;
-using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
 using FluentAssertions;
-using NSubstitute;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -18,58 +13,35 @@ namespace CodeBase.Tests.MoverService
         public void WhenCharacterMoving_AndHaveEnoughMovePoints_ThenCharacterShouldBeOnChosenTile()
         {
             // Arrange.
-            ICharacter character = Substitute.For<ICharacter>();
-            character
-                .When(_ => _.UpdateCoordinate(Arg.Any<Vector2Int>()))
-                .Do(_ => character.Coordinate.Returns(_.Arg<Vector2Int>()));
-            
-            character.MovementStats.Returns(new MovementStats(5, false));
+            ICharacter character = Setup.CharacterForMovement(5, false);
 
-            CharactersProvider charactersProvider = Create.CharactersProvider();
-            ITurnQueue turnQueue = Setup.TurnQueue(charactersProvider);
-            IMapService mapService = Setup.MapService(Create.TileMap(4, 4));
-            IMoverService moverService = Setup.MoverService(mapService, turnQueue);
-            
-            turnQueue.Initialize();
-            moverService.Enable();
-            charactersProvider.Add(character, null);
-            turnQueue.SetFirstTurn();
+            IMoverService moverService = Setup.MoverService(character, 4, 4);
+            Vector2Int destination = new(3, 0);
             
             // Act.
-            if (mapService.TryGetTile(new Vector2Int(1, 1), out Tile tile)) 
-                moverService.Move(tile);
+            moverService.Move(destination);
 
             // Assert.
-            character.Coordinate.Should().Be(tile.Logic.Coordinates);
+            character.Coordinate.Should().Be(destination);
         }
-        
+
         [Test]
         public void WhenCharacterMoving_AndCanMoveThroughObstacles_ThenCharacterShouldBeOnChosenTileIgnoringObstacles()
         {
             // Arrange.
-            ICharacter character = Substitute.For<ICharacter>();
-            character.MovementStats.Returns(new MovementStats(5, true));
+            ICharacter character = Setup.CharacterForMovement(5, true);
+
+            IMapService mapService = Setup.MapService(4, 4);
+            IMoverService moverService = Setup.MoverService(character, mapService);
+            Vector2Int destination = new(2, 2);
             
-            character.When(_ => _.UpdateCoordinate(Arg.Any<Vector2Int>()))
-                .Do(_ => character.Coordinate.Returns(_.Arg<Vector2Int>()));
-            
-            CharactersProvider charactersProvider = Create.CharactersProvider();
-            ITurnQueue turnQueue = Setup.TurnQueue(charactersProvider);
-            IMapService mapService = Setup.MapService(Create.TileMap(4, 4));
-            IMoverService moverService = Setup.MoverService(mapService, turnQueue);
-            
-            turnQueue.Initialize();
-            moverService.Enable();
-            charactersProvider.Add(character, null);
-            turnQueue.SetFirstTurn();
-            Setup.ObstaclesAroundZeroPosition(mapService, character);
+            Setup.ObstaclesAroundZeroPosition(mapService);
             
             // Act.
-            if (mapService.TryGetTile(new Vector2Int(2, 1), out Tile tile)) 
-                moverService.Move(tile);
+            moverService.Move(destination);
 
             // Assert.
-            character.Coordinate.Should().Be(tile.Logic.Coordinates);
+            character.Coordinate.Should().Be(destination);
         }
     }
 }

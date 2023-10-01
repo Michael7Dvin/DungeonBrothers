@@ -23,7 +23,7 @@ namespace CodeBase.Gameplay.Services.InteractionsService
         private async UniTask Interact(Tile tile)
         {
             IsInteract = true;
-            await _moverService.Move(tile);
+            await _moverService.Move(tile.Logic.Coordinates);
             IsInteract = false;
         }
         
