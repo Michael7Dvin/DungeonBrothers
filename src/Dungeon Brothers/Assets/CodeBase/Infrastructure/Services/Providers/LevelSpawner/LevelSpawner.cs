@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using CodeBase.Gameplay.Characters;
+using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.Services.InteractionsService;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.MapGenerator;

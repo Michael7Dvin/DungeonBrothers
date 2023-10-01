@@ -1,14 +1,12 @@
 ﻿using System;
-using CodeBase.Gameplay.Characters;
+using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.PathFinder;
-using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
-using UnityEngine;
 
-namespace CodeBase.Gameplay.Tiles.Visualisation
+namespace CodeBase.Gameplay.Tiles.Visualisation.Select
 {
     public class SelectedTileVisualisation : ISelectedTileVisualisation
     {
@@ -68,37 +66,37 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
 
         private void VisualizeSelectedTile(Tile tile)
         {
-            tile.TileView.SwitchOutLine(true);
-            tile.TileView.ChangeOutLineColor(_tileColorConfig.SelectedTileColor);
+            tile.View.SwitchOutLine(true);
+            tile.View.ChangeOutLineColor(_tileColorConfig.SelectedTileColor);
         }
 
         private void ResetMovableTile(Tile tile) =>
-            tile.TileView.SwitchOutLine(false);
+            tile.View.SwitchOutLine(false);
 
         private void ResetTileView(Tile tile) =>
-            tile.TileView.ResetTileView();
+            tile.View.ResetTileView();
         
         private void ResetTileWithCharacter(Tile previousTile)
         {
-            switch (previousTile.TileLogic.Character.CharacterTeam)
+            switch (previousTile.Logic.Character.CharacterTeam)
             {
                 case CharacterTeam.Enemy:
-                    previousTile.TileView.ChangeOutLineColor(_tileColorConfig.EnemyTile);
+                    previousTile.View.ChangeOutLineColor(_tileColorConfig.EnemyTile);
                     break;
                 case CharacterTeam.Ally:
-                    previousTile.TileView.ChangeOutLineColor(_tileColorConfig.AllyTile);
+                    previousTile.View.ChangeOutLineColor(_tileColorConfig.AllyTile);
                     break;
                 default:
                     _customLogger.LogError(
-                        new Exception($"{previousTile.TileLogic.Character.CharacterTeam}, not found"));
+                        new Exception($"{previousTile.Logic.Character.CharacterTeam}, not found"));
                     break;
             }
         }
 
         private bool TryResetMovableTile(Tile previousTile) =>
-            _pathFinder.PathFindingResults.Value.IsMovableAt(previousTile.TileLogic.Coordinates);
+            _pathFinder.PathFindingResults.Value.IsMovableAt(previousTile.Logic.Coordinates);
         
         private bool TryResetTileView(Tile previousTile) =>
-            previousTile.TileLogic.Character != _turnQueue.ActiveCharacter.Value;
+            previousTile.Logic.Character != _turnQueue.ActiveCharacter.Value;
     }
 }

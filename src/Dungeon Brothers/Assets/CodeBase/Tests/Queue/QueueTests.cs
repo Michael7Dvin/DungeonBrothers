@@ -5,7 +5,7 @@ using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace CodeBase.Tests
+namespace CodeBase.Tests.Queue
 {
     public class QueueTests
     {

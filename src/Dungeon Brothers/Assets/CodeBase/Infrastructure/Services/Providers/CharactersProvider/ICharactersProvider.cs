@@ -9,12 +9,12 @@ namespace CodeBase.Infrastructure.Services.Providers.CharactersProvider
     public interface ICharactersProvider
     {
         
-        IObservable<(Character, CharacterInTurnQueueIcon)> Spawned { get; }
-        IObservable<Character> Died { get; }
+        IObservable<(ICharacter, CharacterInTurnQueueIcon)> Spawned { get; }
+        IObservable<ICharacter> Died { get; }
         
-        public IReadOnlyDictionary<Character, CharacterInTurnQueueIcon> Characters { get; }
+        public IReadOnlyDictionary<ICharacter, CharacterInTurnQueueIcon> Characters { get; }
 
-        void Add(Character character,
+        void Add(ICharacter character,
             CharacterInTurnQueueIcon characterInTurnQueueIcon);
     }
 }

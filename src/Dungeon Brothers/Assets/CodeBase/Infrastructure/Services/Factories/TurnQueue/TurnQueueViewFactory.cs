@@ -1,6 +1,7 @@
 ﻿
 
 using CodeBase.Gameplay.Characters;
+using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
 using CodeBase.UI.Services.UIProvider;

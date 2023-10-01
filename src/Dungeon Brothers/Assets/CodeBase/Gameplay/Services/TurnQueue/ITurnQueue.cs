@@ -8,13 +8,13 @@ namespace CodeBase.Gameplay.Services.TurnQueue
 {
     public interface ITurnQueue
     {
-        IEnumerable<Character> Characters { get; }
+        IEnumerable<ICharacter> Characters { get; }
 
-        public IReadOnlyReactiveProperty<Character> ActiveCharacter { get; }
+        public IReadOnlyReactiveProperty<ICharacter> ActiveCharacter { get; }
         
-        public IObservable<(Character, CharacterInTurnQueueIcon)> AddedToQueue { get; }
+        public IObservable<(ICharacter, CharacterInTurnQueueIcon)> AddedToQueue { get; }
         public IObservable<Unit> Reseted { get; }
-        public IObservable<Character> NewTurnStarted { get; }
+        public IObservable<ICharacter> NewTurnStarted { get; }
       
         
         void Initialize();

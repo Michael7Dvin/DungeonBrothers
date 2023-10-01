@@ -4,11 +4,11 @@ using CodeBase.Gameplay.Tiles;
 using UnityEngine;
 
 using CodeBase.Gameplay.Characters;
+using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.Characters.View;
 using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
-using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Services.Random;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.Logger;
@@ -60,8 +60,8 @@ namespace CodeBase.Tests
         {
             Character character = new GameObject().AddComponent<Character>();
             
-            character.Construct(new CharacterID(),new CharacterTeam(),
-                new CharacterStats(level, intelligence, strength, dexterity, initiative, movablePoints, isMoveThroughObstacles),
+            character.Construct(new CharacterID(),new CharacterTeam(), new MovementStats(5, false),
+                new CharacterStats(level, intelligence, strength, dexterity, initiative),
                 new CharacterLogic());
             
             return character;
@@ -100,7 +100,8 @@ namespace CodeBase.Tests
 
         public static IMoverService MoverService(IPathFinder pathFinder, IMapService mapService, ITurnQueue turnQueue)
         {
-            MoverService moverService = new MoverService(pathFinder, mapService, turnQueue);
+            Gameplay.Services.Move.MoverService moverService = 
+                new Gameplay.Services.Move.MoverService(pathFinder, mapService, turnQueue);
             
             return moverService;
         }

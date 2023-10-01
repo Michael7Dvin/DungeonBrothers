@@ -8,15 +8,15 @@ namespace CodeBase.Infrastructure.Services.Providers.CharactersProvider
 {
     public class CharactersProvider : ICharactersProvider
     {
-        private readonly Dictionary<Character, CharacterInTurnQueueIcon> _characters = new();
-        private readonly ReactiveCommand<(Character, CharacterInTurnQueueIcon)> _spawned = new();
-        private readonly ReactiveCommand<Character> _died = new();
+        private readonly Dictionary<ICharacter, CharacterInTurnQueueIcon> _characters = new();
+        private readonly ReactiveCommand<(ICharacter, CharacterInTurnQueueIcon)> _spawned = new();
+        private readonly ReactiveCommand<ICharacter> _died = new();
         
-        public IObservable<(Character, CharacterInTurnQueueIcon)> Spawned => _spawned;
-        public IObservable<Character> Died => _died;
-        public IReadOnlyDictionary<Character, CharacterInTurnQueueIcon> Characters => _characters;
+        public IObservable<(ICharacter, CharacterInTurnQueueIcon)> Spawned => _spawned;
+        public IObservable<ICharacter> Died => _died;
+        public IReadOnlyDictionary<ICharacter, CharacterInTurnQueueIcon> Characters => _characters;
         
-        public void Add(Character character,
+        public void Add(ICharacter character,
             CharacterInTurnQueueIcon characterInTurnQueueIcon)
         {
             _characters.Add(character, characterInTurnQueueIcon);
@@ -30,7 +30,7 @@ namespace CodeBase.Infrastructure.Services.Providers.CharactersProvider
             }
         }
 
-        private void Remove(Character character)
+        private void Remove(ICharacter character)
         {
             _characters.Remove(character);
             _died?.Execute(character);

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using CodeBase.Gameplay.Animations.Move;
 using CodeBase.Gameplay.Characters;
+using CodeBase.Gameplay.Characters.CharacterInfo;
+using CodeBase.Gameplay.Characters.Logic;
 using CodeBase.Gameplay.Characters.View;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
@@ -45,14 +47,13 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
             GameObject gameObject = _objectResolver.Instantiate(prefab);
 
             CharacterStats characterStats = CreateCharacterStats(config);
+            MovementStats movementStats = CreateMovementStats(config);
 
             ICharacterLogic characterLogic = CreateCharacterLogic(config);
 
             Character character = gameObject.GetComponent<Character>();
-            
-            CharacterAnimation characterAnimation = CreateCharacterAnimation(gameObject);
-            
-            character.Construct(config.ID, config.Team ,characterStats, characterLogic);
+
+            character.Construct(config.ID, config.Team, movementStats, characterStats, characterLogic);
 
             CharacterInTurnQueueIcon icon = await _turnQueueViewFactory.CreateIcon(config.Image, config.ID);
             icon.gameObject.SetActive(false);
@@ -62,20 +63,12 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
             return character;
         }
 
-        private CharacterAnimation CreateCharacterAnimation(GameObject gameObject)
-        {
-            MoveAnimation moveAnimation = gameObject.GetComponent<MoveAnimation>();
-            
-            CharacterAnimation characterAnimation = new CharacterAnimation(moveAnimation);
-            _objectResolver.Inject(characterAnimation);
-            return characterAnimation;
-        }
+        public MovementStats CreateMovementStats(CharacterConfig config) => 
+            new MovementStats(config.MovePoints, config.IsMoveThroughObstacles);
 
-        private CharacterStats CreateCharacterStats(CharacterConfig config)
-        {
-            return new CharacterStats(config.Level, config.Intelligence, config.Strength, config.Dexterity,
-                config.Initiative, config.MovePoints, config.IsMoveThroughObstacles);
-        }
+        private CharacterStats CreateCharacterStats(CharacterConfig config) =>
+            new CharacterStats(config.Level, config.Intelligence, config.Strength, config.Dexterity,
+                config.Initiative);
 
         private ICharacterLogic CreateCharacterLogic(CharacterConfig config)
         {

@@ -1,5 +1,4 @@
-﻿using CodeBase.Gameplay.Services.PathFinder;
-using UniRx;
+﻿using UniRx;
 using UnityEngine;
 
 namespace CodeBase.Gameplay.PathFinder

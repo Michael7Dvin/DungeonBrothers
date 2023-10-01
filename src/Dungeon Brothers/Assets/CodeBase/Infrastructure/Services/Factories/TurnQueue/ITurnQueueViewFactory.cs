@@ -1,4 +1,5 @@
 using CodeBase.Gameplay.Characters;
+using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.UI.TurnQueue;
 using Cysharp.Threading.Tasks;
 using UnityEngine;

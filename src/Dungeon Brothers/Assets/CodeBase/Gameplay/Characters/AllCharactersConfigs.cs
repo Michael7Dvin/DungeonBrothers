@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CodeBase.Gameplay.Characters.CharacterInfo;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
