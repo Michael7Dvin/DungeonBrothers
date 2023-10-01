@@ -4,13 +4,13 @@ using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
-using CodeBase.Gameplay.Tiles;
-using UnityEngine;
 using CodeBase.Gameplay.Services.TurnQueue;
+using CodeBase.Gameplay.Tiles;
 using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
 using NSubstitute;
+using UnityEngine;
 
-namespace CodeBase.Tests
+namespace CodeBase.Tests.EditMode
 {
     public class Setup
     {

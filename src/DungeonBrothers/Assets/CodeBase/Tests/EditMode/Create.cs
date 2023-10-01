@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Gameplay.Tiles;
-using UnityEngine;
 using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Services.Random;
 using CodeBase.Gameplay.Services.TurnQueue;
+using CodeBase.Gameplay.Tiles;
 using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
+using UnityEngine;
 
-namespace CodeBase.Tests
+namespace CodeBase.Tests.EditMode
 {
     public class Create
     {

@@ -5,7 +5,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace CodeBase.Tests.MoverService
+namespace CodeBase.Tests.EditMode.MoverService
 {
     public class MoverServiceTests
     {
