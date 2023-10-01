@@ -72,7 +72,7 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
 
         private ICharacterLogic CreateCharacterLogic(CharacterConfig config)
         {
-            CharacterLogic characterLogic = new CharacterLogic();
+            ICharacterLogic characterLogic = new CharacterLogic();
             
             _objectResolver.Inject(characterLogic);
 
