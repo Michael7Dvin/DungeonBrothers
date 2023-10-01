@@ -1,10 +1,8 @@
-
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
-
-namespace CodeBase.UI.Animations
+namespace CodeBase.Gameplay.Animations.Scale
 {
     public class ScaleAnimation : MonoBehaviour
     {

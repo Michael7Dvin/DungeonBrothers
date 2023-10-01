@@ -8,20 +8,14 @@ namespace CodeBase.Gameplay.Tiles
 {
     public class Tile : MonoBehaviour
     {
-        public TileLogic TileLogic { get; private set; }
-        public TileView TileView { get; private set; }
+        public TileLogic Logic { get; private set; }
+        public TileView View { get; private set; }
 
         public void Construct(TileLogic tileLogic,
             TileView tileView)
         {
-            TileView = tileView;
-            TileLogic = tileLogic;
-        }
-
-        public void Release()
-        {
-            TileLogic.Release();
-            TileView.ResetTileView();
+            View = tileView;
+            Logic = tileLogic;
         }
     }
 }

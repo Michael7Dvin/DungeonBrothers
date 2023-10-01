@@ -33,7 +33,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Path
         {
             _tileSelector.CurrentTile
                 .Skip(1)
-                .Where(tile => _pathFinder.PathFindingResults.Value.IsMovableAt(tile.TileLogic.Coordinates))
+                .Where(tile => _pathFinder.PathFindingResults.Value.IsMovableAt(tile.Logic.Coordinates))
                 .Subscribe(tile =>
                 {
                     ResetLastTiles();
@@ -52,14 +52,14 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Path
         private void Visualize(Tile currentTile)
         {
             List<Vector2Int> _tilesCoordinates =
-                _pathFinder.PathFindingResults.Value.GetPathTo(currentTile.TileLogic.Coordinates);
+                _pathFinder.PathFindingResults.Value.GetPathTo(currentTile.Logic.Coordinates);
 
             foreach (Vector2Int coordinate in _tilesCoordinates)
             {
                 if (_mapService.TryGetTile(coordinate, out Tile tile))
                 {
                     _lastTiles.Add(tile);
-                    tile.TileView.ChangeHighlightColor(_tileColorConfig.PathToTileColor);
+                    tile.View.ChangeHighlightColor(_tileColorConfig.PathToTileColor);
                 }
             }
         }
@@ -67,7 +67,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Path
         private void ResetLastTiles()
         {
             foreach (Tile tile in _lastTiles) 
-                tile.TileView.ChangeHighlightColor(_tileColorConfig.WalkableColorTile);
+                tile.View.ChangeHighlightColor(_tileColorConfig.WalkableColorTile);
             
             _lastTiles.Clear();
         }

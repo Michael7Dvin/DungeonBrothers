@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using CodeBase.Gameplay.Characters.CharacterInfo;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 

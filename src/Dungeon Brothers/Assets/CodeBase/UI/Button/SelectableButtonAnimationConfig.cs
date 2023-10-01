@@ -1,4 +1,4 @@
-﻿using CodeBase.UI.Animations;
+﻿using CodeBase.Gameplay.Animations.Scale;
 using UnityEngine;
 
 namespace CodeBase.UI.Button

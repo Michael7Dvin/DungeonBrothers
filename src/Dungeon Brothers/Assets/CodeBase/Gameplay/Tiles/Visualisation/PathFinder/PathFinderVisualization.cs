@@ -2,13 +2,12 @@
 using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
-using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.Tiles.Visualisation
+namespace CodeBase.Gameplay.Tiles.Visualisation.PathFinder
 {
     public class PathFinderVisualization : IPathFinderVisualization
     {
@@ -56,8 +55,8 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
                 {
                     _lastTiles.Add(tile);
                     
-                    tile.TileView.SwitchHighlight(true);
-                    tile.TileView.ChangeHighlightColor(_tileColorConfig.WalkableColorTile);
+                    tile.View.SwitchHighlight(true);
+                    tile.View.ChangeHighlightColor(_tileColorConfig.WalkableColorTile);
                 }
             }
         }
@@ -68,10 +67,10 @@ namespace CodeBase.Gameplay.Tiles.Visualisation
             {
                 foreach (Tile tile in _lastTiles)
                 {
-                    if (_turnQueue.ActiveCharacter.Value.Coordinate == tile.TileLogic.Coordinates)
+                    if (_turnQueue.ActiveCharacter.Value.Coordinate == tile.Logic.Coordinates)
                         continue;
 
-                    tile.TileView.ResetTileView();
+                    tile.View.ResetTileView();
                 }
             }
         }

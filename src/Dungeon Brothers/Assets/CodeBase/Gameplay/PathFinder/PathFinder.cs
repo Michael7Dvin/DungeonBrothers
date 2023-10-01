@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using CodeBase.Gameplay.Services.Map;
-using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Tiles;
 using UniRx;
 using UnityEngine;
@@ -36,8 +35,8 @@ namespace CodeBase.Gameplay.PathFinder
 
                 foreach (Tile neighbor in _mapService.GetNeighbors(calculatingTile))
                 {
-                    Vector2Int neighborCoordinates = neighbor.TileLogic.Coordinates;
-                    bool isNeighborWalkable = neighbor.TileLogic.IsWalkable;
+                    Vector2Int neighborCoordinates = neighbor.Logic.Coordinates;
+                    bool isNeighborWalkable = neighbor.Logic.IsWalkable;
                     int distance = distances[calculatingTile] + 1;
 
                     if (isNeighborWalkable == false)

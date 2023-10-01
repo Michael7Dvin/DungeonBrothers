@@ -11,7 +11,7 @@ namespace CodeBase.Tests.MapService
     public class MapServiceTests
     {
         [Test]
-        public void WhenGettingTileNeighbors_AndThere3x3TileMap_ThenCentralTileNeighborsCountShouldBe8()
+        public void WhenGettingTileNeighbors_AndThere3x3TileMap_ThenCentralTileNeighborsCountShouldBe4()
         {
             // Arrange.
             List<Tile> tiles = Create.TileMap(3, 3);
@@ -22,11 +22,11 @@ namespace CodeBase.Tests.MapService
             List<Tile> neighbors = mapService.GetNeighbors(centralTileCoordinates);
 
             // Assert.
-            neighbors.Count.Should().Be(8);
+            neighbors.Count.Should().Be(4);
         }
         
         [Test]
-        public void WhenGettingTileNeighbors_AndThere2x2TileMap_ThenAnyTileNeighborsCountShouldBe3()
+        public void WhenGettingTileNeighbors_AndThere2x2TileMap_ThenAnyTileNeighborsCountShouldBe2()
         {
             // Arrange.
             List<Tile> tiles = Create.TileMap(2, 2);
@@ -37,12 +37,12 @@ namespace CodeBase.Tests.MapService
             // Act.
             foreach (Tile tile in tiles)
             {
-                List<Tile> neighbors = mapService.GetNeighbors(tile.TileLogic.Coordinates);
+                List<Tile> neighbors = mapService.GetNeighbors(tile.Logic.Coordinates);
                 tilesNeighborsCounts.Add(tile, neighbors.Count);
             }
 
             // Assert.
-            tilesNeighborsCounts.All(_ => _.Value == 3).Should().Be(true);
+            tilesNeighborsCounts.All(pair => pair.Value == 2).Should().Be(true);
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace CodeBase.Tests.MapService
             IMapService mapService = Create.MapService();
 
             // Act.
-            bool isSuccessful = mapService.TryGetTile(Vector2Int.one, out Tile tile);
+            bool isSuccessful = mapService.TryGetTile(Vector2Int.one, out _);
 
             // Assert.
             isSuccessful.Should().Be(false);

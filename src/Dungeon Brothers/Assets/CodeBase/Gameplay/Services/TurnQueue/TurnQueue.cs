@@ -18,21 +18,14 @@ namespace CodeBase.Gameplay.Services.TurnQueue
 
         private readonly CompositeDisposable _disposable = new();
         
-        private readonly LinkedList<Character> _characters = new();
-        private LinkedListNode<Character> _activeCharacterNode;
+        private readonly LinkedList<ICharacter> _characters = new();
+        private LinkedListNode<ICharacter> _activeCharacterNode;
 
-        private readonly ReactiveProperty<Character> _activeCharacter = new();
+        private readonly ReactiveProperty<ICharacter> _activeCharacter = new();
         
-        private readonly ReactiveCommand<(Character, CharacterInTurnQueueIcon)> _addedToQueue = new();
+        private readonly ReactiveCommand<(ICharacter, CharacterInTurnQueueIcon)> _addedToQueue = new();
         private readonly ReactiveCommand _reseted = new();
-        private readonly ReactiveCommand<Character> _newTurnStarted = new();
-
-        public IObservable<(Character, CharacterInTurnQueueIcon)> AddedToQueue => _addedToQueue;
-        public IObservable<Unit> Reseted => _reseted;
-        public IObservable<Character> NewTurnStarted => _newTurnStarted;
-        
-        public IReadOnlyReactiveProperty<Character> ActiveCharacter => _activeCharacter;
-        public IEnumerable<Character> Characters => _characters;
+        private readonly ReactiveCommand<ICharacter> _newTurnStarted = new();
         
         public TurnQueue(IRandomService randomService, 
             ICharactersProvider charactersProvider,
@@ -42,6 +35,13 @@ namespace CodeBase.Gameplay.Services.TurnQueue
             _charactersProvider = charactersProvider;
             _logger = logger;
         }
+        
+        public IObservable<(ICharacter, CharacterInTurnQueueIcon)> AddedToQueue => _addedToQueue;
+        public IObservable<Unit> Reseted => _reseted;
+        public IObservable<ICharacter> NewTurnStarted => _newTurnStarted;
+        
+        public IReadOnlyReactiveProperty<ICharacter> ActiveCharacter => _activeCharacter;
+        public IEnumerable<ICharacter> Characters => _characters;
         
         public void Initialize()
         {
@@ -93,7 +93,7 @@ namespace CodeBase.Gameplay.Services.TurnQueue
         private void UpdateActiveCharacter() =>
             _activeCharacter.Value = _activeCharacterNode.Value;
         
-        private void Add(Character character,
+        private void Add(ICharacter character,
             CharacterInTurnQueueIcon characterInTurnQueueIcon)
         {
             if (_characters.Count == 0)
@@ -106,7 +106,7 @@ namespace CodeBase.Gameplay.Services.TurnQueue
 
             int newCharacterInitiative = character.CharacterStats.Initiative;
             
-            LinkedListNode<Character> currentCharacter = _characters.First;
+            LinkedListNode<ICharacter> currentCharacter = _characters.First;
 
             while (currentCharacter != null)
             {
@@ -140,7 +140,7 @@ namespace CodeBase.Gameplay.Services.TurnQueue
             }
         }
 
-        private void Remove(Character character)
+        private void Remove(ICharacter character)
         {
             if (character == _activeCharacterNode.Value)
                 _logger.LogError(new Exception($"Unable to remove {nameof(ActiveCharacter)}. Feature not implemented"));

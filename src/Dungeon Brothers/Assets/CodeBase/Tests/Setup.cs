@@ -46,14 +46,14 @@ namespace CodeBase.Tests
             return moverService;
         }
 
-        public static void ObstaclesAroundZeroPosition(IMapService mapService, Character character)
+        public static void ObstaclesAroundZeroPosition(IMapService mapService, ICharacter character)
         {
             if (mapService.TryGetTile(new Vector2Int(0, 1), out Tile obstacleTileOnRight))
-                obstacleTileOnRight.TileLogic.Occupy(character);
+                obstacleTileOnRight.Logic.Occupy(character);
             if (mapService.TryGetTile(new Vector2Int(1, 0), out Tile obstacleTileOnTop))
-                obstacleTileOnTop.TileLogic.Occupy(character);
+                obstacleTileOnTop.Logic.Occupy(character);
             if (mapService.TryGetTile(new Vector2Int(1, 1), out Tile obstacleTileOnTopRight))
-                obstacleTileOnTopRight.TileLogic.Occupy(character);
+                obstacleTileOnTopRight.Logic.Occupy(character);
         }
     }
 }

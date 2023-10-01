@@ -30,9 +30,9 @@ namespace CodeBase.Gameplay.Spawner.CharacterSpawner
                     Transform transform = tile.transform;
                     
                     prefab.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-                    prefab.UpdateCoordinate(tile.TileLogic.Coordinates);
+                    prefab.UpdateCoordinate(tile.Logic.Coordinates);
                     
-                    tile.TileLogic.Occupy(prefab);
+                    tile.Logic.Occupy(prefab);
                 }
             }
         }

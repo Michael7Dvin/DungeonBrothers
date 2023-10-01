@@ -24,7 +24,7 @@ namespace CodeBase.Gameplay.Services.Map
 
             foreach (Tile tile in map)
             {
-                _tiles[tile.TileLogic.Coordinates] = tile;
+                _tiles[tile.Logic.Coordinates] = tile;
             }
                 
         }

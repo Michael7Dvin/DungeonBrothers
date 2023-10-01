@@ -1,6 +1,7 @@
 ﻿using System;
+using CodeBase.Gameplay.Characters.Logic;
 
-namespace CodeBase.Gameplay.Characters
+namespace CodeBase.Gameplay.Characters.CharacterInfo
 {
     public class CharacterLogic : ICharacterLogic
     {

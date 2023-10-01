@@ -63,11 +63,11 @@ namespace CodeBase.UI.TurnQueue
             _charactersIconsQueue.Clear();
         }
         
-        private void ReorganizeIcons(Character character, CharacterInTurnQueueIcon characterInTurnQueueIcon)
+        private void ReorganizeIcons(ICharacter character, CharacterInTurnQueueIcon characterInTurnQueueIcon)
         {
             for (int i = 0; i < _turnQueue.Characters.Count(); i++)
             {
-                List<Character> characters = _turnQueue.Characters.ToList();
+                List<ICharacter> characters = _turnQueue.Characters.ToList();
 
                 if (characters[i] == character)
                 {
@@ -81,10 +81,8 @@ namespace CodeBase.UI.TurnQueue
             }
         }
         
-        private void ShiftIcons(Character character)
+        private void ShiftIcons(ICharacter character)
         {
-            
-            Debug.Log("1");
             _disableIcons.Execute(CharacterIconsQueue);
                 
             int shift = 1;
