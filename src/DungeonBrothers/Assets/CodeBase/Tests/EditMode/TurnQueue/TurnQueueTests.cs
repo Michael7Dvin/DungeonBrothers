@@ -4,7 +4,7 @@ using CodeBase.Gameplay.Services.TurnQueue;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace CodeBase.Tests.TurnQueue
+namespace CodeBase.Tests.EditMode.TurnQueue
 {
     public class TurnQueueTests
     {

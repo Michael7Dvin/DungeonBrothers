@@ -6,7 +6,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace CodeBase.Tests.MapService
+namespace CodeBase.Tests.EditMode.MapService
 {
     public class MapServiceTests
     {
