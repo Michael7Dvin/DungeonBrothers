@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.Random;
@@ -19,16 +18,12 @@ namespace CodeBase.Gameplay.Services.TurnQueue
 
         private readonly CompositeDisposable _disposable = new();
         
-        private readonly LinkedList<ICharacter> _characters = new();
-        private LinkedListNode<ICharacter> _activeCharacterNode;
-
+        private readonly ReactiveCollection<ICharacter> _characters = new();
         private readonly ReactiveProperty<ICharacter> _activeCharacter = new();
-        
-        private readonly ReactiveCommand<(ICharacter, CharacterInTurnQueueIcon)> _addedToQueue = new();
+        private readonly ReactiveCommand _newTurnStarted = new();
+
         private readonly ReactiveCommand _reseted = new();
-        private readonly ReactiveCommand<int> _removed = new();
-        private readonly ReactiveCommand<ICharacter> _newTurnStarted = new();
-        
+
         public TurnQueue(IRandomService randomService, 
             ICharactersProvider charactersProvider,
             ICustomLogger logger)
@@ -38,18 +33,15 @@ namespace CodeBase.Gameplay.Services.TurnQueue
             _logger = logger;
         }
         
-        public IObservable<(ICharacter, CharacterInTurnQueueIcon)> AddedToQueue => _addedToQueue;
+        public IReadOnlyReactiveCollection<ICharacter> Characters => _characters;
         public IObservable<Unit> Reseted => _reseted;
-        public IObservable<int> Removed => _removed;
-        public IObservable<ICharacter> NewTurnStarted => _newTurnStarted;
-        
         public IReadOnlyReactiveProperty<ICharacter> ActiveCharacter => _activeCharacter;
-        public IEnumerable<ICharacter> Characters => _characters;
-        
+        public IObservable<Unit> NewTurnStarted => _newTurnStarted;
+
         public void Initialize()
         {
             _charactersProvider.Spawned
-                .Subscribe(character => Add(character.Item1, character.Item2))
+                .Subscribe(Add)
                 .AddTo(_disposable);
 
 
@@ -65,92 +57,71 @@ namespace CodeBase.Gameplay.Services.TurnQueue
             _reseted.Execute();
             
             _characters.Clear();
-            _activeCharacterNode = null;
-            UpdateActiveCharacter();
+            _activeCharacter.Value = null;
         }
 
         public void SetNextTurn()
         {
-            if (_activeCharacterNode == _characters.First)
-            {
-                _activeCharacterNode = _characters.Last;
-                UpdateActiveCharacter();
-            }
+            if (_activeCharacter.Value == _characters.First())
+                _activeCharacter.Value = _characters.Last();
             else
-            {
-                _activeCharacterNode = _activeCharacterNode.Previous;
-                UpdateActiveCharacter();
-            }
-            
-            _newTurnStarted.Execute(_activeCharacterNode.Value);
+                _activeCharacter.Value = _characters[_characters.IndexOf(_activeCharacter.Value) - 1];
+           
+            _newTurnStarted.Execute();
         }
 
         public void SetFirstTurn()
         {
-            _activeCharacterNode = _characters.Last;
-            UpdateActiveCharacter();
+            _activeCharacter.Value = _characters.Last();
         }
 
-        private void UpdateActiveCharacter() =>
-            _activeCharacter.Value = _activeCharacterNode.Value;
-        
-        private void Add(ICharacter character,
-            CharacterInTurnQueueIcon characterInTurnQueueIcon)
+        private void Add(ICharacter character)
         {
             if (_characters.Count == 0)
             {
-                _characters.AddFirst(character);
-                
-                _addedToQueue.Execute((character, characterInTurnQueueIcon));
+                _characters.Add(character);
                 return;
             }
 
             int newCharacterInitiative = character.CharacterStats.Initiative;
-            
-            LinkedListNode<ICharacter> currentCharacter = _characters.First;
+
+            ICharacter currentCharacter = _characters.First();
 
             while (currentCharacter != null)
             {
-                int currentCharacterInitiative = currentCharacter.Value.CharacterStats.Initiative;
+                int currentCharacterInitiative = currentCharacter.CharacterStats.Initiative;
 
                 if (newCharacterInitiative == currentCharacterInitiative)
                 {
                     if (_randomService.DoFiftyFifty())
                     {
-                        _characters.AddBefore(currentCharacter, character);
-                        _addedToQueue.Execute((character, characterInTurnQueueIcon));
+                        _characters.Insert(_characters.IndexOf(currentCharacter), character);
                         return;
                     }
                 }
 
                 if (newCharacterInitiative < currentCharacterInitiative)
                 {
-                    _characters.AddBefore(currentCharacter, character);
-                    _addedToQueue.Execute((character, characterInTurnQueueIcon));
+                    _characters.Insert(_characters.IndexOf(currentCharacter), character);
                     return;
                 }
 
-                if (currentCharacter == _characters.Last)
+                if (currentCharacter == _characters.Last())
                 {
-                    _characters.AddLast(character);
-                    _addedToQueue.Execute((character, characterInTurnQueueIcon));
+                    _characters.Add(character);
                     return;
                 }
-
-                currentCharacter = currentCharacter.Next;
+                
+                currentCharacter = _characters[_characters.IndexOf(currentCharacter) + 1];
             }
         }
 
         private void Remove(ICharacter character)
         {
-            if (character == _activeCharacterNode.Value)
+            if (character == _activeCharacter.Value)
                 _logger.LogError(new Exception($"Unable to remove {nameof(ActiveCharacter)}. Feature not implemented"));
             
-            int index = _characters.ToList().IndexOf(character);
-
             _characters.Remove(character);
-            
-            _removed.Execute(index);
         }
     }
 }

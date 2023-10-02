@@ -8,7 +8,7 @@ namespace CodeBase.Infrastructure.Services.Providers.CharactersProvider
     public interface ICharactersProvider
     {
         
-        IObservable<(ICharacter, CharacterInTurnQueueIcon)> Spawned { get; }
+        IObservable<ICharacter> Spawned { get; }
         IObservable<ICharacter> Died { get; }
         
         IReadOnlyDictionary<ICharacter, CharacterInTurnQueueIcon> Characters { get; }

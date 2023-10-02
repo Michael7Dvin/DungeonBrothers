@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CodeBase.Gameplay.Characters.Logic;
 using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
@@ -7,6 +8,7 @@ using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Tiles;
 using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
+using NSubstitute;
 using UnityEngine;
 
 namespace CodeBase.Tests.EditMode
@@ -21,6 +23,9 @@ namespace CodeBase.Tests.EditMode
             
             return tile;
         }
+
+        public static Health Health() => 
+            Substitute.For<Health>();
 
         public static List<Tile> TileMap(int rows, int columns)
         {

@@ -1,5 +1,6 @@
 using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.Characters.Logic;
+using CodeBase.UI.TurnQueue;
 using UnityEngine;
 
 namespace CodeBase.Gameplay.Characters
@@ -12,7 +13,8 @@ namespace CodeBase.Gameplay.Characters
         
         public CharacterStats CharacterStats { get; }
         public CharacterDamage CharacterDamage { get; }
-        
+        public CharacterInTurnQueueIcon CharacterInTurnQueueIcon { get; }
+
         public ICharacterLogic CharacterLogic { get; }
         public Transform Transform { get; }
         public Vector2Int Coordinate { get; }

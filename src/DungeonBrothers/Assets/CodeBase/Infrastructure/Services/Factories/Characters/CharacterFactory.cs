@@ -62,11 +62,11 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
 
             Character character = gameObject.GetComponent<Character>();
 
-            character.Construct(config.ID, config.Team, movementStats, characterStats, characterDamage, characterLogic);
-            CreateHealthBar(character);
-
             CharacterInTurnQueueIcon icon = await _turnQueueViewFactory.CreateIcon(config.Image, config.ID);
             icon.gameObject.SetActive(false);
+            
+            character.Construct(config.ID, config.Team, movementStats, characterStats, characterDamage, icon, characterLogic);
+            await CreateHealthBar(character);
             
             _charactersProvider.Add(character, icon);
 

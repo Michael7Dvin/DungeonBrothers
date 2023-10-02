@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Characters.CharacterInfo;
+using CodeBase.Gameplay.Characters.Logic;
 using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
@@ -97,6 +98,9 @@ namespace CodeBase.Tests.EditMode
             character
                 .When(_ => _.UpdateCoordinate(Arg.Any<Vector2Int>()))
                 .Do(_ => character.Coordinate.Returns(_.Arg<Vector2Int>()));
+            
+            Health health = Create.Health();
+            character.CharacterLogic.Health.Returns(health);
 
             character.MovementStats.Returns(new MovementStats(movePoints, isMoveThroughObstacles));
             return character;
@@ -108,6 +112,10 @@ namespace CodeBase.Tests.EditMode
             character
                 .CharacterStats
                 .Returns(new CharacterStats(level, MainAttribute.Dexterity ,1, 1, 1, initiative));
+
+            
+            Health health = Create.Health();
+            character.CharacterLogic.Health.Returns(health);
 
             return character;
         }
