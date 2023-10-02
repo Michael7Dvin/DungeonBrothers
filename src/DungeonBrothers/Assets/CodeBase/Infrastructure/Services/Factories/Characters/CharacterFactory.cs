@@ -72,11 +72,16 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
 
         private ICharacterLogic CreateCharacterLogic(CharacterConfig config)
         {
-            ICharacterLogic characterLogic = new CharacterLogic();
+            Health health = CreateHealth(config);
+            
+            ICharacterLogic characterLogic = new CharacterLogic(health);
             
             _objectResolver.Inject(characterLogic);
 
             return characterLogic;
         }
+
+        private Health CreateHealth(CharacterConfig config) => 
+            new Health(config.HealthPoints);
     }
 }

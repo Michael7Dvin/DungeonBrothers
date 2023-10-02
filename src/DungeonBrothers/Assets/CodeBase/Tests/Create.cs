@@ -57,13 +57,14 @@ namespace CodeBase.Tests
             int dexterity,
             int initiative,
             int movablePoints,
-            bool isMoveThroughObstacles)
+            bool isMoveThroughObstacles,
+            int healthPoints)
         {
             Character character = new GameObject().AddComponent<Character>();
 
             character.Construct(new CharacterID(), new CharacterTeam(), new MovementStats(5, false),
                 new CharacterStats(level, intelligence, strength, dexterity, initiative),
-                new CharacterLogic());
+                new CharacterLogic(new Health(healthPoints)));
             
             return character;
         }

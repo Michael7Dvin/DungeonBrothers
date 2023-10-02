@@ -22,7 +22,12 @@ namespace CodeBase.Gameplay.Characters
         public int MovePoints;
         [TitleGroup("Movement")]
         public bool IsMoveThroughObstacles;
+
+        [FoldoutGroup("StartPrimaryStats")] 
+        public int HealthPoints;
         
+        [FoldoutGroup("Stats")] 
+        public MainAttribute MainAttribute;
         [FoldoutGroup("Stats")]
         public int Level;
         [FoldoutGroup("Stats")]

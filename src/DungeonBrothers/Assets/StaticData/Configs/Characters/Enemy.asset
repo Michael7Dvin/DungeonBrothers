@@ -24,8 +24,10 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  MovePoints: 2
+  MovePoints: 3
   IsMoveThroughObstacles: 0
+  HealthPoints: 10
+  MainAttribute: 0
   Level: 1
   Initiative: 3
   Intelligence: 1

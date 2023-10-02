@@ -20,7 +20,7 @@ namespace CodeBase.Gameplay.Services.InteractionsService
             _tileSelector = tileSelector;
         }
 
-        private async UniTask Interact(Tile tile)
+        private async void Interact(Tile tile)
         {
             IsInteract = true;
             await _moverService.Move(tile);
@@ -33,7 +33,7 @@ namespace CodeBase.Gameplay.Services.InteractionsService
                 .Skip(1)
                 .Where(tile => IsInteract == false)
                 .Where(tile => _tileSelector.PreviousTile.Value == tile)
-                .Subscribe(tile => Interact(tile))
+                .Subscribe(Interact)
                 .AddTo(_disposable);
         }
 

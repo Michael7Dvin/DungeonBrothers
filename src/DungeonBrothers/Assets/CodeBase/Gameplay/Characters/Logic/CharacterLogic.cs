@@ -1,11 +1,12 @@
-﻿using System;
-
-namespace CodeBase.Gameplay.Characters.Logic
+﻿namespace CodeBase.Gameplay.Characters.Logic
 {
     public class CharacterLogic : ICharacterLogic
     {
-        public CharacterInjuring CharacterInjuring { get; private set; }
+        public Health Health { get; private set; }
         
-        public event Action Died;
+        public CharacterLogic(Health health)
+        {
+            Health = health;
+        }
     }
 }

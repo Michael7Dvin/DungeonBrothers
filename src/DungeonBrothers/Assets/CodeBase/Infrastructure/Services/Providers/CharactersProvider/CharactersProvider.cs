@@ -11,6 +11,7 @@ namespace CodeBase.Infrastructure.Services.Providers.CharactersProvider
         private readonly Dictionary<ICharacter, CharacterInTurnQueueIcon> _characters = new();
         private readonly ReactiveCommand<(ICharacter, CharacterInTurnQueueIcon)> _spawned = new();
         private readonly ReactiveCommand<ICharacter> _died = new();
+        private readonly CompositeDisposable _disposable = new();
         
         public IObservable<(ICharacter, CharacterInTurnQueueIcon)> Spawned => _spawned;
         public IObservable<ICharacter> Died => _died;
@@ -20,12 +21,16 @@ namespace CodeBase.Infrastructure.Services.Providers.CharactersProvider
             CharacterInTurnQueueIcon characterInTurnQueueIcon)
         {
             _characters.Add(character, characterInTurnQueueIcon);
-            character.CharacterLogic.Died += OnUnitDied;
+            
+            character.CharacterLogic.Health.Died
+                .Subscribe(unit => OnUnitDied())
+                .AddTo(_disposable);
+            
             _spawned.Execute((character, characterInTurnQueueIcon));
 
             void OnUnitDied()
             {
-                character.CharacterLogic.Died -= OnUnitDied;
+                _disposable.Clear();
                 Remove(character);
             }
         }

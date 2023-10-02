@@ -13,8 +13,8 @@ namespace CodeBase.Tests.Queue
         public void WhenAddingInQueue_AndOneInitiativeIsBigger_ThenBiggerInitiativeShouldBeLast()
         {
             // Arrange.
-            Character characterWithLessInitiative = Create.Character(1, 1, 1, 1, 1, 2, false);
-            Character characterWithBiggerInitiative = Create.Character(1, 1, 1, 1, 5, 2, false);
+            Character characterWithLessInitiative = Create.Character(1, 1, 1, 1, 1, 2, false, 5);
+            Character characterWithBiggerInitiative = Create.Character(1, 1, 1, 1, 5, 2, false, 5);
             CharactersProvider charactersProvider = Create.CharactersProvider();
             ITurnQueue turnQueue = Setup.TurnQueue(charactersProvider);
 
