@@ -1,4 +1,5 @@
 using CodeBase.Gameplay.PathFinder;
+using CodeBase.Gameplay.Services.Attack;
 using CodeBase.Gameplay.Services.InteractionsService;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.MapGenerator;
@@ -72,6 +73,7 @@ namespace CodeBase.Infrastructure.Installers
             builder.Register<ISelectedTileVisualisation, SelectedTileVisualisation>(Lifetime.Singleton);
             builder.Register<ITileSelector, TileSelector>(Lifetime.Singleton);
             builder.Register<IVisualizationPathToTile, VisualizationPathToTile>(Lifetime.Singleton);
+            builder.Register<IAttackService, AttackService>(Lifetime.Singleton);
         } 
     }
 }

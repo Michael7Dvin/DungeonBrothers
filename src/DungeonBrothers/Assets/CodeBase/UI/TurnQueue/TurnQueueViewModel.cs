@@ -50,6 +50,10 @@ namespace CodeBase.UI.TurnQueue
             _turnQueue.Reseted
                 .Subscribe(unit => ClearIcons())
                 .AddTo(_disposable);
+
+            _turnQueue.Removed
+                .Subscribe(RemoveIconFromList)
+                .AddTo(_disposable);
         }
         
         public void OnDisable() => 
@@ -78,7 +82,22 @@ namespace CodeBase.UI.TurnQueue
                     _listChanged.Execute(CharacterIconsQueue);
                     _enableIcons.Execute(CharacterIconsQueue); 
                 }
+
+                if (i == _turnQueue.Characters.Count())
+                {
+                    _listChanged.Execute(CharacterIconsQueue);
+                    break;
+                }
             }
+        }
+        
+        private void RemoveIconFromList(int index)
+        {
+            CharacterInTurnQueueIcon icon = _charactersIconsQueue[index];
+            _charactersIconsQueue.Remove(icon);
+            icon.Destroy();
+            
+            ReorganizeIcons(null, icon);
         }
         
         private void ShiftIcons(ICharacter character)

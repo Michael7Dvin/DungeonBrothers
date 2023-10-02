@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.Random;
 using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
 using CodeBase.UI.TurnQueue;
 using UniRx;
+using UnityEngine;
 
 namespace CodeBase.Gameplay.Services.TurnQueue
 {
@@ -24,6 +26,7 @@ namespace CodeBase.Gameplay.Services.TurnQueue
         
         private readonly ReactiveCommand<(ICharacter, CharacterInTurnQueueIcon)> _addedToQueue = new();
         private readonly ReactiveCommand _reseted = new();
+        private readonly ReactiveCommand<int> _removed = new();
         private readonly ReactiveCommand<ICharacter> _newTurnStarted = new();
         
         public TurnQueue(IRandomService randomService, 
@@ -37,6 +40,7 @@ namespace CodeBase.Gameplay.Services.TurnQueue
         
         public IObservable<(ICharacter, CharacterInTurnQueueIcon)> AddedToQueue => _addedToQueue;
         public IObservable<Unit> Reseted => _reseted;
+        public IObservable<int> Removed => _removed;
         public IObservable<ICharacter> NewTurnStarted => _newTurnStarted;
         
         public IReadOnlyReactiveProperty<ICharacter> ActiveCharacter => _activeCharacter;
@@ -141,8 +145,12 @@ namespace CodeBase.Gameplay.Services.TurnQueue
         {
             if (character == _activeCharacterNode.Value)
                 _logger.LogError(new Exception($"Unable to remove {nameof(ActiveCharacter)}. Feature not implemented"));
+            
+            int index = _characters.ToList().IndexOf(character);
 
             _characters.Remove(character);
+            
+            _removed.Execute(index);
         }
     }
 }

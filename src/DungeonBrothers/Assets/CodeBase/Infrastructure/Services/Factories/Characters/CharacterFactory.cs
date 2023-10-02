@@ -58,11 +58,11 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
             MovementStats movementStats = CreateMovementStats(config);
             CharacterDamage characterDamage = CreateCharacterDamage(config, characterStats);
 
-            ICharacterLogic characterLogic = CreateCharacterLogic(config);
+            ICharacterLogic characterLogic = CreateCharacterLogic(config, gameObject);
 
             Character character = gameObject.GetComponent<Character>();
 
-            character.Construct(config.ID, config.Team, movementStats, characterStats, characterDamage,characterLogic);
+            character.Construct(config.ID, config.Team, movementStats, characterStats, characterDamage, characterLogic);
             CreateHealthBar(character);
 
             CharacterInTurnQueueIcon icon = await _turnQueueViewFactory.CreateIcon(config.Image, config.ID);
@@ -95,9 +95,11 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
             new (config.Level, config.MainAttribute,config.Intelligence, config.Strength, config.Dexterity,
                 config.Initiative);
 
-        private ICharacterLogic CreateCharacterLogic(CharacterConfig config)
+        private ICharacterLogic CreateCharacterLogic(CharacterConfig config, GameObject gameObject)
         {
-            Health health = CreateHealth(config);
+            Health health = gameObject.GetComponent<Health>();
+            health.Construct(config.HealthPoints);
+            _objectResolver.Inject(health);
             
             ICharacterLogic characterLogic = new CharacterLogic(health);
             
@@ -105,8 +107,5 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
 
             return characterLogic;
         }
-
-        private Health CreateHealth(CharacterConfig config) => 
-            new (config.HealthPoints);
     }
 }

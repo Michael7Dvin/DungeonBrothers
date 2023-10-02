@@ -70,9 +70,7 @@ namespace CodeBase.UI.TurnQueue
             int maxVisualizeIcons = characterInTurnQueueIcons.Count - 1 - MaxVisualizedIcons;
             
             for (int i = characterInTurnQueueIcons.Count - 1; i > maxVisualizeIcons; i--)
-            {
                 characterInTurnQueueIcons[i].gameObject.SetActive(true);
-            }
         }
     }
 }

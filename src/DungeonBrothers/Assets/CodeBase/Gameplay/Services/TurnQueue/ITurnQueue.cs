@@ -14,6 +14,7 @@ namespace CodeBase.Gameplay.Services.TurnQueue
         
         public IObservable<(ICharacter, CharacterInTurnQueueIcon)> AddedToQueue { get; }
         public IObservable<Unit> Reseted { get; }
+        public IObservable<int> Removed { get; }
         public IObservable<ICharacter> NewTurnStarted { get; }
       
         

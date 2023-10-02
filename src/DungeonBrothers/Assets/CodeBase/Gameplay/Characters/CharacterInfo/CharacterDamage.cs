@@ -9,8 +9,8 @@ namespace CodeBase.Gameplay.Characters.Logic
         private readonly int _startDamage;
         private readonly CharacterStats _characterStats;
 
-        private const int _totalBonusDamagePerMainStat = 3;
-        private const int _totalBonusDamagePerLevel = 5;
+        private const int _totalBonusDamagePerMainStat = 2;
+        private const int _totalBonusDamagePerLevel = 3;
 
         public CharacterDamage(int startDamage, 
             CharacterStats characterStats)

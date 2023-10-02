@@ -6,7 +6,7 @@ using VContainer;
 
 namespace CodeBase.Gameplay.Characters.Logic
 {
-    public class Health : IDamageable, IHealable
+    public class Health : MonoBehaviour, IDamageable, IHealable
     {
         private readonly ReactiveProperty<int> _healthPoints = new();
         
@@ -17,13 +17,13 @@ namespace CodeBase.Gameplay.Characters.Logic
         private readonly ReactiveCommand _died = new();
         public int MaxHealthPoints { get; private set; }
         
-        public Health(int healthPoints)
+        public void Construct(int healthPoints)
         {
             _healthPoints.Value = healthPoints;
             MaxHealthPoints = healthPoints;
         }
 
-        public IObservable<Unit> Died => _died;
+        public IReactiveCommand<Unit> Died => _died;
         public IReadOnlyReactiveProperty<int> HealthPoints => _healthPoints;
 
         [Inject]
@@ -38,9 +38,16 @@ namespace CodeBase.Gameplay.Characters.Logic
                 _customLogger.LogError(new Exception($"Damage taken: {value} - Damage can't be less than zero"));
 
             _healthPoints.Value = Mathf.Clamp(_healthPoints.Value - value, _minHealth, MaxHealthPoints);
+            TryDie();
+        }
 
+        private void TryDie()
+        {
             if (_healthPoints.Value == 0)
+            {
                 _died.Execute();
+                Destroy(gameObject);
+            }
         }
 
         public void Heal(int value)
