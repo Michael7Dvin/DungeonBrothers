@@ -14,16 +14,16 @@ namespace CodeBase.Gameplay.Services.Move
 {
     public class MoverService : IMoverService
     {
+        private const float AnimationDuration = 2;
+        
         private readonly IPathFinder _pathFinder;
         private readonly IMapService _mapService;
         private readonly ITurnQueue _turnQueue;
         private readonly CompositeDisposable _disposable = new();
         private readonly ReactiveCommand<ICharacter> _isMoved = new();
 
-        private const float _duration = 2;
         private int _currentMovePoints;
-        public PathFindingResults PathFindingResults { get; private set; }
-        
+
         public MoverService(IPathFinder pathFinder, 
             IMapService mapService,
             ITurnQueue turnQueue)
@@ -33,6 +33,7 @@ namespace CodeBase.Gameplay.Services.Move
             _turnQueue = turnQueue;
         }
         
+        public PathFindingResults PathFindingResults { get; private set; }
         public IObservable<ICharacter> IsMoved => _isMoved;
 
         public void Enable()
@@ -50,28 +51,31 @@ namespace CodeBase.Gameplay.Services.Move
         public void Disable() => 
             _disposable.Clear();
 
-        public async UniTask Move(Tile tile)
+        public async UniTask Move(Vector2Int coordinates)
         {
             ICharacter character = _turnQueue.ActiveCharacter.Value;
 
-            if (tile.Logic.Coordinates == character.Coordinate)
+            if (_mapService.TryGetTile(coordinates, out Tile targetTile) == false)
                 return;
             
-            if (PathFindingResults.IsMovableAt(tile.Logic.Coordinates) == false)
+            if (targetTile.Logic.Coordinates == character.Coordinate)
+                return;
+            
+            if (PathFindingResults.IsMovableAt(targetTile.Logic.Coordinates) == false)
                 return;
 
-            List<Vector2Int> path = PathFindingResults.GetPathTo(tile.Logic.Coordinates);
+            List<Vector2Int> path = PathFindingResults.GetPathTo(targetTile.Logic.Coordinates);
             int pathCost = path.Count;
             _currentMovePoints -= pathCost;
                 
             if (_currentMovePoints < 0)
                 return;
             
-            if (_mapService.TryGetTile(character.Coordinate, out Tile previousTile)) 
-                previousTile.Logic.Release();
+            if (_mapService.TryGetTile(character.Coordinate, out Tile characterTile)) 
+                characterTile.Logic.Release();
             
-            character.UpdateCoordinate(tile.Logic.Coordinates);
-            tile.Logic.Occupy(character);
+            character.UpdateCoordinate(targetTile.Logic.Coordinates);
+            targetTile.Logic.Occupy(character);
 
             await Move(path, character);
             
@@ -90,7 +94,7 @@ namespace CodeBase.Gameplay.Services.Move
             }
             
             await character.Transform
-                .DOPath(newPath.ToArray(), _duration)
+                .DOPath(newPath.ToArray(), AnimationDuration)
                 .Play()
                 .SetEase(Ease.OutQuart)
                 .ToUniTask();

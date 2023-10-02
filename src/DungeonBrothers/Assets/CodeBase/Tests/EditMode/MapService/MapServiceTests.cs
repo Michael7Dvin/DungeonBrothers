@@ -6,7 +6,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace CodeBase.Tests.MapService
+namespace CodeBase.Tests.EditMode.MapService
 {
     public class MapServiceTests
     {
@@ -14,8 +14,7 @@ namespace CodeBase.Tests.MapService
         public void WhenGettingTileNeighbors_AndThere3x3TileMap_ThenCentralTileNeighborsCountShouldBe4()
         {
             // Arrange.
-            List<Tile> tiles = Create.TileMap(3, 3);
-            IMapService mapService = Setup.MapService(tiles);
+            IMapService mapService = Setup.MapService(3, 3);
             Vector2Int centralTileCoordinates = Vector2Int.one;
 
             // Act.
@@ -49,10 +48,10 @@ namespace CodeBase.Tests.MapService
         public void WhenTryingToGetTile_AndThereNoTileAtPassedCoordinates_ThenShouldReturnFalse()
         {
             // Arrange.
-            IMapService mapService = Create.MapService();
+            IMapService mapService = Setup.MapService(2, 2);
 
             // Act.
-            bool isSuccessful = mapService.TryGetTile(Vector2Int.one, out _);
+            bool isSuccessful = mapService.TryGetTile(new Vector2Int(0, 10), out _);
 
             // Assert.
             isSuccessful.Should().Be(false);
@@ -62,10 +61,10 @@ namespace CodeBase.Tests.MapService
         public void WhenTryingToGetTile_AndThereNoTileAtPassedCoordinates_ThenResultShouldBeNull()
         {
             // Arrange.
-            IMapService mapService = Create.MapService();
+            IMapService mapService = Setup.MapService(2, 2);
             
             // Act.
-            mapService.TryGetTile(Vector2Int.left, out Tile tile);
+            mapService.TryGetTile(new Vector2Int(0, 10), out Tile tile);
 
             // Assert.
             tile.Should().Be(null);

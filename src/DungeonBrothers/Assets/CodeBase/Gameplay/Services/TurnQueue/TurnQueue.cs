@@ -6,7 +6,6 @@ using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
 using CodeBase.UI.TurnQueue;
 using UniRx;
-using UnityEngine;
 
 namespace CodeBase.Gameplay.Services.TurnQueue
 {
@@ -78,8 +77,6 @@ namespace CodeBase.Gameplay.Services.TurnQueue
                 _activeCharacterNode = _activeCharacterNode.Previous;
                 UpdateActiveCharacter();
             }
-            
-            Debug.Log(_activeCharacter.Value);
             
             _newTurnStarted.Execute(_activeCharacterNode.Value);
         }

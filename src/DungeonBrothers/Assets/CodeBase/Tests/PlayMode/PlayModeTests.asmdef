@@ -1,22 +1,19 @@
 {
-    "name": "Tests",
+    "name": "PlayModeTests",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "BoundfoxStudios.FluentAssertions",
-        "DungeonBrothers",
-        "UniTask"
+        "UniTask",
+        "DungeonBrothers"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll",
-        "NSubstitute.dll"
+        "nunit.framework.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [

@@ -7,21 +7,20 @@ namespace CodeBase.Gameplay.PathFinder
 {
     public struct PathFindingResults
     {
-        public readonly IReadOnlyDictionary<Vector2Int, Tile> Obstacles;
-        
+        private readonly IReadOnlyDictionary<Vector2Int, Tile> _obstacles;
         private readonly Dictionary<Vector2Int, Vector2Int?> _paths;
 
         public PathFindingResults(Dictionary<Vector2Int, Vector2Int?> paths,
             IReadOnlyDictionary<Vector2Int, Tile> obstacles)
         {
             _paths = paths;
-            Obstacles = obstacles;
+            _obstacles = obstacles;
         }
 
         public IEnumerable<Vector2Int> WalkableCoordinates => 
             _paths
                 .Keys
-                .Except(Obstacles.Keys)
+                .Except(_obstacles.Keys)
                 .Skip(1);
 
         public bool IsMovableAt(Vector2Int coordinates) =>

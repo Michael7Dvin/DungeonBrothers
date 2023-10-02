@@ -1,6 +1,5 @@
 ﻿using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.Characters.Logic;
-using CodeBase.Gameplay.Characters.View;
 using UnityEngine;
 
 namespace CodeBase.Gameplay.Characters
@@ -19,6 +18,7 @@ namespace CodeBase.Gameplay.Characters
             CharacterStats = characterStats;
             CharacterLogic = characterLogic;
         }
+        
         public Vector2Int Coordinate { get; private set; }
         public CharacterTeam CharacterTeam { get; private set; }
         public MovementStats MovementStats { get; private set; }
@@ -26,9 +26,10 @@ namespace CodeBase.Gameplay.Characters
         public CharacterStats CharacterStats { get; private set; }
         public ICharacterLogic CharacterLogic { get; private set; }
 
-        public Transform Transform 
-            => transform;
+        public Transform Transform =>
+            transform;
 
-        public void UpdateCoordinate(Vector2Int coordinate) => Coordinate = coordinate;
+        public void UpdateCoordinate(Vector2Int coordinate) => 
+            Coordinate = coordinate;
     }
 }
