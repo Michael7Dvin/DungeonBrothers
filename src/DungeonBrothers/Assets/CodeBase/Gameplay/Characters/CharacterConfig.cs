@@ -25,7 +25,9 @@ namespace CodeBase.Gameplay.Characters
 
         [FoldoutGroup("StartPrimaryStats")] 
         public int HealthPoints;
-        
+        [FoldoutGroup("StartPrimaryStats")] 
+        public int Damage;
+
         [FoldoutGroup("Stats")] 
         public MainAttribute MainAttribute;
         [FoldoutGroup("Stats")]

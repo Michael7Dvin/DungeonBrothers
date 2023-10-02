@@ -107,7 +107,7 @@ namespace CodeBase.Tests.EditMode
             ICharacter character = Substitute.For<ICharacter>();
             character
                 .CharacterStats
-                .Returns(new CharacterStats(level, 1, 1, 1, initiative));
+                .Returns(new CharacterStats(level, MainAttribute.Dexterity ,1, 1, 1, initiative));
 
             return character;
         }

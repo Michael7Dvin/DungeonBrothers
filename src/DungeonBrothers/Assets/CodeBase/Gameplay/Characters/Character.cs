@@ -1,5 +1,6 @@
 ﻿using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.Characters.Logic;
+using Codice.Client.BaseCommands.CheckIn.CodeReview;
 using UnityEngine;
 
 namespace CodeBase.Gameplay.Characters
@@ -10,12 +11,14 @@ namespace CodeBase.Gameplay.Characters
             CharacterTeam characterTeam,
             MovementStats movementStats,
             CharacterStats characterStats,
+            CharacterDamage characterDamage,
             ICharacterLogic characterLogic)
         {
             CharacterID = characterID;
             CharacterTeam = characterTeam;
             MovementStats = movementStats;
             CharacterStats = characterStats;
+            CharacterDamage = characterDamage;
             CharacterLogic = characterLogic;
         }
         
@@ -24,6 +27,7 @@ namespace CodeBase.Gameplay.Characters
         public MovementStats MovementStats { get; private set; }
         public CharacterID CharacterID { get; private set; }
         public CharacterStats CharacterStats { get; private set; }
+        public CharacterDamage CharacterDamage { get; private set; }
         public ICharacterLogic CharacterLogic { get; private set; }
 
         public Transform Transform =>

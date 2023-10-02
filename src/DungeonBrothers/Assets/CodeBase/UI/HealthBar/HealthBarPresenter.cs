@@ -7,22 +7,19 @@ namespace CodeBase.UI.HealthBar
 {
     public class HealthBarPresenter : MonoBehaviour
     {
+        [SerializeField] private HealthBarView _healthBarView;
+        
         private Health _health;
-        private HealthBarView _healthBarView;
         
         private readonly CompositeDisposable _disposable = new();
 
-        public void Construct(Health health, 
-            HealthBarView healthBarView)
+        public void Construct(Health health)
         {
             _health = health;
-            _healthBarView = healthBarView;
         }
 
         public void Initialize()
         {
-            SpriteRenderer spriteRenderer;
-            
             _health.HealthPoints
                 .Skip(1)
                 .Subscribe(_healthPoints => _healthBarView.UpdateHealthBar(_healthPoints / _health.MaxHealthPoints))

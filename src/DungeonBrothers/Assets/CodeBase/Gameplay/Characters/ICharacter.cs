@@ -11,6 +11,7 @@ namespace CodeBase.Gameplay.Characters
         public MovementStats MovementStats { get; }
         
         public CharacterStats CharacterStats { get; }
+        public CharacterDamage CharacterDamage { get; }
         
         public ICharacterLogic CharacterLogic { get; }
         public Transform Transform { get; }

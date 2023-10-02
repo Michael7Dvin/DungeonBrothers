@@ -23,7 +23,12 @@ namespace CodeBase.Gameplay.Services.InteractionsService
         private async void Interact(Tile tile)
         {
             IsInteract = true;
+            
+            if (tile.Logic.Character != null)
+                return;
+            
             await _moverService.Move(tile.Logic.Coordinates);
+            
             IsInteract = false;
         }
         
