@@ -13,6 +13,9 @@ namespace CodeBase.Gameplay.Tiles
         private readonly ICameraProvider _cameraProvider;
         private readonly CompositeDisposable _disposable = new();
 
+        private readonly ReactiveProperty<Tile> _currentTile = new();
+        private readonly ReactiveProperty<Tile> _previousTile = new();
+        
         public TileSelector(IRaycastService raycastService,
             IInputService inputService,
             ICameraProvider cameraProvider)
@@ -22,8 +25,6 @@ namespace CodeBase.Gameplay.Tiles
             _cameraProvider = cameraProvider;
         }
 
-        private readonly ReactiveProperty<Tile> _currentTile = new();
-        private readonly ReactiveProperty<Tile> _previousTile = new();
         public IReadOnlyReactiveProperty<Tile> PreviousTile => _previousTile;
         public IReadOnlyReactiveProperty<Tile> CurrentTile => _currentTile;
 

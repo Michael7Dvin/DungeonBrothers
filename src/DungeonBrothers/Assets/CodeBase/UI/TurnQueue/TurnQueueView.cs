@@ -5,10 +5,10 @@ namespace CodeBase.UI.TurnQueue
 {
     public class TurnQueueView : MonoBehaviour
     {
+        private const int MaxVisualizedIcons = 5;
+        
         private TurnQueueViewModel _turnQueueViewModel;
         private readonly CompositeDisposable _disposable = new();
-        
-        private const int MaxVisualizedIcons = 5;
         
         public void Construct(TurnQueueViewModel turnQueueViewModel)
         {

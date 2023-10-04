@@ -10,7 +10,6 @@ namespace CodeBase.UI.HealthBar
         [SerializeField] private HealthBarView _healthBarView;
         
         private Health _health;
-        
         private readonly CompositeDisposable _disposable = new();
 
         public void Construct(Health health)

@@ -1,18 +1,16 @@
 ﻿using System;
 using CodeBase.Gameplay.Characters.CharacterInfo;
-using CodeBase.Infrastructure.Services.Logger;
 
 namespace CodeBase.Gameplay.Characters.Logic
 {
     public readonly struct CharacterDamage
     {
-        private readonly int _startDamage;
-        private readonly CharacterStats _characterStats;
-
         private const int _totalBonusDamagePerMainStat = 2;
         private const int _totalBonusDamagePerLevel = 3;
-        public CharacterAttackType CharacterAttackType { get; }
-
+        
+        private readonly int _startDamage;
+        private readonly CharacterStats _characterStats;
+        
         public CharacterDamage(int startDamage, 
             CharacterStats characterStats,
             CharacterAttackType characterAttackType)
@@ -21,6 +19,8 @@ namespace CodeBase.Gameplay.Characters.Logic
             _characterStats = characterStats;
             CharacterAttackType = characterAttackType;
         }
+        
+        public CharacterAttackType CharacterAttackType { get; }
         
         public int GetCharacterDamage()
         {

@@ -8,14 +8,18 @@ namespace CodeBase.Gameplay.Characters.Logic
 {
     public class Health : MonoBehaviour, IDamageable, IHealable
     {
+        private const int _minHealth = 0; 
         private readonly ReactiveProperty<int> _healthPoints = new();
         
         private ICustomLogger _customLogger;
-
-        private const int _minHealth = 0; 
         
         private readonly ReactiveCommand _died = new();
-        public int MaxHealthPoints { get; private set; }
+        
+        [Inject]
+        public void Inject(ICustomLogger customLogger)
+        {
+            _customLogger = customLogger;
+        }
         
         public void Construct(int healthPoints)
         {
@@ -23,14 +27,9 @@ namespace CodeBase.Gameplay.Characters.Logic
             MaxHealthPoints = healthPoints;
         }
 
+        public int MaxHealthPoints { get; private set; }
         public IReactiveCommand<Unit> Died => _died;
         public IReadOnlyReactiveProperty<int> HealthPoints => _healthPoints;
-
-        [Inject]
-        public void Inject(ICustomLogger customLogger)
-        {
-            _customLogger = customLogger;
-        }
         
         public void TakeDamage(int value)
         {
