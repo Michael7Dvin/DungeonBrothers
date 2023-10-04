@@ -119,7 +119,7 @@ namespace CodeBase.Gameplay.Services.TurnQueue
         private void Remove(ICharacter character)
         {
             if (character == _activeCharacter.Value)
-                _logger.LogError(new Exception($"Unable to remove {nameof(ActiveCharacter)}. Feature not implemented"));
+                SetNextTurn();
             
             _characters.Remove(character);
         }

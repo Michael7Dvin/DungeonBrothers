@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Characters.Logic;
 using CodeBase.Gameplay.PathFinder;
+using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
@@ -14,6 +15,7 @@ namespace CodeBase.Gameplay.Services.Attack
     {
         private readonly ITurnQueue _turnQueue;
         private readonly IPathFinder _pathFinder;
+        private readonly IMapService _mapService;
         private readonly ICustomLogger _customLogger;
 
         private readonly int _meleeRange;
@@ -21,10 +23,12 @@ namespace CodeBase.Gameplay.Services.Attack
         public AttackService(ITurnQueue turnQueue,
             IPathFinder pathFinder,
             ICustomLogger customLogger,
+            IMapService mapService,
             IStaticDataProvider staticDataProvider)
         {
             _turnQueue = turnQueue;
             _pathFinder = pathFinder;
+            _mapService = mapService;
             _customLogger = customLogger;
 
             _meleeRange = staticDataProvider.GameBalanceConfig.AttackRangeConfig.MeleeRange;
