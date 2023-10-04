@@ -76,8 +76,8 @@ namespace CodeBase.Gameplay.Services.Move
 
             await Move(path, character);
             
-            CalculatePaths(character);
             _isMoved.Execute(character);
+            CalculatePaths(character);
         }
 
         private async UniTask Move(List<Vector2Int> path, ICharacter character)

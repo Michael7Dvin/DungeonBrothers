@@ -48,8 +48,6 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.PathFinder
         private void VisualizeWalkableTiles(PathFindingResults pathFindingResults)
         {
             ResetLastTilesView();
-            
-            Debug.Log(pathFindingResults);
 
             foreach (Vector2Int coordinate in pathFindingResults.WalkableCoordinates)
             {
