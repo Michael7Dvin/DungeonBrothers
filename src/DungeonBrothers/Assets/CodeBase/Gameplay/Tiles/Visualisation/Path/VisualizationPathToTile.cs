@@ -37,7 +37,8 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Path
         {
             _tileSelector.CurrentTile
                 .Skip(1)
-                .Where(tile => _interactionService.IsInteract == false)
+                .Where(tile => tile != null)
+                .Where(_ => _interactionService.IsInteract == false)
                 .Where(tile => _pathFinder.PathFindingResults.Value.IsMovableAt(tile.Logic.Coordinates))
                 .Subscribe(tile =>
                 {
@@ -57,7 +58,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Path
         private void Visualize(Tile currentTile)
         {
             List<Vector2Int> _tilesCoordinates =
-                _pathFinder.PathFindingResults.Value.GetPathTo(currentTile.Logic.Coordinates);
+                _pathFinder.PathFindingResults.Value.GetPathTo(currentTile.Logic.Coordinates, false);
 
             foreach (Vector2Int coordinate in _tilesCoordinates)
             {

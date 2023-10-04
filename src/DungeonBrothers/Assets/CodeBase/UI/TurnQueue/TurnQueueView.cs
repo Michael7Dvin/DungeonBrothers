@@ -26,7 +26,7 @@ namespace CodeBase.UI.TurnQueue
             
             _turnQueueViewModel.CharacterIconsQueue
                 .ObserveMove()
-                .Subscribe(_ => ReorganizeChildPosition())
+                .Subscribe(ShiftChildPosition)
                 .AddTo(_disposable);
 
             _turnQueueViewModel.EnableIcons

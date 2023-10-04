@@ -66,8 +66,10 @@ namespace CodeBase.Gameplay.PathFinder
             }
 
             obstacles.Remove(start);
-            _pathFindingResults.Value = new PathFindingResults(paths, obstacles);
-            return _pathFindingResults.Value;
+            return new PathFindingResults(paths, obstacles);
         }
+
+        public void SetPathFindingResults(PathFindingResults pathFindingResults) =>
+            _pathFindingResults.SetValueAndForceNotify(pathFindingResults);
     }
 }

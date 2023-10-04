@@ -64,7 +64,7 @@ namespace CodeBase.Tests.EditMode
             moverService.Enable();
 
             turnQueue.SetFirstTurn();
-            
+
             return moverService;
         }
 

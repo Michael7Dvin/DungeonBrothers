@@ -22,13 +22,14 @@ namespace CodeBase.UI.HealthBar
         {
             _health.HealthPoints
                 .Skip(1)
-                .Subscribe(_healthPoints => _healthBarView.UpdateHealthBar(_healthPoints / _health.MaxHealthPoints))
+                .Subscribe(_healthPoints => _healthBarView.UpdateHealthBar((float)_healthPoints / _health.MaxHealthPoints))
                 .AddTo(_disposable);
 
             _health.Died
                 .Subscribe(unit => Destroy(gameObject))
                 .AddTo(_disposable);
         }
+
 
         private void OnDestroy() =>
             _disposable.Clear();

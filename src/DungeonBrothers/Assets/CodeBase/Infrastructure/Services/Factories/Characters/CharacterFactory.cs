@@ -86,7 +86,7 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
         }
 
         private CharacterDamage CreateCharacterDamage(CharacterConfig config, CharacterStats stats) =>
-            new (config.Damage, stats);
+            new (config.Damage, stats, config.characterAttackType);
 
         private MovementStats CreateMovementStats(CharacterConfig config) => 
             new (config.MovePoints, config.IsMoveThroughObstacles);

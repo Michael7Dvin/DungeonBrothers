@@ -46,9 +46,18 @@ namespace CodeBase.Gameplay.Tiles
             {
                 if (_currentTile.Value != null)
                     _previousTile.SetValueAndForceNotify(_currentTile.Value);
-
+                
                 _currentTile.SetValueAndForceNotify(tile);
+                
+                if (_currentTile.Value == _previousTile.Value)
+                    ResetTiles();
             }
+        }
+
+        private void ResetTiles()
+        {
+            _currentTile.Value = null;
+            _previousTile.Value = null;
         }
     }
 }

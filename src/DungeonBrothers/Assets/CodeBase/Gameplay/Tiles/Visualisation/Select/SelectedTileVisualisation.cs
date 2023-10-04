@@ -35,11 +35,14 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Select
         public void Initialize()
         {
             _tileSelector.CurrentTile
+                .Skip(1)
                 .Where(tile => tile != _tileSelector.PreviousTile.Value)
+                .Where(tile => tile != null)
                 .Subscribe(VisualizeSelectedTile)
                 .AddTo(_disposable);
-
+            
             _tileSelector.PreviousTile
+                .Skip(1)
                 .Where(tile => tile != null)
                 .Subscribe(tile =>
                 {

@@ -13,8 +13,6 @@ namespace CodeBase.Gameplay.Services.InteractionsService
         private readonly ITileSelector _tileSelector;
         private readonly CompositeDisposable _disposable = new();
         
-        public bool IsInteract { get; private set; }
-        
         public InteractionService(IMoverService moverService,
             IAttackService attackService,
             ITileSelector tileSelector)
@@ -23,6 +21,8 @@ namespace CodeBase.Gameplay.Services.InteractionsService
             _attackService = attackService;
             _tileSelector = tileSelector;
         }
+        
+        public bool IsInteract { get; private set; }
 
         private async void Interact(Tile tile)
         {
@@ -31,8 +31,8 @@ namespace CodeBase.Gameplay.Services.InteractionsService
             if (tile.Logic.Character != null)
                 _attackService.Attack(tile.Logic.Character);
             
-            await _moverService.Move(tile.Logic.Coordinates);
-            
+            await _moverService.Move(tile);
+
             IsInteract = false;
         }
         
@@ -40,7 +40,7 @@ namespace CodeBase.Gameplay.Services.InteractionsService
         {
             _tileSelector.CurrentTile
                 .Skip(1)
-                .Where(tile => IsInteract == false)
+                .Where(_ => IsInteract == false)
                 .Where(tile => _tileSelector.PreviousTile.Value == tile)
                 .Subscribe(Interact)
                 .AddTo(_disposable);

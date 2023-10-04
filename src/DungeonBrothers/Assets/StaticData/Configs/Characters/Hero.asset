@@ -30,7 +30,7 @@ MonoBehaviour:
   Damage: 3
   MainAttribute: 0
   Level: 1
-  Initiative: 3
+  Initiative: 5
   Intelligence: 1
   Strength: 1
   Dexterity: 1
