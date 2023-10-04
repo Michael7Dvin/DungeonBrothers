@@ -5,9 +5,13 @@ using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.Characters.Logic;
 using CodeBase.Gameplay.Characters.View;
 using CodeBase.Gameplay.Services.TurnQueue;
+using CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI.Gameplay;
 using CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
 using CodeBase.Infrastructure.Services.Factories.TurnQueue;
+using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
+using CodeBase.Infrastructure.Services.StaticDataProvider;
+using CodeBase.UI.HealthBar;
 using CodeBase.UI.TurnQueue;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -23,22 +27,32 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
         private readonly ICharactersProvider _charactersProvider;
         private readonly ITurnQueue _turnQueue;
         private readonly ITurnQueueViewFactory _turnQueueViewFactory;
+        private readonly ICustomLogger _customLogger;
+        private readonly GameplayUIAddresses _gameplayUIAddresses;
+        private readonly BonusDamageConfig _bonusDamageConfig;
 
         public CharacterFactory(IAddressablesLoader addressablesLoader,
             IObjectResolver objectResolver,
             ICharactersProvider charactersProvider,
-            ITurnQueueViewFactory turnQueueViewFactory)
+            ITurnQueueViewFactory turnQueueViewFactory,
+            ICustomLogger customLogger,
+            IStaticDataProvider staticDataProvider)
         {
             _addressablesLoader = addressablesLoader;
             _objectResolver = objectResolver;
             _charactersProvider = charactersProvider;
             _turnQueueViewFactory = turnQueueViewFactory;
+            _gameplayUIAddresses = staticDataProvider.AssetsAddresses.AllUIAddresses.GameplayUIAddresses;
+            _bonusDamageConfig = staticDataProvider.GameBalanceConfig.BonusDamageConfig;
+            _customLogger = customLogger;
         }
 
         public async UniTask WarmUp(List<CharacterConfig> characterConfigs)
         {
             foreach (var character in characterConfigs) 
                 await _addressablesLoader.LoadGameObject(character.Prefab);
+
+            await _addressablesLoader.LoadGameObject(_gameplayUIAddresses.HealthBar);
         }
 
         public async UniTask<Character> Create(CharacterConfig config)
@@ -48,31 +62,55 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
 
             CharacterStats characterStats = CreateCharacterStats(config);
             MovementStats movementStats = CreateMovementStats(config);
+            CharacterDamage characterDamage = CreateCharacterDamage(config, characterStats);
 
-            ICharacterLogic characterLogic = CreateCharacterLogic(config);
+            ICharacterLogic characterLogic = CreateCharacterLogic(config, gameObject);
 
             Character character = gameObject.GetComponent<Character>();
 
-            character.Construct(config.ID, config.Team, movementStats, characterStats, characterLogic);
-
             CharacterInTurnQueueIcon icon = await _turnQueueViewFactory.CreateIcon(config.Image, config.ID);
             icon.gameObject.SetActive(false);
+            
+            character.Construct(config.ID, config.Team, movementStats, characterStats, characterDamage, icon, characterLogic);
+            await CreateHealthBar(character);
             
             _charactersProvider.Add(character, icon);
 
             return character;
         }
 
-        public MovementStats CreateMovementStats(CharacterConfig config) => 
-            new MovementStats(config.MovePoints, config.IsMoveThroughObstacles);
+        private async UniTask CreateHealthBar(Character character)
+        {
+            GameObject prefab = await _addressablesLoader.LoadGameObject(_gameplayUIAddresses.HealthBar);
+            GameObject gameObject = _objectResolver.Instantiate(prefab, character.Transform);
+
+            HealthBarView healthBarView = gameObject.GetComponent<HealthBarView>();
+            HealthBarPresenter healthBarPresenter = new HealthBarPresenter();
+            
+            healthBarPresenter.Construct(character.CharacterLogic.Health, healthBarView);
+
+            gameObject.transform.position = character.Transform.position - new Vector3(0, 0.5f);
+            healthBarPresenter.Initialize();
+        }
+
+        private CharacterDamage CreateCharacterDamage(CharacterConfig config, CharacterStats stats) =>
+            new(_bonusDamageConfig.TotalBonusDamagePerMainStat, _bonusDamageConfig.TotalBonusDamagePerLevel,
+                config.Damage, stats, config.characterAttackType, _customLogger);
+
+        private MovementStats CreateMovementStats(CharacterConfig config) => 
+            new (config.MovePoints, config.IsMoveThroughObstacles);
 
         private CharacterStats CreateCharacterStats(CharacterConfig config) =>
-            new CharacterStats(config.Level, config.Intelligence, config.Strength, config.Dexterity,
+            new (config.Level, config.MainAttribute,config.Intelligence, config.Strength, config.Dexterity,
                 config.Initiative);
 
-        private ICharacterLogic CreateCharacterLogic(CharacterConfig config)
+        private ICharacterLogic CreateCharacterLogic(CharacterConfig config, GameObject gameObject)
         {
-            CharacterLogic characterLogic = new CharacterLogic();
+            Health health = gameObject.GetComponent<Health>();
+            health.Construct(config.HealthPoints);
+            _objectResolver.Inject(health);
+            
+            ICharacterLogic characterLogic = new CharacterLogic(health);
             
             _objectResolver.Inject(characterLogic);
 

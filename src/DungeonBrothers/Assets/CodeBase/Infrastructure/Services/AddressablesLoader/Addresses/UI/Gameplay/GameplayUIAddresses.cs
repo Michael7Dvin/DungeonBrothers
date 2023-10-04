@@ -8,5 +8,6 @@ namespace CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI.Gamep
     {
         [field: SerializeField] public AssetReferenceGameObject TurnQueueView { get; private set; }
         [field: SerializeField] public AssetReferenceGameObject SkipTurnButton { get; private set; }
+        [field: SerializeField] public AssetReferenceGameObject HealthBar { get; private set; }
     }
 }

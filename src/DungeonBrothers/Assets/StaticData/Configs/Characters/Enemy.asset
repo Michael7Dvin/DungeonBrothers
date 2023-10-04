@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dfb87e4cb24468482e46d2c9cab29eb, type: 3}
   m_Name: Enemy
   m_EditorClassIdentifier: 
-  ID: 0
+  ID: 1
   Team: 0
   Image:
     m_AssetGUID: 3fa64a58af77cf44e9a2f9893340bbd7
@@ -24,8 +24,11 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  MovePoints: 2
+  MovePoints: 3
   IsMoveThroughObstacles: 0
+  HealthPoints: 30
+  Damage: 3
+  MainAttribute: 0
   Level: 1
   Initiative: 3
   Intelligence: 1

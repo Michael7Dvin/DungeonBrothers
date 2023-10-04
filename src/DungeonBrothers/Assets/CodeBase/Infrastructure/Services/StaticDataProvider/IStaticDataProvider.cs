@@ -9,5 +9,6 @@ namespace CodeBase.Infrastructure.Services.StaticDataProvider
         AllAssetsAddresses AssetsAddresses { get; }
         AllCharactersConfigs AllCharactersConfigs { get; }
         TileColorConfig TileColorConfig { get; }
+        AllGameBalanceConfig GameBalanceConfig { get; }
     }
 }

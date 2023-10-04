@@ -1,6 +1,7 @@
 ﻿using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
+using CodeBase.Gameplay.Tiles;
 using FluentAssertions;
 using NUnit.Framework;
 using UnityEngine;
@@ -16,13 +17,13 @@ namespace CodeBase.Tests.EditMode.MoverService
             ICharacter character = Setup.CharacterForMovement(5, false);
 
             IMoverService moverService = Setup.MoverService(character, 4, 4);
-            Vector2Int destination = new(3, 0);
-            
-            // Act.
-            moverService.Move(destination);
+            Tile tile = Setup.Tile(new Vector2Int(2, 1));
+
+                // Act.
+            moverService.Move(tile);
 
             // Assert.
-            character.Coordinate.Should().Be(destination);
+            character.Coordinate.Should().Be(tile.Logic.Coordinates);
         }
 
         [Test]
@@ -33,15 +34,15 @@ namespace CodeBase.Tests.EditMode.MoverService
 
             IMapService mapService = Setup.MapService(4, 4);
             IMoverService moverService = Setup.MoverService(character, mapService);
-            Vector2Int destination = new(2, 2);
+            Tile tile = Setup.Tile(new Vector2Int(2, 2));
             
             Setup.ObstaclesAroundZeroPosition(mapService);
             
             // Act.
-            moverService.Move(destination);
+            moverService.Move(tile);
 
             // Assert.
-            character.Coordinate.Should().Be(destination);
+            character.Coordinate.Should().Be(tile.Logic.Coordinates);
         }
     }
 }

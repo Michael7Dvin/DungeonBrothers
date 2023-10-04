@@ -1,16 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UniRx;
+﻿using UniRx;
 using UnityEngine;
 
 namespace CodeBase.UI.TurnQueue
 {
     public class TurnQueueView : MonoBehaviour
     {
+        private const int MaxVisualizedIcons = 5;
+        
         private TurnQueueViewModel _turnQueueViewModel;
         private readonly CompositeDisposable _disposable = new();
-        
-        private const int MaxVisualizedIcons = 5;
         
         public void Construct(TurnQueueViewModel turnQueueViewModel)
         {
@@ -21,16 +19,22 @@ namespace CodeBase.UI.TurnQueue
         
         private void Enable()
         {
-            _turnQueueViewModel.ListChanged
-                .Subscribe(ReorganizeChildPosition)
-                .AddTo(_disposable); 
+            _turnQueueViewModel.CharacterIconsQueue
+                .ObserveAdd()
+                .Subscribe(_ => ReorganizeChildPosition())
+                .AddTo(_disposable);  
             
+            _turnQueueViewModel.CharacterIconsQueue
+                .ObserveMove()
+                .Subscribe(ShiftChildPosition)
+                .AddTo(_disposable);
+
             _turnQueueViewModel.EnableIcons
-                .Subscribe(EnableIcons)
+                .Subscribe(_ => EnableIcons())
                 .AddTo(_disposable); 
             
             _turnQueueViewModel.DisableIcons
-                .Subscribe(DisableIcons)
+                .Subscribe()
                 .AddTo(_disposable);
 
             _turnQueueViewModel.OnEnable();
@@ -43,21 +47,33 @@ namespace CodeBase.UI.TurnQueue
             _turnQueueViewModel.OnDisable();
         }
 
-        private void DisableIcons(IReadOnlyList<CharacterInTurnQueueIcon> characterInTurnQueueIcons)
+        private void DisableIcons()
         {
-            foreach (var icon in characterInTurnQueueIcons) 
+            foreach (var icon in _turnQueueViewModel.CharacterIconsQueue) 
                 icon.gameObject.SetActive(false);
         }
 
-        private void ReorganizeChildPosition(IReadOnlyList<CharacterInTurnQueueIcon> characterInTurnQueueIcons)
+        private void ShiftChildPosition(CollectionMoveEvent<CharacterInTurnQueueIcon> charactersIcons)
         {
-            for (int i = 0; i < characterInTurnQueueIcons.Count; i++)
-                characterInTurnQueueIcons[i].transform.SetSiblingIndex(i);
+            int oldIndex = charactersIcons.OldIndex;
+            int newIndex = charactersIcons.NewIndex;
+
+            _turnQueueViewModel.CharacterIconsQueue[charactersIcons.OldIndex].transform.SetSiblingIndex(newIndex);
+            _turnQueueViewModel.CharacterIconsQueue[charactersIcons.OldIndex].transform.SetSiblingIndex(oldIndex);
         }
-        
-        
-        private void EnableIcons(IReadOnlyList<CharacterInTurnQueueIcon> characterInTurnQueueIcons)
+
+        private void ReorganizeChildPosition()
         {
+            for (int i = 0; i < _turnQueueViewModel.CharacterIconsQueue.Count - 1; i++)
+                _turnQueueViewModel.CharacterIconsQueue[i].transform.SetSiblingIndex(i);
+        }
+
+
+        private void EnableIcons()
+        {
+            IReadOnlyReactiveCollection<CharacterInTurnQueueIcon> characterInTurnQueueIcons =
+                _turnQueueViewModel.CharacterIconsQueue;
+
             if (characterInTurnQueueIcons.Count <= MaxVisualizedIcons)
             {
                 for (int i = characterInTurnQueueIcons.Count - 1; i >= 0; i--)
@@ -70,9 +86,7 @@ namespace CodeBase.UI.TurnQueue
             int maxVisualizeIcons = characterInTurnQueueIcons.Count - 1 - MaxVisualizedIcons;
             
             for (int i = characterInTurnQueueIcons.Count - 1; i > maxVisualizeIcons; i--)
-            {
                 characterInTurnQueueIcons[i].gameObject.SetActive(true);
-            }
         }
     }
 }

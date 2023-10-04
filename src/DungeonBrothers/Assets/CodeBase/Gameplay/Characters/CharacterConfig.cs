@@ -1,4 +1,5 @@
 ﻿using CodeBase.Gameplay.Characters.CharacterInfo;
+using CodeBase.Gameplay.Characters.Logic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -22,7 +23,17 @@ namespace CodeBase.Gameplay.Characters
         public int MovePoints;
         [TitleGroup("Movement")]
         public bool IsMoveThroughObstacles;
+
+        [FoldoutGroup("StartHealth")] 
+        public int HealthPoints;
         
+        [FoldoutGroup("Damage")]
+        public CharacterAttackType characterAttackType;
+        [FoldoutGroup("Damage")] 
+        public int Damage;
+
+        [FoldoutGroup("Stats")] 
+        public MainAttribute MainAttribute;
         [FoldoutGroup("Stats")]
         public int Level;
         [FoldoutGroup("Stats")]

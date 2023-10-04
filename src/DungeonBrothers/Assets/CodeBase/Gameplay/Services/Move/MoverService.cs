@@ -51,20 +51,17 @@ namespace CodeBase.Gameplay.Services.Move
         public void Disable() => 
             _disposable.Clear();
 
-        public async UniTask Move(Vector2Int coordinates)
+        public async UniTask Move(Tile tile)
         {
             ICharacter character = _turnQueue.ActiveCharacter.Value;
 
-            if (_mapService.TryGetTile(coordinates, out Tile targetTile) == false)
+            if (tile.Logic.Coordinates == character.Coordinate)
                 return;
             
-            if (targetTile.Logic.Coordinates == character.Coordinate)
-                return;
-            
-            if (PathFindingResults.IsMovableAt(targetTile.Logic.Coordinates) == false)
+            if (PathFindingResults.IsMovableAt(tile.Logic.Coordinates) == false)
                 return;
 
-            List<Vector2Int> path = PathFindingResults.GetPathTo(targetTile.Logic.Coordinates);
+            List<Vector2Int> path = PathFindingResults.GetPathTo(tile.Logic.Coordinates, false);
             int pathCost = path.Count;
             _currentMovePoints -= pathCost;
                 
@@ -74,13 +71,13 @@ namespace CodeBase.Gameplay.Services.Move
             if (_mapService.TryGetTile(character.Coordinate, out Tile characterTile)) 
                 characterTile.Logic.Release();
             
-            character.UpdateCoordinate(targetTile.Logic.Coordinates);
-            targetTile.Logic.Occupy(character);
+            character.UpdateCoordinate(tile.Logic.Coordinates);
+            tile.Logic.Occupy(character);
 
             await Move(path, character);
             
-            CalculatePaths(character);
             _isMoved.Execute(character);
+            CalculatePaths(character);
         }
 
         private async UniTask Move(List<Vector2Int> path, ICharacter character)
@@ -111,6 +108,8 @@ namespace CodeBase.Gameplay.Services.Move
 
             PathFindingResults pathFindingResults =
                 _pathFinder.CalculatePaths(startPosition, _currentMovePoints, isMoveThroughObstacles);
+            
+            _pathFinder.SetPathFindingResults(pathFindingResults);
 
             PathFindingResults = pathFindingResults;
         }

@@ -26,9 +26,13 @@ namespace CodeBase.Gameplay.PathFinder
         public bool IsMovableAt(Vector2Int coordinates) =>
             WalkableCoordinates.Contains(coordinates);
         
-        public List<Vector2Int> GetPathTo(Vector2Int coordinates)
+        public List<Vector2Int> GetPathTo(Vector2Int coordinates, bool IsIgnoreNotMovableTiles)
         {
-            if (IsMovableAt(coordinates) == false)
+            if (IsIgnoreNotMovableTiles == false)
+                if (IsMovableAt(coordinates) == false)
+                    return null;
+
+            if (_paths.ContainsKey(coordinates) == false)
                 return null;
 
             Vector2Int current = coordinates;
