@@ -1,23 +1,34 @@
 ﻿using System;
 using CodeBase.Gameplay.Characters.CharacterInfo;
+using CodeBase.Infrastructure.Services.Logger;
 
 namespace CodeBase.Gameplay.Characters.Logic
 {
     public readonly struct CharacterDamage
     {
-        private const int _totalBonusDamagePerMainStat = 2;
-        private const int _totalBonusDamagePerLevel = 3;
+        private readonly int _totalBonusDamagePerMainStat;
+        private readonly int _totalBonusDamagePerLevel;
         
-        private readonly int _startDamage;
+        private readonly int _currentDamage;
         private readonly CharacterStats _characterStats;
+
+        private readonly ICustomLogger _customLogger;
         
-        public CharacterDamage(int startDamage, 
+        public CharacterDamage(int totalBonusDamagePerMainStat,
+            int totalBonusDamagePerLevel,
+            int startDamage, 
             CharacterStats characterStats,
-            CharacterAttackType characterAttackType)
+            CharacterAttackType characterAttackType,
+            ICustomLogger customLogger)
         {
-            _startDamage = startDamage;
+            _totalBonusDamagePerMainStat = totalBonusDamagePerMainStat;
+            _totalBonusDamagePerLevel = totalBonusDamagePerLevel;
+            
+            _currentDamage = startDamage;
+            
             _characterStats = characterStats;
             CharacterAttackType = characterAttackType;
+            _customLogger = customLogger;
         }
         
         public CharacterAttackType CharacterAttackType { get; }
@@ -27,17 +38,21 @@ namespace CodeBase.Gameplay.Characters.Logic
             switch (_characterStats.MainAttribute)
             {
                 case MainAttribute.Strength:
-                    return _startDamage + (_characterStats.Strength * _totalBonusDamagePerMainStat) 
-                                        + (_characterStats.Level * _totalBonusDamagePerLevel);
+                    return _currentDamage +
+                           GetDamageFromStats(_characterStats.Strength, _characterStats.Level);
                 case MainAttribute.Dexterity:
-                    return _startDamage + (_characterStats.Dexterity * _totalBonusDamagePerMainStat) 
-                                        + (_characterStats.Level * _totalBonusDamagePerLevel);;
+                    return _currentDamage +
+                           GetDamageFromStats(_characterStats.Dexterity, _characterStats.Level);
                 case MainAttribute.Intelligence:
-                    return _startDamage + (_characterStats.Intelligence * _totalBonusDamagePerMainStat) 
-                                        + (_characterStats.Level * _totalBonusDamagePerLevel);;
+                    return _currentDamage +
+                           GetDamageFromStats(_characterStats.Initiative, _characterStats.Level);
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    _customLogger.LogError(new Exception($"{_characterStats.MainAttribute}, doesn't exist"));
+                    return 0;
             }
         }
+
+        private int GetDamageFromStats(int stat, int level) =>
+            stat * _totalBonusDamagePerMainStat + level * _totalBonusDamagePerLevel;
     }
 }

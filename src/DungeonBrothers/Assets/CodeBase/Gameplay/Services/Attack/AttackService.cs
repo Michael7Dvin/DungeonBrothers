@@ -5,26 +5,30 @@ using CodeBase.Gameplay.Characters.Logic;
 using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.Logger;
+using CodeBase.Infrastructure.Services.StaticDataProvider;
 using UnityEngine;
 
 namespace CodeBase.Gameplay.Services.Attack
 {
     public class AttackService : IAttackService
     {
-        private const int MeleeRange = 1;
-        private const int RangedRange = 3;
-        
         private readonly ITurnQueue _turnQueue;
         private readonly IPathFinder _pathFinder;
         private readonly ICustomLogger _customLogger;
-        
+
+        private readonly int _meleeRange;
+        private readonly int _rangedRange;
         public AttackService(ITurnQueue turnQueue,
             IPathFinder pathFinder,
-            ICustomLogger customLogger)
+            ICustomLogger customLogger,
+            IStaticDataProvider staticDataProvider)
         {
             _turnQueue = turnQueue;
             _pathFinder = pathFinder;
             _customLogger = customLogger;
+
+            _meleeRange = staticDataProvider.GameBalanceConfig.AttackRangeConfig.MeleeRange;
+            _rangedRange = staticDataProvider.GameBalanceConfig.AttackRangeConfig.RangedRange;
         }
 
         public void Attack(ICharacter character)
@@ -40,10 +44,10 @@ namespace CodeBase.Gameplay.Services.Attack
 
         private bool TryAttackEnemy(ICharacter character, ICharacter activeCharacter)
         {
-            if (TryAttackYourSelf(character, activeCharacter))
+            if (IsSelf(character, activeCharacter))
                 return false;
 
-            if (TryAttackTeammate(character, activeCharacter))
+            if (IsAlly(character, activeCharacter))
                 return false;
             
             int pathCost = GetPathCost(character, activeCharacter);
@@ -51,9 +55,9 @@ namespace CodeBase.Gameplay.Services.Attack
             switch (activeCharacter.CharacterDamage.CharacterAttackType)
             {
                 case CharacterAttackType.Melee:
-                    return pathCost == MeleeRange;
+                    return pathCost == _meleeRange;
                 case CharacterAttackType.Ranged:
-                    return pathCost <= RangedRange && pathCost > 0;
+                    return pathCost <= _rangedRange && pathCost > 0;
                 default:
                     _customLogger.LogError(
                         new Exception($"{activeCharacter.CharacterDamage.CharacterAttackType}, doesn't exist"));
@@ -79,11 +83,11 @@ namespace CodeBase.Gameplay.Services.Attack
             switch (activeCharacter.CharacterDamage.CharacterAttackType)
             {
                 case CharacterAttackType.Melee:
-                    return _pathFinder.CalculatePaths(activeCharacter.Coordinate, MeleeRange, 
+                    return _pathFinder.CalculatePaths(activeCharacter.Coordinate, _meleeRange, 
                         true);
                 
                 case CharacterAttackType.Ranged:
-                    return _pathFinder.CalculatePaths(activeCharacter.Coordinate, RangedRange, 
+                    return _pathFinder.CalculatePaths(activeCharacter.Coordinate, _rangedRange, 
                         true);
                 default:
                     _customLogger.LogError(
@@ -92,10 +96,10 @@ namespace CodeBase.Gameplay.Services.Attack
             }
         }
 
-        private bool TryAttackYourSelf(ICharacter character, ICharacter activeCharacter) =>
+        private bool IsSelf(ICharacter character, ICharacter activeCharacter) =>
             character == activeCharacter;
 
-        private bool TryAttackTeammate(ICharacter character, ICharacter activeCharacter) =>
+        private bool IsAlly(ICharacter character, ICharacter activeCharacter) =>
             character.CharacterTeam == activeCharacter.CharacterTeam;
     }
 }

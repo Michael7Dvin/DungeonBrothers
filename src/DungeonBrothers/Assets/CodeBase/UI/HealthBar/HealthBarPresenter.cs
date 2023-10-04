@@ -5,16 +5,18 @@ using UnityEngine;
 
 namespace CodeBase.UI.HealthBar
 {
-    public class HealthBarPresenter : MonoBehaviour
+    public class HealthBarPresenter
     {
-        [SerializeField] private HealthBarView _healthBarView;
+        private HealthBarView _healthBarView;
         
         private Health _health;
         private readonly CompositeDisposable _disposable = new();
 
-        public void Construct(Health health)
+        public void Construct(Health health,
+            HealthBarView healthBarView)
         {
             _health = health;
+            _healthBarView = healthBarView;
         }
 
         public void Initialize()
@@ -25,7 +27,11 @@ namespace CodeBase.UI.HealthBar
                 .AddTo(_disposable);
 
             _health.Died
-                .Subscribe(unit => Destroy(gameObject))
+                .Subscribe(_ => _healthBarView.Destroy())
+                .AddTo(_disposable);
+            
+            _health.Died
+                .Subscribe(_ => OnDestroy())
                 .AddTo(_disposable);
         }
 

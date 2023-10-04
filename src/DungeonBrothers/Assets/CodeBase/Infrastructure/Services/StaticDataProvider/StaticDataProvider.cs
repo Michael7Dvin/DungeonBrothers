@@ -11,10 +11,13 @@ namespace CodeBase.Infrastructure.Services.StaticDataProvider
             AssetsAddresses = allStaticData.AssetsAddresses;
             AllCharactersConfigs = allStaticData.AllCharactersConfigs;
             TileColorConfig = allStaticData.TileColorConfig;
+            GameBalanceConfig = allStaticData.GameBalanceConfig;
         }
 
         public AllAssetsAddresses AssetsAddresses { get; }
         public AllCharactersConfigs AllCharactersConfigs { get; }
         public TileColorConfig TileColorConfig { get; }
+
+        public AllGameBalanceConfig GameBalanceConfig { get; }
     }
 }

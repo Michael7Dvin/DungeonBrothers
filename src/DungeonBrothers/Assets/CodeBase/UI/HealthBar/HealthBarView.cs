@@ -9,5 +9,8 @@ namespace CodeBase.UI.HealthBar
 
         public void UpdateHealthBar(float value) => 
             _fillerPartBar.fillAmount = value;
+
+        public void Destroy() =>
+            Destroy(this);
     }
 }
