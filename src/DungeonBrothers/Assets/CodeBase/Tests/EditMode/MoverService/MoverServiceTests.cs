@@ -33,10 +33,10 @@ namespace CodeBase.Tests.EditMode.MoverService
             ICharacter character = Setup.CharacterForMovement(5, true);
 
             IMapService mapService = Setup.MapService(4, 4);
+            Setup.ObstaclesAroundZeroPosition(mapService);
+            
             IMoverService moverService = Setup.MoverService(character, mapService);
             Tile tile = Setup.Tile(new Vector2Int(2, 2));
-            
-            Setup.ObstaclesAroundZeroPosition(mapService);
             
             // Act.
             moverService.Move(tile);

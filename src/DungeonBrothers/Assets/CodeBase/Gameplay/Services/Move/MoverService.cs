@@ -60,11 +60,11 @@ namespace CodeBase.Gameplay.Services.Move
             
             if (PathFindingResults.IsMovableAt(tile.Logic.Coordinates) == false)
                 return;
-
+            
             List<Vector2Int> path = PathFindingResults.GetPathTo(tile.Logic.Coordinates, false);
             int pathCost = path.Count;
             _currentMovePoints -= pathCost;
-                
+
             if (_currentMovePoints < 0)
                 return;
             
