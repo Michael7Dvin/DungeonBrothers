@@ -15,6 +15,10 @@ namespace CodeBase.Tests.EditMode
 {
     public class Create
     {
+        public static ICustomLogger CustomLogger() =>
+            new CustomLogger(new LogWriter());
+
+
         public static Tile Tile()
         {
             GameObject prefab = new GameObject();
@@ -24,8 +28,8 @@ namespace CodeBase.Tests.EditMode
             return tile;
         }
 
-        public static Health Health() => 
-            Substitute.For<Health>();
+        public static Health Health() =>
+            new GameObject().AddComponent<Health>();
 
         public static List<Tile> TileMap(int rows, int columns)
         {

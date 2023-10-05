@@ -14,7 +14,7 @@ namespace CodeBase.Tests.EditMode.MoverService
         public void WhenCharacterMoving_AndHaveEnoughMovePoints_ThenCharacterShouldBeOnChosenTile()
         {
             // Arrange.
-            ICharacter character = Setup.CharacterForMovement(5, false);
+            ICharacter character = Setup.CharacterForMovement(5, false, 1, 3);
 
             IMoverService moverService = Setup.MoverService(character, 4, 4);
             Tile tile = Setup.Tile(new Vector2Int(2, 1));
@@ -30,7 +30,7 @@ namespace CodeBase.Tests.EditMode.MoverService
         public void WhenCharacterMoving_AndCanMoveThroughObstacles_ThenCharacterShouldBeOnChosenTileIgnoringObstacles()
         {
             // Arrange.
-            ICharacter character = Setup.CharacterForMovement(5, true);
+            ICharacter character = Setup.CharacterForMovement(5, true, 1, 3);
 
             IMapService mapService = Setup.MapService(4, 4);
             Setup.ObstaclesAroundZeroPosition(mapService);

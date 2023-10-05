@@ -3,11 +3,14 @@ using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.Characters.Logic;
 using CodeBase.Gameplay.PathFinder;
+using CodeBase.Gameplay.Services.Attack;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Tiles;
+using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
+using CodeBase.Infrastructure.Services.StaticDataProvider;
 using NSubstitute;
 using UnityEngine;
 
@@ -99,17 +102,64 @@ namespace CodeBase.Tests.EditMode
                 obstacleTileOnTop.Logic.Occupy(character2);
         }
 
-        public static ICharacter CharacterForMovement(int movePoints, bool isMoveThroughObstacles)
+        public static IAttackService AttackService(ICharacter[] characters, int range)
         {
-            ICharacter character = Substitute.For<ICharacter>();
+            ITurnQueue turnQueue = TurnQueue(characters);
+            turnQueue.SetFirstTurn();
+
+            IMapService mapService = MapService(3, 3);
+
+            IPathFinder pathFinder = Create.PathFinder(mapService);
+            ICustomLogger customLogger = Create.CustomLogger();
+
+            var staticDataProvider = StaticDataProviderForAttackService(range);
+
+            IAttackService attackService = new Gameplay.Services.Attack.AttackService(turnQueue, pathFinder,
+                customLogger, staticDataProvider);
+
+            return attackService;
+        }
+
+        private static IStaticDataProvider StaticDataProviderForAttackService(int range)
+        {
+            IStaticDataProvider staticDataProvider = Substitute.For<IStaticDataProvider>();
+
+            AllGameBalanceConfig allGameBalanceConfig = ScriptableObject.CreateInstance<AllGameBalanceConfig>();
+            AttackRangeConfig attackRangeConfig = ScriptableObject.CreateInstance<AttackRangeConfig>();
+            allGameBalanceConfig.AttackRangeConfig = attackRangeConfig;
+            attackRangeConfig.MeleeRange = range;
+            attackRangeConfig.RangedRange = range;
+            staticDataProvider.GameBalanceConfig.Returns(allGameBalanceConfig);
+            return staticDataProvider;
+        }
+
+        public static ICharacter CharacterForAttack(int healthPoints, int initiative, CharacterAttackType characterAttackType, CharacterTeam characterTeam)
+        {
+            ICharacter character = CharacterForMovement(5, false, 1, initiative);
+            
+            Health health = Create.Health();
+            health.Construct(healthPoints);
+            
+            character.CharacterLogic.Health.Returns(health);
+
+            character.CharacterDamage.Returns(new CharacterDamage(3, 2, 1,
+                new CharacterStats(1, MainAttribute.Dexterity, 1, 1, 1, 1), characterAttackType,
+                Create.CustomLogger()));
+
+            character.CharacterTeam.Returns(characterTeam);
+
+            return character;
+        }
+        
+        
+        public static ICharacter CharacterForMovement(int movePoints, bool isMoveThroughObstacles, int level, int initiative)
+        {
+            ICharacter character = CharacterForTurnQueue(level, initiative);
+            
             character
                 .When(_ => _.UpdateCoordinate(Arg.Any<Vector2Int>()))
                 .Do(_ => character.Coordinate.Returns(_.Arg<Vector2Int>()));
             
-            Health health = Create.Health();
-            character.CharacterLogic.Health.Returns(health);
-            character.UpdateCoordinate(new Vector2Int(0, 0));
-
             character.MovementStats.Returns(new MovementStats(movePoints, isMoveThroughObstacles));
             return character;
         }
@@ -120,7 +170,6 @@ namespace CodeBase.Tests.EditMode
             character
                 .CharacterStats
                 .Returns(new CharacterStats(level, MainAttribute.Dexterity ,1, 1, 1, initiative));
-
             
             Health health = Create.Health();
             character.CharacterLogic.Health.Returns(health);
