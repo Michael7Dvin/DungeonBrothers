@@ -85,9 +85,16 @@ namespace CodeBase.Tests.EditMode
         {
             ICharacter character1 = Substitute.For<ICharacter>();
             ICharacter character2 = Substitute.For<ICharacter>();
+
+            Health health = Create.Health();
             
+            character1.CharacterLogic.Health.Returns(health);
+            character2.CharacterLogic.Health.Returns(health);
+
             if (mapService.TryGetTile(new Vector2Int(0, 1), out Tile obstacleTileOnRight))
                 obstacleTileOnRight.Logic.Occupy(character1);
+
+
             if (mapService.TryGetTile(new Vector2Int(1, 0), out Tile obstacleTileOnTop))
                 obstacleTileOnTop.Logic.Occupy(character2);
         }
@@ -101,6 +108,7 @@ namespace CodeBase.Tests.EditMode
             
             Health health = Create.Health();
             character.CharacterLogic.Health.Returns(health);
+            character.UpdateCoordinate(new Vector2Int(0, 0));
 
             character.MovementStats.Returns(new MovementStats(movePoints, isMoveThroughObstacles));
             return character;

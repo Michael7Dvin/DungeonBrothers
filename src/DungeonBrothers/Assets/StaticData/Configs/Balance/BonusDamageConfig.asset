@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3606b1ce6b604c82acc709678363b872, type: 3}
   m_Name: BonusDamageConfig
   m_EditorClassIdentifier: 
-  <TotalBonusDamagePerLevel>k__BackingField: 0
-  <TotalBonusDamagePerMainStat>k__BackingField: 0
+  <TotalBonusDamagePerLevel>k__BackingField: 3
+  <TotalBonusDamagePerMainStat>k__BackingField: 2

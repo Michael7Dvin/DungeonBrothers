@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71dd443ebcdd428ca573e86b477fa945, type: 3}
   m_Name: AllGameBalanceConfig
   m_EditorClassIdentifier: 
-  <BonusDamageConfig>k__BackingField: {fileID: 0}
-  <AttackRangeConfig>k__BackingField: {fileID: 0}
+  <BonusDamageConfig>k__BackingField: {fileID: 11400000, guid: d45ca0416a3552d479551bb273a6168a, type: 2}
+  <AttackRangeConfig>k__BackingField: {fileID: 11400000, guid: 3d1e5a1eaf753bf49a77f60c822bcedf, type: 2}
