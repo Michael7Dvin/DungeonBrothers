@@ -30,7 +30,6 @@ namespace CodeBase.Infrastructure.Installers
 
         private void RegisterStateMachine(IContainerBuilder builder)
         {
-            builder.Register<AppBootstrapper>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<IAppStateMachine, AppStateMachine>(Lifetime.Singleton);
             
             builder.Register<InitializationState>(Lifetime.Singleton);
