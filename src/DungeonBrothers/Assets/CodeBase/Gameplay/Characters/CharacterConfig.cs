@@ -20,11 +20,11 @@ namespace CodeBase.Gameplay.Characters
         [TitleGroup("Prefabs")]
         public AssetReferenceGameObject Prefab;
 
-        [FoldoutGroup("StartHealth")] 
+        [FoldoutGroup("StartHealth"), MinValue(0)] 
         public int HealthPoints;
 
         public MovementStats MovementStats;
-
+        
         public CharacterDamage CharacterDamage;
         
         public CharacterStats CharacterStats;

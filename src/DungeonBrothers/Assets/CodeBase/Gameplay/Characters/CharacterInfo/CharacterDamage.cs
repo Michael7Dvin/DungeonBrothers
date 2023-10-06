@@ -1,6 +1,7 @@
 ﻿using System;
 using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Infrastructure.Services.Logger;
+using UnityEngine;
 
 namespace CodeBase.Gameplay.Characters.Logic
 {
@@ -32,21 +33,19 @@ namespace CodeBase.Gameplay.Characters.Logic
             switch (_characterStats.MainAttribute)
             {
                 case MainAttribute.Strength:
-                    return CurrentDamage +
-                           GetDamageFromStats(_characterStats.Strength, _characterStats.Level);
+                    return GetDamageWithBonusFromStats(_characterStats.Strength, _characterStats.Level);
                 case MainAttribute.Dexterity:
-                    return CurrentDamage +
-                           GetDamageFromStats(_characterStats.Dexterity, _characterStats.Level);
+                    return GetDamageWithBonusFromStats(_characterStats.Dexterity, _characterStats.Level);
                 case MainAttribute.Intelligence:
-                    return CurrentDamage +
-                           GetDamageFromStats(_characterStats.Intelligence, _characterStats.Level);
+                    return GetDamageWithBonusFromStats(_characterStats.Intelligence, _characterStats.Level);
                 default:
                     _customLogger.LogError(new Exception($"{_characterStats.MainAttribute}, doesn't exist"));
                     return 0;
             }
         }
 
-        private int GetDamageFromStats(int stat, int level) =>
-            stat * _totalBonusDamagePerMainStat + level * _totalBonusDamagePerLevel;
+        private int GetDamageWithBonusFromStats(int stat, int level) =>
+            Mathf.Clamp(CurrentDamage + stat * _totalBonusDamagePerMainStat + level * _totalBonusDamagePerLevel, 0,
+                Int32.MaxValue);
     }
 }
