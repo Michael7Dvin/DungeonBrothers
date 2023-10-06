@@ -12,6 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dfb87e4cb24468482e46d2c9cab29eb, type: 3}
   m_Name: Enemy
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: CharacterDamage
+      Entry: 7
+      Data: CodeBase.Gameplay.Characters.Logic.CharacterDamage, DungeonBrothers
+    - Name: CurrentDamage
+      Entry: 3
+      Data: 3
+    - Name: CharacterAttackType
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
   ID: 1
   Team: 0
   Image:
@@ -24,13 +45,14 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  MovePoints: 3
-  IsMoveThroughObstacles: 0
   HealthPoints: 30
-  Damage: 3
-  MainAttribute: 0
-  Level: 1
-  Initiative: 3
-  Intelligence: 1
-  Strength: 1
-  Dexterity: 1
+  MovementStats:
+    MovePoints: 2
+    IsMoveThroughObstacles: 0
+  CharacterStats:
+    Level: 1
+    MainAttribute: 0
+    Intelligence: 1
+    Strength: 1
+    Dexterity: 1
+    Initiative: 3

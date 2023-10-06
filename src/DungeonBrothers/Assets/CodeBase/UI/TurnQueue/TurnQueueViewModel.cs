@@ -27,7 +27,6 @@ namespace CodeBase.UI.TurnQueue
         public IReadOnlyReactiveCollection<CharacterInTurnQueueIcon> CharacterIconsQueue => _charactersIconsQueue;
         public IObservable<Unit> DisableIcons => _disableIcons;
         public IObservable<Unit> EnableIcons => _enableIcons;
-
         
         public void OnEnable()
         {

@@ -4,48 +4,42 @@ using CodeBase.Infrastructure.Services.Logger;
 
 namespace CodeBase.Gameplay.Characters.Logic
 {
-    public readonly struct CharacterDamage
+    public struct CharacterDamage
     {
-        private readonly int _totalBonusDamagePerMainStat;
-        private readonly int _totalBonusDamagePerLevel;
+        private int _totalBonusDamagePerMainStat;
+        private int _totalBonusDamagePerLevel;
         
-        private readonly int _currentDamage;
-        private readonly CharacterStats _characterStats;
+        private CharacterStats _characterStats;
 
-        private readonly ICustomLogger _customLogger;
+        private ICustomLogger _customLogger;
         
-        public CharacterDamage(int totalBonusDamagePerMainStat,
+        public int CurrentDamage;
+        public CharacterAttackType CharacterAttackType;
+
+        public void Construct(int totalBonusDamagePerMainStat,
             int totalBonusDamagePerLevel,
-            int startDamage, 
             CharacterStats characterStats,
-            CharacterAttackType characterAttackType,
             ICustomLogger customLogger)
         {
             _totalBonusDamagePerMainStat = totalBonusDamagePerMainStat;
             _totalBonusDamagePerLevel = totalBonusDamagePerLevel;
-            
-            _currentDamage = startDamage;
-            
             _characterStats = characterStats;
-            CharacterAttackType = characterAttackType;
             _customLogger = customLogger;
         }
-        
-        public CharacterAttackType CharacterAttackType { get; }
         
         public int GetCharacterDamage()
         {
             switch (_characterStats.MainAttribute)
             {
                 case MainAttribute.Strength:
-                    return _currentDamage +
+                    return CurrentDamage +
                            GetDamageFromStats(_characterStats.Strength, _characterStats.Level);
                 case MainAttribute.Dexterity:
-                    return _currentDamage +
+                    return CurrentDamage +
                            GetDamageFromStats(_characterStats.Dexterity, _characterStats.Level);
                 case MainAttribute.Intelligence:
-                    return _currentDamage +
-                           GetDamageFromStats(_characterStats.Initiative, _characterStats.Level);
+                    return CurrentDamage +
+                           GetDamageFromStats(_characterStats.Intelligence, _characterStats.Level);
                 default:
                     _customLogger.LogError(new Exception($"{_characterStats.MainAttribute}, doesn't exist"));
                     return 0;

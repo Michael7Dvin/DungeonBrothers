@@ -60,8 +60,8 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
             GameObject prefab = await _addressablesLoader.LoadGameObject(config.Prefab);
             GameObject gameObject = _objectResolver.Instantiate(prefab);
 
-            CharacterStats characterStats = CreateCharacterStats(config);
-            MovementStats movementStats = CreateMovementStats(config);
+            CharacterStats characterStats = config.CharacterStats;
+            MovementStats movementStats = config.MovementStats;
             CharacterDamage characterDamage = CreateCharacterDamage(config, characterStats);
 
             ICharacterLogic characterLogic = CreateCharacterLogic(config, gameObject);
@@ -93,17 +93,16 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
             healthBarPresenter.Initialize();
         }
 
-        private CharacterDamage CreateCharacterDamage(CharacterConfig config, CharacterStats stats) =>
-            new(_bonusDamageConfig.TotalBonusDamagePerMainStat, _bonusDamageConfig.TotalBonusDamagePerLevel,
-                config.Damage, stats, config.characterAttackType, _customLogger);
+        private CharacterDamage CreateCharacterDamage(CharacterConfig config, CharacterStats stats)
+        {
+            CharacterDamage characterDamage = config.CharacterDamage;
 
-        private MovementStats CreateMovementStats(CharacterConfig config) => 
-            new (config.MovePoints, config.IsMoveThroughObstacles);
-
-        private CharacterStats CreateCharacterStats(CharacterConfig config) =>
-            new (config.Level, config.MainAttribute,config.Intelligence, config.Strength, config.Dexterity,
-                config.Initiative);
-
+            characterDamage.Construct(_bonusDamageConfig.TotalBonusDamagePerMainStat,
+                _bonusDamageConfig.TotalBonusDamagePerLevel, stats, _customLogger); 
+        
+            return characterDamage;
+        }
+        
         private ICharacterLogic CreateCharacterLogic(CharacterConfig config, GameObject gameObject)
         {
             Health health = gameObject.GetComponent<Health>();

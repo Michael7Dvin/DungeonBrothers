@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using CodeBase.Gameplay.Characters;
+using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.Characters.Logic;
 using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.Map;
@@ -54,7 +56,7 @@ namespace CodeBase.Tests.EditMode
             new CharactersProvider();
 
         public static ITurnQueue TurnQueue(ICharactersProvider charactersProvider) => 
-            new Gameplay.Services.TurnQueue.TurnQueue(new RandomService(), charactersProvider, new CustomLogger(new LogWriter()));
+            new Gameplay.Services.TurnQueue.TurnQueue(new RandomService(), charactersProvider);
 
         public static TileView TileView(Material material) => 
             new(material);
@@ -67,5 +69,50 @@ namespace CodeBase.Tests.EditMode
 
         public static TileLogic TileLogic(Vector2Int coordinate) =>
             new(false, true, coordinate);
+
+        public static MovementStats MovementStats(int movePoints, bool isMoveThroughObstacles)
+        {
+            MovementStats movementStats = new MovementStats
+            {
+                MovePoints = movePoints,
+                IsMoveThroughObstacles = isMoveThroughObstacles
+            };
+            return movementStats;
+        }
+
+        public static CharacterDamage CharacterDamage(CharacterAttackType characterAttackType, 
+            CharacterStats characterStats, 
+            int damage, 
+            int bonusDamagePerMainStat, 
+            int bonusDamagePerLevel)
+        {
+            CharacterDamage characterDamage = new CharacterDamage
+            {
+                CurrentDamage = damage,
+                CharacterAttackType = characterAttackType,
+            };
+            
+            characterDamage.Construct(bonusDamagePerMainStat, bonusDamagePerLevel, characterStats, CustomLogger());
+            return characterDamage;
+        }
+
+        public static CharacterStats CharacterStats(int level,
+            int initiative, 
+            int strength, 
+            int dexterity, 
+            int intelligence, 
+            MainAttribute mainAttribute )
+        {
+            CharacterStats characterStats = new CharacterStats
+            {
+                Initiative = initiative,
+                Level = level,
+                Strength = strength,
+                Dexterity = dexterity,
+                Intelligence = intelligence,
+                MainAttribute = mainAttribute
+            };
+            return characterStats;
+        }
     }
 }

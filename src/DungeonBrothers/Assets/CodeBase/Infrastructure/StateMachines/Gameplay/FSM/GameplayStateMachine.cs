@@ -12,7 +12,7 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.FSM
         public GameplayStateMachine(ICustomLogger logger)
         {
             _logger = logger;
-            _stateMachine = new StateMachine(_logger);
+            _stateMachine = new StateMachine();
         }
 
         public void Enter<TState>() where TState : IState

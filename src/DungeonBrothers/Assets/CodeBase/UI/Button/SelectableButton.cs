@@ -6,7 +6,7 @@ namespace CodeBase.UI.Button
     public class SelectableButton : BaseButton
     {
         [SerializeField] private SelectableButtonAnimation selectableButtonAnimation;
-        
+
         protected override void OnEnable()
         {
             base.OnEnable();

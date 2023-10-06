@@ -1,4 +1,5 @@
-﻿using CodeBase.Gameplay.Characters.CharacterInfo;
+﻿using System;
+using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.Characters.Logic;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine.AddressableAssets;
 namespace CodeBase.Gameplay.Characters
 {
     [CreateAssetMenu(menuName = "StaticData/Configs/Characters/Character", fileName = "CharacterConfig")]
-    public class CharacterConfig : ScriptableObject
+    public class CharacterConfig : SerializedScriptableObject
     {
         [TitleGroup("Info")]
         public CharacterID ID;
@@ -19,30 +20,13 @@ namespace CodeBase.Gameplay.Characters
         [TitleGroup("Prefabs")]
         public AssetReferenceGameObject Prefab;
 
-        [TitleGroup("Movement")]
-        public int MovePoints;
-        [TitleGroup("Movement")]
-        public bool IsMoveThroughObstacles;
-
         [FoldoutGroup("StartHealth")] 
         public int HealthPoints;
-        
-        [FoldoutGroup("Damage")]
-        public CharacterAttackType characterAttackType;
-        [FoldoutGroup("Damage")] 
-        public int Damage;
 
-        [FoldoutGroup("Stats")] 
-        public MainAttribute MainAttribute;
-        [FoldoutGroup("Stats")]
-        public int Level;
-        [FoldoutGroup("Stats")]
-        public int Initiative;
-        [FoldoutGroup("Stats"), GUIColor(0, 0, 1)]
-        public int Intelligence;
-        [FoldoutGroup("Stats"), GUIColor(1, 0, 0)]
-        public int Strength;
-        [FoldoutGroup("Stats"), GUIColor(0, 1, 0)]
-        public int Dexterity;
+        public MovementStats MovementStats;
+
+        public CharacterDamage CharacterDamage;
+        
+        public CharacterStats CharacterStats;
     }
 }
