@@ -33,11 +33,21 @@ namespace CodeBase.Gameplay.Characters.Logic
         
         public void TakeDamage(int value)
         {
-            if (value < 0)
-                _customLogger.LogError(new Exception($"Damage taken: {value} - Damage can't be less than zero"));
-
-            _healthPoints.Value = Mathf.Clamp(_healthPoints.Value - value, _minHealth, MaxHealthPoints);
-            TryDie();
+            try
+            {
+                if (value < 0)
+                    _customLogger.LogError(new Exception($"Damage taken: {value} - Damage can't be less than zero"));
+            }
+            catch
+            {
+                value = 0;
+            }
+            finally
+            {
+                _healthPoints.Value = Mathf.Clamp(_healthPoints.Value - value, _minHealth, MaxHealthPoints);
+            
+                TryDie();
+            }
         }
 
         private void TryDie()
@@ -51,10 +61,19 @@ namespace CodeBase.Gameplay.Characters.Logic
 
         public void Heal(int value)
         {
-            if (value < 0)
-                _customLogger.LogError(new Exception($"Heal taken: {value} - Heal can't be less than zero"));
-
-            _healthPoints.Value = Mathf.Clamp(_healthPoints.Value + value, _minHealth, MaxHealthPoints);
+            try
+            {
+                if (value < 0)
+                    _customLogger.LogError(new Exception($"Heal taken: {value} - Heal can't be less than zero"));
+            }
+            catch
+            {
+                value = 0;
+            }
+            finally
+            {
+                _healthPoints.Value = Mathf.Clamp(_healthPoints.Value + value, _minHealth, MaxHealthPoints);
+            }
         }
     }
 }
