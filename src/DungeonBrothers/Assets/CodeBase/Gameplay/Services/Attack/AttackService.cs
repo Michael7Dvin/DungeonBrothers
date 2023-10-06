@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Characters.Logic;
 using CodeBase.Gameplay.PathFinder;
@@ -51,45 +52,31 @@ namespace CodeBase.Gameplay.Services.Attack
 
             if (IsAlly(character, activeCharacter))
                 return false;
-            
-            int pathCost = GetPathCost(character, activeCharacter);
 
-            if (pathCost <= 0)
+            if (IsInRange(character, activeCharacter) == false)
                 return false;
             
-            switch (activeCharacter.CharacterDamage.CharacterAttackType)
-            {
-                case CharacterAttackType.Melee:
-                    return pathCost <= _meleeRange;
-                case CharacterAttackType.Ranged:
-                    return pathCost <= _rangedRange;
-                default:
-                    _customLogger.LogError(
-                        new Exception($"{activeCharacter.CharacterDamage.CharacterAttackType}, doesn't exist"));
-                    return false;
-            }
+            return true;
         }
 
-        private int GetPathCost(ICharacter character, 
+        private bool IsInRange(ICharacter character, 
             ICharacter activeCharacter)
         {
             PathFindingResults pathFindingResults = GetPathFindingResults(activeCharacter);
-            
-            List<Vector2Int> path = pathFindingResults.GetPathTo(character.Coordinate, true);
-            
-            if (path == null)
-                return 0;
 
-            return path.Count;
+            if (pathFindingResults.NotWalkableCoordinates.Contains(character.Coordinate))
+                return true;
+
+            return false;
         }
 
-        private PathFindingResults GetPathFindingResults(ICharacter activeCharacter)
+        public PathFindingResults GetPathFindingResults(ICharacter activeCharacter)
         {
             switch (activeCharacter.CharacterDamage.CharacterAttackType)
             {
                 case CharacterAttackType.Melee:
                     return _pathFinder.CalculatePaths(activeCharacter.Coordinate, _meleeRange, 
-                        true);
+                        false);
                 
                 case CharacterAttackType.Ranged:
                     return _pathFinder.CalculatePaths(activeCharacter.Coordinate, _rangedRange, 
