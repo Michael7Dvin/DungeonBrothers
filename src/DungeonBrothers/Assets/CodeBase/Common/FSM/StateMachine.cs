@@ -5,17 +5,11 @@ using CodeBase.Infrastructure.Services.Logger;
 
 namespace CodeBase.Common.FSM
 {
-    public class StateMachine : IStateMachine
+    public class StateMachine 
     {
-        private readonly ICustomLogger _logger;
         private readonly Dictionary<Type, IExitableState> _states = new();
 
         private IExitableState _activeState;
-
-        public StateMachine(ICustomLogger logger)
-        {
-            _logger = logger;
-        }
 
         public void Enter<TState>() where TState : IState
         {

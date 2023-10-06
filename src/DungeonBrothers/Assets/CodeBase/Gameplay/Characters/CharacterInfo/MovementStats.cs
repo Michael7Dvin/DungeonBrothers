@@ -1,14 +1,11 @@
-﻿namespace CodeBase.Gameplay.Characters.CharacterInfo
+﻿using System;
+
+namespace CodeBase.Gameplay.Characters.CharacterInfo
 {
+    [Serializable]
     public struct MovementStats
     {
-        public MovementStats(int movePoints, bool isMoveThroughObstacles)
-        {
-            MovePoints = movePoints;
-            IsMoveThroughObstacles = isMoveThroughObstacles;
-        }
-
-        public int MovePoints { get; }
-        public bool IsMoveThroughObstacles { get; }
+        public int MovePoints;
+        public bool IsMoveThroughObstacles;
     }
 }

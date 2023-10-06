@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c7b92b3862a462e81a4b7d094a26871, type: 3}
   m_Name: AttackRangeConfig
   m_EditorClassIdentifier: 
-  <MeleeRange>k__BackingField: 1
-  <RangedRange>k__BackingField: 2
+  MeleeRange: 1
+  RangedRange: 2

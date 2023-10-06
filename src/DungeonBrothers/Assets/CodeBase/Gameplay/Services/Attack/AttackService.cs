@@ -40,9 +40,8 @@ namespace CodeBase.Gameplay.Services.Attack
             if (TryAttackEnemy(character, activeCharacter) == false)
                 return;
             
-            _turnQueue.SetNextTurn();
-            
             character.CharacterLogic.Health.TakeDamage(activeCharacter.CharacterDamage.GetCharacterDamage());
+            _turnQueue.SetNextTurn();
         }
 
         private bool TryAttackEnemy(ICharacter character, ICharacter activeCharacter)

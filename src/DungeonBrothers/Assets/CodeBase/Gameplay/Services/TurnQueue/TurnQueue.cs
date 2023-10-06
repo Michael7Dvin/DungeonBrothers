@@ -14,7 +14,6 @@ namespace CodeBase.Gameplay.Services.TurnQueue
     {
         private readonly IRandomService _randomService;
         private readonly ICharactersProvider _charactersProvider;
-        private readonly ICustomLogger _logger;
 
         private readonly CompositeDisposable _disposable = new();
         
@@ -25,12 +24,10 @@ namespace CodeBase.Gameplay.Services.TurnQueue
         private readonly ReactiveCommand _reseted = new();
 
         public TurnQueue(IRandomService randomService, 
-            ICharactersProvider charactersProvider,
-            ICustomLogger logger)
+            ICharactersProvider charactersProvider)
         {
             _randomService = randomService;
             _charactersProvider = charactersProvider;
-            _logger = logger;
         }
         
         public IReadOnlyReactiveCollection<ICharacter> Characters => _characters;
@@ -116,12 +113,7 @@ namespace CodeBase.Gameplay.Services.TurnQueue
             }
         }
 
-        private void Remove(ICharacter character)
-        {
-            if (character == _activeCharacter.Value)
-                SetNextTurn();
-            
+        private void Remove(ICharacter character) => 
             _characters.Remove(character);
-        }
     }
 }

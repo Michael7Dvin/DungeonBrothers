@@ -27,9 +27,13 @@ namespace CodeBase.Gameplay.Services.InteractionsService
         private async void Interact(Tile tile)
         {
             IsInteract = true;
-            
+
             if (tile.Logic.Character != null)
+            {
                 _attackService.Attack(tile.Logic.Character);
+                IsInteract = false;
+                return;
+            }
             
             await _moverService.Move(tile);
 
@@ -41,6 +45,7 @@ namespace CodeBase.Gameplay.Services.InteractionsService
             _tileSelector.CurrentTile
                 .Skip(1)
                 .Where(_ => IsInteract == false)
+                .Where(tile => tile != null)
                 .Where(tile => _tileSelector.PreviousTile.Value == tile)
                 .Subscribe(Interact)
                 .AddTo(_disposable);

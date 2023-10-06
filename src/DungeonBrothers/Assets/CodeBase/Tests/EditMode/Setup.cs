@@ -142,16 +142,16 @@ namespace CodeBase.Tests.EditMode
             
             character.CharacterLogic.Health.Returns(health);
 
-            character.CharacterDamage.Returns(new CharacterDamage(3, 2, 1,
-                new CharacterStats(1, MainAttribute.Dexterity, 1, 1, 1, 1), characterAttackType,
-                Create.CustomLogger()));
+            var characterDamage = Create.CharacterDamage(characterAttackType, new CharacterStats(), 2, 2, 3);
+
+            character.CharacterDamage.Returns(characterDamage);
 
             character.CharacterTeam.Returns(characterTeam);
 
             return character;
         }
-        
-        
+
+
         public static ICharacter CharacterForMovement(int movePoints, bool isMoveThroughObstacles, int level, int initiative)
         {
             ICharacter character = CharacterForTurnQueue(level, initiative);
@@ -159,17 +159,21 @@ namespace CodeBase.Tests.EditMode
             character
                 .When(_ => _.UpdateCoordinate(Arg.Any<Vector2Int>()))
                 .Do(_ => character.Coordinate.Returns(_.Arg<Vector2Int>()));
-            
-            character.MovementStats.Returns(new MovementStats(movePoints, isMoveThroughObstacles));
+
+            var movementStats = Create.MovementStats(movePoints, isMoveThroughObstacles);
+
+            character.MovementStats.Returns(movementStats);
             return character;
         }
 
         public static ICharacter CharacterForTurnQueue(int level, int initiative)
         {
             ICharacter character = Substitute.For<ICharacter>();
+            var characterStats = Create.CharacterStats(level, initiative, 1, 1, 1, MainAttribute.Dexterity);
+
             character
                 .CharacterStats
-                .Returns(new CharacterStats(level, MainAttribute.Dexterity ,1, 1, 1, initiative));
+                .Returns(characterStats);
             
             Health health = Create.Health();
             character.CharacterLogic.Health.Returns(health);
