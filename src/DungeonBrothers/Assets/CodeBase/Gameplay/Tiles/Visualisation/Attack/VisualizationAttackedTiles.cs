@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Characters.Logic;
 using CodeBase.Gameplay.PathFinder;
+using CodeBase.Gameplay.Services.Attack;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Services.TurnQueue;
@@ -16,34 +17,25 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Attack
     {
         private readonly ITurnQueue _turnQueue;
         private readonly IMoverService _moverService;
+        private readonly IAttackService _attackService;
         private readonly IMapService _mapService;
-        private readonly IPathFinder _pathFinder;
-        private readonly ICustomLogger _customLogger;
         private readonly TileColorConfig _tileColorConfig;
 
         private readonly CompositeDisposable _disposable = new();
-        
-        private readonly int _meleeRange;
-        private readonly int _rangedRange;
-
         private readonly List<Tile> _lastTiles = new();
 
         public VisualizationAttackedTiles(ITurnQueue turnQueue,
             IMoverService moverService,
+            IAttackService attackService,
             IMapService mapService,
-            IPathFinder pathFinder,
-            ICustomLogger customLogger,
             IStaticDataProvider staticDataProvider)
         {
             _turnQueue = turnQueue;
             _moverService = moverService;
+            _attackService = attackService;
             _mapService = mapService;
-            _pathFinder = pathFinder;
-            _customLogger = customLogger;
 
             _tileColorConfig = staticDataProvider.TileColorConfig;
-            _meleeRange = staticDataProvider.GameBalanceConfig.AttackRangeConfig.MeleeRange;
-            _rangedRange = staticDataProvider.GameBalanceConfig.AttackRangeConfig.RangedRange;
         }
 
         public void Initialize()
@@ -65,35 +57,14 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Attack
         {
             ResetLastTiles();
 
-            PathFindingResults pathFindingResults = new PathFindingResults();
-
-            switch (character.CharacterDamage.CharacterAttackType)
-            {
-                case CharacterAttackType.Melee:
-                    pathFindingResults = GetPathFindingResults(character, _meleeRange, false);
-                    break;
-                case CharacterAttackType.Ranged:
-                    pathFindingResults = GetPathFindingResults(character, _rangedRange, true);
-                    break;
-                default:
-                    _customLogger.LogError(new Exception($"{character.CharacterDamage.CharacterAttackType} doesnt exist"));
-                    break;
-            }
+            PathFindingResults pathFindingResults = _attackService.GetPathFindingResults(character);
             
             foreach (var coordinate in pathFindingResults.NotWalkableCoordinates)
             {
-                if (_mapService.TryGetTile(coordinate, out Tile tile))
-                {
-                    if (coordinate == character.Coordinate)
-                        continue;
-
+                if (_mapService.TryGetTile(coordinate, out Tile tile)) 
                     VisualizeTile(character, tile);
-                }
             }
         }
-
-        private PathFindingResults GetPathFindingResults(ICharacter character, int range, bool isAttackThroughEnemy) => 
-            _pathFinder.CalculatePaths(character.Coordinate, range, isAttackThroughEnemy);
 
         private void VisualizeTile(ICharacter character, Tile tile)
         {
