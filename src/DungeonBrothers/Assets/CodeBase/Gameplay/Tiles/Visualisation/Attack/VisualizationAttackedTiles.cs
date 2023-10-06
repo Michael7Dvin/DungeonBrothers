@@ -73,7 +73,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Attack
                     pathFindingResults = GetPathFindingResults(character, _meleeRange, false);
                     break;
                 case CharacterAttackType.Ranged:
-                    pathFindingResults = GetPathFindingResults(character, _rangedRanged, true);
+                    pathFindingResults = GetPathFindingResults(character, _rangedRange, true);
                     break;
                 default:
                     _customLogger.LogError(new Exception($"{character.CharacterDamage.CharacterAttackType} doesnt exist"));
