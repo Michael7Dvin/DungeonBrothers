@@ -17,6 +17,9 @@ namespace CodeBase.Gameplay.PathFinder
             _obstacles = obstacles;
         }
 
+        public IEnumerable<Vector2Int> NotWalkableCoordinates =>
+            _obstacles.Keys;
+
         public IEnumerable<Vector2Int> WalkableCoordinates => 
             _paths
                 .Keys
