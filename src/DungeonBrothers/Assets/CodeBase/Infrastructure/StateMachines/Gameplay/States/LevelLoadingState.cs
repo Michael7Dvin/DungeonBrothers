@@ -4,6 +4,7 @@ using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Tiles;
 using CodeBase.Gameplay.Tiles.Visualisation;
 using CodeBase.Gameplay.Tiles.Visualisation.ActiveCharacter;
+using CodeBase.Gameplay.Tiles.Visualisation.Attack;
 using CodeBase.Gameplay.Tiles.Visualisation.Path;
 using CodeBase.Gameplay.Tiles.Visualisation.PathFinder;
 using CodeBase.Gameplay.Tiles.Visualisation.Select;
@@ -24,6 +25,7 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
         private readonly ISelectedTileVisualisation _selectedTileVisualisation;
         private readonly ITileSelector _tileSelector;
         private readonly IVisualizationPathToTile _visualizationPathToTile;
+        private readonly IVisualizationAttackedTiles _visualizationAttack;
         
         public LevelLoadingState(ILevelSpawner levelSpawner, 
             ITurnQueue turnQueue, 
@@ -34,7 +36,8 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
             IPathFinderVisualization pathFinderVisualization,
             ISelectedTileVisualisation selectedTileVisualisation,
             ITileSelector tileSelector,
-            IVisualizationPathToTile visualizationPathToTile)
+            IVisualizationPathToTile visualizationPathToTile,
+            IVisualizationAttackedTiles visualizationAttack)
         {
             _levelSpawner = levelSpawner;
             _turnQueue = turnQueue;
@@ -45,6 +48,7 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
             _selectedTileVisualisation = selectedTileVisualisation;
             _tileSelector = tileSelector;
             _visualizationPathToTile = visualizationPathToTile;
+            _visualizationAttack = visualizationAttack;
         }
 
         public async void Enter()
@@ -57,6 +61,7 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
             _selectedTileVisualisation.Initialize();
             _visualizationActiveCharacter.Initialize();
             _pathFinderVisualization.Initialize();
+            _visualizationAttack.Initialize();
             
             await _levelSpawner.Spawn();
             _gameplayStateMachine.Enter<BattleState>();

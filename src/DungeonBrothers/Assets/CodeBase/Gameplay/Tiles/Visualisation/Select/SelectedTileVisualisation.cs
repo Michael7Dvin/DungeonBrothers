@@ -5,6 +5,7 @@ using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
+using UnityEngine;
 
 namespace CodeBase.Gameplay.Tiles.Visualisation.Select
 {
@@ -12,7 +13,6 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Select
     {
         private readonly ITileSelector _tileSelector;
         private readonly ITurnQueue _turnQueue;
-        private readonly IPathFinder _pathFinder;
         private readonly ICustomLogger _customLogger;
         
         private readonly CompositeDisposable _disposable = new();
@@ -21,13 +21,11 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Select
         
         public SelectedTileVisualisation(ITileSelector tileSelector,
             ITurnQueue turnQueue,
-            IPathFinder pathFinder,
             ICustomLogger customLogger,
             IStaticDataProvider staticDataProvider)
         {
             _tileSelector = tileSelector;
             _turnQueue = turnQueue;
-            _pathFinder = pathFinder;
             _customLogger = customLogger;
             _tileColorConfig = staticDataProvider.TileColorConfig;
         }
@@ -46,12 +44,6 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Select
                 .Where(tile => tile != null)
                 .Subscribe(tile =>
                 {
-                    if (TryResetMovableTile(tile))
-                    {
-                        ResetMovableTile(tile);
-                        return;
-                    }
-
                     if (TryResetTileView(tile))
                     {
                         ResetTileView(tile);
@@ -70,15 +62,13 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Select
         private void VisualizeSelectedTile(Tile tile)
         {
             tile.View.SwitchOutLine(true);
-            tile.View.ChangeOutLineColor(_tileColorConfig.SelectedTileColor);
+            tile.View.ChangeOutLineColor(_tileColorConfig.SelectedTile);
         }
 
-        private void ResetMovableTile(Tile tile) =>
+        private void ResetTileView(Tile tile) => 
             tile.View.SwitchOutLine(false);
 
-        private void ResetTileView(Tile tile) =>
-            tile.View.ResetTileView();
-        
+
         private void ResetTileWithCharacter(Tile previousTile)
         {
             switch (previousTile.Logic.Character.CharacterTeam)
@@ -96,9 +86,6 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Select
             }
         }
 
-        private bool TryResetMovableTile(Tile previousTile) =>
-            _pathFinder.PathFindingResults.Value.IsMovableAt(previousTile.Logic.Coordinates);
-        
         private bool TryResetTileView(Tile previousTile) =>
             previousTile.Logic.Character != _turnQueue.ActiveCharacter.Value;
     }

@@ -63,16 +63,15 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.PathFinder
 
         private void ResetLastTilesView()
         {
-            if (_lastTiles.Count > 0)
+            foreach (Tile tile in _lastTiles) 
             {
-                foreach (Tile tile in _lastTiles)
-                {
-                    if (_turnQueue.ActiveCharacter.Value.Coordinate == tile.Logic.Coordinates)
-                        continue;
-
-                    tile.View.ResetTileView();
-                }
+                if (_turnQueue.ActiveCharacter.Value.Coordinate == tile.Logic.Coordinates) 
+                    continue;
+                
+                tile.View.ResetTileView();
             }
+                
+            _lastTiles.Clear();
         }
     }
 }

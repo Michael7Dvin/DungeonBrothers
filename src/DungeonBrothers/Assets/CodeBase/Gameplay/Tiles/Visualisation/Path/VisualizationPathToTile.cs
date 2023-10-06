@@ -65,7 +65,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Path
                 if (_mapService.TryGetTile(coordinate, out Tile tile))
                 {
                     _lastTiles.Add(tile);
-                    tile.View.ChangeHighlightColor(_tileColorConfig.PathToTileColor);
+                    tile.View.ChangeHighlightColor(_tileColorConfig.PathToTile);
                 }
             }
         }
