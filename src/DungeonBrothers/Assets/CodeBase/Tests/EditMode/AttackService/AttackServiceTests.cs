@@ -16,10 +16,11 @@ namespace CodeBase.Tests.EditMode.AttackService
             // Arrange.
             ICharacter attackingCharacter = Setup.CharacterForAttack(21, 3, CharacterAttackType.Ranged, CharacterTeam.Ally);
             ICharacter receivingCharacter = Setup.CharacterForAttack(20, 1, CharacterAttackType.Ranged, CharacterTeam.Enemy);
-
-            IAttackService attackService = Setup.AttackService(new []{attackingCharacter, receivingCharacter}, 5);
+            
             attackingCharacter.UpdateCoordinate(new Vector2Int(2, 0));
             receivingCharacter.UpdateCoordinate(new Vector2Int(0, 0));
+            
+            IAttackService attackService = Setup.AttackService(new []{attackingCharacter, receivingCharacter}, 5);
 
             // Act.
             attackService.Attack(receivingCharacter);
@@ -34,10 +35,10 @@ namespace CodeBase.Tests.EditMode.AttackService
             // Arrange.
             ICharacter attackingCharacter = Setup.CharacterForAttack(21, 3, CharacterAttackType.Ranged, CharacterTeam.Ally);
             ICharacter receivingCharacter = Setup.CharacterForAttack(20, 1, CharacterAttackType.Ranged, CharacterTeam.Ally);
-
-            IAttackService attackService = Setup.AttackService(new []{attackingCharacter, receivingCharacter}, 5);
             attackingCharacter.UpdateCoordinate(new Vector2Int(2, 0));
             receivingCharacter.UpdateCoordinate(new Vector2Int(0, 0));
+
+            IAttackService attackService = Setup.AttackService(new []{attackingCharacter, receivingCharacter}, 5);
 
             // Act.
             attackService.Attack(receivingCharacter);
@@ -51,9 +52,9 @@ namespace CodeBase.Tests.EditMode.AttackService
         {
             // Arrange.
             ICharacter attackingCharacter = Setup.CharacterForAttack(21, 3, CharacterAttackType.Ranged, CharacterTeam.Ally);
+            attackingCharacter.UpdateCoordinate(new Vector2Int(2, 0));
 
             IAttackService attackService = Setup.AttackService(new []{attackingCharacter}, 5);
-            attackingCharacter.UpdateCoordinate(new Vector2Int(2, 0));
     
             // Act.
             attackService.Attack(attackingCharacter);
@@ -68,10 +69,10 @@ namespace CodeBase.Tests.EditMode.AttackService
             // Arrange.
             ICharacter attackingCharacter = Setup.CharacterForAttack(21, 3, CharacterAttackType.Melee, CharacterTeam.Ally);
             ICharacter receivingCharacter = Setup.CharacterForAttack(20, 1, CharacterAttackType.Melee, CharacterTeam.Enemy);
-
-            IAttackService attackService = Setup.AttackService(new []{attackingCharacter, receivingCharacter}, 1);
             attackingCharacter.UpdateCoordinate(new Vector2Int(2, 0));
             receivingCharacter.UpdateCoordinate(new Vector2Int(0, 0));
+
+            IAttackService attackService = Setup.AttackService(new []{attackingCharacter, receivingCharacter}, 1);
     
             // Act.
             attackService.Attack(receivingCharacter);

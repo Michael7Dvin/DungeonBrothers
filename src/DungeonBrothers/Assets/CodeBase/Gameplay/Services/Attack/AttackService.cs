@@ -52,10 +52,12 @@ namespace CodeBase.Gameplay.Services.Attack
 
             if (IsAlly(character, activeCharacter))
                 return false;
+            
+            Debug.Log("1");
 
             if (IsInRange(character, activeCharacter) == false)
                 return false;
-            
+
             return true;
         }
 

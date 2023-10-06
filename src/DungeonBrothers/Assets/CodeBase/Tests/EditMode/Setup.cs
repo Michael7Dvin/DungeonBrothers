@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.Characters.Logic;
@@ -108,6 +109,13 @@ namespace CodeBase.Tests.EditMode
             turnQueue.SetFirstTurn();
 
             IMapService mapService = MapService(3, 3);
+
+            foreach (var character in characters)
+            {
+                if (mapService.TryGetTile(character.Coordinate, out Tile tile)) 
+                    tile.Logic.Occupy(character);
+
+            }
 
             IPathFinder pathFinder = Create.PathFinder(mapService);
             ICustomLogger customLogger = Create.CustomLogger();
