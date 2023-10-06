@@ -11,15 +11,12 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
     {
         private readonly ITurnQueue _turnQueue;
         private readonly IMoverService _moverService;
-        private readonly IMapService _mapService;
 
         public BattleState(ITurnQueue turnQueue,
-            IMoverService moverService,
-            IMapService mapService)
+            IMoverService moverService)
         {
             _turnQueue = turnQueue;
             _moverService = moverService;
-            _mapService = mapService;
         }
 
         public void Enter()

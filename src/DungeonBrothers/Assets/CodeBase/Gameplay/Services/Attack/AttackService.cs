@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Characters.Logic;
 using CodeBase.Gameplay.PathFinder;
-using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
@@ -15,20 +14,19 @@ namespace CodeBase.Gameplay.Services.Attack
     {
         private readonly ITurnQueue _turnQueue;
         private readonly IPathFinder _pathFinder;
-        private readonly IMapService _mapService;
         private readonly ICustomLogger _customLogger;
 
+        private AllGameBalanceConfig _gameBalanceConfig;
+        
         private readonly int _meleeRange;
         private readonly int _rangedRange;
         public AttackService(ITurnQueue turnQueue,
             IPathFinder pathFinder,
             ICustomLogger customLogger,
-            IMapService mapService,
             IStaticDataProvider staticDataProvider)
         {
             _turnQueue = turnQueue;
             _pathFinder = pathFinder;
-            _mapService = mapService;
             _customLogger = customLogger;
 
             _meleeRange = staticDataProvider.GameBalanceConfig.AttackRangeConfig.MeleeRange;
@@ -38,11 +36,12 @@ namespace CodeBase.Gameplay.Services.Attack
         public void Attack(ICharacter character)
         {
             ICharacter activeCharacter = _turnQueue.ActiveCharacter.Value;
-            
+
             if (TryAttackEnemy(character, activeCharacter) == false)
                 return;
-
+            
             _turnQueue.SetNextTurn();
+            
             character.CharacterLogic.Health.TakeDamage(activeCharacter.CharacterDamage.GetCharacterDamage());
         }
 
@@ -56,12 +55,15 @@ namespace CodeBase.Gameplay.Services.Attack
             
             int pathCost = GetPathCost(character, activeCharacter);
 
+            if (pathCost <= 0)
+                return false;
+            
             switch (activeCharacter.CharacterDamage.CharacterAttackType)
             {
                 case CharacterAttackType.Melee:
-                    return pathCost == _meleeRange;
+                    return pathCost <= _meleeRange;
                 case CharacterAttackType.Ranged:
-                    return pathCost <= _rangedRange && pathCost > 0;
+                    return pathCost <= _rangedRange;
                 default:
                     _customLogger.LogError(
                         new Exception($"{activeCharacter.CharacterDamage.CharacterAttackType}, doesn't exist"));
@@ -75,7 +77,7 @@ namespace CodeBase.Gameplay.Services.Attack
             PathFindingResults pathFindingResults = GetPathFindingResults(activeCharacter);
             
             List<Vector2Int> path = pathFindingResults.GetPathTo(character.Coordinate, true);
-
+            
             if (path == null)
                 return 0;
 
