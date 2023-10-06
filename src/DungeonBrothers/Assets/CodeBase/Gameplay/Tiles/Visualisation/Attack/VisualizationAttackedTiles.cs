@@ -70,10 +70,10 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Attack
             switch (character.CharacterDamage.CharacterAttackType)
             {
                 case CharacterAttackType.Melee:
-                    pathFindingResults = GetPathFindingResults(character, _meleeRange);
+                    pathFindingResults = GetPathFindingResults(character, _meleeRange, false);
                     break;
                 case CharacterAttackType.Ranged:
-                    pathFindingResults = GetPathFindingResults(character, _rangedRange);
+                    pathFindingResults = GetPathFindingResults(character, _rangedRanged, true);
                     break;
                 default:
                     _customLogger.LogError(new Exception($"{character.CharacterDamage.CharacterAttackType} doesnt exist"));
@@ -92,8 +92,8 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Attack
             }
         }
 
-        private PathFindingResults GetPathFindingResults(ICharacter character, int range) => 
-            _pathFinder.CalculatePaths(character.Coordinate, range, false);
+        private PathFindingResults GetPathFindingResults(ICharacter character, int range, bool isAttackThroughEnemy) => 
+            _pathFinder.CalculatePaths(character.Coordinate, range, isAttackThroughEnemy);
 
         private void VisualizeTile(ICharacter character, Tile tile)
         {
