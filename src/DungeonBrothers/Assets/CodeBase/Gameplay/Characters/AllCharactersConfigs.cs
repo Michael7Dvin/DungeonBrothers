@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CodeBase.Gameplay.Animations.Hit;
 using CodeBase.Gameplay.Characters.CharacterInfo;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
@@ -10,5 +11,7 @@ namespace CodeBase.Gameplay.Characters
     public class AllCharactersConfigs : SerializedScriptableObject
     {
         [OdinSerialize] public Dictionary<CharacterID, CharacterConfig> CharacterConfigs;
+
+        public HitAnimationConfig hitAnimationConfig;
     }
 }

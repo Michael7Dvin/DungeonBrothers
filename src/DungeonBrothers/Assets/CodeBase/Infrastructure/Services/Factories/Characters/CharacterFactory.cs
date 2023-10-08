@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using CodeBase.Gameplay.Animations.Color;
+using CodeBase.Gameplay.Animations.Hit;
 using CodeBase.Gameplay.Animations.Move;
+using CodeBase.Gameplay.Animations.Scale;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.Characters.Logic;
@@ -64,21 +67,35 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
             MovementStats movementStats = config.MovementStats;
             CharacterDamage characterDamage = CreateCharacterDamage(config, characterStats);
 
-            ICharacterLogic characterLogic = CreateCharacterLogic(config, gameObject);
-
-            Character character = gameObject.GetComponent<Character>();
-
-            CharacterInTurnQueueIcon icon = await _turnQueueViewFactory.CreateIcon(config.Image, config.ID);
-            icon.gameObject.SetActive(false);
+            ICharacterLogic characterLogic = CreateCharacterLogic(gameObject, config);
+            ICharacterView characterView = await CreateCharacterView(gameObject, config);
             
-            character.Construct(config.ID, config.Team, movementStats, characterStats, characterDamage, icon, characterLogic);
+            Character character = gameObject.GetComponent<Character>();
+            character.Construct(config.ID, config.Team, movementStats, characterStats, characterDamage, characterLogic, characterView);
+            
             await CreateHealthBar(character);
             
-            _charactersProvider.Add(character, icon);
+            _charactersProvider.Add(character, character.CharacterView.CharacterInTurnQueueIcon);
 
             return character;
         }
 
+        private async UniTask<ICharacterView> CreateCharacterView(GameObject gameObject, CharacterConfig config)
+        {
+            CharacterInTurnQueueIcon icon = await _turnQueueViewFactory.CreateIcon(config.Image, config.ID);
+            icon.gameObject.SetActive(false);
+            
+            ScaleAnimation scaleAnimation = gameObject.GetComponent<ScaleAnimation>();
+            ColorAnimation colorAnimation = gameObject.GetComponent<ColorAnimation>();
+            
+            HitAnimation hitAnimation = new(scaleAnimation, colorAnimation);
+            _objectResolver.Inject(hitAnimation);
+
+            CharacterView characterView = new CharacterView();
+            characterView.Construct(icon, hitAnimation);
+            return characterView;
+        }
+        
         private async UniTask CreateHealthBar(Character character)
         {
             GameObject prefab = await _addressablesLoader.LoadGameObject(_gameplayUIAddresses.HealthBar);
@@ -103,7 +120,7 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
             return characterDamage;
         }
         
-        private ICharacterLogic CreateCharacterLogic(CharacterConfig config, GameObject gameObject)
+        private ICharacterLogic CreateCharacterLogic(GameObject gameObject, CharacterConfig config)
         {
             Health health = gameObject.GetComponent<Health>();
             health.Construct(config.HealthPoints);

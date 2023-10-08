@@ -1,11 +1,12 @@
 ﻿using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.PathFinder;
+using Cysharp.Threading.Tasks;
 
 namespace CodeBase.Gameplay.Services.Attack
 {
     public interface IAttackService
     {
-        public void Attack(ICharacter character);
+        public UniTask Attack(ICharacter character);
         public PathFindingResults GetPathFindingResults(ICharacter activeCharacter);
     }
 }
