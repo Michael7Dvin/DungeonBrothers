@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 711e04909f0e46758e4f8b69293bef62, type: 3}
+  m_Name: Hit
+  m_EditorClassIdentifier: 
+  ScaleInHit: {fileID: 11400000, guid: 3b89670b81d0d7d478379b629722282d, type: 2}
+  ScaleOutHit: {fileID: 11400000, guid: 23038c9cf807d634e8659e0500955382, type: 2}
+  ColorInHit: {fileID: 11400000, guid: 08f7cac672b95a342a957de37f29e217, type: 2}
+  ColorOutHit: {fileID: 11400000, guid: bc46e0f5585878e4f920f51f7f790306, type: 2}

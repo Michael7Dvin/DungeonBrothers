@@ -30,7 +30,7 @@ namespace CodeBase.Gameplay.Services.InteractionsService
 
             if (tile.Logic.Character != null)
             {
-                _attackService.Attack(tile.Logic.Character);
+                await _attackService.Attack(tile.Logic.Character);
                 IsInteract = false;
                 return;
             }

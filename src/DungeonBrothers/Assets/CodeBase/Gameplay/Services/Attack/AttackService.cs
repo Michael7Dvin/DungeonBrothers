@@ -7,6 +7,7 @@ using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace CodeBase.Gameplay.Services.Attack
@@ -34,13 +35,16 @@ namespace CodeBase.Gameplay.Services.Attack
             _rangedRange = staticDataProvider.GameBalanceConfig.AttackRangeConfig.RangedRange;
         }
 
-        public void Attack(ICharacter character)
+        public async UniTask Attack(ICharacter character)
         {
             ICharacter activeCharacter = _turnQueue.ActiveCharacter.Value;
 
             if (TryAttackEnemy(character, activeCharacter) == false)
                 return;
-            
+
+            if (character.CharacterView.HitAnimation != null)
+                await character.CharacterView.HitAnimation.TakeHitAnimate();
+
             character.CharacterLogic.Health.TakeDamage(activeCharacter.CharacterDamage.GetCharacterDamage());
             _turnQueue.SetNextTurn();
         }
@@ -52,8 +56,6 @@ namespace CodeBase.Gameplay.Services.Attack
 
             if (IsAlly(character, activeCharacter))
                 return false;
-            
-            Debug.Log("1");
 
             if (IsInRange(character, activeCharacter) == false)
                 return false;

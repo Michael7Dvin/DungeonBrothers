@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CodeBase.Gameplay.Animations.Color;
+using CodeBase.Gameplay.Animations.Hit;
+using CodeBase.Gameplay.Animations.Scale;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.Characters.Logic;

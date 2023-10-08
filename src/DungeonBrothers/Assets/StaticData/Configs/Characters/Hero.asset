@@ -29,7 +29,7 @@ MonoBehaviour:
       Data: 3
     - Name: CharacterAttackType
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
