@@ -1,3 +1,4 @@
+using CodeBase.Gameplay.Services.AI;
 using CodeBase.Gameplay.Services.Random;
 using CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
 using CodeBase.Infrastructure.Services.InputService;

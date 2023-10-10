@@ -49,7 +49,7 @@ namespace CodeBase.Gameplay.Services.Attack
             _turnQueue.SetNextTurn();
         }
 
-        private bool TryAttackEnemy(ICharacter character, ICharacter activeCharacter)
+        public bool TryAttackEnemy(ICharacter character, ICharacter activeCharacter)
         {
             if (IsSelf(character, activeCharacter))
                 return false;
