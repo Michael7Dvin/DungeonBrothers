@@ -57,9 +57,10 @@ namespace CodeBase.Gameplay.Services.Move
 
             if (tile.Logic.Coordinates == character.Coordinate)
                 return;
-            
+
             if (PathFindingResults.IsMovableAt(tile.Logic.Coordinates) == false)
                 return;
+            
             
             List<Vector2Int> path = PathFindingResults.GetPathTo(tile.Logic.Coordinates, false);
             int pathCost = path.Count;

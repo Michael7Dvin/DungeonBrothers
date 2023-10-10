@@ -8,5 +8,6 @@ namespace CodeBase.Gameplay.Services.Attack
     {
         public UniTask Attack(ICharacter character);
         public PathFindingResults GetPathFindingResults(ICharacter activeCharacter);
+        public bool TryAttackEnemy(ICharacter character, ICharacter activeCharacter);
     }
 }

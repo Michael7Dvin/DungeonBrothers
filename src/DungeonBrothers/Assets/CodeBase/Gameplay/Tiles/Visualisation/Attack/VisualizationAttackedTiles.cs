@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CodeBase.Gameplay.Characters;
+using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.Characters.Logic;
 using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.Attack;
@@ -42,10 +43,12 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Attack
         {
             _turnQueue.ActiveCharacter
                 .Skip(1)
+                .Where(character => character.CharacterTeam == CharacterTeam.Ally)
                 .Subscribe(VisualizeAttackedCharacters)
                 .AddTo(_disposable);
 
             _moverService.IsMoved
+                .Where(character => character.CharacterTeam == CharacterTeam.Ally)
                 .Subscribe(VisualizeAttackedCharacters)
                 .AddTo(_disposable);
         }

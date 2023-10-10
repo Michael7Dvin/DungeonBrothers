@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
@@ -36,6 +37,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.PathFinder
         {
             _pathFinder.PathFindingResults
                 .Skip(1)
+                .Where(_ => _turnQueue.ActiveCharacter.Value.CharacterTeam == CharacterTeam.Ally)
                 .Subscribe(VisualizeWalkableTiles)
                 .AddTo(_disposable);
         }

@@ -1,4 +1,6 @@
 using CodeBase.Gameplay.PathFinder;
+using CodeBase.Gameplay.Services.AI;
+using CodeBase.Gameplay.Services.AI.Behaviours;
 using CodeBase.Gameplay.Services.Attack;
 using CodeBase.Gameplay.Services.InteractionsService;
 using CodeBase.Gameplay.Services.Map;
@@ -72,6 +74,11 @@ namespace CodeBase.Infrastructure.Installers
             builder.Register<IRaycastService, RaycastService>(Lifetime.Singleton);
             builder.Register<ITileSelector, TileSelector>(Lifetime.Singleton);
             builder.Register<IAttackService, AttackService>(Lifetime.Singleton);
+            
+            builder.Register<IAIService, AIService>(Lifetime.Singleton);
+            builder.Register<ISelectTargetBehaviour, SelectTargetBehaviour>(Lifetime.Singleton);
+            builder.Register<IMoveBehaviour, MoveBehaviour>(Lifetime.Singleton);
+            builder.Register<IMeleeBehaviour, MeleeBehaviour>(Lifetime.Singleton);
         }
 
         private void RegisterVisualizators(IContainerBuilder builder)

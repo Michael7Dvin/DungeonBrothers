@@ -1,4 +1,5 @@
 ﻿using CodeBase.Common.FSM.States;
+using CodeBase.Gameplay.Services.AI;
 using CodeBase.Gameplay.Services.InteractionsService;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Tiles;
@@ -26,6 +27,8 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
         private readonly ITileSelector _tileSelector;
         private readonly IVisualizationPathToTile _visualizationPathToTile;
         private readonly IVisualizationAttackedTiles _visualizationAttack;
+
+        private readonly IAIService _aiService;
         
         public LevelLoadingState(ILevelSpawner levelSpawner, 
             ITurnQueue turnQueue, 
@@ -37,7 +40,8 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
             ISelectedTileVisualisation selectedTileVisualisation,
             ITileSelector tileSelector,
             IVisualizationPathToTile visualizationPathToTile,
-            IVisualizationAttackedTiles visualizationAttack)
+            IVisualizationAttackedTiles visualizationAttack,
+            IAIService aiService)
         {
             _levelSpawner = levelSpawner;
             _turnQueue = turnQueue;
@@ -49,6 +53,8 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
             _tileSelector = tileSelector;
             _visualizationPathToTile = visualizationPathToTile;
             _visualizationAttack = visualizationAttack;
+
+            _aiService = aiService;
         }
 
         public async void Enter()
@@ -62,6 +68,7 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
             _visualizationActiveCharacter.Initialize();
             _pathFinderVisualization.Initialize();
             _visualizationAttack.Initialize();
+            _aiService.Initialize();
             
             await _levelSpawner.Spawn();
             _gameplayStateMachine.Enter<BattleState>();
