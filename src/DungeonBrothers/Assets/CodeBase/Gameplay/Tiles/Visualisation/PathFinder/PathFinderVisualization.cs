@@ -35,6 +35,11 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.PathFinder
 
         public void Initialize()
         {
+            _turnQueue.NewTurnStarted
+                .Where(_ => _turnQueue.ActiveCharacter.Value.CharacterTeam == CharacterTeam.Enemy)
+                .Subscribe(_ => ResetLastTilesView())
+                .AddTo(_disposable);
+            
             _pathFinder.PathFindingResults
                 .Skip(1)
                 .Where(_ => _turnQueue.ActiveCharacter.Value.CharacterTeam == CharacterTeam.Ally)
@@ -50,7 +55,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.PathFinder
         private void VisualizeWalkableTiles(PathFindingResults pathFindingResults)
         {
             ResetLastTilesView();
-
+            
             foreach (Vector2Int coordinate in pathFindingResults.WalkableCoordinates)
             {
                 if (_mapService.TryGetTile(coordinate, out Tile tile))

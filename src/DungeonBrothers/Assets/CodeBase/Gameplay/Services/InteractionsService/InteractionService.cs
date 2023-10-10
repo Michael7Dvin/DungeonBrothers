@@ -1,5 +1,7 @@
-﻿using CodeBase.Gameplay.Services.Attack;
+﻿using CodeBase.Gameplay.Characters.CharacterInfo;
+using CodeBase.Gameplay.Services.Attack;
 using CodeBase.Gameplay.Services.Move;
+using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Tiles;
 using Cysharp.Threading.Tasks;
 using UniRx;
@@ -11,14 +13,18 @@ namespace CodeBase.Gameplay.Services.InteractionsService
         private readonly IMoverService _moverService;
         private readonly IAttackService _attackService;
         private readonly ITileSelector _tileSelector;
+        private readonly ITurnQueue _turnQueue;
+        
         private readonly CompositeDisposable _disposable = new();
         
         public InteractionService(IMoverService moverService,
             IAttackService attackService,
+            ITurnQueue turnQueue,
             ITileSelector tileSelector)
         {
             _moverService = moverService;
             _attackService = attackService;
+            _turnQueue = turnQueue;
             _tileSelector = tileSelector;
         }
         
@@ -39,11 +45,23 @@ namespace CodeBase.Gameplay.Services.InteractionsService
 
             IsInteract = false;
         }
-        
+
+
         public void Initialize()
         {
+            _turnQueue.NewTurnStarted
+                .Subscribe(_ =>
+                {
+                    if (_turnQueue.ActiveCharacter.Value.CharacterTeam == CharacterTeam.Enemy)
+                        IsInteract = true;
+                    else
+                        IsInteract = false;
+                })
+                .AddTo(_disposable);
+            
             _tileSelector.CurrentTile
                 .Skip(1)
+                .Where(_ => _turnQueue.ActiveCharacter.Value.CharacterTeam == CharacterTeam.Ally)
                 .Where(_ => IsInteract == false)
                 .Where(tile => tile != null)
                 .Where(tile => _tileSelector.PreviousTile.Value == tile)

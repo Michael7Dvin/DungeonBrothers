@@ -33,9 +33,7 @@ namespace CodeBase.Gameplay.Services.AI.Behaviours
 
             PathFindingResults pathFindingResults = GetPathFindingResults(activeCharacter);
 
-            Vector2Int coordinate = GetCoordinate(pathFindingResults, activeCharacter, target);
-            
-            Debug.Log(pathFindingResults.IsMovableAt(coordinate));
+            Vector2Int coordinate = GetCoordinate(pathFindingResults,target);
 
             if (_mapService.TryGetTile(coordinate, out Tile tile)) 
                 await _moverService.Move(tile);
@@ -45,15 +43,14 @@ namespace CodeBase.Gameplay.Services.AI.Behaviours
             _pathFinder.CalculatePaths(activeCharacter.Coordinate,
                 activeCharacter.MovementStats.MovePoints, false);
 
-        private Vector2Int GetCoordinate(PathFindingResults pathFindingResults, 
-            ICharacter activeCharacter, 
+        private Vector2Int GetCoordinate(PathFindingResults pathFindingResults,
             ICharacter target)
         {
             foreach (var coordinate in pathFindingResults.WalkableCoordinates)
             {
-                float distance = Vector2.Distance(activeCharacter.Coordinate, target.Coordinate);
+                float distance = Vector2.Distance(coordinate, target.Coordinate);
 
-                if (Vector2.Distance(_currentCoordinate, target.Coordinate) > distance)
+                if (Vector2.Distance(_currentCoordinate, target.Coordinate) > distance) 
                     _currentCoordinate = coordinate;
             }
 

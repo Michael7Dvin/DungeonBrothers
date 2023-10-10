@@ -29,13 +29,27 @@ namespace CodeBase.Gameplay.Services.AI.Behaviours
         {
             ICharacter target = _selectTargetBehaviour.GetTarget();
 
+            if (target == null)
+                return;
+
+            if (await TryAttack(target))
+                return;
+            
+            await _moveBehaviour.Move(_turnQueue.ActiveCharacter.Value, target);
+            
+            if (await TryAttack(target) == false)
+                _turnQueue.SetNextTurn();
+        }
+
+        private async UniTask<bool> TryAttack(ICharacter target)
+        {
             if (_attackService.TryAttackEnemy(target, _turnQueue.ActiveCharacter.Value))
             {
                 await _attackService.Attack(target);
-                return;
+                return true;
             }
 
-            await _moveBehaviour.Move(_turnQueue.ActiveCharacter.Value, target);
+            return false;
         }
     }
 }
