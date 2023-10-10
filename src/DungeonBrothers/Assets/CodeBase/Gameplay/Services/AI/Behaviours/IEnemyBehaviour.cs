@@ -2,7 +2,7 @@
 
 namespace CodeBase.Gameplay.Services.AI.Behaviours
 {
-    public interface IMeleeBehaviour
+    public interface IEnemyBehaviour
     {
         public UniTask DoTurn();
     }

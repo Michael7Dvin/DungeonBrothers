@@ -27,7 +27,8 @@ namespace CodeBase.Gameplay.Services.AI.Behaviours
             _mapService = mapService;
         }
 
-        public async UniTask Move(ICharacter activeCharacter, ICharacter target)
+        public async UniTask Move(ICharacter activeCharacter,
+            ICharacter target)
         {
             _currentCoordinate = new Vector2Int(MaxValue, MaxValue);
 

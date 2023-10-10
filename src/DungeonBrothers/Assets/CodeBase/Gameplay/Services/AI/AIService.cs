@@ -12,14 +12,14 @@ namespace CodeBase.Gameplay.Services.AI
     public class AIService : IAIService
     {
         private readonly ITurnQueue _turnQueue;
-        private readonly IMeleeBehaviour _meleeBehaviour;
+        private readonly IEnemyBehaviour _enemyBehaviour;
         private readonly CompositeDisposable _disposable = new();
 
         public AIService(ITurnQueue turnQueue,
-            IMeleeBehaviour meleeBehaviour)
+            IEnemyBehaviour enemyBehaviour)
         {
             _turnQueue = turnQueue;
-            _meleeBehaviour = meleeBehaviour;
+            _enemyBehaviour = enemyBehaviour;
         }
 
         public void Initialize()
@@ -33,20 +33,7 @@ namespace CodeBase.Gameplay.Services.AI
         public void Disable() =>
             _disposable.Clear();
 
-        private async void DoTurn()
-        {
-            ICharacter character = _turnQueue.ActiveCharacter.Value;
-            
-            switch (character.CharacterDamage.CharacterAttackType)
-            {
-                case CharacterAttackType.Melee:
-                    await _meleeBehaviour.DoTurn();
-                    break;
-                case CharacterAttackType.Ranged:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
+        private async void DoTurn() => 
+            await _enemyBehaviour.DoTurn();
     }
 }

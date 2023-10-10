@@ -78,7 +78,7 @@ namespace CodeBase.Infrastructure.Installers
             builder.Register<IAIService, AIService>(Lifetime.Singleton);
             builder.Register<ISelectTargetBehaviour, SelectTargetBehaviour>(Lifetime.Singleton);
             builder.Register<IMoveBehaviour, MoveBehaviour>(Lifetime.Singleton);
-            builder.Register<IMeleeBehaviour, MeleeBehaviour>(Lifetime.Singleton);
+            builder.Register<IEnemyBehaviour, EnemyBehaviour>(Lifetime.Singleton);
         }
 
         private void RegisterVisualizators(IContainerBuilder builder)

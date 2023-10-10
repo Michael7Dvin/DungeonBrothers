@@ -1,20 +1,18 @@
 ﻿using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.Attack;
-using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Services.TurnQueue;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 
 namespace CodeBase.Gameplay.Services.AI.Behaviours
 {
-    public class MeleeBehaviour : IMeleeBehaviour
+    public class EnemyBehaviour : IEnemyBehaviour
     {
         private readonly ITurnQueue _turnQueue;
         private readonly ISelectTargetBehaviour _selectTargetBehaviour;
         private readonly IMoveBehaviour _moveBehaviour;
         private readonly IAttackService _attackService;
         
-        public MeleeBehaviour(ITurnQueue turnQueue, 
+        public EnemyBehaviour(ITurnQueue turnQueue, 
             ISelectTargetBehaviour selectTargetBehaviour,
             IMoveBehaviour moveBehaviour,
             IAttackService attackService)
