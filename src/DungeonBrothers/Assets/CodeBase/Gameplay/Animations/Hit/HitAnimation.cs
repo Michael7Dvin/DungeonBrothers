@@ -1,4 +1,4 @@
-﻿using CodeBase.Gameplay.Animations.Color;
+﻿using CodeBase.Gameplay.Animations.Colors;
 using CodeBase.Gameplay.Animations.Scale;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
 using Cysharp.Threading.Tasks;
@@ -16,7 +16,7 @@ namespace CodeBase.Gameplay.Animations.Hit
         [Inject]
         public void Inject(IStaticDataProvider staticDataProvider)
         {
-            _config = staticDataProvider.AllCharactersConfigs.hitAnimationConfig;
+            _config = staticDataProvider.AllCharactersConfigs.HitAnimationConfig;
         }
         
         public HitAnimation(ScaleAnimation scaleAnimation,
@@ -26,13 +26,17 @@ namespace CodeBase.Gameplay.Animations.Hit
             _colorAnimation = colorAnimation;
         }
 
-        public async UniTask TakeHitAnimate()
+        public async UniTask DoHit()
         {
-            _colorAnimation.DoColor(_config.ColorInHit);
-            await _scaleAnimation.ScaleUniTask(_config.ScaleInHit);
+            UniTask scaleAtHit = _scaleAnimation.DoScale(_config.ScaleAnimationAtHit).ToUniTask();
+            UniTask colorAtHit = _colorAnimation.DoColor(_config.ColorAnimationAtHit).ToUniTask();
             
-            _colorAnimation.DoColor(_config.ColorOutHit);
-            await _scaleAnimation.ScaleUniTask(_config.ScaleOutHit);
+            await UniTask.WhenAll(scaleAtHit, colorAtHit);
+
+            UniTask scaleAfterHit = _colorAnimation.DoColor(_config.ColorAnimationAfterHit).ToUniTask();
+            UniTask colorAfterHit = _scaleAnimation.DoScale(_config.ScaleAnimationAfterHit).ToUniTask();
+            
+            await UniTask.WhenAll(scaleAfterHit, colorAfterHit);
         }
     }
 }

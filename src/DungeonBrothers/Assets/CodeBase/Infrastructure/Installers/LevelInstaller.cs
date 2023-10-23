@@ -10,14 +10,13 @@ using CodeBase.Gameplay.Services.Raycast;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Spawner.CharacterSpawner;
 using CodeBase.Gameplay.Tiles;
-using CodeBase.Gameplay.Tiles.Visualisation;
 using CodeBase.Gameplay.Tiles.Visualisation.ActiveCharacter;
 using CodeBase.Gameplay.Tiles.Visualisation.Attack;
 using CodeBase.Gameplay.Tiles.Visualisation.Path;
 using CodeBase.Gameplay.Tiles.Visualisation.PathFinder;
 using CodeBase.Gameplay.Tiles.Visualisation.Select;
 using CodeBase.Infrastructure.Services.Factories.Buttons;
-using CodeBase.Infrastructure.Services.Factories.Camera;
+using CodeBase.Infrastructure.Services.Factories.Cameras;
 using CodeBase.Infrastructure.Services.Factories.Characters;
 using CodeBase.Infrastructure.Services.Factories.TileFactory;
 using CodeBase.Infrastructure.Services.Factories.TurnQueue;
@@ -26,7 +25,6 @@ using CodeBase.Infrastructure.Services.Providers.LevelSpawner;
 using CodeBase.Infrastructure.StateMachines.Gameplay;
 using CodeBase.Infrastructure.StateMachines.Gameplay.FSM;
 using CodeBase.Infrastructure.StateMachines.Gameplay.States;
-using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -38,7 +36,7 @@ namespace CodeBase.Infrastructure.Installers
         {
             RegisterStateMachine(builder);
             RegisterServices(builder);
-            RegisterVisualizators(builder);
+            RegisterVisualizers(builder);
             RegisterFactories(builder);
         }
 
@@ -78,16 +76,16 @@ namespace CodeBase.Infrastructure.Installers
             builder.Register<IAIService, AIService>(Lifetime.Singleton);
             builder.Register<ISelectTargetBehaviour, SelectTargetBehaviour>(Lifetime.Singleton);
             builder.Register<IMoveBehaviour, MoveBehaviour>(Lifetime.Singleton);
-            builder.Register<IEnemyBehaviour, EnemyBehaviour>(Lifetime.Singleton);
+            builder.Register<IAttackBehaviour, AttackBehaviour>(Lifetime.Singleton);
         }
 
-        private void RegisterVisualizators(IContainerBuilder builder)
+        private void RegisterVisualizers(IContainerBuilder builder)
         {
-            builder.Register<IPathFinderVisualization, PathFinderVisualization>(Lifetime.Singleton);
-            builder.Register<ITileVisualizationActiveCharacter, TileVisualizationActiveCharacter>(Lifetime.Singleton);
-            builder.Register<ISelectedTileVisualisation, SelectedTileVisualisation>(Lifetime.Singleton);
-            builder.Register<IVisualizationPathToTile, VisualizationPathToTile>(Lifetime.Singleton);
-            builder.Register<IVisualizationAttackedTiles, VisualizationAttackedTiles>(Lifetime.Singleton);
+            builder.Register<IPathFinderVisualizer, PathFinderVisualizer>(Lifetime.Singleton);
+            builder.Register<IActiveCharacterTileVisualizer, ActiveCharacterTileVisualizer>(Lifetime.Singleton);
+            builder.Register<ISelectedTileVisualizer, SelectedTileVisualizer>(Lifetime.Singleton);
+            builder.Register<IPathVisualizer, PathVisualizer>(Lifetime.Singleton);
+            builder.Register<IAttackableTilesVisualizer, AttackableTilesVisualizer>(Lifetime.Singleton);
         }
     }
 }

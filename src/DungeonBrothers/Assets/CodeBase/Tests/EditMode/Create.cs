@@ -69,17 +69,7 @@ namespace CodeBase.Tests.EditMode
 
         public static TileLogic TileLogic(Vector2Int coordinate) =>
             new(false, true, coordinate);
-
-        public static MovementStats MovementStats(int movePoints, bool isMoveThroughObstacles)
-        {
-            MovementStats movementStats = new MovementStats
-            {
-                MovePoints = movePoints,
-                IsMoveThroughObstacles = isMoveThroughObstacles
-            };
-            return movementStats;
-        }
-
+        
         public static CharacterDamage CharacterDamage(CharacterAttackType characterAttackType, 
             CharacterStats characterStats, 
             int damage, 
@@ -96,12 +86,14 @@ namespace CodeBase.Tests.EditMode
             return characterDamage;
         }
 
-        public static CharacterStats CharacterStats(int level,
-            int initiative, 
-            int strength, 
-            int dexterity, 
-            int intelligence, 
-            MainAttribute mainAttribute )
+        public static CharacterStats CharacterStats(int level = 1,
+            int initiative = 1, 
+            int strength = 1, 
+            int dexterity = 1,
+            int intelligence = 1,
+            MainAttributeID mainAttributeID = MainAttributeID.Strength,
+            int movePoints = 1,
+            bool isMoveThroughObstacles = false)
         {
             CharacterStats characterStats = new CharacterStats
             {
@@ -110,7 +102,9 @@ namespace CodeBase.Tests.EditMode
                 Strength = strength,
                 Dexterity = dexterity,
                 Intelligence = intelligence,
-                MainAttribute = mainAttribute
+                MainAttributeID = mainAttributeID,
+                MovePoints = movePoints,
+                IsMoveThroughObstacles = isMoveThroughObstacles,
             };
             return characterStats;
         }

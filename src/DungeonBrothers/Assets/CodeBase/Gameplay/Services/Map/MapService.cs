@@ -26,21 +26,11 @@ namespace CodeBase.Gameplay.Services.Map
             {
                 _tiles[tile.Logic.Coordinates] = tile;
             }
-                
         }
         
-        public bool TryGetTile(Vector2Int coordinates, out Tile tile)
-        {
-            if (_tiles.ContainsKey(coordinates) == true)
-            {
-                tile = _tiles[coordinates];
-                return true;
-            }
+        public bool TryGetTile(Vector2Int coordinates, out Tile tile) => 
+            _tiles.TryGetValue(coordinates, out tile);
 
-            tile = null;
-            return false;
-        }
-        
         public List<Tile> GetNeighbors(Vector2Int coordinates)
         {
             List<Tile> neighbors = new(MaxNeighborsCount);

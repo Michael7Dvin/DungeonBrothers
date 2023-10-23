@@ -14,7 +14,7 @@ namespace CodeBase.Gameplay.Services.Raycast
                 return true;
             }
 
-            component = default(T);
+            component = default;
             return false;
         }
     }

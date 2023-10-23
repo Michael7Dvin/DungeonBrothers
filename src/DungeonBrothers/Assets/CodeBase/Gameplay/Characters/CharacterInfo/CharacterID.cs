@@ -3,6 +3,6 @@
     public enum CharacterID
     {
         Hero = 0,
-        Enemy = 1
+        Skeleton = 1
     }
 }

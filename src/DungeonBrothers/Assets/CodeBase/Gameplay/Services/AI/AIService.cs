@@ -1,10 +1,6 @@
-﻿using System;
-using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.Characters.CharacterInfo;
-using CodeBase.Gameplay.Characters.Logic;
+﻿using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.Services.AI.Behaviours;
 using CodeBase.Gameplay.Services.TurnQueue;
-using Cysharp.Threading.Tasks;
 using UniRx;
 
 namespace CodeBase.Gameplay.Services.AI
@@ -12,20 +8,20 @@ namespace CodeBase.Gameplay.Services.AI
     public class AIService : IAIService
     {
         private readonly ITurnQueue _turnQueue;
-        private readonly IEnemyBehaviour _enemyBehaviour;
+        private readonly IAttackBehaviour _attackBehaviour;
         private readonly CompositeDisposable _disposable = new();
 
         public AIService(ITurnQueue turnQueue,
-            IEnemyBehaviour enemyBehaviour)
+            IAttackBehaviour attackBehaviour)
         {
             _turnQueue = turnQueue;
-            _enemyBehaviour = enemyBehaviour;
+            _attackBehaviour = attackBehaviour;
         }
 
         public void Initialize()
         {
             _turnQueue.NewTurnStarted
-                .Where(_ => _turnQueue.ActiveCharacter.Value.CharacterTeam == CharacterTeam.Enemy)
+                .Where(_ => _turnQueue.ActiveCharacter.Value.Team == CharacterTeam.Enemy)
                 .Subscribe(_ => DoTurn())
                 .AddTo(_disposable);
         }
@@ -34,6 +30,6 @@ namespace CodeBase.Gameplay.Services.AI
             _disposable.Clear();
 
         private async void DoTurn() => 
-            await _enemyBehaviour.DoTurn();
+            await _attackBehaviour.DoTurn();
     }
 }

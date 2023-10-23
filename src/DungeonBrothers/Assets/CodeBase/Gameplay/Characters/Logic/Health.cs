@@ -8,7 +8,7 @@ namespace CodeBase.Gameplay.Characters.Logic
 {
     public class Health : MonoBehaviour, IDamageable, IHealable
     {
-        private const int _minHealth = 0; 
+        private const int MinHealth = 0; 
         private readonly ReactiveProperty<int> _healthPoints = new();
         
         private ICustomLogger _customLogger;
@@ -44,7 +44,7 @@ namespace CodeBase.Gameplay.Characters.Logic
             }
             finally
             {
-                _healthPoints.Value = Mathf.Clamp(_healthPoints.Value - value, _minHealth, MaxHealthPoints);
+                _healthPoints.Value = Mathf.Clamp(_healthPoints.Value - value, MinHealth, MaxHealthPoints);
             
                 TryDie();
             }
@@ -72,7 +72,7 @@ namespace CodeBase.Gameplay.Characters.Logic
             }
             finally
             {
-                _healthPoints.Value = Mathf.Clamp(_healthPoints.Value + value, _minHealth, MaxHealthPoints);
+                _healthPoints.Value = Mathf.Clamp(_healthPoints.Value + value, MinHealth, MaxHealthPoints);
             }
         }
     }

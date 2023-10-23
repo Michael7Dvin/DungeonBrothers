@@ -100,12 +100,12 @@ namespace CodeBase.Gameplay.Services.Move
         
 
         private void ResetMovePoints(ICharacter character) =>
-            _currentMovePoints = character.MovementStats.MovePoints;
+            _currentMovePoints = character.Stats.MovePoints;
         
         private void CalculatePaths(ICharacter character)
         {
             Vector2Int startPosition = character.Coordinate;
-            bool isMoveThroughObstacles = character.MovementStats.IsMoveThroughObstacles;
+            bool isMoveThroughObstacles = character.Stats.IsMoveThroughObstacles;
 
             PathFindingResults pathFindingResults =
                 _pathFinder.CalculatePaths(startPosition, _currentMovePoints, isMoveThroughObstacles);

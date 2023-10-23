@@ -21,12 +21,12 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
         private readonly ITurnQueue _turnQueue;
         private readonly IGameplayStateMachine _gameplayStateMachine;
         private readonly IInputService _inputService;
-        private readonly ITileVisualizationActiveCharacter _visualizationActiveCharacter;
-        private readonly IPathFinderVisualization _pathFinderVisualization;
-        private readonly ISelectedTileVisualisation _selectedTileVisualisation;
+        private readonly IActiveCharacterTileVisualizer _visualizer;
+        private readonly IPathFinderVisualizer _pathFinderVisualizer;
+        private readonly ISelectedTileVisualizer _selectedTileVisualizer;
         private readonly ITileSelector _tileSelector;
-        private readonly IVisualizationPathToTile _visualizationPathToTile;
-        private readonly IVisualizationAttackedTiles _visualizationAttack;
+        private readonly IPathVisualizer _pathVisualizer;
+        private readonly IAttackableTilesVisualizer _visualizationAttack;
 
         private readonly IAIService _aiService;
         
@@ -35,23 +35,23 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
             IGameplayStateMachine
                 gameplayStateMachine, 
             IInputService inputService,
-            ITileVisualizationActiveCharacter tileVisualizationActiveCharacter,
-            IPathFinderVisualization pathFinderVisualization,
-            ISelectedTileVisualisation selectedTileVisualisation,
+            IActiveCharacterTileVisualizer activeCharacterTileVisualizer,
+            IPathFinderVisualizer pathFinderVisualizer,
+            ISelectedTileVisualizer selectedTileVisualizer,
             ITileSelector tileSelector,
-            IVisualizationPathToTile visualizationPathToTile,
-            IVisualizationAttackedTiles visualizationAttack,
+            IPathVisualizer pathVisualizer,
+            IAttackableTilesVisualizer visualizationAttack,
             IAIService aiService)
         {
             _levelSpawner = levelSpawner;
             _turnQueue = turnQueue;
             _gameplayStateMachine = gameplayStateMachine;
             _inputService = inputService;
-            _visualizationActiveCharacter = tileVisualizationActiveCharacter;
-            _pathFinderVisualization = pathFinderVisualization;
-            _selectedTileVisualisation = selectedTileVisualisation;
+            _visualizer = activeCharacterTileVisualizer;
+            _pathFinderVisualizer = pathFinderVisualizer;
+            _selectedTileVisualizer = selectedTileVisualizer;
             _tileSelector = tileSelector;
-            _visualizationPathToTile = visualizationPathToTile;
+            _pathVisualizer = pathVisualizer;
             _visualizationAttack = visualizationAttack;
 
             _aiService = aiService;
@@ -63,10 +63,10 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
             _inputService.EnableInput();
             _turnQueue.Initialize();
             _tileSelector.Initialize();
-            _visualizationPathToTile.Initialize();
-            _selectedTileVisualisation.Initialize();
-            _visualizationActiveCharacter.Initialize();
-            _pathFinderVisualization.Initialize();
+            _pathVisualizer.Initialize();
+            _selectedTileVisualizer.Initialize();
+            _visualizer.Initialize();
+            _pathFinderVisualizer.Initialize();
             _visualizationAttack.Initialize();
             _aiService.Initialize();
             

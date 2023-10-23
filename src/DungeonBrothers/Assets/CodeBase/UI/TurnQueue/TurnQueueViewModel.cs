@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.TurnQueue;
 using UniRx;
-using UnityEngine;
 using VContainer;
 
 namespace CodeBase.UI.TurnQueue
@@ -67,16 +65,16 @@ namespace CodeBase.UI.TurnQueue
             _charactersIconsQueue.Clear();
 
             for (int i = _turnQueue.Characters.Count - 1 ; i >= 0 ; i--)
-                _charactersIconsQueue.Add(_turnQueue.Characters[i].CharacterView.CharacterInTurnQueueIcon);
+                _charactersIconsQueue.Add(_turnQueue.Characters[i].View.CharacterInTurnQueueIcon);
 
             _enableIcons.Execute();
         }
 
         private void RemoveIconFromList(CollectionRemoveEvent<ICharacter> character)
         {
-            CharacterInTurnQueueIcon icon = character.Value.CharacterView.CharacterInTurnQueueIcon;
+            CharacterInTurnQueueIcon icon = character.Value.View.CharacterInTurnQueueIcon;
             
-            _charactersIconsQueue.Remove(character.Value.CharacterView.CharacterInTurnQueueIcon);
+            _charactersIconsQueue.Remove(character.Value.View.CharacterInTurnQueueIcon);
             icon.Destroy();
         }
         

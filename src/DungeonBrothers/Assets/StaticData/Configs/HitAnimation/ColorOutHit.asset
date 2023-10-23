@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03bd4dc55e2a4c108817b31234bfaa7f, type: 3}
   m_Name: ColorOutHit
   m_EditorClassIdentifier: 
-  EndColor: {r: 0, g: 0, b: 0, a: 0}
-  Duration: 0
+  EndColor: {r: 1, g: 1, b: 1, a: 1}
+  Duration: 0.2
   Ease: 0

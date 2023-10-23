@@ -1,5 +1,4 @@
-﻿using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.Characters.CharacterInfo;
+﻿using CodeBase.Gameplay.Characters.CharacterInfo;
 using UnityEngine;
 
 namespace CodeBase.UI.TurnQueue

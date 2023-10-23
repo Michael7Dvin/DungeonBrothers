@@ -23,7 +23,7 @@ namespace CodeBase.Infrastructure.Services.Providers.CharactersProvider
 
             CompositeDisposable disposable = new CompositeDisposable();
             
-            character.CharacterLogic.Health.Died
+            character.Logic.Health.Died
                 .Subscribe(_ => OnUnitDied())
                 .AddTo(disposable);
             

@@ -5,8 +5,7 @@ namespace CodeBase.Gameplay.Characters.View
 {
     public class CharacterView : ICharacterView
     {
-        public void Construct(CharacterInTurnQueueIcon characterInTurnQueueIcon
-            ,HitAnimation hitAnimation)
+        public void Construct(CharacterInTurnQueueIcon characterInTurnQueueIcon,HitAnimation hitAnimation)
         {
             HitAnimation = hitAnimation;
             CharacterInTurnQueueIcon = characterInTurnQueueIcon;

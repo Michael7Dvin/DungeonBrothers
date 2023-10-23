@@ -3,7 +3,6 @@ using CodeBase.Gameplay.Services.Attack;
 using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Tiles;
-using Cysharp.Threading.Tasks;
 using UniRx;
 
 namespace CodeBase.Gameplay.Services.InteractionsService
@@ -52,7 +51,7 @@ namespace CodeBase.Gameplay.Services.InteractionsService
             _turnQueue.NewTurnStarted
                 .Subscribe(_ =>
                 {
-                    if (_turnQueue.ActiveCharacter.Value.CharacterTeam == CharacterTeam.Enemy)
+                    if (_turnQueue.ActiveCharacter.Value.Team == CharacterTeam.Enemy)
                         IsInteract = true;
                     else
                         IsInteract = false;
@@ -61,7 +60,7 @@ namespace CodeBase.Gameplay.Services.InteractionsService
             
             _tileSelector.CurrentTile
                 .Skip(1)
-                .Where(_ => _turnQueue.ActiveCharacter.Value.CharacterTeam == CharacterTeam.Ally)
+                .Where(_ => _turnQueue.ActiveCharacter.Value.Team == CharacterTeam.Ally)
                 .Where(_ => IsInteract == false)
                 .Where(tile => tile != null)
                 .Where(tile => _tileSelector.PreviousTile.Value == tile)

@@ -9,7 +9,7 @@ using CodeBase.Gameplay.Services.MapGenerator;
 using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Spawner.CharacterSpawner;
 using CodeBase.Infrastructure.Services.Factories.Buttons;
-using CodeBase.Infrastructure.Services.Factories.Camera;
+using CodeBase.Infrastructure.Services.Factories.Cameras;
 using CodeBase.Infrastructure.Services.Factories.Characters;
 using CodeBase.Infrastructure.Services.Factories.TurnQueue;
 using CodeBase.Infrastructure.Services.Factories.UI;
@@ -89,9 +89,9 @@ namespace CodeBase.Infrastructure.Services.Providers.LevelSpawner
             Dictionary<Vector2Int, CharacterConfig> charactersToSpawn = new()
             {
                 { new Vector2Int(0, 0), _charactersConfigs[CharacterID.Hero] },
-                { new Vector2Int(2,0), _charactersConfigs[CharacterID.Enemy] },
-                { new Vector2Int(3,0), _charactersConfigs[CharacterID.Enemy] },
-                { new Vector2Int(4,0), _charactersConfigs[CharacterID.Enemy] }
+                { new Vector2Int(2,0), _charactersConfigs[CharacterID.Skeleton] },
+                { new Vector2Int(3,0), _charactersConfigs[CharacterID.Skeleton] },
+                { new Vector2Int(4,0), _charactersConfigs[CharacterID.Skeleton] }
             };
             
             await _charactersSpawner.Spawn(charactersToSpawn);
