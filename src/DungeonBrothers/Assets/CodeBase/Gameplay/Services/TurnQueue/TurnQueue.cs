@@ -2,11 +2,8 @@
 using System.Linq;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Services.Random;
-using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
-using CodeBase.UI.TurnQueue;
 using UniRx;
-using UnityEngine;
 
 namespace CodeBase.Gameplay.Services.TurnQueue
 {
@@ -40,8 +37,7 @@ namespace CodeBase.Gameplay.Services.TurnQueue
             _charactersProvider.Spawned
                 .Subscribe(Add)
                 .AddTo(_disposable);
-
-
+            
             _charactersProvider.Died
                 .Subscribe(Remove)
                 .AddTo(_disposable);
@@ -80,13 +76,13 @@ namespace CodeBase.Gameplay.Services.TurnQueue
                 return;
             }
 
-            int newCharacterInitiative = character.CharacterStats.Initiative;
+            int newCharacterInitiative = character.Stats.Initiative;
 
             ICharacter currentCharacter = _characters.First();
 
             while (currentCharacter != null)
             {
-                int currentCharacterInitiative = currentCharacter.CharacterStats.Initiative;
+                int currentCharacterInitiative = currentCharacter.Stats.Initiative;
 
                 if (newCharacterInitiative == currentCharacterInitiative)
                 {

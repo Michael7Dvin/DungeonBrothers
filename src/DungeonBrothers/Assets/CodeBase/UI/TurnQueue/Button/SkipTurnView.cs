@@ -1,5 +1,5 @@
 ﻿using System;
-using CodeBase.UI.Button;
+using CodeBase.UI.Controls.Button;
 using UnityEngine;
 
 namespace CodeBase.UI.TurnQueue.Button

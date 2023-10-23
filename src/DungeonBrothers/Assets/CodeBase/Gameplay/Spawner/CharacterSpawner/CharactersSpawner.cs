@@ -28,8 +28,10 @@ namespace CodeBase.Gameplay.Spawner.CharacterSpawner
                 {
                     Character prefab = await _characterFactory.Create(character.Value);
                     Transform transform = tile.transform;
+
+                    Vector3 position = transform.position;
                     
-                    prefab.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+                    prefab.transform.position = new Vector3(position.x, position.y, 0);
                     prefab.UpdateCoordinate(tile.Logic.Coordinates);
                     
                     tile.Logic.Occupy(prefab);

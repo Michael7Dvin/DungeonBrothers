@@ -1,7 +1,5 @@
-﻿using System;
-using CodeBase.Gameplay.Characters.Logic;
+﻿using CodeBase.Gameplay.Characters.Logic;
 using UniRx;
-using UnityEngine;
 
 namespace CodeBase.UI.HealthBar
 {
@@ -12,8 +10,7 @@ namespace CodeBase.UI.HealthBar
         private Health _health;
         private readonly CompositeDisposable _disposable = new();
 
-        public void Construct(Health health,
-            HealthBarView healthBarView)
+        public void Construct(Health health, HealthBarView healthBarView)
         {
             _health = health;
             _healthBarView = healthBarView;
@@ -23,7 +20,7 @@ namespace CodeBase.UI.HealthBar
         {
             _health.HealthPoints
                 .Skip(1)
-                .Subscribe(_healthPoints => _healthBarView.UpdateHealthBar((float)_healthPoints / _health.MaxHealthPoints))
+                .Subscribe(healthPoints => _healthBarView.UpdateHealthBar(healthPoints / _health.MaxHealthPoints))
                 .AddTo(_disposable);
 
             _health.Died
@@ -34,8 +31,7 @@ namespace CodeBase.UI.HealthBar
                 .Subscribe(_ => OnDestroy())
                 .AddTo(_disposable);
         }
-
-
+        
         private void OnDestroy() =>
             _disposable.Clear();
     }

@@ -12,6 +12,6 @@ namespace CodeBase.Gameplay.Characters
     {
         [OdinSerialize] public Dictionary<CharacterID, CharacterConfig> CharacterConfigs;
 
-        public HitAnimationConfig hitAnimationConfig;
+        public HitAnimationConfig HitAnimationConfig;
     }
 }

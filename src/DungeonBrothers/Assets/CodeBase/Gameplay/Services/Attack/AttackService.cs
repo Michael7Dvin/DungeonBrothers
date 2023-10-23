@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.Characters.Logic;
+using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 
 namespace CodeBase.Gameplay.Services.Attack
 {
@@ -18,10 +16,9 @@ namespace CodeBase.Gameplay.Services.Attack
         private readonly IPathFinder _pathFinder;
         private readonly ICustomLogger _customLogger;
 
-        private AllGameBalanceConfig _gameBalanceConfig;
-        
         private readonly int _meleeRange;
         private readonly int _rangedRange;
+        
         public AttackService(ITurnQueue turnQueue,
             IPathFinder pathFinder,
             ICustomLogger customLogger,
@@ -42,10 +39,10 @@ namespace CodeBase.Gameplay.Services.Attack
             if (TryAttackEnemy(character, activeCharacter) == false)
                 return;
 
-            if (character.CharacterView.HitAnimation != null)
-                await character.CharacterView.HitAnimation.TakeHitAnimate();
+            if (character.View.HitAnimation != null)
+                await character.View.HitAnimation.DoHit();
 
-            character.CharacterLogic.Health.TakeDamage(activeCharacter.CharacterDamage.GetCharacterDamage());
+            character.Logic.Health.TakeDamage(activeCharacter.Damage.GetCharacterDamage());
             _turnQueue.SetNextTurn();
         }
 
@@ -68,15 +65,12 @@ namespace CodeBase.Gameplay.Services.Attack
         {
             PathFindingResults pathFindingResults = GetPathFindingResults(activeCharacter);
 
-            if (pathFindingResults.NotWalkableCoordinates.Contains(character.Coordinate))
-                return true;
-
-            return false;
+            return pathFindingResults.NotWalkableCoordinates.Contains(character.Coordinate);
         }
 
         public PathFindingResults GetPathFindingResults(ICharacter activeCharacter)
         {
-            switch (activeCharacter.CharacterDamage.CharacterAttackType)
+            switch (activeCharacter.Damage.CharacterAttackType)
             {
                 case CharacterAttackType.Melee:
                     return _pathFinder.CalculatePaths(activeCharacter.Coordinate, _meleeRange, 
@@ -87,7 +81,7 @@ namespace CodeBase.Gameplay.Services.Attack
                         true);
                 default:
                     _customLogger.LogError(
-                        new Exception($"{activeCharacter.CharacterDamage.CharacterAttackType}, doesn't exist"));
+                        new Exception($"{activeCharacter.Damage.CharacterAttackType}, doesn't exist"));
                     return new PathFindingResults();
             }
         }
@@ -96,6 +90,6 @@ namespace CodeBase.Gameplay.Services.Attack
             character == activeCharacter;
 
         private bool IsAlly(ICharacter character, ICharacter activeCharacter) =>
-            character.CharacterTeam == activeCharacter.CharacterTeam;
+            character.Team == activeCharacter.Team;
     }
 }

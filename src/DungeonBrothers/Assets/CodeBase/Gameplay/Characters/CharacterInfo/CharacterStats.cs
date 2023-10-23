@@ -5,11 +5,16 @@ namespace CodeBase.Gameplay.Characters.CharacterInfo
     [Serializable]
     public struct CharacterStats
     {
+        public int Initiative;
+        
         public int Level;
-        public MainAttribute MainAttribute;
+        
+        public MainAttributeID MainAttributeID;
         public int Intelligence;
         public int Strength;
         public int Dexterity;
-        public int Initiative;
+        
+        public int MovePoints;
+        public bool IsMoveThroughObstacles;
     }
 }

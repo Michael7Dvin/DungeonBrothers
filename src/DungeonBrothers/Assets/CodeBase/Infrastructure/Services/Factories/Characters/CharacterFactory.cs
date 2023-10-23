@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Gameplay.Animations.Color;
+using CodeBase.Gameplay.Animations.Colors;
 using CodeBase.Gameplay.Animations.Hit;
-using CodeBase.Gameplay.Animations.Move;
 using CodeBase.Gameplay.Animations.Scale;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Characters.CharacterInfo;
@@ -63,19 +62,18 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
             GameObject prefab = await _addressablesLoader.LoadGameObject(config.Prefab);
             GameObject gameObject = _objectResolver.Instantiate(prefab);
 
-            CharacterStats characterStats = config.CharacterStats;
-            MovementStats movementStats = config.MovementStats;
-            CharacterDamage characterDamage = CreateCharacterDamage(config, characterStats);
+            CharacterStats stats = config.CharacterStats;
+            CharacterDamage damage = CreateCharacterDamage(config, stats);
 
-            ICharacterLogic characterLogic = CreateCharacterLogic(gameObject, config);
-            ICharacterView characterView = await CreateCharacterView(gameObject, config);
+            ICharacterLogic logic = CreateCharacterLogic(gameObject, config);
+            ICharacterView view = await CreateCharacterView(gameObject, config);
             
             Character character = gameObject.GetComponent<Character>();
-            character.Construct(config.ID, config.Team, movementStats, characterStats, characterDamage, characterLogic, characterView);
+            character.Construct(config.ID, config.Team, stats, damage, logic, view);
             
             await CreateHealthBar(character);
             
-            _charactersProvider.Add(character, character.CharacterView.CharacterInTurnQueueIcon);
+            _charactersProvider.Add(character, character.View.CharacterInTurnQueueIcon);
 
             return character;
         }
@@ -104,7 +102,7 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
             HealthBarView healthBarView = gameObject.GetComponent<HealthBarView>();
             HealthBarPresenter healthBarPresenter = new HealthBarPresenter();
             
-            healthBarPresenter.Construct(character.CharacterLogic.Health, healthBarView);
+            healthBarPresenter.Construct(character.Logic.Health, healthBarView);
 
             gameObject.transform.position = character.Transform.position - new Vector3(0, 0.5f);
             healthBarPresenter.Initialize();

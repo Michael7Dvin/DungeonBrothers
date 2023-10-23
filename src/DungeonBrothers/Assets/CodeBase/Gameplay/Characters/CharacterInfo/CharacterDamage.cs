@@ -1,9 +1,8 @@
 ﻿using System;
-using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Infrastructure.Services.Logger;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.Characters.Logic
+namespace CodeBase.Gameplay.Characters.CharacterInfo
 {
     public struct CharacterDamage
     {
@@ -30,16 +29,16 @@ namespace CodeBase.Gameplay.Characters.Logic
         
         public int GetCharacterDamage()
         {
-            switch (_characterStats.MainAttribute)
+            switch (_characterStats.MainAttributeID)
             {
-                case MainAttribute.Strength:
+                case MainAttributeID.Strength:
                     return GetDamageWithBonusFromStats(_characterStats.Strength, _characterStats.Level);
-                case MainAttribute.Dexterity:
+                case MainAttributeID.Dexterity:
                     return GetDamageWithBonusFromStats(_characterStats.Dexterity, _characterStats.Level);
-                case MainAttribute.Intelligence:
+                case MainAttributeID.Intelligence:
                     return GetDamageWithBonusFromStats(_characterStats.Intelligence, _characterStats.Level);
                 default:
-                    _customLogger.LogError(new Exception($"{_characterStats.MainAttribute}, doesn't exist"));
+                    _customLogger.LogError(new Exception($"{_characterStats.MainAttributeID}, doesn't exist"));
                     return 0;
             }
         }

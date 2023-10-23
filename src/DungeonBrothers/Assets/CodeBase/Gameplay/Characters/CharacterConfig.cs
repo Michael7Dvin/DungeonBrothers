@@ -1,6 +1,4 @@
-﻿using System;
-using CodeBase.Gameplay.Characters.CharacterInfo;
-using CodeBase.Gameplay.Characters.Logic;
+﻿using CodeBase.Gameplay.Characters.CharacterInfo;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -20,13 +18,13 @@ namespace CodeBase.Gameplay.Characters
         [TitleGroup("Prefabs")]
         public AssetReferenceGameObject Prefab;
 
-        [FoldoutGroup("StartHealth"), MinValue(0)] 
+        [TitleGroup("Stats")]
         public int HealthPoints;
 
-        public MovementStats MovementStats;
-        
+        [TitleGroup("Stats")]
         public CharacterDamage CharacterDamage;
         
+        [TitleGroup("Stats")]
         public CharacterStats CharacterStats;
     }
 }

@@ -1,4 +1,3 @@
-using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
@@ -14,33 +13,23 @@ namespace CodeBase.Gameplay.Animations.Scale
                 _currentTween.Kill();
         }
         
-        public void Scale(ScaleConfig scaleConfig)
+        public Tween DoScale(ScaleAnimationConfig scaleAnimationConfig)
         {
-            _currentTween = GetScale(scaleConfig);
-            
-            _currentTween.Play();
-        }
-        
-        public async UniTask ScaleUniTask(ScaleConfig scaleConfig)
-        {
-            _currentTween = GetScale(scaleConfig);
-            
-            await _currentTween.Play().ToUniTask();
+            _currentTween = GetScale(scaleAnimationConfig);
+            return _currentTween.Play();
         }
 
-        private Tween GetScale(ScaleConfig scaleConfig)
+        private Tween GetScale(ScaleAnimationConfig scaleAnimationConfig)
         {
             if (_currentTween.IsActive())
                 _currentTween.Kill();
             
-            Transform transform = this.transform;
-            
-            Vector3 Scale = scaleConfig.Scale;
-            float Duration = scaleConfig.Duration;
-            Ease ease = scaleConfig.Ease;
+            Vector3 scale = scaleAnimationConfig.Scale;
+            float duration = scaleAnimationConfig.Duration;
+            Ease ease = scaleAnimationConfig.Ease;
             
             return transform
-                .DOScale(Scale, Duration)
+                .DOScale(scale, duration)
                 .SetEase(ease)
                 .SetUpdate(UpdateType.Normal, true);
         }

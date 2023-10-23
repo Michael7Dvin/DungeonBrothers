@@ -1,9 +1,7 @@
 ﻿using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Characters.CharacterInfo;
-using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.TurnQueue;
 using UnityEngine;
-using VContainer;
 
 namespace CodeBase.Gameplay.Services.AI.Behaviours
 {
@@ -24,7 +22,7 @@ namespace CodeBase.Gameplay.Services.AI.Behaviours
             
             foreach (var character in _turnQueue.Characters)
             {
-                if (character.CharacterTeam == CharacterTeam.Ally)
+                if (character.Team == CharacterTeam.Ally)
                 {
                     if (_currentTarget == null)
                     {

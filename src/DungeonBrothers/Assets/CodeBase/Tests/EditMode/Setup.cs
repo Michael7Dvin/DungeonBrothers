@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using CodeBase.Gameplay.Animations.Color;
 using CodeBase.Gameplay.Animations.Hit;
 using CodeBase.Gameplay.Animations.Scale;
 using CodeBase.Gameplay.Characters;
@@ -95,8 +93,8 @@ namespace CodeBase.Tests.EditMode
 
             Health health = Create.Health();
             
-            character1.CharacterLogic.Health.Returns(health);
-            character2.CharacterLogic.Health.Returns(health);
+            character1.Logic.Health.Returns(health);
+            character2.Logic.Health.Returns(health);
 
             if (mapService.TryGetTile(new Vector2Int(0, 1), out Tile obstacleTileOnRight))
                 obstacleTileOnRight.Logic.Occupy(character1);
@@ -144,20 +142,20 @@ namespace CodeBase.Tests.EditMode
             return staticDataProvider;
         }
 
-        public static ICharacter CharacterForAttack(int healthPoints, int initiative, CharacterAttackType characterAttackType, CharacterTeam characterTeam)
+        public static ICharacter CharacterForAttack(int damage, int healthPoints, int initiative, CharacterAttackType characterAttackType, CharacterTeam characterTeam)
         {
             ICharacter character = CharacterForMovement(5, false, 1, initiative);
             
             Health health = Create.Health();
             health.Construct(healthPoints);
             
-            character.CharacterLogic.Health.Returns(health);
+            character.Logic.Health.Returns(health);
 
-            var characterDamage = Create.CharacterDamage(characterAttackType, new CharacterStats(), 2, 2, 3);
+            var characterDamage = Create.CharacterDamage(characterAttackType, new CharacterStats(), damage, 2, 3);
 
-            character.CharacterDamage.Returns(characterDamage);
+            character.Damage.Returns(characterDamage);
 
-            character.CharacterTeam.Returns(characterTeam);
+            character.Team.Returns(characterTeam);
 
             return character;
         }
@@ -171,23 +169,23 @@ namespace CodeBase.Tests.EditMode
                 .When(_ => _.UpdateCoordinate(Arg.Any<Vector2Int>()))
                 .Do(_ => character.Coordinate.Returns(_.Arg<Vector2Int>()));
 
-            var movementStats = Create.MovementStats(movePoints, isMoveThroughObstacles);
+            var movementStats = Create.CharacterStats(movePoints: movePoints, isMoveThroughObstacles : isMoveThroughObstacles);
 
-            character.MovementStats.Returns(movementStats);
+            character.Stats.Returns(movementStats);
             return character;
         }
 
         public static ICharacter CharacterForTurnQueue(int level, int initiative)
         {
             ICharacter character = Substitute.For<ICharacter>();
-            var characterStats = Create.CharacterStats(level, initiative, 1, 1, 1, MainAttribute.Dexterity);
+            var characterStats = Create.CharacterStats(level, initiative, 1, 1, 1, MainAttributeID.Dexterity);
 
             character
-                .CharacterStats
+                .Stats
                 .Returns(characterStats);
             
             Health health = Create.Health();
-            character.CharacterLogic.Health.Returns(health);
+            character.Logic.Health.Returns(health);
 
             return character;
         }

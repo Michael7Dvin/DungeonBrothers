@@ -5,8 +5,6 @@ using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Tiles;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using static System.Int32;
-using Vector2 = UnityEngine.Vector2;
 
 namespace CodeBase.Gameplay.Services.AI.Behaviours
 {
@@ -30,7 +28,7 @@ namespace CodeBase.Gameplay.Services.AI.Behaviours
         public async UniTask Move(ICharacter activeCharacter,
             ICharacter target)
         {
-            _currentCoordinate = new Vector2Int(MaxValue, MaxValue);
+            _currentCoordinate = new Vector2Int(int.MaxValue, int.MaxValue);
 
             PathFindingResults pathFindingResults = GetPathFindingResults(activeCharacter);
 
@@ -42,7 +40,7 @@ namespace CodeBase.Gameplay.Services.AI.Behaviours
 
         private PathFindingResults GetPathFindingResults(ICharacter activeCharacter) =>
             _pathFinder.CalculatePaths(activeCharacter.Coordinate,
-                activeCharacter.MovementStats.MovePoints, false);
+                activeCharacter.Stats.MovePoints, false);
 
         private Vector2Int GetCoordinate(PathFindingResults pathFindingResults,
             ICharacter target)

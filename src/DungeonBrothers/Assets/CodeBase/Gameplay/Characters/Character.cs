@@ -1,8 +1,6 @@
 ﻿using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.Characters.Logic;
 using CodeBase.Gameplay.Characters.View;
-using CodeBase.UI.TurnQueue;
-using Codice.Client.BaseCommands.CheckIn.CodeReview;
 using UnityEngine;
 
 namespace CodeBase.Gameplay.Characters
@@ -11,29 +9,26 @@ namespace CodeBase.Gameplay.Characters
     {
         public void Construct(CharacterID characterID,
             CharacterTeam characterTeam,
-            MovementStats movementStats,
             CharacterStats characterStats,
             CharacterDamage characterDamage,
             ICharacterLogic characterLogic,
             ICharacterView characterView)
         {
-            CharacterID = characterID;
-            CharacterTeam = characterTeam;
-            MovementStats = movementStats;
-            CharacterStats = characterStats;
-            CharacterDamage = characterDamage;
-            CharacterLogic = characterLogic;
-            CharacterView = characterView;
+            ID = characterID;
+            Team = characterTeam;
+            Stats = characterStats;
+            Damage = characterDamage;
+            Logic = characterLogic;
+            View = characterView;
         }
         
         public Vector2Int Coordinate { get; private set; }
-        public CharacterTeam CharacterTeam { get; private set; }
-        public MovementStats MovementStats { get; private set; }
-        public CharacterID CharacterID { get; private set; }
-        public CharacterStats CharacterStats { get; private set; }
-        public CharacterDamage CharacterDamage { get; private set; }
-        public ICharacterLogic CharacterLogic { get; private set; }
-        public ICharacterView CharacterView { get; private set; }
+        public CharacterTeam Team { get; private set; }
+        public CharacterID ID { get; private set; }
+        public CharacterStats Stats { get; private set; }
+        public CharacterDamage Damage { get; private set; }
+        public ICharacterLogic Logic { get; private set; }
+        public ICharacterView View { get; private set; }
 
         public Transform Transform =>
             transform;

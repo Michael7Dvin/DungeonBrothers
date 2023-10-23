@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03bd4dc55e2a4c108817b31234bfaa7f, type: 3}
   m_Name: ColorInHit
   m_EditorClassIdentifier: 
-  EndColor: {r: 0, g: 0, b: 0, a: 0}
-  Duration: 0
+  EndColor: {r: 0.7735849, g: 0.33935562, b: 0.53052545, a: 1}
+  Duration: 0.2
   Ease: 0
