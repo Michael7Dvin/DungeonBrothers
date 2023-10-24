@@ -9,7 +9,7 @@ using CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.Services.TileVisualizers.PathFinder
+namespace CodeBase.Gameplay.Services.TileVisualizers.Walkable
 {
     public class WalkableTilesVisualizer : IWalkableTilesVisualizer
     {

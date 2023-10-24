@@ -1,4 +1,4 @@
-namespace CodeBase.Gameplay.Services.TileVisualizers.PathFinder
+namespace CodeBase.Gameplay.Services.TileVisualizers.Walkable
 {
     public interface IWalkableTilesVisualizer
     {

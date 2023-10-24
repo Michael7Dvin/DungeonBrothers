@@ -52,12 +52,16 @@ namespace CodeBase.Gameplay.Services.TileVisualizers.Select
                     ResetTileWithCharacter(tile);
                 })
                 .AddTo(_disposable);
+
+            _turnQueue.NewTurnStarted
+                .Where(_ => _tileSelector.CurrentTile.Value != null)
+                .Subscribe(_ => ResetTileView(_tileSelector.CurrentTile.Value))
+                .AddTo(_disposable);
         }
 
         public void Disable() => 
             _disposable.Clear();
-
-
+        
         private void VisualizeSelectedTile(Tile tile)
         {
             tile.View.SwitchOutLine(true);
