@@ -2,8 +2,8 @@
 
 namespace CodeBase.Gameplay.Tiles
 {
-    [CreateAssetMenu(menuName = "StaticData/Configs/Tiles/TileColor", fileName = "TileColorConfig")]
-    public class TileColorConfig : ScriptableObject
+    [CreateAssetMenu(menuName = "StaticData/Configs/Tiles/dColors", fileName = "TileColorsConfig")]
+    public class TileColorsConfig : ScriptableObject
     {
         [field: SerializeField] public Color PathToTile { get; private set; }
         [field: SerializeField] public Color WalkableColorTile { get; private set; }

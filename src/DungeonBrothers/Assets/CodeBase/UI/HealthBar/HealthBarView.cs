@@ -7,7 +7,7 @@ namespace CodeBase.UI.HealthBar
     {
         [SerializeField] private Image _fillerPartBar;
 
-        public void UpdateHealthBar(int value) => 
+        public void UpdateHealthBar(float value) => 
             _fillerPartBar.fillAmount = value;
 
         public void Destroy() =>

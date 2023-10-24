@@ -6,10 +6,11 @@ using CodeBase.Gameplay.Services.Attack;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Services.TurnQueue;
+using CodeBase.Gameplay.Tiles;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
 
-namespace CodeBase.Gameplay.Tiles.Visualisation.Attack
+namespace CodeBase.Gameplay.Services.TileVisualizers.Attack
 {
     public class AttackableTilesVisualizer : IAttackableTilesVisualizer
     {
@@ -17,7 +18,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Attack
         private readonly IMoverService _moverService;
         private readonly IAttackService _attackService;
         private readonly IMapService _mapService;
-        private readonly TileColorConfig _tileColorConfig;
+        private readonly TileColorsConfig _tileColorsConfig;
 
         private readonly CompositeDisposable _disposable = new();
         private readonly List<Tile> _lastTiles = new();
@@ -33,7 +34,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Attack
             _attackService = attackService;
             _mapService = mapService;
 
-            _tileColorConfig = staticDataProvider.TileColorConfig;
+            _tileColorsConfig = staticDataProvider.TileColorsConfig;
         }
 
         public void Initialize()
@@ -73,7 +74,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Attack
                 _lastTiles.Add(tile);
                 
                 tile.View.SwitchHighlight(true);
-                tile.View.ChangeHighlightColor(_tileColorConfig.AttackedTile);
+                tile.View.ChangeHighlightColor(_tileColorsConfig.AttackedTile);
             }
         }
 

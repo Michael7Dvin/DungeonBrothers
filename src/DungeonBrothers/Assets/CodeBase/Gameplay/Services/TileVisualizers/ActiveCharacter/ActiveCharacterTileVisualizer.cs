@@ -4,12 +4,13 @@ using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Services.TurnQueue;
+using CodeBase.Gameplay.Tiles;
 using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.Tiles.Visualisation.ActiveCharacter
+namespace CodeBase.Gameplay.Services.TileVisualizers.ActiveCharacter
 {
     public class ActiveCharacterTileVisualizer : IActiveCharacterTileVisualizer
     {
@@ -17,7 +18,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.ActiveCharacter
         private readonly IMapService _mapService;
         private readonly ICustomLogger _customLogger;
         private readonly IMoverService _moverService;
-        private readonly TileColorConfig _tileColorConfig;
+        private readonly TileColorsConfig _tileColorsConfig;
 
         private readonly CompositeDisposable _disposable = new();
 
@@ -34,7 +35,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.ActiveCharacter
             _mapService = mapService;
             _customLogger = customLogger;
             _moverService = moverService;
-            _tileColorConfig = staticDataProvider.TileColorConfig;
+            _tileColorsConfig = staticDataProvider.TileColorsConfig;
         }
 
         public void Initialize()
@@ -66,15 +67,15 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.ActiveCharacter
                     case CharacterTeam.Enemy:
                     {
                         ActiveHighlightOutline(_lastTile);
-                        _lastTile.View.ChangeHighlightColor(_tileColorConfig.EnemyTile);
-                        _lastTile.View.ChangeOutLineColor(_tileColorConfig.EnemyTile);
+                        _lastTile.View.ChangeHighlightColor(_tileColorsConfig.EnemyTile);
+                        _lastTile.View.ChangeOutLineColor(_tileColorsConfig.EnemyTile);
                         break;
                     }
                     case CharacterTeam.Ally:
                     {
                         ActiveHighlightOutline(_lastTile);
-                        _lastTile.View.ChangeOutLineColor(_tileColorConfig.AllyTile);
-                        _lastTile.View.ChangeHighlightColor(_tileColorConfig.AllyTile);
+                        _lastTile.View.ChangeOutLineColor(_tileColorsConfig.AllyTile);
+                        _lastTile.View.ChangeHighlightColor(_tileColorsConfig.AllyTile);
                         break;
                     }
                     default:

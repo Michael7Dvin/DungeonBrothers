@@ -1,14 +1,13 @@
 ﻿using CodeBase.Common.FSM.States;
 using CodeBase.Gameplay.Services.AI;
 using CodeBase.Gameplay.Services.InteractionsService;
+using CodeBase.Gameplay.Services.TileVisualizers.ActiveCharacter;
+using CodeBase.Gameplay.Services.TileVisualizers.Attack;
+using CodeBase.Gameplay.Services.TileVisualizers.Path;
+using CodeBase.Gameplay.Services.TileVisualizers.PathFinder;
+using CodeBase.Gameplay.Services.TileVisualizers.Select;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Tiles;
-using CodeBase.Gameplay.Tiles.Visualisation;
-using CodeBase.Gameplay.Tiles.Visualisation.ActiveCharacter;
-using CodeBase.Gameplay.Tiles.Visualisation.Attack;
-using CodeBase.Gameplay.Tiles.Visualisation.Path;
-using CodeBase.Gameplay.Tiles.Visualisation.PathFinder;
-using CodeBase.Gameplay.Tiles.Visualisation.Select;
 using CodeBase.Infrastructure.Services.InputService;
 using CodeBase.Infrastructure.Services.Providers.LevelSpawner;
 using CodeBase.Infrastructure.StateMachines.Gameplay.FSM;
@@ -22,7 +21,7 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
         private readonly IGameplayStateMachine _gameplayStateMachine;
         private readonly IInputService _inputService;
         private readonly IActiveCharacterTileVisualizer _visualizer;
-        private readonly IPathFinderVisualizer _pathFinderVisualizer;
+        private readonly IWalkableTilesVisualizer _walkableTilesVisualizer;
         private readonly ISelectedTileVisualizer _selectedTileVisualizer;
         private readonly ITileSelector _tileSelector;
         private readonly IPathVisualizer _pathVisualizer;
@@ -32,11 +31,10 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
         
         public LevelLoadingState(ILevelSpawner levelSpawner, 
             ITurnQueue turnQueue, 
-            IGameplayStateMachine
-                gameplayStateMachine, 
+            IGameplayStateMachine gameplayStateMachine, 
             IInputService inputService,
             IActiveCharacterTileVisualizer activeCharacterTileVisualizer,
-            IPathFinderVisualizer pathFinderVisualizer,
+            IWalkableTilesVisualizer walkableTilesVisualizer,
             ISelectedTileVisualizer selectedTileVisualizer,
             ITileSelector tileSelector,
             IPathVisualizer pathVisualizer,
@@ -48,7 +46,7 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
             _gameplayStateMachine = gameplayStateMachine;
             _inputService = inputService;
             _visualizer = activeCharacterTileVisualizer;
-            _pathFinderVisualizer = pathFinderVisualizer;
+            _walkableTilesVisualizer = walkableTilesVisualizer;
             _selectedTileVisualizer = selectedTileVisualizer;
             _tileSelector = tileSelector;
             _pathVisualizer = pathVisualizer;
@@ -66,7 +64,7 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
             _pathVisualizer.Initialize();
             _selectedTileVisualizer.Initialize();
             _visualizer.Initialize();
-            _pathFinderVisualizer.Initialize();
+            _walkableTilesVisualizer.Initialize();
             _visualizationAttack.Initialize();
             _aiService.Initialize();
             

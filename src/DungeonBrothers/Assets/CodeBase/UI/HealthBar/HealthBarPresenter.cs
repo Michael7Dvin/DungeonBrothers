@@ -20,7 +20,7 @@ namespace CodeBase.UI.HealthBar
         {
             _health.HealthPoints
                 .Skip(1)
-                .Subscribe(healthPoints => _healthBarView.UpdateHealthBar(healthPoints / _health.MaxHealthPoints))
+                .Subscribe(healthPoints => _healthBarView.UpdateHealthBar((float)healthPoints / _health.MaxHealthPoints))
                 .AddTo(_disposable);
 
             _health.Died

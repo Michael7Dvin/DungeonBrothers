@@ -4,33 +4,33 @@ using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Services.TurnQueue;
+using CodeBase.Gameplay.Tiles;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.Tiles.Visualisation.PathFinder
+namespace CodeBase.Gameplay.Services.TileVisualizers.PathFinder
 {
-    public class PathFinderVisualizer : IPathFinderVisualizer
+    public class WalkableTilesVisualizer : IWalkableTilesVisualizer
     {
         private readonly IPathFinder _pathFinder;
         private readonly IMapService _mapService;
         private readonly IMoverService _moverService;
         private readonly ITurnQueue _turnQueue;
-        private readonly TileColorConfig _tileColorConfig;
+        private readonly TileColorsConfig _tileColorsConfig;
 
         private readonly CompositeDisposable _disposable = new();
-
         private readonly List<Tile> _lastTiles = new();
 
-        public PathFinderVisualizer(IPathFinder pathFinder,
+        public WalkableTilesVisualizer(IPathFinder pathFinder,
             IMapService mapService,
             ITurnQueue turnQueue,
             IStaticDataProvider staticDataProvider)
         {
             _pathFinder = pathFinder;
-            _mapService = mapService;;
+            _mapService = mapService;
             _turnQueue = turnQueue;
-            _tileColorConfig = staticDataProvider.TileColorConfig;
+            _tileColorsConfig = staticDataProvider.TileColorsConfig;
         }
 
         public void Initialize()
@@ -63,7 +63,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.PathFinder
                     _lastTiles.Add(tile);
                     
                     tile.View.SwitchHighlight(true);
-                    tile.View.ChangeHighlightColor(_tileColorConfig.WalkableColorTile);
+                    tile.View.ChangeHighlightColor(_tileColorsConfig.WalkableColorTile);
                 }
             }
         }
