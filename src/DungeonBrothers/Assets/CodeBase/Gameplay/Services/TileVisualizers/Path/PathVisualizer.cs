@@ -2,11 +2,12 @@
 using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.InteractionsService;
 using CodeBase.Gameplay.Services.Map;
+using CodeBase.Gameplay.Tiles;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.Tiles.Visualisation.Path
+namespace CodeBase.Gameplay.Services.TileVisualizers.Path
 {
     public class PathVisualizer : IPathVisualizer
     {
@@ -16,7 +17,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Path
         private readonly IInteractionService _interactionService;
         private readonly CompositeDisposable _disposable = new();
 
-        private readonly TileColorConfig _tileColorConfig;
+        private readonly TileColorsConfig _tileColorsConfig;
 
         private readonly List<Tile> _lastTiles = new();
 
@@ -30,7 +31,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Path
             _pathFinder = pathFinder;
             _mapService = mapService;
             _interactionService = interactionService;
-            _tileColorConfig = staticDataProvider.TileColorConfig;
+            _tileColorsConfig = staticDataProvider.TileColorsConfig;
         }
 
         public void Initialize()
@@ -57,15 +58,15 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Path
 
         private void Visualize(Tile currentTile)
         {
-            List<Vector2Int> _tilesCoordinates =
+            List<Vector2Int> tilesCoordinates =
                 _pathFinder.PathFindingResults.Value.GetPathTo(currentTile.Logic.Coordinates, false);
 
-            foreach (Vector2Int coordinate in _tilesCoordinates)
+            foreach (Vector2Int coordinate in tilesCoordinates)
             {
                 if (_mapService.TryGetTile(coordinate, out Tile tile))
                 {
                     _lastTiles.Add(tile);
-                    tile.View.ChangeHighlightColor(_tileColorConfig.PathToTile);
+                    tile.View.ChangeHighlightColor(_tileColorsConfig.PathToTile);
                 }
             }
         }
@@ -73,7 +74,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Path
         private void ResetLastTiles()
         {
             foreach (Tile tile in _lastTiles) 
-                tile.View.ChangeHighlightColor(_tileColorConfig.WalkableColorTile);
+                tile.View.ChangeHighlightColor(_tileColorsConfig.WalkableColorTile);
             
             _lastTiles.Clear();
         }

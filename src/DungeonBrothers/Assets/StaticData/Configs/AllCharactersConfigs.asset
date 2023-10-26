@@ -74,4 +74,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  hitAnimationConfig: {fileID: 11400000, guid: 05b106aeca9fcf84a84e3c3377bd2ee3, type: 2}
+  HitAnimationConfig: {fileID: 11400000, guid: 05b106aeca9fcf84a84e3c3377bd2ee3, type: 2}

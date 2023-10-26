@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb10b989815e46faab43f6cdf18611f4, type: 3}
-  m_Name: TileColorConfig
+  m_Name: TileColorsConfig
   m_EditorClassIdentifier: 
-  <PathToTile>k__BackingField: {r: 0.0047169924, g: 1, b: 0.9300493, a: 0}
+  <PathToTile>k__BackingField: {r: 0.35857958, g: 0.9622642, b: 0.9169878, a: 0}
   <WalkableColorTile>k__BackingField: {r: 0.34109113, g: 0.46624857, b: 0.990566, a: 0}
   <EnemyTile>k__BackingField: {r: 1, g: 0, b: 0, a: 0}
   <AllyTile>k__BackingField: {r: 0.3160377, g: 1, b: 0.3160377, a: 0}

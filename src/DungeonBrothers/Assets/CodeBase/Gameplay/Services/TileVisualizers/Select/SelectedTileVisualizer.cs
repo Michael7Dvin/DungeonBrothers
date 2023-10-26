@@ -1,13 +1,12 @@
 ﻿using System;
 using CodeBase.Gameplay.Characters.CharacterInfo;
-using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.TurnQueue;
+using CodeBase.Gameplay.Tiles;
 using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
-using UnityEngine;
 
-namespace CodeBase.Gameplay.Tiles.Visualisation.Select
+namespace CodeBase.Gameplay.Services.TileVisualizers.Select
 {
     public class SelectedTileVisualizer : ISelectedTileVisualizer
     {
@@ -17,7 +16,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Select
         
         private readonly CompositeDisposable _disposable = new();
 
-        private readonly TileColorConfig _tileColorConfig;
+        private readonly TileColorsConfig _tileColorsConfig;
         
         public SelectedTileVisualizer(ITileSelector tileSelector,
             ITurnQueue turnQueue,
@@ -27,7 +26,7 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Select
             _tileSelector = tileSelector;
             _turnQueue = turnQueue;
             _customLogger = customLogger;
-            _tileColorConfig = staticDataProvider.TileColorConfig;
+            _tileColorsConfig = staticDataProvider.TileColorsConfig;
         }
 
         public void Initialize()
@@ -53,16 +52,20 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Select
                     ResetTileWithCharacter(tile);
                 })
                 .AddTo(_disposable);
+
+            _turnQueue.NewTurnStarted
+                .Where(_ => _tileSelector.CurrentTile.Value != null)
+                .Subscribe(_ => ResetTileView(_tileSelector.CurrentTile.Value))
+                .AddTo(_disposable);
         }
 
         public void Disable() => 
             _disposable.Clear();
-
-
+        
         private void VisualizeSelectedTile(Tile tile)
         {
             tile.View.SwitchOutLine(true);
-            tile.View.ChangeOutLineColor(_tileColorConfig.SelectedTile);
+            tile.View.ChangeOutLineColor(_tileColorsConfig.SelectedTile);
         }
 
         private void ResetTileView(Tile tile) => 
@@ -74,10 +77,10 @@ namespace CodeBase.Gameplay.Tiles.Visualisation.Select
             switch (previousTile.Logic.Character.Team)
             {
                 case CharacterTeam.Enemy:
-                    previousTile.View.ChangeOutLineColor(_tileColorConfig.EnemyTile);
+                    previousTile.View.ChangeOutLineColor(_tileColorsConfig.EnemyTile);
                     break;
                 case CharacterTeam.Ally:
-                    previousTile.View.ChangeOutLineColor(_tileColorConfig.AllyTile);
+                    previousTile.View.ChangeOutLineColor(_tileColorsConfig.AllyTile);
                     break;
                 default:
                     _customLogger.LogError(

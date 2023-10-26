@@ -10,7 +10,7 @@ namespace CodeBase.Infrastructure.Services.StaticDataProvider
     {
         public AllCharactersConfigs AllCharactersConfigs;
         public AllAssetsAddresses AssetsAddresses;
-        public TileColorConfig TileColorConfig;
+        public TileColorsConfig TileColorsConfig;
         public AllGameBalanceConfig GameBalanceConfig;
     }
 }

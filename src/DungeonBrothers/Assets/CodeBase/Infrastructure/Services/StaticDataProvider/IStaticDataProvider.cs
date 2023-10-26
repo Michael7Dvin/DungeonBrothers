@@ -8,7 +8,7 @@ namespace CodeBase.Infrastructure.Services.StaticDataProvider
     {
         AllAssetsAddresses AssetsAddresses { get; }
         AllCharactersConfigs AllCharactersConfigs { get; }
-        TileColorConfig TileColorConfig { get; }
+        TileColorsConfig TileColorsConfig { get; }
         AllGameBalanceConfig GameBalanceConfig { get; }
     }
 }
