@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec2d48c4626143bd99e9262bae63e56c, type: 3}
-  m_Name: AllUIAddresses
+  m_Script: {fileID: 11500000, guid: 073f87646b694c868de9332e5b850d1c, type: 3}
+  m_Name: AllGameplayAddresses
   m_EditorClassIdentifier: 
-  CommonUiAddresses: {fileID: 11400000, guid: 6210e66e9064de740a10ef2bab4019d8, type: 2}
-  GameplayUIAddresses: {fileID: 11400000, guid: edefcd91a5798c94aa124ed7301df02c, type: 2}
+  TilesAddresses: {fileID: 11400000, guid: 1171947a5b8f2a64abc39aba47501161, type: 2}
+  SoundAddresses: {fileID: 11400000, guid: 32607b0053ade5b4e93c5d9e101db28b, type: 2}

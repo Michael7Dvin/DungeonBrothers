@@ -7,7 +7,7 @@ namespace _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Addresses
     [CreateAssetMenu(menuName = "StaticData/Addresses/UI/All", fileName = "AllUIAddresses")]
     public class AllUIAddresses : ScriptableObject
     {
-        [field: SerializeField] public CommonUIAddresses CommonUiAddresses { get; private set; } 
-        [field: SerializeField] public GameplayUIAddresses GameplayUIAddresses { get; private set; }
+        public CommonUIAddresses CommonUiAddresses;
+        public GameplayUIAddresses GameplayUIAddresses;
     }
 }

@@ -1,5 +1,7 @@
+using _Project.CodeBase.Gameplay.Services.Audio;
 using _Project.CodeBase.Gameplay.Services.Random;
 using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
+using _Project.CodeBase.Infrastructure.Services.Factories.Sound;
 using _Project.CodeBase.Infrastructure.Services.InputService;
 using _Project.CodeBase.Infrastructure.Services.Logger;
 using _Project.CodeBase.Infrastructure.Services.Providers.CameraProvider;
@@ -24,6 +26,12 @@ namespace _Project.CodeBase.Infrastructure.Installers
             RegisterStateMachine(builder);
             RegisterServices(builder);
             RegisterProviders(builder);
+            RegisterFactory(builder);
+        }
+
+        private void RegisterFactory(IContainerBuilder builder)
+        {
+            builder.Register<IAudioFactory, AudioFactory>(Lifetime.Singleton);
         }
 
         private void RegisterStateMachine(IContainerBuilder builder)
@@ -36,6 +44,7 @@ namespace _Project.CodeBase.Infrastructure.Installers
 
         private void RegisterServices(IContainerBuilder builder)
         {
+            builder.Register<IAudioService, AudioService>(Lifetime.Singleton);
             builder.Register<ICustomLogger, CustomLogger>(Lifetime.Singleton);
             builder.Register<ISceneLoader, SceneLoader>(Lifetime.Singleton);
             builder.Register<IAddressablesLoader, AddressablesLoader>(Lifetime.Singleton);

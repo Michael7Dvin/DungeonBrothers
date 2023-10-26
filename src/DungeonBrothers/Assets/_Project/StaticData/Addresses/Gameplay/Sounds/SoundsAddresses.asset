@@ -9,8 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec2d48c4626143bd99e9262bae63e56c, type: 3}
-  m_Name: AllUIAddresses
+  m_Script: {fileID: 11500000, guid: 242cf4ede1f44e78b5843daa707835ed, type: 3}
+  m_Name: SoundsAddresses
   m_EditorClassIdentifier: 
-  CommonUiAddresses: {fileID: 11400000, guid: 6210e66e9064de740a10ef2bab4019d8, type: 2}
-  GameplayUIAddresses: {fileID: 11400000, guid: edefcd91a5798c94aa124ed7301df02c, type: 2}
+  SoundSource:
+    m_AssetGUID: f827bb6a15f666041843ac0f8dd77be3
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

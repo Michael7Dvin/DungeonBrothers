@@ -12,13 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f69714ee47eb4f3391352a161f43519c, type: 3}
   m_Name: CommonUIAddresses
   m_EditorClassIdentifier: 
-  <Canvas>k__BackingField:
+  Canvas:
     m_AssetGUID: 89922bde700833742b12588a6a7a9249
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  <EventSystem>k__BackingField:
-    m_AssetGUID: 26b6637c4fe39634c9905d02e42596a7
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

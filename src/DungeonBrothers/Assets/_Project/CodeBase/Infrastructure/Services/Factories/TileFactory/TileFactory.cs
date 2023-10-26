@@ -21,7 +21,7 @@ namespace _Project.CodeBase.Infrastructure.Services.Factories.TileFactory
         {
             _addressablesLoader = addressablesLoader;
             _objectResolver = objectResolver;
-            _tileReference = staticDataProvider.AssetsAddresses.Tile;
+            _tileReference = staticDataProvider.AssetsAddresses.AllGameplayAddresses.TilesAddresses.DungeonGround;
         }
 
         public async UniTask WarmUp() => 

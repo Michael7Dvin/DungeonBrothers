@@ -32,16 +32,12 @@ namespace _Project.CodeBase.Infrastructure.Services.Factories.UI
         public async UniTask WarmUp()
         {
             await _addressablesLoader.LoadGameObject(_commonUIAddresses.Canvas);
-            await _addressablesLoader.LoadGameObject(_commonUIAddresses.EventSystem);
         }
 
         public async UniTask Create()
         {
             Canvas canvas = await CreateCanvas();
             _uiProvider.SetCanvasToProvider(canvas);
-
-            EventSystem eventSystem = await CreateEventSystem();
-            _uiProvider.SetEventSystemToProvider(eventSystem);
         }
 
         private async UniTask<Canvas> CreateCanvas()
@@ -49,13 +45,6 @@ namespace _Project.CodeBase.Infrastructure.Services.Factories.UI
             Canvas canvas = await _addressablesLoader.LoadComponent<Canvas>(_commonUIAddresses.Canvas);
             
             return _objectResolver.Instantiate(canvas);
-        }
-
-        private async UniTask<EventSystem> CreateEventSystem()
-        {
-            EventSystem eventSystem = await _addressablesLoader.LoadComponent<EventSystem>(_commonUIAddresses.EventSystem);
-
-            return _objectResolver.Instantiate(eventSystem);
         }
     }
 }
