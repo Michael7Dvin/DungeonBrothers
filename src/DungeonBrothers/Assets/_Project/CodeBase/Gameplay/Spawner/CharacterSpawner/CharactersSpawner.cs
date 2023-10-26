@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.Services.Map;
-using CodeBase.Gameplay.Tiles;
-using CodeBase.Infrastructure.Services.Factories.Characters;
+using _Project.CodeBase.Gameplay.Characters;
+using _Project.CodeBase.Gameplay.Services.Map;
+using _Project.CodeBase.Gameplay.Tiles;
+using _Project.CodeBase.Infrastructure.Services.Factories.Characters;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.Spawner.CharacterSpawner
+namespace _Project.CodeBase.Gameplay.Spawner.CharacterSpawner
 {
     public class CharactersSpawner : ICharactersSpawner
     {

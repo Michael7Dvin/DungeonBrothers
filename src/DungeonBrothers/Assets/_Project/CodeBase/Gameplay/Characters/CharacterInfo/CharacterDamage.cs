@@ -1,8 +1,8 @@
 ﻿using System;
-using CodeBase.Infrastructure.Services.Logger;
+using _Project.CodeBase.Infrastructure.Services.Logger;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.Characters.CharacterInfo
+namespace _Project.CodeBase.Gameplay.Characters.CharacterInfo
 {
     public struct CharacterDamage
     {

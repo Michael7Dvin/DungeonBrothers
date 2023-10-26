@@ -1,6 +1,6 @@
 using UniRx;
 
-namespace CodeBase.Gameplay.Tiles
+namespace _Project.CodeBase.Gameplay.Tiles
 {
     public interface ITileSelector
     {

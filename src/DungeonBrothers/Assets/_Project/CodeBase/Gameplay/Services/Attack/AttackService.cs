@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Linq;
-using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.Characters.CharacterInfo;
-using CodeBase.Gameplay.PathFinder;
-using CodeBase.Gameplay.Services.TurnQueue;
-using CodeBase.Infrastructure.Services.Logger;
-using CodeBase.Infrastructure.Services.StaticDataProvider;
+using _Project.CodeBase.Gameplay.Characters;
+using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
+using _Project.CodeBase.Gameplay.PathFinder;
+using _Project.CodeBase.Gameplay.Services.TurnQueue;
+using _Project.CodeBase.Infrastructure.Services.Logger;
+using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
 using Cysharp.Threading.Tasks;
 
-namespace CodeBase.Gameplay.Services.Attack
+namespace _Project.CodeBase.Gameplay.Services.Attack
 {
     public class AttackService : IAttackService
     {

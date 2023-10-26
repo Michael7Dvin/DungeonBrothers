@@ -1,12 +1,12 @@
-﻿using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.PathFinder;
-using CodeBase.Gameplay.Services.Map;
-using CodeBase.Gameplay.Services.Move;
-using CodeBase.Gameplay.Tiles;
+﻿using _Project.CodeBase.Gameplay.Characters;
+using _Project.CodeBase.Gameplay.PathFinder;
+using _Project.CodeBase.Gameplay.Services.Map;
+using _Project.CodeBase.Gameplay.Services.Move;
+using _Project.CodeBase.Gameplay.Tiles;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.Services.AI.Behaviours
+namespace _Project.CodeBase.Gameplay.Services.AI.Behaviours
 {
     public class MoveBehaviour : IMoveBehaviour
     {

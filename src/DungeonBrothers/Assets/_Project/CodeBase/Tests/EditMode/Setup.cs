@@ -1,22 +1,20 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Gameplay.Animations.Hit;
-using CodeBase.Gameplay.Animations.Scale;
-using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.Characters.CharacterInfo;
-using CodeBase.Gameplay.Characters.Logic;
-using CodeBase.Gameplay.PathFinder;
-using CodeBase.Gameplay.Services.Attack;
-using CodeBase.Gameplay.Services.Map;
-using CodeBase.Gameplay.Services.Move;
-using CodeBase.Gameplay.Services.TurnQueue;
-using CodeBase.Gameplay.Tiles;
-using CodeBase.Infrastructure.Services.Logger;
-using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
-using CodeBase.Infrastructure.Services.StaticDataProvider;
+using _Project.CodeBase.Gameplay.Characters;
+using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
+using _Project.CodeBase.Gameplay.Characters.Logic;
+using _Project.CodeBase.Gameplay.PathFinder;
+using _Project.CodeBase.Gameplay.Services.Attack;
+using _Project.CodeBase.Gameplay.Services.Map;
+using _Project.CodeBase.Gameplay.Services.Move;
+using _Project.CodeBase.Gameplay.Services.TurnQueue;
+using _Project.CodeBase.Gameplay.Tiles;
+using _Project.CodeBase.Infrastructure.Services.Logger;
+using _Project.CodeBase.Infrastructure.Services.Providers.CharactersProvider;
+using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
 using NSubstitute;
 using UnityEngine;
 
-namespace CodeBase.Tests.EditMode
+namespace _Project.CodeBase.Tests.EditMode
 {
     public class Setup
     {

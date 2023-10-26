@@ -1,26 +1,26 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Gameplay.Animations.Colors;
-using CodeBase.Gameplay.Animations.Hit;
-using CodeBase.Gameplay.Animations.Scale;
-using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.Characters.CharacterInfo;
-using CodeBase.Gameplay.Characters.Logic;
-using CodeBase.Gameplay.Characters.View;
-using CodeBase.Gameplay.Services.TurnQueue;
-using CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI.Gameplay;
-using CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
-using CodeBase.Infrastructure.Services.Factories.TurnQueue;
-using CodeBase.Infrastructure.Services.Logger;
-using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
-using CodeBase.Infrastructure.Services.StaticDataProvider;
-using CodeBase.UI.HealthBar;
-using CodeBase.UI.TurnQueue;
+using _Project.CodeBase.Gameplay.Animations.Colors;
+using _Project.CodeBase.Gameplay.Animations.Hit;
+using _Project.CodeBase.Gameplay.Animations.Scale;
+using _Project.CodeBase.Gameplay.Characters;
+using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
+using _Project.CodeBase.Gameplay.Characters.Logic;
+using _Project.CodeBase.Gameplay.Characters.View;
+using _Project.CodeBase.Gameplay.Services.TurnQueue;
+using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI.Gameplay;
+using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
+using _Project.CodeBase.Infrastructure.Services.Factories.TurnQueue;
+using _Project.CodeBase.Infrastructure.Services.Logger;
+using _Project.CodeBase.Infrastructure.Services.Providers.CharactersProvider;
+using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
+using _Project.CodeBase.UI.HealthBar;
+using _Project.CodeBase.UI.TurnQueue;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace CodeBase.Infrastructure.Services.Factories.Characters
+namespace _Project.CodeBase.Infrastructure.Services.Factories.Characters
 {
     public class CharacterFactory : ICharacterFactory
     {

@@ -1,12 +1,12 @@
 ﻿using System;
-using CodeBase.Gameplay.Characters.CharacterInfo;
-using CodeBase.Gameplay.Services.TurnQueue;
-using CodeBase.Gameplay.Tiles;
-using CodeBase.Infrastructure.Services.Logger;
-using CodeBase.Infrastructure.Services.StaticDataProvider;
+using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
+using _Project.CodeBase.Gameplay.Services.TurnQueue;
+using _Project.CodeBase.Gameplay.Tiles;
+using _Project.CodeBase.Infrastructure.Services.Logger;
+using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
 
-namespace CodeBase.Gameplay.Services.TileVisualizers.Select
+namespace _Project.CodeBase.Gameplay.Services.TileVisualizers.Select
 {
     public class SelectedTileVisualizer : ISelectedTileVisualizer
     {

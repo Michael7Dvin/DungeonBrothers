@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CodeBase.Gameplay.Tiles
+namespace _Project.CodeBase.Gameplay.Tiles
 {
     [CreateAssetMenu(menuName = "StaticData/Configs/Tiles/dColors", fileName = "TileColorsConfig")]
     public class TileColorsConfig : ScriptableObject

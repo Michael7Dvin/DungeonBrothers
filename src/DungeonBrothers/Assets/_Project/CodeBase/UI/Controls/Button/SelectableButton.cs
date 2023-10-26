@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace CodeBase.UI.Controls.Button
+namespace _Project.CodeBase.UI.Controls.Button
 {
     public class SelectableButton : BaseButton
     {

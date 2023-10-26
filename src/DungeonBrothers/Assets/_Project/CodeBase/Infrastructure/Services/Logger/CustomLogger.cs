@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure.Services.Logger
+namespace _Project.CodeBase.Infrastructure.Services.Logger
 {
     public class CustomLogger : ICustomLogger
     {

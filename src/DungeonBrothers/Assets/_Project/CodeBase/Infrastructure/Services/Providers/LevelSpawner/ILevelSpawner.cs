@@ -1,6 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 
-namespace CodeBase.Infrastructure.Services.Providers.LevelSpawner
+namespace _Project.CodeBase.Infrastructure.Services.Providers.LevelSpawner
 {
     public interface ILevelSpawner
     {

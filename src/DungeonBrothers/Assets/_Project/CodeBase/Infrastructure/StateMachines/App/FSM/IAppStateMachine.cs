@@ -1,6 +1,6 @@
-using CodeBase.Common.FSM.States;
+using _Project.CodeBase.Infrastructure.StateMachines.Common.States;
 
-namespace CodeBase.Infrastructure.StateMachines.App.FSM
+namespace _Project.CodeBase.Infrastructure.StateMachines.App.FSM
 {
     public interface IAppStateMachine
     {

@@ -1,4 +1,4 @@
-﻿namespace CodeBase.Gameplay.Services.Random
+﻿namespace _Project.CodeBase.Gameplay.Services.Random
 {
     public class RandomService : IRandomService
     {

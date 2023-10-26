@@ -1,7 +1,7 @@
-﻿using CodeBase.Gameplay.Characters.CharacterInfo;
+﻿using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
 using UnityEngine;
 
-namespace CodeBase.UI.TurnQueue
+namespace _Project.CodeBase.UI.TurnQueue
 {
     public class CharacterInTurnQueueIcon : MonoBehaviour
     {

@@ -1,13 +1,13 @@
-﻿using CodeBase.Infrastructure.Services.AddressablesLoader.Addresses;
-using CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
-using CodeBase.Infrastructure.Services.Providers.CameraProvider;
-using CodeBase.Infrastructure.Services.StaticDataProvider;
+﻿using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Addresses;
+using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
+using _Project.CodeBase.Infrastructure.Services.Providers.CameraProvider;
+using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace CodeBase.Infrastructure.Services.Factories.Cameras
+namespace _Project.CodeBase.Infrastructure.Services.Factories.Cameras
 {
     public class CameraFactory : ICameraFactory
     {

@@ -1,19 +1,19 @@
-using CodeBase.Gameplay.Services.Random;
-using CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
-using CodeBase.Infrastructure.Services.InputService;
-using CodeBase.Infrastructure.Services.Logger;
-using CodeBase.Infrastructure.Services.Providers.CameraProvider;
-using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
-using CodeBase.Infrastructure.Services.SceneLoader;
-using CodeBase.Infrastructure.Services.StaticDataProvider;
-using CodeBase.Infrastructure.StateMachines.App.FSM;
-using CodeBase.Infrastructure.StateMachines.App.States;
-using CodeBase.UI.Services.UIProvider;
+using _Project.CodeBase.Gameplay.Services.Random;
+using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
+using _Project.CodeBase.Infrastructure.Services.InputService;
+using _Project.CodeBase.Infrastructure.Services.Logger;
+using _Project.CodeBase.Infrastructure.Services.Providers.CameraProvider;
+using _Project.CodeBase.Infrastructure.Services.Providers.CharactersProvider;
+using _Project.CodeBase.Infrastructure.Services.SceneLoader;
+using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
+using _Project.CodeBase.Infrastructure.StateMachines.App.FSM;
+using _Project.CodeBase.Infrastructure.StateMachines.App.States;
+using _Project.CodeBase.UI.Services.UIProvider;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace CodeBase.Infrastructure.Installers
+namespace _Project.CodeBase.Infrastructure.Installers
 {
     public class ProjectInstaller : LifetimeScope
     {

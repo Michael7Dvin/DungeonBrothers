@@ -1,4 +1,4 @@
-namespace CodeBase.Infrastructure.Services.Logger
+namespace _Project.CodeBase.Infrastructure.Services.Logger
 {
     public interface ILogWriter
     {

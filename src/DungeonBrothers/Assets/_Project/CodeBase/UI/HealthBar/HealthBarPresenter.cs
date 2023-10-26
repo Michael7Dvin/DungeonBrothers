@@ -1,7 +1,7 @@
-﻿using CodeBase.Gameplay.Characters.Logic;
+﻿using _Project.CodeBase.Gameplay.Characters.Logic;
 using UniRx;
 
-namespace CodeBase.UI.HealthBar
+namespace _Project.CodeBase.UI.HealthBar
 {
     public class HealthBarPresenter
     {

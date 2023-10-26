@@ -1,11 +1,11 @@
-﻿using CodeBase.Gameplay.Characters.CharacterInfo;
-using CodeBase.Gameplay.Services.Attack;
-using CodeBase.Gameplay.Services.Move;
-using CodeBase.Gameplay.Services.TurnQueue;
-using CodeBase.Gameplay.Tiles;
+﻿using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
+using _Project.CodeBase.Gameplay.Services.Attack;
+using _Project.CodeBase.Gameplay.Services.Move;
+using _Project.CodeBase.Gameplay.Services.TurnQueue;
+using _Project.CodeBase.Gameplay.Tiles;
 using UniRx;
 
-namespace CodeBase.Gameplay.Services.InteractionsService
+namespace _Project.CodeBase.Gameplay.Services.InteractionsService
 {
     public class InteractionService : IInteractionService
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CodeBase.Gameplay.Tiles
+namespace _Project.CodeBase.Gameplay.Tiles
 {
     public class TileView
     {

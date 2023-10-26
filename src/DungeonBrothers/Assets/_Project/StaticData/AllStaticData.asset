@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AllCharactersConfigs: {fileID: 11400000, guid: 1fce7c144c6688640a89af40f498363f, type: 2}
   AssetsAddresses: {fileID: 11400000, guid: b7f9afdba0e2fab4293d4d9f40656b6b, type: 2}
-  TileColorConfig: {fileID: 11400000, guid: e15343e6d016bfd499ee92ffbffc3a1e, type: 2}
+  TileColorsConfig: {fileID: 11400000, guid: e15343e6d016bfd499ee92ffbffc3a1e, type: 2}
   GameBalanceConfig: {fileID: 11400000, guid: 3a2d8f264c79b4a4ba04c60e0fce6ce7, type: 2}

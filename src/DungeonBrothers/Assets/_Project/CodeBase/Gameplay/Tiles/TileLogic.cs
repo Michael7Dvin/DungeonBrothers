@@ -1,11 +1,11 @@
 ﻿using System;
-using CodeBase.Gameplay.Characters;
-using CodeBase.Infrastructure.Services.Logger;
+using _Project.CodeBase.Gameplay.Characters;
+using _Project.CodeBase.Infrastructure.Services.Logger;
 using UniRx;
 using UnityEngine;
 using VContainer;
 
-namespace CodeBase.Gameplay.Tiles
+namespace _Project.CodeBase.Gameplay.Tiles
 {
     public class TileLogic
     {

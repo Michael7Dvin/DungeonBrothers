@@ -1,19 +1,18 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.Characters.CharacterInfo;
-using CodeBase.Gameplay.Characters.Logic;
-using CodeBase.Gameplay.PathFinder;
-using CodeBase.Gameplay.Services.Map;
-using CodeBase.Gameplay.Services.Move;
-using CodeBase.Gameplay.Services.Random;
-using CodeBase.Gameplay.Services.TurnQueue;
-using CodeBase.Gameplay.Tiles;
-using CodeBase.Infrastructure.Services.Logger;
-using CodeBase.Infrastructure.Services.Providers.CharactersProvider;
-using NSubstitute;
+using _Project.CodeBase.Gameplay.Characters;
+using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
+using _Project.CodeBase.Gameplay.Characters.Logic;
+using _Project.CodeBase.Gameplay.PathFinder;
+using _Project.CodeBase.Gameplay.Services.Map;
+using _Project.CodeBase.Gameplay.Services.Move;
+using _Project.CodeBase.Gameplay.Services.Random;
+using _Project.CodeBase.Gameplay.Services.TurnQueue;
+using _Project.CodeBase.Gameplay.Tiles;
+using _Project.CodeBase.Infrastructure.Services.Logger;
+using _Project.CodeBase.Infrastructure.Services.Providers.CharactersProvider;
 using UnityEngine;
 
-namespace CodeBase.Tests.EditMode
+namespace _Project.CodeBase.Tests.EditMode
 {
     public class Create
     {

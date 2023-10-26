@@ -1,10 +1,9 @@
-﻿using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.Characters.CharacterInfo;
-using CodeBase.Gameplay.Characters.Logic;
+﻿using _Project.CodeBase.Gameplay.Characters;
+using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace CodeBase.Tests.EditMode.Damage
+namespace _Project.CodeBase.Tests.EditMode.Damage
 {
     public class DamageTests
     {

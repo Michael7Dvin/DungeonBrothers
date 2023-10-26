@@ -1,8 +1,8 @@
-﻿using CodeBase.Infrastructure.StateMachines.App;
+﻿using _Project.CodeBase.Infrastructure.StateMachines.App;
 using VContainer;
 using VContainer.Unity;
 
-namespace CodeBase.Infrastructure.Installers
+namespace _Project.CodeBase.Infrastructure.Installers
 {
     public class BootstrapInstaller : LifetimeScope
     {

@@ -1,14 +1,14 @@
-﻿using CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI.Gameplay;
-using CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
-using CodeBase.Infrastructure.Services.StaticDataProvider;
-using CodeBase.UI.Services.UIProvider;
-using CodeBase.UI.TurnQueue.Button;
+﻿using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI.Gameplay;
+using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
+using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
+using _Project.CodeBase.UI.Services.UIProvider;
+using _Project.CodeBase.UI.TurnQueue.Button;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace CodeBase.Infrastructure.Services.Factories.Buttons
+namespace _Project.CodeBase.Infrastructure.Services.Factories.Buttons
 {
     public class ButtonsFactory : IButtonsFactory
     {

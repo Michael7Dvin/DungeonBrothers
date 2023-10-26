@@ -1,16 +1,16 @@
 ﻿using System;
-using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.Characters.CharacterInfo;
-using CodeBase.Gameplay.Services.Map;
-using CodeBase.Gameplay.Services.Move;
-using CodeBase.Gameplay.Services.TurnQueue;
-using CodeBase.Gameplay.Tiles;
-using CodeBase.Infrastructure.Services.Logger;
-using CodeBase.Infrastructure.Services.StaticDataProvider;
+using _Project.CodeBase.Gameplay.Characters;
+using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
+using _Project.CodeBase.Gameplay.Services.Map;
+using _Project.CodeBase.Gameplay.Services.Move;
+using _Project.CodeBase.Gameplay.Services.TurnQueue;
+using _Project.CodeBase.Gameplay.Tiles;
+using _Project.CodeBase.Infrastructure.Services.Logger;
+using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.Services.TileVisualizers.ActiveCharacter
+namespace _Project.CodeBase.Gameplay.Services.TileVisualizers.ActiveCharacter
 {
     public class ActiveCharacterTileVisualizer : IActiveCharacterTileVisualizer
     {

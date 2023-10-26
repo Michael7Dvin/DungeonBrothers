@@ -1,9 +1,8 @@
-﻿using CodeBase.Gameplay.Characters.Logic;
+﻿using _Project.CodeBase.Gameplay.Characters.Logic;
 using FluentAssertions;
-using NSubstitute;
 using NUnit.Framework;
 
-namespace CodeBase.Tests.EditMode.CharacterHealth
+namespace _Project.CodeBase.Tests.EditMode.CharacterHealth
 {
     public class HealthTests
     {

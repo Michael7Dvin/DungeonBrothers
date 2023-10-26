@@ -1,8 +1,8 @@
-﻿using CodeBase.Gameplay.Tiles;
+﻿using _Project.CodeBase.Gameplay.Tiles;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure.Services.Factories.TileFactory
+namespace _Project.CodeBase.Infrastructure.Services.Factories.TileFactory
 {
     public interface ITileFactory
     {

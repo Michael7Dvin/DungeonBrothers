@@ -1,4 +1,4 @@
-namespace CodeBase.Gameplay.Characters.CharacterInfo
+namespace _Project.CodeBase.Gameplay.Characters.CharacterInfo
 {
     public enum CharacterTeam
     {

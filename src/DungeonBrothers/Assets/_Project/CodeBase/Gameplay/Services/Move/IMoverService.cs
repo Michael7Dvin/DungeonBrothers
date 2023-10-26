@@ -1,11 +1,10 @@
 ﻿using System;
-using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.PathFinder;
-using CodeBase.Gameplay.Tiles;
+using _Project.CodeBase.Gameplay.Characters;
+using _Project.CodeBase.Gameplay.PathFinder;
+using _Project.CodeBase.Gameplay.Tiles;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 
-namespace CodeBase.Gameplay.Services.Move
+namespace _Project.CodeBase.Gameplay.Services.Move
 {
     public interface IMoverService
     {

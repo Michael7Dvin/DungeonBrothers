@@ -1,7 +1,7 @@
-﻿using CodeBase.Gameplay.Animations.Hit;
-using CodeBase.UI.TurnQueue;
+﻿using _Project.CodeBase.Gameplay.Animations.Hit;
+using _Project.CodeBase.UI.TurnQueue;
 
-namespace CodeBase.Gameplay.Characters.View
+namespace _Project.CodeBase.Gameplay.Characters.View
 {
     public interface ICharacterView
     {

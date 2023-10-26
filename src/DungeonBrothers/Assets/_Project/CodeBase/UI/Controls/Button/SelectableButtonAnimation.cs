@@ -1,7 +1,7 @@
-using CodeBase.Gameplay.Animations.Scale;
+using _Project.CodeBase.Gameplay.Animations.Scale;
 using UnityEngine;
 
-namespace CodeBase.UI.Controls.Button
+namespace _Project.CodeBase.UI.Controls.Button
 {
     public class SelectableButtonAnimation : MonoBehaviour
     {

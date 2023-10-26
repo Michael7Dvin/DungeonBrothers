@@ -1,10 +1,10 @@
-﻿using CodeBase.Gameplay.Services.Raycast;
-using CodeBase.Infrastructure.Services.InputService;
-using CodeBase.Infrastructure.Services.Providers.CameraProvider;
+﻿using _Project.CodeBase.Gameplay.Services.Raycast;
+using _Project.CodeBase.Infrastructure.Services.InputService;
+using _Project.CodeBase.Infrastructure.Services.Providers.CameraProvider;
 using UniRx;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.Tiles
+namespace _Project.CodeBase.Gameplay.Tiles
 {
     public class TileSelector : ITileSelector
     {

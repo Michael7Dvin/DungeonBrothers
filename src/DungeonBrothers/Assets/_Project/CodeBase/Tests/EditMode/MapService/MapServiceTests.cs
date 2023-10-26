@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CodeBase.Gameplay.Services.Map;
-using CodeBase.Gameplay.Tiles;
+using _Project.CodeBase.Gameplay.Services.Map;
+using _Project.CodeBase.Gameplay.Tiles;
 using FluentAssertions;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace CodeBase.Tests.EditMode.MapService
+namespace _Project.CodeBase.Tests.EditMode.MapService
 {
     public class MapServiceTests
     {

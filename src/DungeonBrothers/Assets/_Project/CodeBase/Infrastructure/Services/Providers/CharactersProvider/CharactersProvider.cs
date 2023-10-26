@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using CodeBase.Gameplay.Characters;
-using CodeBase.UI.TurnQueue;
+using _Project.CodeBase.Gameplay.Characters;
+using _Project.CodeBase.UI.TurnQueue;
 using UniRx;
 
-namespace CodeBase.Infrastructure.Services.Providers.CharactersProvider
+namespace _Project.CodeBase.Infrastructure.Services.Providers.CharactersProvider
 {
     public class CharactersProvider : ICharactersProvider
     {

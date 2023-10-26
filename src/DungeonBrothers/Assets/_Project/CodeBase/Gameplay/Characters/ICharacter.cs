@@ -1,9 +1,9 @@
-using CodeBase.Gameplay.Characters.CharacterInfo;
-using CodeBase.Gameplay.Characters.Logic;
-using CodeBase.Gameplay.Characters.View;
+using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
+using _Project.CodeBase.Gameplay.Characters.Logic;
+using _Project.CodeBase.Gameplay.Characters.View;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.Characters
+namespace _Project.CodeBase.Gameplay.Characters
 {
     public interface ICharacter
     {

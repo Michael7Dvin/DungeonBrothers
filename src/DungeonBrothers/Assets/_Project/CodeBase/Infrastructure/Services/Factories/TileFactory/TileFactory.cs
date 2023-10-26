@@ -1,13 +1,13 @@
-﻿using CodeBase.Gameplay.Tiles;
-using CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
-using CodeBase.Infrastructure.Services.StaticDataProvider;
+﻿using _Project.CodeBase.Gameplay.Tiles;
+using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
+using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using VContainer;
 using VContainer.Unity;
 
-namespace CodeBase.Infrastructure.Services.Factories.TileFactory
+namespace _Project.CodeBase.Infrastructure.Services.Factories.TileFactory
 {
     public class TileFactory : ITileFactory
     {

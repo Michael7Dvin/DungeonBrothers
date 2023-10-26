@@ -1,9 +1,9 @@
-﻿using CodeBase.Gameplay.Animations.Colors;
-using CodeBase.Gameplay.Animations.Scale;
+﻿using _Project.CodeBase.Gameplay.Animations.Colors;
+using _Project.CodeBase.Gameplay.Animations.Scale;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace CodeBase.Gameplay.Animations.Hit
+namespace _Project.CodeBase.Gameplay.Animations.Hit
 {
     [CreateAssetMenu(menuName = "StaticData/Configs/Animations/Hit", fileName = "Hit")]
     public class HitAnimationConfig : ScriptableObject

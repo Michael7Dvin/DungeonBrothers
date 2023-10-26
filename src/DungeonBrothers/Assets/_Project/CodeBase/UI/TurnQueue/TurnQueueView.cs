@@ -1,7 +1,7 @@
 ﻿using UniRx;
 using UnityEngine;
 
-namespace CodeBase.UI.TurnQueue
+namespace _Project.CodeBase.UI.TurnQueue
 {
     public class TurnQueueView : MonoBehaviour
     {

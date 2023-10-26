@@ -1,9 +1,8 @@
-﻿using CodeBase.Infrastructure.StateMachines.App.FSM;
-using CodeBase.Infrastructure.StateMachines.App.States;
-using UnityEngine;
+﻿using _Project.CodeBase.Infrastructure.StateMachines.App.FSM;
+using _Project.CodeBase.Infrastructure.StateMachines.App.States;
 using VContainer.Unity;
 
-namespace CodeBase.Infrastructure.StateMachines.App
+namespace _Project.CodeBase.Infrastructure.StateMachines.App
 {
     public class AppBootstrapper : IInitializable
     {

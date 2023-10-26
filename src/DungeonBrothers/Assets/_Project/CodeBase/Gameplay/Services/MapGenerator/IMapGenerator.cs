@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Gameplay.Tiles;
+using _Project.CodeBase.Gameplay.Tiles;
 using Cysharp.Threading.Tasks;
 
-namespace CodeBase.Gameplay.Services.MapGenerator
+namespace _Project.CodeBase.Gameplay.Services.MapGenerator
 {
     public interface IMapGenerator
     {

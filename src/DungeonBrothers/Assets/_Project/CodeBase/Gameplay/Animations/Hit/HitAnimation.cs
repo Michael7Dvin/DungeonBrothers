@@ -1,10 +1,10 @@
-﻿using CodeBase.Gameplay.Animations.Colors;
-using CodeBase.Gameplay.Animations.Scale;
-using CodeBase.Infrastructure.Services.StaticDataProvider;
+﻿using _Project.CodeBase.Gameplay.Animations.Colors;
+using _Project.CodeBase.Gameplay.Animations.Scale;
+using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
 using Cysharp.Threading.Tasks;
 using VContainer;
 
-namespace CodeBase.Gameplay.Animations.Hit
+namespace _Project.CodeBase.Gameplay.Animations.Hit
 {
     public class HitAnimation 
     {

@@ -1,9 +1,9 @@
-﻿using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.Characters.CharacterInfo;
-using CodeBase.Gameplay.Services.TurnQueue;
+﻿using _Project.CodeBase.Gameplay.Characters;
+using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
+using _Project.CodeBase.Gameplay.Services.TurnQueue;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.Services.AI.Behaviours
+namespace _Project.CodeBase.Gameplay.Services.AI.Behaviours
 {
     public class SelectTargetBehaviour : ISelectTargetBehaviour
     {

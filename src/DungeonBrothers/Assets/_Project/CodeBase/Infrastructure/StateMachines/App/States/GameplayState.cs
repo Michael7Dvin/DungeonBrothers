@@ -1,7 +1,7 @@
-﻿using CodeBase.Common.FSM.States;
-using CodeBase.Infrastructure.Services.SceneLoader;
+﻿using _Project.CodeBase.Infrastructure.Services.SceneLoader;
+using _Project.CodeBase.Infrastructure.StateMachines.Common.States;
 
-namespace CodeBase.Infrastructure.StateMachines.App.States
+namespace _Project.CodeBase.Infrastructure.StateMachines.App.States
 {
     public class GameplayState : IState
     {

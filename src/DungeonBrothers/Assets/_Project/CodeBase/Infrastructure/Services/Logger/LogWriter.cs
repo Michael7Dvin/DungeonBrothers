@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure.Services.Logger
+namespace _Project.CodeBase.Infrastructure.Services.Logger
 {
     public class LogWriter : ILogWriter
     {

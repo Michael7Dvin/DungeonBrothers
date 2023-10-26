@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Gameplay.Animations.Hit;
-using CodeBase.Gameplay.Characters.CharacterInfo;
+using _Project.CodeBase.Gameplay.Animations.Hit;
+using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.Characters
+namespace _Project.CodeBase.Gameplay.Characters
 {
     [CreateAssetMenu(menuName = "StaticData/Configs/Characters/All", fileName = "AllCharactersConfigs")]
     public class AllCharactersConfigs : SerializedScriptableObject

@@ -1,4 +1,4 @@
-namespace CodeBase.Gameplay.Services.TileVisualizers.ActiveCharacter
+namespace _Project.CodeBase.Gameplay.Services.TileVisualizers.ActiveCharacter
 {
     public interface IActiveCharacterTileVisualizer
     {

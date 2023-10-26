@@ -1,12 +1,12 @@
-﻿using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.Services.Map;
-using CodeBase.Gameplay.Services.Move;
-using CodeBase.Gameplay.Tiles;
+﻿using _Project.CodeBase.Gameplay.Characters;
+using _Project.CodeBase.Gameplay.Services.Map;
+using _Project.CodeBase.Gameplay.Services.Move;
+using _Project.CodeBase.Gameplay.Tiles;
 using FluentAssertions;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace CodeBase.Tests.EditMode.MoverService
+namespace _Project.CodeBase.Tests.EditMode.MoverService
 {
     public class MoverServiceTests
     {

@@ -1,13 +1,13 @@
 ﻿using System;
-using CodeBase.Infrastructure.Services.Logger;
-using CodeBase.Infrastructure.Services.StaticDataProvider;
+using _Project.CodeBase.Infrastructure.Services.Logger;
+using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
 using Cysharp.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
-namespace CodeBase.Infrastructure.Services.SceneLoader
+namespace _Project.CodeBase.Infrastructure.Services.SceneLoader
 {
     public class SceneLoader : ISceneLoader
     {

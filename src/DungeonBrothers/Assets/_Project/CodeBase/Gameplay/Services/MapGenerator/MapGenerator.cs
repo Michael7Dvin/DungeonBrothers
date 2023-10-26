@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Gameplay.Tiles;
-using CodeBase.Infrastructure.Services.Factories.TileFactory;
+using _Project.CodeBase.Gameplay.Tiles;
+using _Project.CodeBase.Infrastructure.Services.Factories.TileFactory;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.Services.MapGenerator
+namespace _Project.CodeBase.Gameplay.Services.MapGenerator
 {
     public class MapGenerator : IMapGenerator
     {

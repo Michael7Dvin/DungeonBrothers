@@ -1,8 +1,8 @@
-﻿using CodeBase.Common.FSM.States;
-using CodeBase.Gameplay.Services.Move;
-using CodeBase.Gameplay.Services.TurnQueue;
+﻿using _Project.CodeBase.Gameplay.Services.Move;
+using _Project.CodeBase.Gameplay.Services.TurnQueue;
+using _Project.CodeBase.Infrastructure.StateMachines.Common.States;
 
-namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
+namespace _Project.CodeBase.Infrastructure.StateMachines.Gameplay.States
 {
     public class BattleState : IState
     {

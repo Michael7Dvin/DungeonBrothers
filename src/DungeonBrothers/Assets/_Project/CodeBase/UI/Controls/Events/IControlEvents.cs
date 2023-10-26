@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine.EventSystems;
 
-namespace CodeBase.UI.Controls.Events
+namespace _Project.CodeBase.UI.Controls.Events
 {
     public interface IControlEvents
     {

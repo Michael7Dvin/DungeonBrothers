@@ -1,4 +1,4 @@
-﻿namespace CodeBase.Gameplay.Services.InteractionsService
+﻿namespace _Project.CodeBase.Gameplay.Services.InteractionsService
 {
     public interface IInteractionService
     {

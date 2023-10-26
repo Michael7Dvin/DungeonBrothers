@@ -1,6 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 
-namespace CodeBase.Infrastructure.Services.Factories.Cameras
+namespace _Project.CodeBase.Infrastructure.Services.Factories.Cameras
 {
     public interface ICameraFactory
     {

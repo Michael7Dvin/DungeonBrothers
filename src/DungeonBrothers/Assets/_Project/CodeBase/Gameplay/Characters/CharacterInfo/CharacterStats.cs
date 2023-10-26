@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CodeBase.Gameplay.Characters.CharacterInfo
+namespace _Project.CodeBase.Gameplay.Characters.CharacterInfo
 {
     [Serializable]
     public struct CharacterStats
