@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:src/DungeonBrothers/Assets/AddressableAssetsData/AssetGroups/Schemas/Scenes_ContentUpdateGroupSchema.asset.meta
 guid: adeebab568cffb242a95f1a813ad2736
+========
+guid: 9204133c0a330bb479521e37a0bdd02c
+>>>>>>>> dev:src/DungeonBrothers/Assets/Project/StaticData/Configs/CharacterOutlineColors.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000
