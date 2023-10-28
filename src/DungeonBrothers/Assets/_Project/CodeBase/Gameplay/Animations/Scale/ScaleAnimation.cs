@@ -3,14 +3,18 @@ using UnityEngine;
 
 namespace _Project.CodeBase.Gameplay.Animations.Scale
 {
-    public class ScaleAnimation : MonoBehaviour
+    public class ScaleAnimation 
     {
-        private Tween _currentTween;
+        private readonly Transform _transform;
+        private readonly ScaleAnimationConfig _config;
         
-        private void OnDisable()
+        private Tween _currentTween;
+
+        public ScaleAnimation(Transform transform,
+            ScaleAnimationConfig scaleAnimationConfig)
         {
-            if (_currentTween.IsActive()) 
-                _currentTween.Kill();
+            _transform = transform;
+            _config = scaleAnimationConfig;
         }
         
         public Tween DoScale(ScaleAnimationConfig scaleAnimationConfig)
@@ -28,7 +32,7 @@ namespace _Project.CodeBase.Gameplay.Animations.Scale
             float duration = scaleAnimationConfig.Duration;
             Ease ease = scaleAnimationConfig.Ease;
             
-            return transform
+            return _transform
                 .DOScale(scale, duration)
                 .SetEase(ease)
                 .SetUpdate(UpdateType.Normal, true);

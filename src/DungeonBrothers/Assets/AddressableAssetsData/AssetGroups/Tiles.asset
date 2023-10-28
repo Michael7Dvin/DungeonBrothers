@@ -12,19 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
   m_Name: Tiles
   m_EditorClassIdentifier: 
-  m_GroupName: Tiles
+  m_GroupName: Packed Assets
   m_Data:
     m_SerializedData: []
-  m_GUID: a02c1f59626a5504083b537675a1a339
-  m_SerializeEntries:
-  - m_GUID: 14815a0c489f913449e3f584be6ed54d
-    m_Address: Tile_Floor_1
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_GUID: 33d87c6ec06a39a479120ba0f2a37180
+  m_SerializeEntries: []
   m_ReadOnly: 0
-  m_Settings: {fileID: 11400000, guid: cd9846c08b2b1fc4fa9b10c9ae46250d, type: 2}
+  m_Settings: {fileID: 11400000, guid: 9c68bd8dbd4afbe4a9ba008537298eab, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: f3f5c70f6cfc73748a6947db484966ce, type: 2}
-    - {fileID: 11400000, guid: 391da12eb2a311342859d24178434e48, type: 2}
+    - {fileID: 11400000, guid: 0cc8516203ac8b1439bb82320d66264a, type: 2}
+    - {fileID: 11400000, guid: 49e88413707da044d9194ac93a4f2c4c, type: 2}

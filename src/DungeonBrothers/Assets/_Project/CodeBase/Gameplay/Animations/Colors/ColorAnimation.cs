@@ -3,9 +3,14 @@ using UnityEngine;
 
 namespace _Project.CodeBase.Gameplay.Animations.Colors
 {
-    public class ColorAnimation : MonoBehaviour
+    public class ColorAnimation 
     {
-        [SerializeField] private SpriteRenderer _spriteRenderer;
+        private readonly SpriteRenderer _spriteRenderer;
+
+        public ColorAnimation(SpriteRenderer spriteRenderer)
+        {
+            _spriteRenderer = spriteRenderer;
+        }
 
         private Tween _currentTween;
         

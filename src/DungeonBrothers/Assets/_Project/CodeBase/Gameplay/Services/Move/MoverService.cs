@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Project.CodeBase.Gameplay.Characters;
+using _Project.CodeBase.Gameplay.Characters.View.Sounds;
 using _Project.CodeBase.Gameplay.PathFinder;
 using _Project.CodeBase.Gameplay.Services.Map;
 using _Project.CodeBase.Gameplay.Services.TurnQueue;
@@ -61,7 +62,6 @@ namespace _Project.CodeBase.Gameplay.Services.Move
             if (PathFindingResults.IsMovableAt(tile.Logic.Coordinates) == false)
                 return;
             
-            
             List<Vector2Int> path = PathFindingResults.GetPathTo(tile.Logic.Coordinates, false);
             int pathCost = path.Count;
             _currentMovePoints -= pathCost;
@@ -75,13 +75,14 @@ namespace _Project.CodeBase.Gameplay.Services.Move
             character.UpdateCoordinate(tile.Logic.Coordinates);
             tile.Logic.Occupy(character);
 
-            await Move(path, character);
-            
+            Vector3[] newPath = GetPathToTile(path, character);
+            await character.View.MovementView.Move(newPath);
+       
             _isMoved.Execute(character);
             CalculatePaths(character);
         }
 
-        private async UniTask Move(List<Vector2Int> path, ICharacter character)
+        private Vector3[] GetPathToTile(List<Vector2Int> path, ICharacter character)
         {
             List<Vector3> newPath = new();
 
@@ -90,12 +91,8 @@ namespace _Project.CodeBase.Gameplay.Services.Move
                 if(_mapService.TryGetTile(point, out Tile tile))
                     newPath.Add(tile.transform.position);
             }
-            
-            await character.Transform
-                .DOPath(newPath.ToArray(), AnimationDuration)
-                .Play()
-                .SetEase(Ease.OutQuart)
-                .ToUniTask();
+
+            return newPath.ToArray();
         }
         
 

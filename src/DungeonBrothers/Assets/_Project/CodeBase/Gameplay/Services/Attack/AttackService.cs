@@ -2,6 +2,7 @@
 using System.Linq;
 using _Project.CodeBase.Gameplay.Characters;
 using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
+using _Project.CodeBase.Gameplay.Characters.View.Sounds;
 using _Project.CodeBase.Gameplay.PathFinder;
 using _Project.CodeBase.Gameplay.Services.TurnQueue;
 using _Project.CodeBase.Infrastructure.Services.Logger;
@@ -40,7 +41,10 @@ namespace _Project.CodeBase.Gameplay.Services.Attack
                 return;
 
             if (character.View.HitAnimation != null)
+            {
+                character.View.Sounds.PlaySoundOneTime(CharacterSoundType.Hit);
                 await character.View.HitAnimation.DoHit();
+            }
 
             character.Logic.Health.TakeDamage(activeCharacter.Damage.GetCharacterDamage());
             _turnQueue.SetNextTurn();

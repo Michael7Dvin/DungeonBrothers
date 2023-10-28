@@ -1,7 +1,7 @@
-using _Project.CodeBase.Gameplay.Services.Audio;
 using _Project.CodeBase.Gameplay.Services.Random;
+using _Project.CodeBase.Infrastructure.Audio;
 using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
-using _Project.CodeBase.Infrastructure.Services.Factories.Sound;
+using _Project.CodeBase.Infrastructure.Services.Audio;
 using _Project.CodeBase.Infrastructure.Services.InputService;
 using _Project.CodeBase.Infrastructure.Services.Logger;
 using _Project.CodeBase.Infrastructure.Services.Providers.CameraProvider;
@@ -21,17 +21,22 @@ namespace _Project.CodeBase.Infrastructure.Installers
     {
         [SerializeField] private AllStaticData _allStaticData;
         
+        [SerializeField] private SoundtrackPlayer _soundtrackPlayer;
+        
         protected override void Configure(IContainerBuilder builder)
         {
             RegisterStateMachine(builder);
             RegisterServices(builder);
             RegisterProviders(builder);
-            RegisterFactory(builder);
+            RegisterPrefab(builder);
         }
 
-        private void RegisterFactory(IContainerBuilder builder)
+        private void RegisterPrefab(IContainerBuilder builder)
         {
-            builder.Register<IAudioFactory, AudioFactory>(Lifetime.Singleton);
+            builder
+                .RegisterComponentInNewPrefab(_soundtrackPlayer, Lifetime.Singleton)
+                .DontDestroyOnLoad()
+                .As<ISoundtrackPlayer>();
         }
 
         private void RegisterStateMachine(IContainerBuilder builder)
@@ -44,7 +49,6 @@ namespace _Project.CodeBase.Infrastructure.Installers
 
         private void RegisterServices(IContainerBuilder builder)
         {
-            builder.Register<IAudioService, AudioService>(Lifetime.Singleton);
             builder.Register<ICustomLogger, CustomLogger>(Lifetime.Singleton);
             builder.Register<ISceneLoader, SceneLoader>(Lifetime.Singleton);
             builder.Register<IAddressablesLoader, AddressablesLoader>(Lifetime.Singleton);

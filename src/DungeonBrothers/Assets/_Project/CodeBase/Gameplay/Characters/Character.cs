@@ -1,6 +1,7 @@
 ﻿using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
 using _Project.CodeBase.Gameplay.Characters.Logic;
 using _Project.CodeBase.Gameplay.Characters.View;
+using UniRx;
 using UnityEngine;
 
 namespace _Project.CodeBase.Gameplay.Characters

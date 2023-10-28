@@ -1,3 +1,4 @@
+using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.Gameplay;
 using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI;
 using _Project.CodeBase.Infrastructure.Services.SceneLoader;
 using UnityEngine;

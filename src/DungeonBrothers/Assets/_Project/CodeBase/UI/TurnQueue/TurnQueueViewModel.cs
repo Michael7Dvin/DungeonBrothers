@@ -65,16 +65,16 @@ namespace _Project.CodeBase.UI.TurnQueue
             _charactersIconsQueue.Clear();
 
             for (int i = _turnQueue.Characters.Count - 1 ; i >= 0 ; i--)
-                _charactersIconsQueue.Add(_turnQueue.Characters[i].View.CharacterInTurnQueueIcon);
+                _charactersIconsQueue.Add(_turnQueue.Characters[i].View.Icon);
 
             _enableIcons.Execute();
         }
 
         private void RemoveIconFromList(CollectionRemoveEvent<ICharacter> character)
         {
-            CharacterInTurnQueueIcon icon = character.Value.View.CharacterInTurnQueueIcon;
+            CharacterInTurnQueueIcon icon = character.Value.View.Icon;
             
-            _charactersIconsQueue.Remove(character.Value.View.CharacterInTurnQueueIcon);
+            _charactersIconsQueue.Remove(character.Value.View.Icon);
             icon.Destroy();
         }
         

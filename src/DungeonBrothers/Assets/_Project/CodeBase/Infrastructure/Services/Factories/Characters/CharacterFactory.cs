@@ -6,6 +6,7 @@ using _Project.CodeBase.Gameplay.Characters;
 using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
 using _Project.CodeBase.Gameplay.Characters.Logic;
 using _Project.CodeBase.Gameplay.Characters.View;
+using _Project.CodeBase.Gameplay.Characters.View.Sounds;
 using _Project.CodeBase.Gameplay.Services.TurnQueue;
 using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI.Gameplay;
 using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
@@ -73,7 +74,7 @@ namespace _Project.CodeBase.Infrastructure.Services.Factories.Characters
             
             await CreateHealthBar(character);
             
-            _charactersProvider.Add(character, character.View.CharacterInTurnQueueIcon);
+            _charactersProvider.Add(character, character.View.Icon);
 
             return character;
         }
@@ -89,8 +90,11 @@ namespace _Project.CodeBase.Infrastructure.Services.Factories.Characters
             HitAnimation hitAnimation = new(scaleAnimation, colorAnimation);
             _objectResolver.Inject(hitAnimation);
 
+            CharacterSounds characterSounds = gameObject.GetComponent<CharacterSounds>();
+            _objectResolver.Inject(characterSounds);
+
             CharacterView characterView = new CharacterView();
-            characterView.Construct(icon, hitAnimation);
+            characterView.Construct(icon, hitAnimation, characterSounds);
             return characterView;
         }
         

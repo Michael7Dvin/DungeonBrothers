@@ -1,4 +1,6 @@
 ﻿using _Project.CodeBase.Gameplay.Animations.Hit;
+using _Project.CodeBase.Gameplay.Characters.View.Move;
+using _Project.CodeBase.Gameplay.Characters.View.Sounds;
 using _Project.CodeBase.UI.TurnQueue;
 
 namespace _Project.CodeBase.Gameplay.Characters.View
@@ -9,12 +11,12 @@ namespace _Project.CodeBase.Gameplay.Characters.View
             HitAnimation hitAnimation)
         {
             HitAnimation = hitAnimation;
-            CharacterInTurnQueueIcon = characterInTurnQueueIcon;
+            Icon = characterInTurnQueueIcon;
         }
         
-        public CharacterInTurnQueueIcon CharacterInTurnQueueIcon { get; private set;}
+        public CharacterInTurnQueueIcon Icon { get; private set;}
         public HitAnimation HitAnimation { get; private set; }
-        
-        public CharacterSounds CharacterSounds { get; private set; }
+        public MovementView MovementView { get; private set; }
+        public HitView HitView { get; private set; }
     }
 }
