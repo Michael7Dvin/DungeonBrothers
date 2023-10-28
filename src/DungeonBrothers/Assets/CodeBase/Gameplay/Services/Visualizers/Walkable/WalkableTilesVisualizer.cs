@@ -71,13 +71,8 @@ namespace CodeBase.Gameplay.Services.Visualizers.Walkable
         private void ResetLastTilesView()
         {
             foreach (Tile tile in _lastTiles) 
-            {
-                if (_turnQueue.ActiveCharacter.Value.Coordinate == tile.Logic.Coordinates) 
-                    continue;
-                
                 tile.View.ResetTileView();
-            }
-                
+
             _lastTiles.Clear();
         }
     }
