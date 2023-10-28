@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using CodeBase.Gameplay.Characters.CharacterInfo;
-using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
+using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Tiles;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.Services.TileVisualizers.Walkable
+namespace CodeBase.Gameplay.Services.Visualizers.Walkable
 {
     public class WalkableTilesVisualizer : IWalkableTilesVisualizer
     {
@@ -30,7 +30,7 @@ namespace CodeBase.Gameplay.Services.TileVisualizers.Walkable
             _pathFinder = pathFinder;
             _mapService = mapService;
             _turnQueue = turnQueue;
-            _tileColorsConfig = staticDataProvider.TileColorsConfig;
+            _tileColorsConfig = staticDataProvider.TileColors;
         }
 
         public void Initialize()

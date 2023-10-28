@@ -1,4 +1,4 @@
-﻿namespace CodeBase.Gameplay.Services.TileVisualizers.Attack
+﻿namespace CodeBase.Gameplay.Services.Visualizers.Attack
 {
     public interface IAttackableTilesVisualizer
     {

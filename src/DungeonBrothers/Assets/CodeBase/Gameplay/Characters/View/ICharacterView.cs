@@ -7,5 +7,6 @@ namespace CodeBase.Gameplay.Characters.View
     {
         public CharacterInTurnQueueIcon CharacterInTurnQueueIcon { get; }
         public HitAnimation HitAnimation { get; }
+        CharacterOutline CharacterOutline { get; }
     }
 }

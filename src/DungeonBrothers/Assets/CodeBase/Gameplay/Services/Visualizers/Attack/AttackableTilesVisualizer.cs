@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Characters.CharacterInfo;
-using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.Attack;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
+using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Tiles;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
 
-namespace CodeBase.Gameplay.Services.TileVisualizers.Attack
+namespace CodeBase.Gameplay.Services.Visualizers.Attack
 {
     public class AttackableTilesVisualizer : IAttackableTilesVisualizer
     {
@@ -34,7 +34,7 @@ namespace CodeBase.Gameplay.Services.TileVisualizers.Attack
             _attackService = attackService;
             _mapService = mapService;
 
-            _tileColorsConfig = staticDataProvider.TileColorsConfig;
+            _tileColorsConfig = staticDataProvider.TileColors;
         }
 
         public void Initialize()

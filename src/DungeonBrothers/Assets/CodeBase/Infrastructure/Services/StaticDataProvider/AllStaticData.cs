@@ -1,4 +1,5 @@
 using CodeBase.Gameplay.Characters;
+using CodeBase.Gameplay.Services.Visualizers.ActiveCharacter;
 using CodeBase.Gameplay.Tiles;
 using CodeBase.Infrastructure.Services.AddressablesLoader.Addresses;
 using UnityEngine;
@@ -12,5 +13,6 @@ namespace CodeBase.Infrastructure.Services.StaticDataProvider
         public AllAssetsAddresses AssetsAddresses;
         public TileColorsConfig TileColorsConfig;
         public AllGameBalanceConfig GameBalanceConfig;
+        public CharacterOutlineColors CharacterOutlineColors;
     }
 }

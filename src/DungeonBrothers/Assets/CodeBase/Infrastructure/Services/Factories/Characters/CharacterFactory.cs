@@ -89,8 +89,12 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
             HitAnimation hitAnimation = new(scaleAnimation, colorAnimation);
             _objectResolver.Inject(hitAnimation);
 
+            Material material = gameObject.GetComponent<Renderer>().material;
+            CharacterOutline characterOutline = new(material);
+
             CharacterView characterView = new CharacterView();
-            characterView.Construct(icon, hitAnimation);
+            characterView.Construct(icon, hitAnimation, characterOutline);
+            
             return characterView;
         }
         

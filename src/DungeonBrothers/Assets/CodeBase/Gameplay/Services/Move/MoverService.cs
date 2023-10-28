@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.Map;
+using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Tiles;
 using Cysharp.Threading.Tasks;

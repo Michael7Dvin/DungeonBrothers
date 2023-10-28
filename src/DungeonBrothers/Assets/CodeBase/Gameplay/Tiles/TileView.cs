@@ -26,8 +26,7 @@ namespace CodeBase.Gameplay.Tiles
 
         public void SwitchOutLine(bool isEnabled) => 
             SetBool(_enableOutlineID, isEnabled);
-
-
+        
         public void ChangeOutLineColor(Color color) => 
             SetColor(_outlineColorID, color);
 

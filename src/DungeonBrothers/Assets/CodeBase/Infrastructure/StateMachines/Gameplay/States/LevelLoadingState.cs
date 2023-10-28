@@ -1,12 +1,12 @@
 ﻿using CodeBase.Common.FSM.States;
 using CodeBase.Gameplay.Services.AI;
 using CodeBase.Gameplay.Services.InteractionsService;
-using CodeBase.Gameplay.Services.TileVisualizers.ActiveCharacter;
-using CodeBase.Gameplay.Services.TileVisualizers.Attack;
-using CodeBase.Gameplay.Services.TileVisualizers.Path;
-using CodeBase.Gameplay.Services.TileVisualizers.Select;
-using CodeBase.Gameplay.Services.TileVisualizers.Walkable;
 using CodeBase.Gameplay.Services.TurnQueue;
+using CodeBase.Gameplay.Services.Visualizers.ActiveCharacter;
+using CodeBase.Gameplay.Services.Visualizers.Attack;
+using CodeBase.Gameplay.Services.Visualizers.Path;
+using CodeBase.Gameplay.Services.Visualizers.Select;
+using CodeBase.Gameplay.Services.Visualizers.Walkable;
 using CodeBase.Gameplay.Tiles;
 using CodeBase.Infrastructure.Services.InputService;
 using CodeBase.Infrastructure.Services.Providers.LevelSpawner;
@@ -20,7 +20,7 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
         private readonly ITurnQueue _turnQueue;
         private readonly IGameplayStateMachine _gameplayStateMachine;
         private readonly IInputService _inputService;
-        private readonly IActiveCharacterTileVisualizer _visualizer;
+        private readonly IActiveCharacterVisualizer _visualizer;
         private readonly IWalkableTilesVisualizer _walkableTilesVisualizer;
         private readonly ISelectedTileVisualizer _selectedTileVisualizer;
         private readonly ITileSelector _tileSelector;
@@ -33,7 +33,7 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
             ITurnQueue turnQueue, 
             IGameplayStateMachine gameplayStateMachine, 
             IInputService inputService,
-            IActiveCharacterTileVisualizer activeCharacterTileVisualizer,
+            IActiveCharacterVisualizer activeCharacterVisualizer,
             IWalkableTilesVisualizer walkableTilesVisualizer,
             ISelectedTileVisualizer selectedTileVisualizer,
             ITileSelector tileSelector,
@@ -45,7 +45,7 @@ namespace CodeBase.Infrastructure.StateMachines.Gameplay.States
             _turnQueue = turnQueue;
             _gameplayStateMachine = gameplayStateMachine;
             _inputService = inputService;
-            _visualizer = activeCharacterTileVisualizer;
+            _visualizer = activeCharacterVisualizer;
             _walkableTilesVisualizer = walkableTilesVisualizer;
             _selectedTileVisualizer = selectedTileVisualizer;
             _tileSelector = tileSelector;

@@ -6,7 +6,7 @@ using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
 
-namespace CodeBase.Gameplay.Services.TileVisualizers.Select
+namespace CodeBase.Gameplay.Services.Visualizers.Select
 {
     public class SelectedTileVisualizer : ISelectedTileVisualizer
     {
@@ -26,7 +26,7 @@ namespace CodeBase.Gameplay.Services.TileVisualizers.Select
             _tileSelector = tileSelector;
             _turnQueue = turnQueue;
             _customLogger = customLogger;
-            _tileColorsConfig = staticDataProvider.TileColorsConfig;
+            _tileColorsConfig = staticDataProvider.TileColors;
         }
 
         public void Initialize()

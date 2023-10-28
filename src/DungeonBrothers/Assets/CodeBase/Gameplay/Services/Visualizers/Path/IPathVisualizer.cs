@@ -1,4 +1,4 @@
-﻿namespace CodeBase.Gameplay.Services.TileVisualizers.Path
+﻿namespace CodeBase.Gameplay.Services.Visualizers.Path
 {
     public interface IPathVisualizer
     {

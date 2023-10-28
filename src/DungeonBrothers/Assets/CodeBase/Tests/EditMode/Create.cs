@@ -2,9 +2,9 @@
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.Characters.Logic;
-using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
+using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Services.Random;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Tiles;

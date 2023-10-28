@@ -4,7 +4,7 @@ using CodeBase.Gameplay.Tiles;
 using UniRx;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.PathFinder
+namespace CodeBase.Gameplay.Services.PathFinder
 {
     public class PathFinder : IPathFinder
     {

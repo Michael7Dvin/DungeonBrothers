@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.InteractionsService;
 using CodeBase.Gameplay.Services.Map;
+using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Tiles;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.Services.TileVisualizers.Path
+namespace CodeBase.Gameplay.Services.Visualizers.Path
 {
     public class PathVisualizer : IPathVisualizer
     {
@@ -31,7 +31,7 @@ namespace CodeBase.Gameplay.Services.TileVisualizers.Path
             _pathFinder = pathFinder;
             _mapService = mapService;
             _interactionService = interactionService;
-            _tileColorsConfig = staticDataProvider.TileColorsConfig;
+            _tileColorsConfig = staticDataProvider.TileColors;
         }
 
         public void Initialize()

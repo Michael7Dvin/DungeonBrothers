@@ -2,7 +2,7 @@
 using System.Linq;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Characters.CharacterInfo;
-using CodeBase.Gameplay.PathFinder;
+using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.StaticDataProvider;

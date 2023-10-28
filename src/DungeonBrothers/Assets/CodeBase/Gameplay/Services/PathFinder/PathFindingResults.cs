@@ -3,7 +3,7 @@ using System.Linq;
 using CodeBase.Gameplay.Tiles;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.PathFinder
+namespace CodeBase.Gameplay.Services.PathFinder
 {
     public struct PathFindingResults
     {

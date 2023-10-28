@@ -1,4 +1,3 @@
-using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.AI;
 using CodeBase.Gameplay.Services.AI.Behaviours;
 using CodeBase.Gameplay.Services.Attack;
@@ -6,13 +5,14 @@ using CodeBase.Gameplay.Services.InteractionsService;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.MapGenerator;
 using CodeBase.Gameplay.Services.Move;
+using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Services.Raycast;
-using CodeBase.Gameplay.Services.TileVisualizers.ActiveCharacter;
-using CodeBase.Gameplay.Services.TileVisualizers.Attack;
-using CodeBase.Gameplay.Services.TileVisualizers.Path;
-using CodeBase.Gameplay.Services.TileVisualizers.Select;
-using CodeBase.Gameplay.Services.TileVisualizers.Walkable;
 using CodeBase.Gameplay.Services.TurnQueue;
+using CodeBase.Gameplay.Services.Visualizers.ActiveCharacter;
+using CodeBase.Gameplay.Services.Visualizers.Attack;
+using CodeBase.Gameplay.Services.Visualizers.Path;
+using CodeBase.Gameplay.Services.Visualizers.Select;
+using CodeBase.Gameplay.Services.Visualizers.Walkable;
 using CodeBase.Gameplay.Spawner.CharacterSpawner;
 using CodeBase.Gameplay.Tiles;
 using CodeBase.Infrastructure.Services.Factories.Buttons;
@@ -82,7 +82,7 @@ namespace CodeBase.Infrastructure.Installers
         private void RegisterVisualizers(IContainerBuilder builder)
         {
             builder.Register<IWalkableTilesVisualizer, WalkableTilesVisualizer>(Lifetime.Singleton);
-            builder.Register<IActiveCharacterTileVisualizer, ActiveCharacterTileVisualizer>(Lifetime.Singleton);
+            builder.Register<IActiveCharacterVisualizer, ActiveCharacterVisualizer>(Lifetime.Singleton);
             builder.Register<ISelectedTileVisualizer, SelectedTileVisualizer>(Lifetime.Singleton);
             builder.Register<IPathVisualizer, PathVisualizer>(Lifetime.Singleton);
             builder.Register<IAttackableTilesVisualizer, AttackableTilesVisualizer>(Lifetime.Singleton);
