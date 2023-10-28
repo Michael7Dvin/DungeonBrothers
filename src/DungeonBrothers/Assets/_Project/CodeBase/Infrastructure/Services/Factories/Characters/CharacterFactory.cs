@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using _Project.CodeBase.Gameplay.Animations.Colors;
 using _Project.CodeBase.Gameplay.Animations.Hit;
+using _Project.CodeBase.Gameplay.Animations.Movement;
 using _Project.CodeBase.Gameplay.Animations.Scale;
 using _Project.CodeBase.Gameplay.Characters;
 using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
 using _Project.CodeBase.Gameplay.Characters.Logic;
 using _Project.CodeBase.Gameplay.Characters.View;
+using _Project.CodeBase.Gameplay.Characters.View.Hit;
+using _Project.CodeBase.Gameplay.Characters.View.Move;
 using _Project.CodeBase.Gameplay.Characters.View.Sounds;
 using _Project.CodeBase.Gameplay.Services.TurnQueue;
 using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI.Gameplay;
@@ -34,6 +37,8 @@ namespace _Project.CodeBase.Infrastructure.Services.Factories.Characters
         private readonly GameplayUIAddresses _gameplayUIAddresses;
         private readonly BonusDamageConfig _bonusDamageConfig;
 
+        private readonly Vector3 _offset = new(0, 0.5f);
+        
         public CharacterFactory(IAddressablesLoader addressablesLoader,
             IObjectResolver objectResolver,
             ICharactersProvider charactersProvider,
@@ -79,25 +84,54 @@ namespace _Project.CodeBase.Infrastructure.Services.Factories.Characters
             return character;
         }
 
-        private async UniTask<ICharacterView> CreateCharacterView(GameObject gameObject, CharacterConfig config)
+        private async UniTask<ICharacterView> CreateCharacterView(GameObject gameObject,
+            CharacterConfig config)
         {
             CharacterInTurnQueueIcon icon = await _turnQueueViewFactory.CreateIcon(config.Image, config.ID);
             icon.gameObject.SetActive(false);
             
-            ScaleAnimation scaleAnimation = gameObject.GetComponent<ScaleAnimation>();
-            ColorAnimation colorAnimation = gameObject.GetComponent<ColorAnimation>();
+            CharacterSounds characterSounds = SetupCharacterSounds(gameObject);
+
+            IMovementView movementView = CreateMovementView(gameObject, characterSounds);
+            IHitView hitView = CreateHitView(gameObject, characterSounds);
             
-            HitAnimation hitAnimation = new(scaleAnimation, colorAnimation);
-            _objectResolver.Inject(hitAnimation);
-
-            CharacterSounds characterSounds = gameObject.GetComponent<CharacterSounds>();
-            _objectResolver.Inject(characterSounds);
-
             CharacterView characterView = new CharacterView();
-            characterView.Construct(icon, hitAnimation, characterSounds);
+            characterView.Construct(icon, movementView, hitView);
             return characterView;
         }
-        
+
+        private IMovementView CreateMovementView(GameObject gameObject, 
+            CharacterSounds characterSounds)
+        {
+            MovementAnimation movementAnimation = new MovementAnimation(gameObject.transform);
+
+            IMovementView movementView = new MovementView(movementAnimation, characterSounds);
+            _objectResolver.Inject(movementView);
+            return movementView;
+        }
+
+        private CharacterSounds SetupCharacterSounds(GameObject gameObject)
+        {
+            CharacterSounds characterSounds = gameObject.GetComponent<CharacterSounds>();
+            _objectResolver.Inject(characterSounds);
+            return characterSounds;
+        }
+
+        private IHitView CreateHitView(GameObject gameObject,
+            CharacterSounds characterSounds)
+        {;
+            ScaleAnimation scaleAnimation = new ScaleAnimation(gameObject.transform);
+
+            SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+            ColorAnimation colorAnimation = new ColorAnimation(spriteRenderer);
+            
+            HitAnimation hitAnimation = new(scaleAnimation, colorAnimation);
+
+            HitView hitView = new HitView(hitAnimation, characterSounds);
+            _objectResolver.Inject(hitView);
+            return hitView;
+        }
+
         private async UniTask CreateHealthBar(Character character)
         {
             GameObject prefab = await _addressablesLoader.LoadGameObject(_gameplayUIAddresses.HealthBar);
@@ -108,11 +142,12 @@ namespace _Project.CodeBase.Infrastructure.Services.Factories.Characters
             
             healthBarPresenter.Construct(character.Logic.Health, healthBarView);
 
-            gameObject.transform.position = character.Transform.position - new Vector3(0, 0.5f);
+            gameObject.transform.position = character.Transform.position - _offset;
             healthBarPresenter.Initialize();
         }
 
-        private CharacterDamage CreateCharacterDamage(CharacterConfig config, CharacterStats stats)
+        private CharacterDamage CreateCharacterDamage(CharacterConfig config,
+            CharacterStats stats)
         {
             CharacterDamage characterDamage = config.CharacterDamage;
 
@@ -122,7 +157,8 @@ namespace _Project.CodeBase.Infrastructure.Services.Factories.Characters
             return characterDamage;
         }
         
-        private ICharacterLogic CreateCharacterLogic(GameObject gameObject, CharacterConfig config)
+        private ICharacterLogic CreateCharacterLogic(GameObject gameObject, 
+            CharacterConfig config)
         {
             Health health = gameObject.GetComponent<Health>();
             health.Construct(config.HealthPoints);

@@ -25,12 +25,12 @@ MonoBehaviour:
     SerializationNodes:
     - Name: CharacterConfigs
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[CodeBase.Gameplay.Characters.CharacterInfo.CharacterID,
-        DungeonBrothers],[CodeBase.Gameplay.Characters.CharacterConfig, DungeonBrothers]],
-        mscorlib
+      Data: 0|System.Collections.Generic.Dictionary`2[[_Project.CodeBase.Gameplay.Characters.CharacterInfo.CharacterID,
+        DungeonBrothers],[_Project.CodeBase.Gameplay.Characters.CharacterConfig,
+        DungeonBrothers]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[CodeBase.Gameplay.Characters.CharacterInfo.CharacterID,
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[_Project.CodeBase.Gameplay.Characters.CharacterInfo.CharacterID,
         DungeonBrothers]], mscorlib
     - Name: 
       Entry: 12
@@ -75,3 +75,4 @@ MonoBehaviour:
       Entry: 8
       Data: 
   HitAnimationConfig: {fileID: 11400000, guid: 05b106aeca9fcf84a84e3c3377bd2ee3, type: 2}
+  MovementAnimationConfig: {fileID: 11400000, guid: 66d2e4cb215259e44b9704e803466738, type: 2}

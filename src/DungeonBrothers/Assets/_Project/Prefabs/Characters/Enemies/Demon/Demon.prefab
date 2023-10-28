@@ -15,8 +15,6 @@ GameObject:
   - component: {fileID: -3982989670125057450}
   - component: {fileID: -1868044978935451320}
   - component: {fileID: 3288666405117764082}
-  - component: {fileID: 3997465742646869055}
-  - component: {fileID: 2665324292720830226}
   m_Layer: 0
   m_Name: Demon
   m_TagString: Untagged
@@ -159,28 +157,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865265f5f15c4d43ad57e9796bb7586a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3997465742646869055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9149276260160472643}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8db25abb3c3344c2b786230dde3925bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2665324292720830226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9149276260160472643}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f7f987dce4644c48d7866ecdfecacc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: -3982989670125057450}

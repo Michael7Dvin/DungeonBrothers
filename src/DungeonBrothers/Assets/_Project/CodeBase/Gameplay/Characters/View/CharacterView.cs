@@ -1,6 +1,4 @@
-﻿using _Project.CodeBase.Gameplay.Animations.Hit;
-using _Project.CodeBase.Gameplay.Characters.View.Move;
-using _Project.CodeBase.Gameplay.Characters.View.Sounds;
+﻿using _Project.CodeBase.Gameplay.Characters.View.Move;
 using _Project.CodeBase.UI.TurnQueue;
 
 namespace _Project.CodeBase.Gameplay.Characters.View
@@ -8,15 +6,16 @@ namespace _Project.CodeBase.Gameplay.Characters.View
     public class CharacterView : ICharacterView
     {
         public void Construct(CharacterInTurnQueueIcon characterInTurnQueueIcon,
-            HitAnimation hitAnimation)
+            IMovementView movementView, 
+            IHitView hitView)
         {
-            HitAnimation = hitAnimation;
             Icon = characterInTurnQueueIcon;
+            MovementView = movementView;
+            HitView = hitView;
         }
         
         public CharacterInTurnQueueIcon Icon { get; private set;}
-        public HitAnimation HitAnimation { get; private set; }
-        public MovementView MovementView { get; private set; }
-        public HitView HitView { get; private set; }
+        public IMovementView MovementView { get; private set; }
+        public IHitView HitView { get; private set; }
     }
 }

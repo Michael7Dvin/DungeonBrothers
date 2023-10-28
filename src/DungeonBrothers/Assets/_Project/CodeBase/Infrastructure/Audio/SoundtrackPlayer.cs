@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _Project.CodeBase.Infrastructure.Audio
 {
-    [RequireComponent(typeof(AudioSource))]
+    [RequireComponent(typeof(AudioSource), typeof(AudioListener))]
     public class SoundtrackPlayer : MonoBehaviour, ISoundtrackPlayer
     {
         private AudioSource _audioSource;

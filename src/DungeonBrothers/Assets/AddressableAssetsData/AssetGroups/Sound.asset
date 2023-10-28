@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 6bdcaef20799c3f4789ccd90c696e085
   m_SerializeEntries:
   - m_GUID: f827bb6a15f666041843ac0f8dd77be3
-    m_Address: Assets/_Project/Prefabs/Sound/SoundService.prefab
+    m_Address: Assets/_Project/Prefabs/Sound/SountrackPlayer.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

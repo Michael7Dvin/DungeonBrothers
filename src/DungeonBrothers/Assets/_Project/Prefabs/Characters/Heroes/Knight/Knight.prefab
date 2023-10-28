@@ -14,8 +14,6 @@ GameObject:
   - component: {fileID: -4641508381636317394}
   - component: {fileID: 7756893999046337186}
   - component: {fileID: -7386678047169541046}
-  - component: {fileID: 8979505914550425899}
-  - component: {fileID: -3888526176785274411}
   - component: {fileID: -6774301806525325279}
   - component: {fileID: 3225654250764697261}
   m_Layer: 0
@@ -145,31 +143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865265f5f15c4d43ad57e9796bb7586a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8979505914550425899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6924243026665859248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8db25abb3c3344c2b786230dde3925bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-3888526176785274411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6924243026665859248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f7f987dce4644c48d7866ecdfecacc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: -4641508381636317394}
 --- !u!114 &-6774301806525325279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,7 +159,8 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 8300000, guid: 54412e234c3629043b27cfb5ffd7a4f2, type: 3}
+    - {fileID: 8300000, guid: 49de6851fce54254baa47800e898200b, type: 3}
+    - {fileID: 8300000, guid: b424774d4c97800459cb01c647b4af6e, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -211,7 +185,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: 
@@ -221,6 +195,18 @@ MonoBehaviour:
     - Name: $v
       Entry: 10
       Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 10
+      Data: 1
     - Name: 
       Entry: 8
       Data: 

@@ -6,15 +6,12 @@ namespace _Project.CodeBase.Gameplay.Animations.Scale
     public class ScaleAnimation 
     {
         private readonly Transform _transform;
-        private readonly ScaleAnimationConfig _config;
         
         private Tween _currentTween;
 
-        public ScaleAnimation(Transform transform,
-            ScaleAnimationConfig scaleAnimationConfig)
+        public ScaleAnimation(Transform transform)
         {
             _transform = transform;
-            _config = scaleAnimationConfig;
         }
         
         public Tween DoScale(ScaleAnimationConfig scaleAnimationConfig)

@@ -14,8 +14,6 @@ GameObject:
   - component: {fileID: -4446965974143184976}
   - component: {fileID: 7466569019532474395}
   - component: {fileID: -7579644033569857568}
-  - component: {fileID: -4169461033590701554}
-  - component: {fileID: 3083641384322892291}
   - component: {fileID: -7491843578653178414}
   - component: {fileID: 4167130698105598283}
   m_Layer: 0
@@ -145,31 +143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865265f5f15c4d43ad57e9796bb7586a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-4169461033590701554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 322831493882734895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8db25abb3c3344c2b786230dde3925bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3083641384322892291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 322831493882734895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f7f987dce4644c48d7866ecdfecacc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: -4446965974143184976}
 --- !u!82 &-7491843578653178414
 AudioSource:
   m_ObjectHideFlags: 0
@@ -282,7 +255,8 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 8300000, guid: 54412e234c3629043b27cfb5ffd7a4f2, type: 3}
+    - {fileID: 8300000, guid: 49de6851fce54254baa47800e898200b, type: 3}
+    - {fileID: 8300000, guid: b424774d4c97800459cb01c647b4af6e, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -307,7 +281,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: 
@@ -317,6 +291,18 @@ MonoBehaviour:
     - Name: $v
       Entry: 10
       Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 10
+      Data: 1
     - Name: 
       Entry: 8
       Data: 

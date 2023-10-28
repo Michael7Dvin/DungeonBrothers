@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4829432962562211773}
   - component: {fileID: 8897635272643271819}
-  - component: {fileID: -1553353756104745013}
   - component: {fileID: -6001804382035729186}
+  - component: {fileID: 6820211315138650702}
   m_Layer: 0
-  m_Name: SoundService
+  m_Name: SountrackPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,14 +130,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!81 &-1553353756104745013
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8543633308213093870}
-  m_Enabled: 1
 --- !u!114 &-6001804382035729186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,3 +142,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c136d1b1bcc4c9c90fed14621f1452b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!81 &6820211315138650702
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8543633308213093870}
+  m_Enabled: 1

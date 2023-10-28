@@ -40,13 +40,9 @@ namespace _Project.CodeBase.Gameplay.Services.Attack
             if (TryAttackEnemy(character, activeCharacter) == false)
                 return;
 
-            if (character.View.HitAnimation != null)
-            {
-                character.View.Sounds.PlaySoundOneTime(CharacterSoundType.Hit);
-                await character.View.HitAnimation.DoHit();
-            }
-
+            await character.View.HitView.TakeHit();
             character.Logic.Health.TakeDamage(activeCharacter.Damage.GetCharacterDamage());
+            
             _turnQueue.SetNextTurn();
         }
 

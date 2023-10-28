@@ -22,11 +22,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 14815a0c489f913449e3f584be6ed54d
-    m_Address: Assets/_Project/Prefabs/Tiles/Tile_Floor_1.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9c68bd8dbd4afbe4a9ba008537298eab, type: 2}
   m_SchemaSet:
