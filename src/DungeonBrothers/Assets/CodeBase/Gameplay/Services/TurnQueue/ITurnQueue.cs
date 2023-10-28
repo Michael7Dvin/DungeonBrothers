@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using CodeBase.Gameplay.Characters;
-using CodeBase.UI.TurnQueue;
 using UniRx;
 
 namespace CodeBase.Gameplay.Services.TurnQueue

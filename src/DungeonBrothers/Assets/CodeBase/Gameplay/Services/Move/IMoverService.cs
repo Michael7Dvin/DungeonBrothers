@@ -1,6 +1,6 @@
 ﻿using System;
 using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.PathFinder;
+using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Tiles;
 using Cysharp.Threading.Tasks;
 using UnityEngine;

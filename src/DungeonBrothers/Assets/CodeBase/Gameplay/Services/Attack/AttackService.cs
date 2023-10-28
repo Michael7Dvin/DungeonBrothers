@@ -2,7 +2,7 @@
 using System.Linq;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Characters.CharacterInfo;
-using CodeBase.Gameplay.PathFinder;
+using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.Logger;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
@@ -65,7 +65,7 @@ namespace CodeBase.Gameplay.Services.Attack
         {
             PathFindingResults pathFindingResults = GetPathFindingResults(activeCharacter);
 
-            return pathFindingResults.NotWalkableCoordinates.Contains(character.Coordinate);
+            return pathFindingResults.ObstaclesCoordinates.Contains(character.Coordinate);
         }
 
         public PathFindingResults GetPathFindingResults(ICharacter activeCharacter)

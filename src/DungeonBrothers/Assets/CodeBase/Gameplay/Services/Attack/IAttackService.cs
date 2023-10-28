@@ -1,5 +1,5 @@
 ﻿using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.PathFinder;
+using CodeBase.Gameplay.Services.PathFinder;
 using Cysharp.Threading.Tasks;
 
 namespace CodeBase.Gameplay.Services.Attack

@@ -1,4 +1,5 @@
 ﻿using CodeBase.Gameplay.Animations.Hit;
+using CodeBase.Gameplay.Characters.View.Outline;
 using CodeBase.UI.TurnQueue;
 
 namespace CodeBase.Gameplay.Characters.View
@@ -7,5 +8,6 @@ namespace CodeBase.Gameplay.Characters.View
     {
         public CharacterInTurnQueueIcon CharacterInTurnQueueIcon { get; }
         public HitAnimation HitAnimation { get; }
+        CharacterOutline CharacterOutline { get; }
     }
 }

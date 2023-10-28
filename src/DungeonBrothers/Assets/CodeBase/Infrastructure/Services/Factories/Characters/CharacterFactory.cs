@@ -6,6 +6,7 @@ using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.Characters.Logic;
 using CodeBase.Gameplay.Characters.View;
+using CodeBase.Gameplay.Characters.View.Outline;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI.Gameplay;
 using CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
@@ -89,8 +90,12 @@ namespace CodeBase.Infrastructure.Services.Factories.Characters
             HitAnimation hitAnimation = new(scaleAnimation, colorAnimation);
             _objectResolver.Inject(hitAnimation);
 
+            Material material = gameObject.GetComponent<Renderer>().material;
+            CharacterOutline characterOutline = new(material);
+
             CharacterView characterView = new CharacterView();
-            characterView.Construct(icon, hitAnimation);
+            characterView.Construct(icon, hitAnimation, characterOutline);
+            
             return characterView;
         }
         

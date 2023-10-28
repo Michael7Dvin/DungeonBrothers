@@ -17,18 +17,13 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: d4cadda21f8399a4293cb639e6a4db7a
   m_SerializeEntries:
-  - m_GUID: f38cd231cffd45549beff7ff4235ddee
-    m_Address: Assets/Prefabs/Characters/Enemies/Demon/Demon.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c370c96a8e554cb4bb78e9150d614de6
-    m_Address: Assets/Prefabs/Characters/Heroes/Knight/Knight.prefab
+    m_Address: Knight
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4c23e8d2f607e0f4480088e73a29dae9
-    m_Address: Assets/Prefabs/Characters/Enemies/Skelet/Skelet.prefab
+    m_Address: Skeleton
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -1,4 +1,3 @@
-using CodeBase.Gameplay.PathFinder;
 using CodeBase.Gameplay.Services.AI;
 using CodeBase.Gameplay.Services.AI.Behaviours;
 using CodeBase.Gameplay.Services.Attack;
@@ -6,15 +5,16 @@ using CodeBase.Gameplay.Services.InteractionsService;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.MapGenerator;
 using CodeBase.Gameplay.Services.Move;
+using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Services.Raycast;
 using CodeBase.Gameplay.Services.TurnQueue;
+using CodeBase.Gameplay.Services.Visualizers.ActiveCharacter;
+using CodeBase.Gameplay.Services.Visualizers.Attackable;
+using CodeBase.Gameplay.Services.Visualizers.Path;
+using CodeBase.Gameplay.Services.Visualizers.Select;
+using CodeBase.Gameplay.Services.Visualizers.Walkable;
 using CodeBase.Gameplay.Spawner.CharacterSpawner;
 using CodeBase.Gameplay.Tiles;
-using CodeBase.Gameplay.Tiles.Visualisation.ActiveCharacter;
-using CodeBase.Gameplay.Tiles.Visualisation.Attack;
-using CodeBase.Gameplay.Tiles.Visualisation.Path;
-using CodeBase.Gameplay.Tiles.Visualisation.PathFinder;
-using CodeBase.Gameplay.Tiles.Visualisation.Select;
 using CodeBase.Infrastructure.Services.Factories.Buttons;
 using CodeBase.Infrastructure.Services.Factories.Cameras;
 using CodeBase.Infrastructure.Services.Factories.Characters;
@@ -81,8 +81,8 @@ namespace CodeBase.Infrastructure.Installers
 
         private void RegisterVisualizers(IContainerBuilder builder)
         {
-            builder.Register<IPathFinderVisualizer, PathFinderVisualizer>(Lifetime.Singleton);
-            builder.Register<IActiveCharacterTileVisualizer, ActiveCharacterTileVisualizer>(Lifetime.Singleton);
+            builder.Register<IWalkableTilesVisualizer, WalkableTilesVisualizer>(Lifetime.Singleton);
+            builder.Register<IActiveCharacterVisualizer, ActiveCharacterVisualizer>(Lifetime.Singleton);
             builder.Register<ISelectedTileVisualizer, SelectedTileVisualizer>(Lifetime.Singleton);
             builder.Register<IPathVisualizer, PathVisualizer>(Lifetime.Singleton);
             builder.Register<IAttackableTilesVisualizer, AttackableTilesVisualizer>(Lifetime.Singleton);

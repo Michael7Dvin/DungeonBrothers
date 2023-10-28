@@ -45,7 +45,7 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  HealthPoints: 100
+  HealthPoints: 500
   CharacterStats:
     Initiative: 5
     Level: 1
@@ -53,5 +53,5 @@ MonoBehaviour:
     Intelligence: 1
     Strength: 1
     Dexterity: 1
-    MovePoints: 2
+    MovePoints: 4
     IsMoveThroughObstacles: 0
