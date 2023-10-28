@@ -15,16 +15,46 @@ MonoBehaviour:
   m_GroupName: UI
   m_Data:
     m_SerializedData: []
-  m_GUID: d63faf79d7d658f4194dbc99041cd456
+  m_GUID: 89b7f1c6b40f5d54ca4ca240ccfb8b6a
   m_SerializeEntries:
-  - m_GUID: ab83b739e22ebba42b812dfa236bf64c
-    m_Address: Assets/_Project/Prefabs/UI
+  - m_GUID: 89922bde700833742b12588a6a7a9249
+    m_Address: Canvas
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 26b6637c4fe39634c9905d02e42596a7
+    m_Address: EventSystem
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3fa64a58af77cf44e9a2f9893340bbd7
+    m_Address: Skeleton_Turn_Queue_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f2d3ec125a826534bb3ab455bbc9f8ff
+    m_Address: TurnQueue
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a7f98156373a8094198f8a69993a2714
+    m_Address: KnightHeadUI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 17ff4d730c00d834ca412254b8538e7b
+    m_Address: SkipButton
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bb09b7dfa4722f44c808d3ac372b313e
+    m_Address: HealthBar
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
-  m_Settings: {fileID: 11400000, guid: 9c68bd8dbd4afbe4a9ba008537298eab, type: 2}
+  m_Settings: {fileID: 11400000, guid: cd9846c08b2b1fc4fa9b10c9ae46250d, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 5052ed3c3171d414da721a28cd63cdcc, type: 2}
-    - {fileID: 11400000, guid: 7628dba9e512964419388ff217337727, type: 2}
+    - {fileID: 11400000, guid: 5d3ce42b6c20b9042aa8d0a43778e14b, type: 2}
+    - {fileID: 11400000, guid: eeb5d2cf08a84654081c93193692e9d6, type: 2}

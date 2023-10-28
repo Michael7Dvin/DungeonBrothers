@@ -15,36 +15,19 @@ MonoBehaviour:
   m_GroupName: Characters
   m_Data:
     m_SerializedData: []
-  m_GUID: 1c33430f40c0af340a10b94f6e6f82aa
+  m_GUID: d4cadda21f8399a4293cb639e6a4db7a
   m_SerializeEntries:
-  - m_GUID: f38cd231cffd45549beff7ff4235ddee
-    m_Address: Assets/_Project/Prefabs/Characters/Enemies/Demon/Demon.prefab
+  - m_GUID: c370c96a8e554cb4bb78e9150d614de6
+    m_Address: Knight
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4c23e8d2f607e0f4480088e73a29dae9
-    m_Address: Assets/_Project/Prefabs/Characters/Enemies/Skeleton/Skeleton.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c370c96a8e554cb4bb78e9150d614de6
-    m_Address: Assets/_Project/Prefabs/Characters/Heroes/Knight/Knight.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3fa64a58af77cf44e9a2f9893340bbd7
-    m_Address: Assets/_Project/Prefabs/Characters/Enemies/Skeleton/SkeletonHeadUI.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a7f98156373a8094198f8a69993a2714
-    m_Address: Assets/_Project/Prefabs/Characters/Heroes/Knight/KnightHeadUI.prefab
+    m_Address: Skeleton
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9c68bd8dbd4afbe4a9ba008537298eab, type: 2}
   m_SchemaSet:
-    m_Schemas:
-    - {fileID: 11400000, guid: 91bc4f73d918bd841b9f61f376cef9eb, type: 2}
-    - {fileID: 11400000, guid: 7f73d66ca069a044c978ecc9baf76b2e, type: 2}
+    m_Schemas: []
