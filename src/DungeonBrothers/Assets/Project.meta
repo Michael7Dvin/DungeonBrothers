@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:src/DungeonBrothers/Assets/Project/Art/Sprites/Environment/Environment.meta
+guid: e3e3ee1c723c28d419d26fa31200ca1e
+========
 guid: 602d6e5bbd4f1334b8542ca67293f6dd
+>>>>>>>> feature/CharacterSounds:src/DungeonBrothers/Assets/Project.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

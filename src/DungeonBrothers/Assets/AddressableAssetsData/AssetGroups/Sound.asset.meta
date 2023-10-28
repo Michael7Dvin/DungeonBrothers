@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:src/DungeonBrothers/Assets/AddressableAssetsData/ProfileDataSourceSettings.asset.meta
+guid: 23ef9eb40340e784c8174c3092f1d1e7
+========
 guid: 3bdd4cd5889ff8b49bf304670ebeb607
+>>>>>>>> feature/CharacterSounds:src/DungeonBrothers/Assets/AddressableAssetsData/AssetGroups/Sound.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:src/DungeonBrothers/Assets/Project/Input.meta
 guid: 3b9d2a9132f3b3442aea61244f3b10fe
+========
+guid: 2c9d0627e7b5580489ddcc548a1efe10
+>>>>>>>> b2704b1 (Merge branch 'feature/CharacterSounds' into dev):src/DungeonBrothers/Assets/Input.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
