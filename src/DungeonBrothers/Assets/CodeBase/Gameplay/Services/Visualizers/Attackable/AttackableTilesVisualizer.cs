@@ -1,16 +1,19 @@
 ﻿using System.Collections.Generic;
 using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Characters.CharacterInfo;
+using CodeBase.Gameplay.Characters.View;
+using CodeBase.Gameplay.Characters.View.Outline;
 using CodeBase.Gameplay.Services.Attack;
 using CodeBase.Gameplay.Services.Map;
 using CodeBase.Gameplay.Services.Move;
 using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Services.TurnQueue;
+using CodeBase.Gameplay.Services.Visualizers.ActiveCharacter;
 using CodeBase.Gameplay.Tiles;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
 
-namespace CodeBase.Gameplay.Services.Visualizers.Attack
+namespace CodeBase.Gameplay.Services.Visualizers.Attackable
 {
     public class AttackableTilesVisualizer : IAttackableTilesVisualizer
     {
@@ -18,10 +21,10 @@ namespace CodeBase.Gameplay.Services.Visualizers.Attack
         private readonly IMoverService _moverService;
         private readonly IAttackService _attackService;
         private readonly IMapService _mapService;
-        private readonly TileColorsConfig _tileColorsConfig;
+        private readonly CharacterOutlineColors _characterOutlineColors;
 
         private readonly CompositeDisposable _disposable = new();
-        private readonly List<Tile> _lastTiles = new();
+        private readonly List<CharacterOutline> _visualizedCharactersOutlines = new();
 
         public AttackableTilesVisualizer(ITurnQueue turnQueue,
             IMoverService moverService,
@@ -34,7 +37,7 @@ namespace CodeBase.Gameplay.Services.Visualizers.Attack
             _attackService = attackService;
             _mapService = mapService;
 
-            _tileColorsConfig = staticDataProvider.TileColors;
+            _characterOutlineColors = staticDataProvider.CharacterOutlineColors;
         }
 
         public void Initialize()
@@ -42,25 +45,31 @@ namespace CodeBase.Gameplay.Services.Visualizers.Attack
             _turnQueue.ActiveCharacter
                 .Skip(1)
                 .Where(character => character.Team == CharacterTeam.Ally)
-                .Subscribe(VisualizeAttackedCharacters)
+                .Subscribe(VisualizeAttackableCharacters)
+                .AddTo(_disposable);
+            
+            _turnQueue.ActiveCharacter
+                .Skip(1)
+                .Where(character => character.Team == CharacterTeam.Enemy)
+                .Subscribe(_ => ResetLastCharacters())
                 .AddTo(_disposable);
 
             _moverService.IsMoved
                 .Where(character => character.Team == CharacterTeam.Ally)
-                .Subscribe(VisualizeAttackedCharacters)
+                .Subscribe(VisualizeAttackableCharacters)
                 .AddTo(_disposable);
         }
 
         public void Disable() =>
             _disposable.Clear();
         
-        private void VisualizeAttackedCharacters(ICharacter character)
+        private void VisualizeAttackableCharacters(ICharacter character)
         {
-            ResetLastTiles();
+            ResetLastCharacters();
 
             PathFindingResults pathFindingResults = _attackService.GetPathFindingResults(character);
             
-            foreach (var coordinate in pathFindingResults.NotWalkableCoordinates)
+            foreach (var coordinate in pathFindingResults.ObstaclesCoordinates)
             {
                 if (_mapService.TryGetTile(coordinate, out Tile tile)) 
                     VisualizeTile(character, tile);
@@ -71,24 +80,21 @@ namespace CodeBase.Gameplay.Services.Visualizers.Attack
         {
             if (tile.Logic.Character.Team != character.Team)
             {
-                _lastTiles.Add(tile);
+                CharacterOutline characterOutline = tile.Logic.Character.View.CharacterOutline;
                 
-                tile.View.SwitchHighlight(true);
-                tile.View.ChangeHighlightColor(_tileColorsConfig.AttackedTile);
+                characterOutline.ChangeColor(_characterOutlineColors.Attackable);
+                characterOutline.SwitchOutLine(true);
+                
+                _visualizedCharactersOutlines.Add(characterOutline);
             }
         }
 
-        private void ResetLastTiles()
+        private void ResetLastCharacters()
         {
-            foreach (var tile in _lastTiles)
-            {
-                if (tile.Logic.Coordinates == _turnQueue.ActiveCharacter.Value.Coordinate)
-                    continue;
-                
-                tile.View.ResetTileView();
-            }
+            foreach (CharacterOutline characterOutline in _visualizedCharactersOutlines) 
+                characterOutline.SwitchOutLine(false);
 
-            _lastTiles.Clear();
+            _visualizedCharactersOutlines.Clear();
         }
     }
 }

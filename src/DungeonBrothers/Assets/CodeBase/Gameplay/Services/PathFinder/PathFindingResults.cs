@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace CodeBase.Gameplay.Services.PathFinder
 {
-    public struct PathFindingResults
+    public readonly struct PathFindingResults
     {
         private readonly IReadOnlyDictionary<Vector2Int, Tile> _obstacles;
         private readonly Dictionary<Vector2Int, Vector2Int?> _paths;
@@ -17,7 +17,7 @@ namespace CodeBase.Gameplay.Services.PathFinder
             _obstacles = obstacles;
         }
 
-        public IEnumerable<Vector2Int> NotWalkableCoordinates =>
+        public IEnumerable<Vector2Int> ObstaclesCoordinates =>
             _obstacles.Keys;
 
         public IEnumerable<Vector2Int> WalkableCoordinates => 
@@ -29,9 +29,9 @@ namespace CodeBase.Gameplay.Services.PathFinder
         public bool IsMovableAt(Vector2Int coordinates) =>
             WalkableCoordinates.Contains(coordinates);
         
-        public List<Vector2Int> GetPathTo(Vector2Int coordinates, bool IsIgnoreNotMovableTiles)
+        public List<Vector2Int> GetPathTo(Vector2Int coordinates, bool isIgnoreNotMovableTiles)
         {
-            if (IsIgnoreNotMovableTiles == false)
+            if (isIgnoreNotMovableTiles == false)
                 if (IsMovableAt(coordinates) == false)
                     return null;
 

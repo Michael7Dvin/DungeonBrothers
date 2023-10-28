@@ -6,6 +6,7 @@ using CodeBase.Gameplay.Characters;
 using CodeBase.Gameplay.Characters.CharacterInfo;
 using CodeBase.Gameplay.Characters.Logic;
 using CodeBase.Gameplay.Characters.View;
+using CodeBase.Gameplay.Characters.View.Outline;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI.Gameplay;
 using CodeBase.Infrastructure.Services.AddressablesLoader.Loader;

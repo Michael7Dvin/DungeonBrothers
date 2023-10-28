@@ -19,7 +19,7 @@ namespace CodeBase.Gameplay.Services.Visualizers.Path
 
         private readonly TileColorsConfig _tileColorsConfig;
 
-        private readonly List<Tile> _lastTiles = new();
+        private readonly List<Tile> _visualizedTiles = new();
 
         public PathVisualizer(ITileSelector tileSelector, 
             IPathFinder pathFinder,
@@ -46,7 +46,7 @@ namespace CodeBase.Gameplay.Services.Visualizers.Path
                     ResetLastTiles();
                     
                     if (tile == _tileSelector.PreviousTile.Value)
-                        _lastTiles.Clear();
+                        _visualizedTiles.Clear();
                     else
                         Visualize(tile);
                 })
@@ -65,7 +65,7 @@ namespace CodeBase.Gameplay.Services.Visualizers.Path
             {
                 if (_mapService.TryGetTile(coordinate, out Tile tile))
                 {
-                    _lastTiles.Add(tile);
+                    _visualizedTiles.Add(tile);
                     tile.View.ChangeHighlightColor(_tileColorsConfig.PathToTile);
                 }
             }
@@ -73,10 +73,10 @@ namespace CodeBase.Gameplay.Services.Visualizers.Path
 
         private void ResetLastTiles()
         {
-            foreach (Tile tile in _lastTiles) 
+            foreach (Tile tile in _visualizedTiles) 
                 tile.View.ChangeHighlightColor(_tileColorsConfig.WalkableColorTile);
             
-            _lastTiles.Clear();
+            _visualizedTiles.Clear();
         }
     }
 }

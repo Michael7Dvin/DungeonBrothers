@@ -65,7 +65,7 @@ namespace CodeBase.Gameplay.Services.Attack
         {
             PathFindingResults pathFindingResults = GetPathFindingResults(activeCharacter);
 
-            return pathFindingResults.NotWalkableCoordinates.Contains(character.Coordinate);
+            return pathFindingResults.ObstaclesCoordinates.Contains(character.Coordinate);
         }
 
         public PathFindingResults GetPathFindingResults(ICharacter activeCharacter)

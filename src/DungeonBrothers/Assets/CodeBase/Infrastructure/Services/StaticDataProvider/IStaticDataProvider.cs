@@ -1,4 +1,5 @@
 using CodeBase.Gameplay.Characters;
+using CodeBase.Gameplay.Characters.View.Outline;
 using CodeBase.Gameplay.Services.Visualizers.ActiveCharacter;
 using CodeBase.Gameplay.Tiles;
 using CodeBase.Infrastructure.Services.AddressablesLoader.Addresses;

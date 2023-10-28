@@ -1,4 +1,5 @@
 ﻿using CodeBase.Gameplay.Animations.Hit;
+using CodeBase.Gameplay.Characters.View.Outline;
 using CodeBase.UI.TurnQueue;
 
 namespace CodeBase.Gameplay.Characters.View

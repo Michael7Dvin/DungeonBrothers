@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49946151fb284713b710975be696d904, type: 3}
   m_Name: CharacterOutlineColors
   m_EditorClassIdentifier: 
-  <ActiveCharacter>k__BackingField: {r: 1, g: 0.76034176, b: 0, a: 1}
+  <Active>k__BackingField: {r: 1, g: 0.8923286, b: 0, a: 1}
+  <Attackable>k__BackingField: {r: 1, g: 0, b: 0, a: 1}

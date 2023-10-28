@@ -10,6 +10,5 @@ namespace CodeBase.Gameplay.Tiles
         [field: SerializeField] public Color EnemyTile { get; private set; }
         [field: SerializeField] public Color AllyTile { get; private set; }
         [field: SerializeField] public Color SelectedTile { get; private set; }
-        [field: SerializeField] public Color AttackedTile { get; private set; }
     }
 }

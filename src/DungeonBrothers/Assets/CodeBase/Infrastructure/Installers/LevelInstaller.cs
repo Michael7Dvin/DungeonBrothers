@@ -9,7 +9,7 @@ using CodeBase.Gameplay.Services.PathFinder;
 using CodeBase.Gameplay.Services.Raycast;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Services.Visualizers.ActiveCharacter;
-using CodeBase.Gameplay.Services.Visualizers.Attack;
+using CodeBase.Gameplay.Services.Visualizers.Attackable;
 using CodeBase.Gameplay.Services.Visualizers.Path;
 using CodeBase.Gameplay.Services.Visualizers.Select;
 using CodeBase.Gameplay.Services.Visualizers.Walkable;

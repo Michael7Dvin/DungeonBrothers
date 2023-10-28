@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CodeBase.Gameplay.Characters.View
+namespace CodeBase.Gameplay.Characters.View.Outline
 {
     public class CharacterOutline
     {

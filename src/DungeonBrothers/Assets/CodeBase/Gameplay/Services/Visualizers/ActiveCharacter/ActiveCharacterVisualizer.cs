@@ -1,5 +1,5 @@
 ﻿using CodeBase.Gameplay.Characters;
-using CodeBase.Gameplay.Characters.View;
+using CodeBase.Gameplay.Characters.View.Outline;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
@@ -13,7 +13,7 @@ namespace CodeBase.Gameplay.Services.Visualizers.ActiveCharacter
 
         private readonly CompositeDisposable _disposable = new();
 
-        private CharacterOutline _lastActiveCharacterOutline;
+        private CharacterOutline _visualizedCharacterOutline;
 
         public ActiveCharacterVisualizer(ITurnQueue turnQueue, IStaticDataProvider staticDataProvider)
         {
@@ -34,13 +34,13 @@ namespace CodeBase.Gameplay.Services.Visualizers.ActiveCharacter
 
         private void OutlineActiveCharacter(ICharacter character)
         {
-            _lastActiveCharacterOutline?.SwitchOutLine(false);
+            _visualizedCharacterOutline?.SwitchOutLine(false);
 
             CharacterOutline characterOutline = character.View.CharacterOutline;
-            characterOutline.ChangeColor(_characterOutlineColors.ActiveCharacter);
+            characterOutline.ChangeColor(_characterOutlineColors.Active);
             characterOutline.SwitchOutLine(true);
 
-            _lastActiveCharacterOutline = characterOutline;
+            _visualizedCharacterOutline = characterOutline;
         }
     }
 }

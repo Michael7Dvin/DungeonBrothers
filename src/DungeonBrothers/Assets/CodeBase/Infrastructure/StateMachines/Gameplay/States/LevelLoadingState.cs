@@ -3,7 +3,7 @@ using CodeBase.Gameplay.Services.AI;
 using CodeBase.Gameplay.Services.InteractionsService;
 using CodeBase.Gameplay.Services.TurnQueue;
 using CodeBase.Gameplay.Services.Visualizers.ActiveCharacter;
-using CodeBase.Gameplay.Services.Visualizers.Attack;
+using CodeBase.Gameplay.Services.Visualizers.Attackable;
 using CodeBase.Gameplay.Services.Visualizers.Path;
 using CodeBase.Gameplay.Services.Visualizers.Select;
 using CodeBase.Gameplay.Services.Visualizers.Walkable;

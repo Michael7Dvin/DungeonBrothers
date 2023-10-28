@@ -20,7 +20,7 @@ namespace CodeBase.Gameplay.Services.Visualizers.Walkable
         private readonly TileColorsConfig _tileColorsConfig;
 
         private readonly CompositeDisposable _disposable = new();
-        private readonly List<Tile> _lastTiles = new();
+        private readonly List<Tile> _visualizedTiles = new();
 
         public WalkableTilesVisualizer(IPathFinder pathFinder,
             IMapService mapService,
@@ -60,7 +60,7 @@ namespace CodeBase.Gameplay.Services.Visualizers.Walkable
             {
                 if (_mapService.TryGetTile(coordinate, out Tile tile))
                 {
-                    _lastTiles.Add(tile);
+                    _visualizedTiles.Add(tile);
                     
                     tile.View.SwitchHighlight(true);
                     tile.View.ChangeHighlightColor(_tileColorsConfig.WalkableColorTile);
@@ -70,10 +70,10 @@ namespace CodeBase.Gameplay.Services.Visualizers.Walkable
 
         private void ResetLastTilesView()
         {
-            foreach (Tile tile in _lastTiles) 
+            foreach (Tile tile in _visualizedTiles) 
                 tile.View.ResetTileView();
 
-            _lastTiles.Clear();
+            _visualizedTiles.Clear();
         }
     }
 }
