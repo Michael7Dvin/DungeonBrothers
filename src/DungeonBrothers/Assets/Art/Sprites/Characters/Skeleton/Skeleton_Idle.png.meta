@@ -52,7 +52,7 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 1
+  alphaIsTransparency: 0
   spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
@@ -110,7 +110,7 @@ TextureImporter:
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 50
+    textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -128,17 +128,17 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 26
-        height: 30
+        width: 28
+        height: 31
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25d566242ac36aa469d93d0a4395b3df
-      internalID: 1630796626
+      spriteID: 911842b17aa89304a965c7759ce9bb84
+      internalID: -147445719
       vertices: []
       indices: 
       edges: []
@@ -147,19 +147,19 @@ TextureImporter:
       name: Skeleton_Idle_1
       rect:
         serializedVersion: 2
-        x: 26
+        x: 28
         y: 0
-        width: 26
-        height: 30
+        width: 28
+        height: 31
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: add5edf5b79e3a24e9c5d6d408b553a2
-      internalID: -1515032625
+      spriteID: 57d34f68406397e46ae3ee8de4a89777
+      internalID: -1909608923
       vertices: []
       indices: 
       edges: []
@@ -175,8 +175,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Skeleton_Idle_0: 1630796626
-      Skeleton_Idle_1: -1515032625
+      Skeleton_Idle_0: -147445719
+      Skeleton_Idle_1: -1909608923
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
