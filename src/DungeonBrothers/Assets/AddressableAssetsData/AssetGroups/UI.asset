@@ -18,42 +18,37 @@ MonoBehaviour:
   m_GUID: 89b7f1c6b40f5d54ca4ca240ccfb8b6a
   m_SerializeEntries:
   - m_GUID: 89922bde700833742b12588a6a7a9249
-    m_Address: Assets/Prefabs/Canvas.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 435712f4ad2566c47aa0e38528a55772
-    m_Address: Assets/Prefabs/Characters/Enemies/Demon/DemonHeadUI.prefab
+    m_Address: Canvas
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 26b6637c4fe39634c9905d02e42596a7
-    m_Address: Assets/Prefabs/EventSystem.prefab
+    m_Address: EventSystem
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3fa64a58af77cf44e9a2f9893340bbd7
-    m_Address: Assets/Prefabs/Characters/Enemies/Skelet/SkeletHeadUI.prefab
+    m_Address: Skeleton_Turn_Queue_Icon
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f2d3ec125a826534bb3ab455bbc9f8ff
-    m_Address: Assets/Prefabs/TurnQueueUI.prefab
+    m_Address: TurnQueue
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a7f98156373a8094198f8a69993a2714
-    m_Address: Assets/Prefabs/Characters/Heroes/Knight/KnightHeadUI.prefab
+    m_Address: KnightHeadUI
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 17ff4d730c00d834ca412254b8538e7b
-    m_Address: Assets/Prefabs/UI/Skip/SkipButton.prefab
+    m_Address: SkipButton
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bb09b7dfa4722f44c808d3ac372b313e
-    m_Address: Assets/Prefabs/HealthBar/HealthBar.prefab
+    m_Address: HealthBar
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
