@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:src/DungeonBrothers/Assets/Project/CodeBase/Gameplay/Services/Visualizers/Walkable/IWalkableTilesVisualizer.cs.meta
+guid: 352c544ff12da0140adc7b974a467b53
+========
+guid: ff65b22bbe17465d8d3751975f9967de
+>>>>>>>> feature/CharacterSounds:src/DungeonBrothers/Assets/Project/CodeBase/Gameplay/Services/Visualizers/Attackable/AttackableTilesVisualizer.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

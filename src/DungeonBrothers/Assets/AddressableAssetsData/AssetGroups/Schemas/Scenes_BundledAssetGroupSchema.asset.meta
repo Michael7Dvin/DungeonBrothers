@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:src/DungeonBrothers/Assets/AddressableAssetsData/AssetGroups/Schemas/Scenes_BundledAssetGroupSchema.asset.meta
+guid: 7035d3e8d30bdbf45985fc46e7c7a789
+========
+guid: c8123d784f1475640b1c1c934dcb6481
+>>>>>>>> dev:src/DungeonBrothers/Assets/AddressableAssetsData/ProfileDataSourceSettings.asset.meta
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

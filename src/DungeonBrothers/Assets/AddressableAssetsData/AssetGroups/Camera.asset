@@ -15,16 +15,16 @@ MonoBehaviour:
   m_GroupName: Camera
   m_Data:
     m_SerializedData: []
-  m_GUID: a35366f02163c7b4da60f8ba0dc6cfaa
+  m_GUID: 9df9b487291f87741a1d91a6d590bc3f
   m_SerializeEntries:
   - m_GUID: c83709225b61acd409fc948c998e6ea7
-    m_Address: Assets/Prefabs/Camera
+    m_Address: Assets/_Project/Prefabs/Camera
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
-  m_Settings: {fileID: 11400000, guid: cd9846c08b2b1fc4fa9b10c9ae46250d, type: 2}
+  m_Settings: {fileID: 11400000, guid: 9c68bd8dbd4afbe4a9ba008537298eab, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 1e9fbb26100e40845bf1d12d1617659a, type: 2}
-    - {fileID: 11400000, guid: 40490361af535c445afdf997cbda9249, type: 2}
+    - {fileID: 11400000, guid: d8841858a25d7d74fa650e1bb7e38af0, type: 2}
+    - {fileID: 11400000, guid: 1eed6dd6f1a087b4d9156b01da7280ee, type: 2}

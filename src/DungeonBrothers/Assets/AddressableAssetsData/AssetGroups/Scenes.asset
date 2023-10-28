@@ -15,16 +15,16 @@ MonoBehaviour:
   m_GroupName: Scenes
   m_Data:
     m_SerializedData: []
-  m_GUID: 89b7f1c6b40f5d54ca4ca240ccfb8b6a
+  m_GUID: b2c4a86f353da5848824349a88511a4d
   m_SerializeEntries:
   - m_GUID: 5859347b6d51e8044bb8feb6a5465175
-    m_Address: Assets/Scenes/Level.unity
+    m_Address: Assets/_Project/Scenes/Level.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
-  m_Settings: {fileID: 11400000, guid: cd9846c08b2b1fc4fa9b10c9ae46250d, type: 2}
+  m_Settings: {fileID: 11400000, guid: 9c68bd8dbd4afbe4a9ba008537298eab, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 5d3ce42b6c20b9042aa8d0a43778e14b, type: 2}
-    - {fileID: 11400000, guid: eeb5d2cf08a84654081c93193692e9d6, type: 2}
+    - {fileID: 11400000, guid: 7035d3e8d30bdbf45985fc46e7c7a789, type: 2}
+    - {fileID: 11400000, guid: adeebab568cffb242a95f1a813ad2736, type: 2}

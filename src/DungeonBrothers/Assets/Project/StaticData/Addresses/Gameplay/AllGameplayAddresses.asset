@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073f87646b694c868de9332e5b850d1c, type: 3}
+  m_Name: AllGameplayAddresses
+  m_EditorClassIdentifier: 
+  TilesAddresses: {fileID: 11400000, guid: 1171947a5b8f2a64abc39aba47501161, type: 2}
+  SoundAddresses: {fileID: 11400000, guid: 32607b0053ade5b4e93c5d9e101db28b, type: 2}

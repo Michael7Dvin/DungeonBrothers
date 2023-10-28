@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:src/DungeonBrothers/Assets/Project.meta
+guid: 602d6e5bbd4f1334b8542ca67293f6dd
+========
+guid: 8de560597b26263429012488c193417a
+>>>>>>>> b2704b1 (Merge branch 'feature/CharacterSounds' into dev):src/DungeonBrothers/Assets/Project/Audio.meta
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
