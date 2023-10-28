@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -6001804382035729186}
   - component: {fileID: 6820211315138650702}
   m_Layer: 0
-  m_Name: SountrackPlayer
+  m_Name: SoundPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 6219bd2157bb4d84a8f60b750e6d508f, type: 2}
   m_audioClip: {fileID: 8300000, guid: c7b9828eb9f0e8040a84528e6d9670c3, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.4
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0

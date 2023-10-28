@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 242cf4ede1f44e78b5843daa707835ed, type: 3}
   m_Name: SoundsAddresses
   m_EditorClassIdentifier: 
-  SoundSource:
+  SoundPlayer:
     m_AssetGUID: f827bb6a15f666041843ac0f8dd77be3
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  ss:
+  DungeonSoundtrack:
     m_AssetGUID: c7b9828eb9f0e8040a84528e6d9670c3
     m_SubObjectName: 
     m_SubObjectType: 

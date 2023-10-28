@@ -12,6 +12,7 @@ using _Project.CodeBase.Infrastructure.StateMachines.App.FSM;
 using _Project.CodeBase.Infrastructure.StateMachines.App.States;
 using _Project.CodeBase.UI.Services.UIProvider;
 using UnityEngine;
+using UnityEngine.Audio;
 using VContainer;
 using VContainer.Unity;
 
@@ -21,8 +22,8 @@ namespace _Project.CodeBase.Infrastructure.Installers
     {
         [SerializeField] private AllStaticData _allStaticData;
         
-        [SerializeField] private SoundtrackPlayer _soundtrackPlayer;
-        
+        [SerializeField] private SoundPlayer _soundPlayer;
+
         protected override void Configure(IContainerBuilder builder)
         {
             RegisterStateMachine(builder);
@@ -34,9 +35,9 @@ namespace _Project.CodeBase.Infrastructure.Installers
         private void RegisterPrefab(IContainerBuilder builder)
         {
             builder
-                .RegisterComponentInNewPrefab(_soundtrackPlayer, Lifetime.Singleton)
+                .RegisterComponentInNewPrefab(_soundPlayer, Lifetime.Singleton)
                 .DontDestroyOnLoad()
-                .As<ISoundtrackPlayer>();
+                .As<ISoundPlayer>();
         }
 
         private void RegisterStateMachine(IContainerBuilder builder)

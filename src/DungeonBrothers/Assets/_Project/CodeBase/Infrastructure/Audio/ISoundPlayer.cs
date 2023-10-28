@@ -2,7 +2,7 @@
 
 namespace _Project.CodeBase.Infrastructure.Services.Audio
 {
-    public interface ISoundtrackPlayer
+    public interface ISoundPlayer
     {
         public void StartSoundtrack(AudioClip soundtrack);
         public void DisableSoundtrack();

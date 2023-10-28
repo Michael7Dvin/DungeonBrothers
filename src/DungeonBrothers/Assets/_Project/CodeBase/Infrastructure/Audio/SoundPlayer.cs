@@ -1,10 +1,11 @@
 ﻿using _Project.CodeBase.Infrastructure.Services.Audio;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace _Project.CodeBase.Infrastructure.Audio
 {
-    [RequireComponent(typeof(AudioSource), typeof(AudioListener))]
-    public class SoundtrackPlayer : MonoBehaviour, ISoundtrackPlayer
+    [RequireComponent(typeof(AudioSource))]
+    public class SoundPlayer : MonoBehaviour, ISoundPlayer
     {
         private AudioSource _audioSource;
 

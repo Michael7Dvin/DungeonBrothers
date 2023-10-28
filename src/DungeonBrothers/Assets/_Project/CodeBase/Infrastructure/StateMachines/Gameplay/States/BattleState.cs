@@ -14,22 +14,22 @@ namespace _Project.CodeBase.Infrastructure.StateMachines.Gameplay.States
     {
         private readonly ITurnQueue _turnQueue;
         private readonly IMoverService _moverService;
-        private readonly ISoundtrackPlayer _soundtrackPlayer;
+        private readonly ISoundPlayer _soundPlayer;
         private readonly IAddressablesLoader _addressablesLoader;
 
         private AssetReference _audio;
 
         public BattleState(ITurnQueue turnQueue, 
             IMoverService moverService,
-            ISoundtrackPlayer soundtrackPlayer,
+            ISoundPlayer soundPlayer,
             IAddressablesLoader addressablesLoader,
             IStaticDataProvider staticDataProvider)
         {
             _turnQueue = turnQueue;
             _moverService = moverService;
-            _soundtrackPlayer = soundtrackPlayer;
+            _soundPlayer = soundPlayer;
             _addressablesLoader = addressablesLoader;
-            _audio = staticDataProvider.AssetsAddresses.AllGameplayAddresses.SoundAddresses.ss;
+            _audio = staticDataProvider.AssetsAddresses.AllGameplayAddresses.SoundAddresses.DungeonSoundtrack;
         }
 
         public async void Enter()
@@ -38,7 +38,7 @@ namespace _Project.CodeBase.Infrastructure.StateMachines.Gameplay.States
 
             await async.Task;
             
-            _soundtrackPlayer.StartSoundtrack(async.Result);
+            _soundPlayer.StartSoundtrack(async.Result);
             
             _moverService.Enable();
             _turnQueue.SetFirstTurn();

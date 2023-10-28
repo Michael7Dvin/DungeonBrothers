@@ -89,7 +89,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Group
+  m_Name: CharacterSounds
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: ff63439700bcf6047a66eb5725c443f7
   m_Children: []

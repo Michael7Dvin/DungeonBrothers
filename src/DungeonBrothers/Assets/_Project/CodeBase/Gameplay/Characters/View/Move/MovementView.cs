@@ -30,7 +30,7 @@ namespace _Project.CodeBase.Gameplay.Characters.View.Move
         public async UniTask Move(Vector3[] path)
         {
             _characterSounds.PlaySoundInLoop(CharacterSoundType.Walk);
-            await _movementAnimation.Move(path, _config.Duration, _config.Ease);
+            await _movementAnimation.Move(path, _config.Speed, _config.Ease);
             _characterSounds.StopPlaySound();
         }
     }

@@ -15,13 +15,14 @@ namespace _Project.CodeBase.Gameplay.Animations.Movement
             _transform = transform;
         }
 
-        public async UniTask Move(Vector3[] path, float duration, Ease ease)
+        public async UniTask Move(Vector3[] path, float speed, Ease ease)
         {
             if (_currentTween.IsActive())
                 _currentTween.Kill();
             
             _currentTween = _transform
-                .DOPath(path, duration)
+                .DOPath(path, speed)
+                .SetSpeedBased()
                 .Play()
                 .SetEase(ease);
 
