@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Project.CodeBase.Gameplay.Characters;
-using _Project.CodeBase.Gameplay.Characters.View.Sounds;
 using _Project.CodeBase.Gameplay.PathFinder;
 using _Project.CodeBase.Gameplay.Services.Map;
 using _Project.CodeBase.Gameplay.Services.TurnQueue;
 using _Project.CodeBase.Gameplay.Tiles;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UniRx;
 using UnityEngine;
 
@@ -15,8 +13,6 @@ namespace _Project.CodeBase.Gameplay.Services.Move
 {
     public class MoverService : IMoverService
     {
-        private const float AnimationDuration = 2;
-        
         private readonly IPathFinder _pathFinder;
         private readonly IMapService _mapService;
         private readonly ITurnQueue _turnQueue;
@@ -75,14 +71,14 @@ namespace _Project.CodeBase.Gameplay.Services.Move
             character.UpdateCoordinate(tile.Logic.Coordinates);
             tile.Logic.Occupy(character);
 
-            Vector3[] newPath = GetPathToTile(path, character);
+            Vector3[] newPath = GetPathToTile(path);
             await character.View.MovementView.Move(newPath);
        
             _isMoved.Execute(character);
             CalculatePaths(character);
         }
 
-        private Vector3[] GetPathToTile(List<Vector2Int> path, ICharacter character)
+        private Vector3[] GetPathToTile(List<Vector2Int> path)
         {
             List<Vector3> newPath = new();
 
