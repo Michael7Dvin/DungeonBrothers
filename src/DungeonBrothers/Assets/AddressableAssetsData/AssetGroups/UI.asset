@@ -22,11 +22,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 26b6637c4fe39634c9905d02e42596a7
-    m_Address: EventSystem
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3fa64a58af77cf44e9a2f9893340bbd7
     m_Address: Skeleton_Turn_Queue_Icon
     m_ReadOnly: 0
@@ -53,8 +48,6 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
-  m_Settings: {fileID: 11400000, guid: cd9846c08b2b1fc4fa9b10c9ae46250d, type: 2}
+  m_Settings: {fileID: 11400000, guid: 9c68bd8dbd4afbe4a9ba008537298eab, type: 2}
   m_SchemaSet:
-    m_Schemas:
-    - {fileID: 11400000, guid: 5d3ce42b6c20b9042aa8d0a43778e14b, type: 2}
-    - {fileID: 11400000, guid: eeb5d2cf08a84654081c93193692e9d6, type: 2}
+    m_Schemas: []
