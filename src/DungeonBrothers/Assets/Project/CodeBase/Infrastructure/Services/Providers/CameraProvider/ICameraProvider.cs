@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _Project.CodeBase.Infrastructure.Services.Providers.CameraProvider
+namespace Project.CodeBase.Infrastructure.Services.Providers.CameraProvider
 {
     public interface ICameraProvider
     {

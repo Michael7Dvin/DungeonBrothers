@@ -1,9 +1,9 @@
-﻿using _Project.CodeBase.Gameplay.Characters.View.Hit;
-using _Project.CodeBase.Gameplay.Characters.View.Move;
-using _Project.CodeBase.Gameplay.Characters.View.Outline;
-using _Project.CodeBase.UI.TurnQueue;
+﻿using Project.CodeBase.Gameplay.Characters.View.Hit;
+using Project.CodeBase.Gameplay.Characters.View.Move;
+using Project.CodeBase.Gameplay.Characters.View.Outline;
+using Project.CodeBase.UI.TurnQueue;
 
-namespace _Project.CodeBase.Gameplay.Characters.View
+namespace Project.CodeBase.Gameplay.Characters.View
 {
     public interface ICharacterView
     {

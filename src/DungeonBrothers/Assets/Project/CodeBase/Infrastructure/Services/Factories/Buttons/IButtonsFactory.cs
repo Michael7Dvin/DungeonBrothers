@@ -1,6 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 
-namespace _Project.CodeBase.Infrastructure.Services.Factories.Buttons
+namespace Project.CodeBase.Infrastructure.Services.Factories.Buttons
 {
     public interface IButtonsFactory
     {

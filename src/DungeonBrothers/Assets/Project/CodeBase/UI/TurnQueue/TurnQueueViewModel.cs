@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using _Project.CodeBase.Gameplay.Characters;
-using _Project.CodeBase.Gameplay.Services.TurnQueue;
+using Project.CodeBase.Gameplay.Characters;
+using Project.CodeBase.Gameplay.Services.TurnQueue;
 using UniRx;
 using VContainer;
 
-namespace _Project.CodeBase.UI.TurnQueue
+namespace Project.CodeBase.UI.TurnQueue
 {
     public class TurnQueueViewModel
     {

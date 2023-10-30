@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using _Project.CodeBase.Gameplay.Characters;
-using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
-using _Project.CodeBase.Gameplay.Services.InteractionsService;
-using _Project.CodeBase.Gameplay.Services.Map;
-using _Project.CodeBase.Gameplay.Services.MapGenerator;
-using _Project.CodeBase.Gameplay.Spawner.CharacterSpawner;
-using _Project.CodeBase.Infrastructure.Services.Factories.Buttons;
-using _Project.CodeBase.Infrastructure.Services.Factories.Cameras;
-using _Project.CodeBase.Infrastructure.Services.Factories.Characters;
-using _Project.CodeBase.Infrastructure.Services.Factories.TurnQueue;
-using _Project.CodeBase.Infrastructure.Services.Factories.UI;
-using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
 using Cysharp.Threading.Tasks;
+using Project.CodeBase.Gameplay.Characters;
+using Project.CodeBase.Gameplay.Characters.CharacterInfo;
+using Project.CodeBase.Gameplay.Services.InteractionsService;
+using Project.CodeBase.Gameplay.Services.Map;
+using Project.CodeBase.Gameplay.Services.MapGenerator;
+using Project.CodeBase.Gameplay.Spawner.CharacterSpawner;
+using Project.CodeBase.Infrastructure.Services.Factories.Buttons;
+using Project.CodeBase.Infrastructure.Services.Factories.Cameras;
+using Project.CodeBase.Infrastructure.Services.Factories.Characters;
+using Project.CodeBase.Infrastructure.Services.Factories.TurnQueue;
+using Project.CodeBase.Infrastructure.Services.Factories.UI;
+using Project.CodeBase.Infrastructure.Services.StaticDataProvider;
 using UnityEngine;
 
-namespace _Project.CodeBase.Infrastructure.Services.Providers.LevelSpawner
+namespace Project.CodeBase.Infrastructure.Services.Providers.LevelSpawner
 {
     public class LevelSpawner : ILevelSpawner
     {

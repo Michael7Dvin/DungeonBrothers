@@ -1,8 +1,8 @@
-﻿using _Project.CodeBase.Gameplay.Animations.Scale;
+﻿using Project.CodeBase.Gameplay.Animations.Scale;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace _Project.CodeBase.UI.Controls.Button
+namespace Project.CodeBase.UI.Controls.Button
 {
     public class SelectableButton : BaseButton
     {

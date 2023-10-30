@@ -1,7 +1,7 @@
-﻿using _Project.CodeBase.Gameplay.Characters;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
+using Project.CodeBase.Gameplay.Characters;
 
-namespace _Project.CodeBase.Gameplay.Services.AI.Behaviours
+namespace Project.CodeBase.Gameplay.Services.AI.Behaviours
 {
     public interface IMoveBehaviour
     {

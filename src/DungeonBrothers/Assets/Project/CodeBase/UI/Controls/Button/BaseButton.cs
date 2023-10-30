@@ -1,9 +1,9 @@
 ﻿using System;
-using _Project.CodeBase.UI.Controls.Events;
+using Project.CodeBase.UI.Controls.Events;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace _Project.CodeBase.UI.Controls.Button
+namespace Project.CodeBase.UI.Controls.Button
 {
     [RequireComponent(typeof(IControlEvents))]
     public class BaseButton : MonoBehaviour

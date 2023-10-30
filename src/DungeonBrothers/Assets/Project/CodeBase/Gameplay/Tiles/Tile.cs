@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _Project.CodeBase.Gameplay.Tiles
+namespace Project.CodeBase.Gameplay.Tiles
 {
     public class Tile : MonoBehaviour
     {

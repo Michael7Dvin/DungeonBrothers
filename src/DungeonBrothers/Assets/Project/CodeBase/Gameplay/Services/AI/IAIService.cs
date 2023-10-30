@@ -1,4 +1,4 @@
-﻿namespace _Project.CodeBase.Gameplay.Services.AI
+﻿namespace Project.CodeBase.Gameplay.Services.AI
 {
     public interface IAIService
     {

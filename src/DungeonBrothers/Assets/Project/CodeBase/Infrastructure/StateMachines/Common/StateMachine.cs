@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Project.CodeBase.Infrastructure.StateMachines.Common.States;
+using Project.CodeBase.Infrastructure.StateMachines.Common.States;
 
-namespace _Project.CodeBase.Infrastructure.StateMachines.Common
+namespace Project.CodeBase.Infrastructure.StateMachines.Common
 {
     public class StateMachine 
     {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Project.CodeBase.Infrastructure.Services.Logger;
+using Project.CodeBase.Infrastructure.Services.Logger;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer;
 
-namespace _Project.CodeBase.Gameplay.Characters.View.Sounds
+namespace Project.CodeBase.Gameplay.Characters.View.Sounds
 {
     [RequireComponent(typeof(AudioSource))]
     public class CharacterSounds : SerializedMonoBehaviour

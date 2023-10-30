@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using _Project.CodeBase.Gameplay.Services.InteractionsService;
-using _Project.CodeBase.Gameplay.Services.Map;
-using _Project.CodeBase.Gameplay.Services.PathFinder;
-using _Project.CodeBase.Gameplay.Tiles;
-using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
+using Project.CodeBase.Gameplay.Services.InteractionsService;
+using Project.CodeBase.Gameplay.Services.Map;
+using Project.CodeBase.Gameplay.Services.PathFinder;
+using Project.CodeBase.Gameplay.Tiles;
+using Project.CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
 using UnityEngine;
 
-namespace _Project.CodeBase.Gameplay.Services.Visualizers.Path
+namespace Project.CodeBase.Gameplay.Services.Visualizers.Path
 {
     public class PathVisualizer : IPathVisualizer
     {

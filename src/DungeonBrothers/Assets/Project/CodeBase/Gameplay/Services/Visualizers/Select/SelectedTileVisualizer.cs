@@ -1,10 +1,9 @@
-﻿using _Project.CodeBase.Gameplay.Services.TurnQueue;
-using _Project.CodeBase.Gameplay.Tiles;
-using _Project.CodeBase.Infrastructure.Services.Logger;
-using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
+﻿using Project.CodeBase.Gameplay.Services.TurnQueue;
+using Project.CodeBase.Gameplay.Tiles;
+using Project.CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
 
-namespace _Project.CodeBase.Gameplay.Services.Visualizers.Select
+namespace Project.CodeBase.Gameplay.Services.Visualizers.Select
 {
     public class SelectedTileVisualizer : ISelectedTileVisualizer
     {

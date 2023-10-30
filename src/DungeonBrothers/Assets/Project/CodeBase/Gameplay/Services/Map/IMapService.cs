@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using _Project.CodeBase.Gameplay.Tiles;
+using Project.CodeBase.Gameplay.Tiles;
 using UnityEngine;
 
-namespace _Project.CodeBase.Gameplay.Services.Map
+namespace Project.CodeBase.Gameplay.Services.Map
 {
     public interface IMapService
     {

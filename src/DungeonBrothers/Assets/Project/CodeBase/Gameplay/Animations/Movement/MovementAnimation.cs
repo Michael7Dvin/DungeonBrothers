@@ -2,7 +2,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-namespace _Project.CodeBase.Gameplay.Animations.Movement
+namespace Project.CodeBase.Gameplay.Animations.Movement
 {
     public class MovementAnimation 
     {

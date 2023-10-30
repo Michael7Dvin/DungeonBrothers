@@ -1,8 +1,8 @@
-﻿using _Project.CodeBase.Infrastructure.StateMachines.Gameplay.FSM;
-using _Project.CodeBase.Infrastructure.StateMachines.Gameplay.States;
+﻿using Project.CodeBase.Infrastructure.StateMachines.Gameplay.FSM;
+using Project.CodeBase.Infrastructure.StateMachines.Gameplay.States;
 using VContainer.Unity;
 
-namespace _Project.CodeBase.Infrastructure.StateMachines.Gameplay
+namespace Project.CodeBase.Infrastructure.StateMachines.Gameplay
 {
     public class GameplayBootstrapper : IInitializable
     {

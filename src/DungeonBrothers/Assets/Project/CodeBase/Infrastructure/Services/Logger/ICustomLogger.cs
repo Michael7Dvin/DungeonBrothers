@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace _Project.CodeBase.Infrastructure.Services.Logger
+namespace Project.CodeBase.Infrastructure.Services.Logger
 {
     public interface ICustomLogger
     {

@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-namespace _Project.CodeBase.Gameplay.Animations.Scale
+namespace Project.CodeBase.Gameplay.Animations.Scale
 {
     public class ScaleAnimation 
     {

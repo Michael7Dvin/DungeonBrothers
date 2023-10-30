@@ -1,7 +1,7 @@
 ﻿using UniRx;
 using UnityEngine;
 
-namespace _Project.CodeBase.Infrastructure.Services.InputService
+namespace Project.CodeBase.Infrastructure.Services.InputService
 {
     public interface IInputService
     {

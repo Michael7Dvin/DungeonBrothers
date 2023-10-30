@@ -1,8 +1,8 @@
 using System;
-using _Project.CodeBase.Gameplay.Characters;
+using Project.CodeBase.Gameplay.Characters;
 using UniRx;
 
-namespace _Project.CodeBase.Gameplay.Services.TurnQueue
+namespace Project.CodeBase.Gameplay.Services.TurnQueue
 {
     public interface ITurnQueue
     {

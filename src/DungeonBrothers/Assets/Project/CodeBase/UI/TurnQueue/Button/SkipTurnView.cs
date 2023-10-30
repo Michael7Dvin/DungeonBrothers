@@ -1,7 +1,7 @@
-﻿using _Project.CodeBase.UI.Controls.Button;
+﻿using Project.CodeBase.UI.Controls.Button;
 using UnityEngine;
 
-namespace _Project.CodeBase.UI.TurnQueue.Button
+namespace Project.CodeBase.UI.TurnQueue.Button
 {
     public class SkipTurnView : MonoBehaviour
     {

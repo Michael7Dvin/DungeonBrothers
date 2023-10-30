@@ -1,21 +1,20 @@
-using _Project.CodeBase.Gameplay.Services.Random;
-using _Project.CodeBase.Infrastructure.Audio;
-using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
-using _Project.CodeBase.Infrastructure.Services.InputService;
-using _Project.CodeBase.Infrastructure.Services.Logger;
-using _Project.CodeBase.Infrastructure.Services.Providers.CameraProvider;
-using _Project.CodeBase.Infrastructure.Services.Providers.CharactersProvider;
-using _Project.CodeBase.Infrastructure.Services.SceneLoader;
-using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
-using _Project.CodeBase.Infrastructure.StateMachines.App.FSM;
-using _Project.CodeBase.Infrastructure.StateMachines.App.States;
-using _Project.CodeBase.UI.Services.UIProvider;
+using Project.CodeBase.Gameplay.Services.Random;
+using Project.CodeBase.Infrastructure.Audio;
+using Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
+using Project.CodeBase.Infrastructure.Services.InputService;
+using Project.CodeBase.Infrastructure.Services.Logger;
+using Project.CodeBase.Infrastructure.Services.Providers.CameraProvider;
+using Project.CodeBase.Infrastructure.Services.Providers.CharactersProvider;
+using Project.CodeBase.Infrastructure.Services.SceneLoader;
+using Project.CodeBase.Infrastructure.Services.StaticDataProvider;
+using Project.CodeBase.Infrastructure.StateMachines.App.FSM;
+using Project.CodeBase.Infrastructure.StateMachines.App.States;
+using Project.CodeBase.UI.Services.UIProvider;
 using UnityEngine;
-using UnityEngine.Audio;
 using VContainer;
 using VContainer.Unity;
 
-namespace _Project.CodeBase.Infrastructure.Installers
+namespace Project.CodeBase.Infrastructure.Installers
 {
     public class ProjectInstaller : LifetimeScope
     {
