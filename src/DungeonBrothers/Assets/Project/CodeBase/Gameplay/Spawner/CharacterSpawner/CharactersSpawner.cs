@@ -13,28 +13,25 @@ namespace Project.CodeBase.Gameplay.Spawner.CharacterSpawner
         private readonly IMapService _mapService;
         private readonly ICharacterFactory _characterFactory;
 
-        public CharactersSpawner(IMapService mapService,
-            ICharacterFactory characterFactory)
+        public CharactersSpawner(IMapService mapService, ICharacterFactory characterFactory)
         {
             _mapService = mapService;
             _characterFactory = characterFactory;
         }
 
-        public async UniTask Spawn(Dictionary<Vector2Int, CharacterConfig> spawnCharacter)
+        public async UniTask Spawn(Dictionary<Vector2Int, CharacterConfig> charactersSpawnData)
         {
-            foreach (var character in spawnCharacter)
+            foreach (var characterSpawnData in charactersSpawnData)
             {
-                if (_mapService.TryGetTile(character.Key, out Tile tile))
+                if (_mapService.TryGetTile(characterSpawnData.Key, out Tile tile))
                 {
-                    Character prefab = await _characterFactory.Create(character.Value);
+                    Character character = await _characterFactory.Create(characterSpawnData.Value);
                     Transform transform = tile.transform;
 
                     Vector3 position = transform.position;
                     
-                    prefab.transform.position = new Vector3(position.x, position.y, 0);
-                    prefab.UpdateCoordinate(tile.Logic.Coordinates);
-                    
-                    tile.Logic.Occupy(prefab);
+                    character.transform.position = new Vector3(position.x, position.y, 0);
+                    character.Logic.Movement.Teleport(tile);
                 }
             }
         }

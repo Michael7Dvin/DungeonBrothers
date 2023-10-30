@@ -49,5 +49,4 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   _allStaticData: {fileID: 11400000, guid: 6653d8ad28835974fa31925569b68479, type: 2}
-  _soundPlayer: {fileID: -6001804382035729186, guid: f827bb6a15f666041843ac0f8dd77be3, type: 3}
-  _audioMixerGroup: {fileID: 0}
+  _soundPlayer: {fileID: 8062986269167918934, guid: f827bb6a15f666041843ac0f8dd77be3, type: 3}

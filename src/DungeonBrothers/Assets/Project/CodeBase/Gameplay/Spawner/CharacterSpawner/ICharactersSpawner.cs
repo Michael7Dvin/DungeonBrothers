@@ -7,6 +7,6 @@ namespace Project.CodeBase.Gameplay.Spawner.CharacterSpawner
 {
     public interface ICharactersSpawner
     {
-        public UniTask Spawn(Dictionary<Vector2Int, CharacterConfig> spawnCharacter);
+        public UniTask Spawn(Dictionary<Vector2Int, CharacterConfig> charactersSpawnData);
     }
 }

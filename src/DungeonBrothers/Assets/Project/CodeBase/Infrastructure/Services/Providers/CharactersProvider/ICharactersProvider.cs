@@ -11,8 +11,8 @@ namespace Project.CodeBase.Infrastructure.Services.Providers.CharactersProvider
         IObservable<ICharacter> Spawned { get; }
         IObservable<ICharacter> Died { get; }
         
-        IReadOnlyDictionary<ICharacter, CharacterInTurnQueueIcon> Characters { get; }
+        IReadOnlyDictionary<ICharacter, CharacterTurnQueueIcon> Characters { get; }
 
-        void Add(ICharacter character, CharacterInTurnQueueIcon characterInTurnQueueIcon);
+        void Add(ICharacter character, CharacterTurnQueueIcon characterTurnQueueIcon);
     }
 }

@@ -22,7 +22,7 @@ namespace Project.CodeBase.Gameplay.Services.Visualizers.Attackable
         private readonly CharacterOutlineColors _characterOutlineColors;
 
         private readonly CompositeDisposable _disposable = new();
-        private readonly List<CharacterOutline> _visualizedCharactersOutlines = new();
+        private readonly List<ICharacterOutline> _visualizedCharactersOutlines = new();
 
         public AttackableTilesVisualizer(ITurnQueue turnQueue,
             IMoverService moverService,
@@ -78,7 +78,7 @@ namespace Project.CodeBase.Gameplay.Services.Visualizers.Attackable
         {
             if (tile.Logic.Character.Team != character.Team)
             {
-                CharacterOutline characterOutline = tile.Logic.Character.View.CharacterOutline;
+                ICharacterOutline characterOutline = tile.Logic.Character.View.CharacterOutline;
                 
                 characterOutline.ChangeColor(_characterOutlineColors.Attackable);
                 characterOutline.SwitchOutLine(true);
@@ -89,7 +89,7 @@ namespace Project.CodeBase.Gameplay.Services.Visualizers.Attackable
 
         private void ResetLastCharacters()
         {
-            foreach (CharacterOutline characterOutline in _visualizedCharactersOutlines) 
+            foreach (ICharacterOutline characterOutline in _visualizedCharactersOutlines) 
                 characterOutline.SwitchOutLine(false);
 
             _visualizedCharactersOutlines.Clear();

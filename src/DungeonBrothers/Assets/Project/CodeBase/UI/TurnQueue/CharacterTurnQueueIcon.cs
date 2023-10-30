@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Project.CodeBase.UI.TurnQueue
 {
-    public class CharacterInTurnQueueIcon : MonoBehaviour
+    public class CharacterTurnQueueIcon : MonoBehaviour
     {
         public CharacterID CharacterID { get; private set; }
 
@@ -12,6 +12,7 @@ namespace Project.CodeBase.UI.TurnQueue
             CharacterID = characterID;
         }
 
-        public void Destroy() => Destroy(gameObject);
+        public void Destroy() => 
+            Destroy(gameObject);
     }
 }

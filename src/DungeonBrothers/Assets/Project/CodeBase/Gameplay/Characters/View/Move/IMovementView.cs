@@ -1,10 +1,11 @@
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
+using Project.CodeBase.Gameplay.Tiles;
 
 namespace Project.CodeBase.Gameplay.Characters.View.Move
 {
     public interface IMovementView
     {
-        public UniTask Move(Vector3[] path);
+        UniTask Move(IEnumerable<Tile> tilesPath);
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Project.CodeBase.Gameplay.Characters;
+using Project.CodeBase.Gameplay.Characters.Logic.Movement;
 using Project.CodeBase.Gameplay.Services.Map;
 using Project.CodeBase.Gameplay.Services.PathFinder;
 using Project.CodeBase.Gameplay.Services.TurnQueue;
@@ -14,22 +15,19 @@ namespace Project.CodeBase.Gameplay.Services.Move
     public class MoverService : IMoverService
     {
         private readonly IPathFinder _pathFinder;
-        private readonly IMapService _mapService;
         private readonly ITurnQueue _turnQueue;
+        private readonly IMapService _mapService;
+        
         private readonly CompositeDisposable _disposable = new();
         private readonly ReactiveCommand<ICharacter> _isMoved = new();
 
-        private int _currentMovePoints;
-
-        public MoverService(IPathFinder pathFinder, 
-            IMapService mapService,
-            ITurnQueue turnQueue)
+        public MoverService(IPathFinder pathFinder, ITurnQueue turnQueue, IMapService mapService)
         {
             _pathFinder = pathFinder;
-            _mapService = mapService;
             _turnQueue = turnQueue;
+            _mapService = mapService;
         }
-        
+
         public PathFindingResults PathFindingResults { get; private set; }
         public IObservable<ICharacter> IsMoved => _isMoved;
 
@@ -39,8 +37,10 @@ namespace Project.CodeBase.Gameplay.Services.Move
                 .Skip(1)
                 .Subscribe(character =>
                 {
-                    ResetMovePoints(character);
-                    CalculatePaths(character);
+                    IMovement characterMovement = character.Logic.Movement;
+                    
+                    ResetAvailableMovePoints(characterMovement);
+                    RecalculatePaths(characterMovement);
                 })
                 .AddTo(_disposable);
         }
@@ -48,61 +48,54 @@ namespace Project.CodeBase.Gameplay.Services.Move
         public void Disable() => 
             _disposable.Clear();
 
-        public async UniTask Move(Tile tile)
+        public async UniTask Move(Tile destinationTile)
         {
             ICharacter character = _turnQueue.ActiveCharacter.Value;
+            IMovement characterMovement = character.Logic.Movement;
 
-            if (tile.Logic.Coordinates == character.Coordinate)
+            if (destinationTile.Logic.Coordinates == characterMovement.Coordinates)
                 return;
 
-            if (PathFindingResults.IsMovableAt(tile.Logic.Coordinates) == false)
+            if (PathFindingResults.IsMovableAt(destinationTile.Logic.Coordinates) == false)
                 return;
             
-            
-            List<Vector2Int> path = PathFindingResults.GetPathTo(tile.Logic.Coordinates, false);
-            int pathCost = path.Count;
-            _currentMovePoints -= pathCost;
+            List<Vector2Int> coordinatesPath = 
+                PathFindingResults.GetPathTo(destinationTile.Logic.Coordinates, characterMovement.IsMoveThroughObstacles);
 
-            if (_currentMovePoints < 0)
+            List<Tile> tilesPath = GetTilesPathFromCoordinatesPath(coordinatesPath);
+
+            if (characterMovement.CanMove(tilesPath))
                 return;
             
-            if (_mapService.TryGetTile(character.Coordinate, out Tile characterTile)) 
-                characterTile.Logic.Release();
-            
-            character.UpdateCoordinate(tile.Logic.Coordinates);
-            tile.Logic.Occupy(character);
+            await characterMovement.Move(tilesPath);
 
-            Vector3[] newPath = GetPathToTile(path);
-            await character.View.MovementView.Move(newPath);
-       
             _isMoved.Execute(character);
-            CalculatePaths(character);
+            RecalculatePaths(characterMovement);
         }
 
-        private Vector3[] GetPathToTile(List<Vector2Int> path)
+        private List<Tile> GetTilesPathFromCoordinatesPath(List<Vector2Int> coordinatesPath)
         {
-            List<Vector3> newPath = new();
+            List<Tile> tilesPath = new();
 
-            foreach (var point in path)
+            foreach (Vector2Int coordinates in coordinatesPath)
             {
-                if(_mapService.TryGetTile(point, out Tile tile))
-                    newPath.Add(tile.transform.position);
+                _mapService.TryGetTile(coordinates, out Tile tile);
+                tilesPath.Add(tile);
             }
 
-            return newPath.ToArray();
+            return tilesPath;
         }
-        
 
-        private void ResetMovePoints(ICharacter character) =>
-            _currentMovePoints = character.Stats.MovePoints;
+        private void ResetAvailableMovePoints(IMovement characterMovement) =>
+            characterMovement.ResetAvailableMovePoints();
         
-        private void CalculatePaths(ICharacter character)
+        private void RecalculatePaths(IMovement characterMovement)
         {
-            Vector2Int startPosition = character.Coordinate;
-            bool isMoveThroughObstacles = character.Stats.IsMoveThroughObstacles;
+            Vector2Int startPosition = characterMovement.Coordinates;
+            bool isMoveThroughObstacles = characterMovement.IsMoveThroughObstacles;
 
             PathFindingResults pathFindingResults =
-                _pathFinder.CalculatePaths(startPosition, _currentMovePoints, isMoveThroughObstacles);
+                _pathFinder.CalculatePaths(startPosition, characterMovement.AvailableMovePoints, isMoveThroughObstacles);
             
             _pathFinder.SetPathFindingResults(pathFindingResults);
 

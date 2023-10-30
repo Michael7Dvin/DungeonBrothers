@@ -1,4 +1,5 @@
-﻿using Project.CodeBase.Gameplay.Characters.Logic.Health;
+﻿using Project.CodeBase.Gameplay.Characters.Logic.Deaths;
+using Project.CodeBase.Gameplay.Characters.Logic.Healths;
 using UniRx;
 
 namespace Project.CodeBase.UI.HealthBar
@@ -7,12 +8,14 @@ namespace Project.CodeBase.UI.HealthBar
     {
         private HealthBarView _healthBarView;
         
-        private Health _health;
+        private IHealth _health;
+        private IDeath _death;
         private readonly CompositeDisposable _disposable = new();
 
-        public void Construct(Health health, HealthBarView healthBarView)
+        public void Construct(IHealth health, IDeath death, HealthBarView healthBarView)
         {
             _health = health;
+            _death = death;
             _healthBarView = healthBarView;
         }
 
@@ -22,12 +25,12 @@ namespace Project.CodeBase.UI.HealthBar
                 .Skip(1)
                 .Subscribe(healthPoints => _healthBarView.UpdateHealthBar((float)healthPoints / _health.MaxHealthPoints))
                 .AddTo(_disposable);
-
-            _health.Died
+            
+            _death.Died
                 .Subscribe(_ => _healthBarView.Destroy())
                 .AddTo(_disposable);
             
-            _health.Died
+            _death.Died
                 .Subscribe(_ => OnDestroy())
                 .AddTo(_disposable);
         }

@@ -13,8 +13,6 @@ namespace Project.CodeBase.Gameplay.Characters
         public CharacterDamage Damage { get; }
         public ICharacterLogic Logic { get; }
         public ICharacterView View { get; }
-        public Transform Transform { get; }
-        public Vector2Int Coordinate { get; }
-        void UpdateCoordinate(Vector2Int coordinate);
+        public GameObject GameObject { get; }
     }
 }

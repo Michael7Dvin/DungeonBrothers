@@ -3,6 +3,7 @@ using System.Linq;
 using Project.CodeBase.Gameplay.Characters;
 using Project.CodeBase.Gameplay.Services.TurnQueue;
 using UniRx;
+using UnityEngine;
 using VContainer;
 
 namespace Project.CodeBase.UI.TurnQueue
@@ -12,7 +13,7 @@ namespace Project.CodeBase.UI.TurnQueue
         private ITurnQueue _turnQueue;
         private readonly CompositeDisposable _disposable = new();
 
-        private readonly ReactiveCollection<CharacterInTurnQueueIcon> _charactersIconsQueue = new();
+        private readonly ReactiveCollection<CharacterTurnQueueIcon> _charactersIconsQueue = new();
         
         private readonly ReactiveCommand _disableIcons = new();
         private readonly ReactiveCommand _enableIcons = new();
@@ -22,7 +23,7 @@ namespace Project.CodeBase.UI.TurnQueue
         {
             _turnQueue = turnQueue;
         }
-        public IReadOnlyReactiveCollection<CharacterInTurnQueueIcon> CharacterIconsQueue => _charactersIconsQueue;
+        public IReadOnlyReactiveCollection<CharacterTurnQueueIcon> CharacterIconsQueue => _charactersIconsQueue;
         public IObservable<Unit> DisableIcons => _disableIcons;
         public IObservable<Unit> EnableIcons => _enableIcons;
         
@@ -72,7 +73,7 @@ namespace Project.CodeBase.UI.TurnQueue
 
         private void RemoveIconFromList(CollectionRemoveEvent<ICharacter> character)
         {
-            CharacterInTurnQueueIcon icon = character.Value.View.Icon;
+            CharacterTurnQueueIcon icon = character.Value.View.Icon;
             
             _charactersIconsQueue.Remove(character.Value.View.Icon);
             icon.Destroy();
@@ -84,15 +85,15 @@ namespace Project.CodeBase.UI.TurnQueue
             
             for (int i = 0; i < _charactersIconsQueue.Count - 1; i++)
             {
-                if (i == _charactersIconsQueue.Count() - 1)
+                if (i == _charactersIconsQueue.Count - 1)
                     return;
                 
                 if (i == 0) 
-                    _charactersIconsQueue.Move(i, _charactersIconsQueue.Count() - 1);
+                    _charactersIconsQueue.Move(i, _charactersIconsQueue.Count - 1);
                 
                 _charactersIconsQueue.Move(i, +i);
             }
-
+            
             _enableIcons.Execute();
         }
     }

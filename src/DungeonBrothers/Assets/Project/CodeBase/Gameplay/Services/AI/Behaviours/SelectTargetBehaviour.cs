@@ -42,7 +42,7 @@ namespace Project.CodeBase.Gameplay.Services.AI.Behaviours
         {
             ICharacter activeCharacter = _turnQueue.ActiveCharacter.Value;
 
-            return Vector2.Distance(activeCharacter.Coordinate, target.Coordinate);
+            return Vector2.Distance(activeCharacter.Logic.Movement.Coordinates, target.Logic.Movement.Coordinates);
         }
     }
 }

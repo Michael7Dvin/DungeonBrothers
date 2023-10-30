@@ -7,9 +7,9 @@ namespace Project.CodeBase.Gameplay.Characters.View
 {
     public interface ICharacterView
     {
-        public CharacterInTurnQueueIcon Icon { get; }
+        public CharacterTurnQueueIcon Icon { get; }
         public IMovementView MovementView { get; }
         public IHitView HitView { get; }
-        public CharacterOutline CharacterOutline { get; }
+        public ICharacterOutline CharacterOutline { get; }
     }
 }

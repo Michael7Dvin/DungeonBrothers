@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Project.CodeBase.Gameplay.Characters.CharacterInfo
 {
-    public struct CharacterDamage
+    public class CharacterDamage
     {
         private int _totalBonusDamagePerMainStat;
         private int _totalBonusDamagePerLevel;

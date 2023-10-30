@@ -7,7 +7,9 @@ using Project.CodeBase.Gameplay.Animations.Scale;
 using Project.CodeBase.Gameplay.Characters;
 using Project.CodeBase.Gameplay.Characters.CharacterInfo;
 using Project.CodeBase.Gameplay.Characters.Logic;
-using Project.CodeBase.Gameplay.Characters.Logic.Health;
+using Project.CodeBase.Gameplay.Characters.Logic.Deaths;
+using Project.CodeBase.Gameplay.Characters.Logic.Healths;
+using Project.CodeBase.Gameplay.Characters.Logic.Movement;
 using Project.CodeBase.Gameplay.Characters.View;
 using Project.CodeBase.Gameplay.Characters.View.Hit;
 using Project.CodeBase.Gameplay.Characters.View.Move;
@@ -73,10 +75,10 @@ namespace Project.CodeBase.Infrastructure.Services.Factories.Characters
             CharacterStats stats = config.CharacterStats;
             CharacterDamage damage = CreateCharacterDamage(config, stats);
 
-            ICharacterLogic logic = CreateCharacterLogic(gameObject, config);
             ICharacterView view = await CreateCharacterView(gameObject, config);
-            
+
             Character character = gameObject.GetComponent<Character>();
+            ICharacterLogic logic = CreateCharacterLogic(character, view.MovementView, config);
             character.Construct(config.ID, config.Team, stats, damage, logic, view);
             
             await CreateHealthBar(character);
@@ -89,7 +91,7 @@ namespace Project.CodeBase.Infrastructure.Services.Factories.Characters
         private async UniTask<ICharacterView> CreateCharacterView(GameObject gameObject,
             CharacterConfig config)
         {
-            CharacterInTurnQueueIcon icon = await _turnQueueViewFactory.CreateIcon(config.Image, config.ID);
+            CharacterTurnQueueIcon icon = await _turnQueueViewFactory.CreateIcon(config.Image, config.ID);
             icon.gameObject.SetActive(false);
             
             CharacterSounds characterSounds = SetupCharacterSounds(gameObject);
@@ -98,7 +100,7 @@ namespace Project.CodeBase.Infrastructure.Services.Factories.Characters
             IHitView hitView = CreateHitView(gameObject, characterSounds);
             CharacterOutline characterOutline = CreateOutline(gameObject);
             
-            CharacterView characterView = new CharacterView();
+            CharacterView characterView = new();
             characterView.Construct(icon, movementView, hitView, characterOutline);
             return characterView;
         }
@@ -113,9 +115,9 @@ namespace Project.CodeBase.Infrastructure.Services.Factories.Characters
         private IMovementView CreateMovementView(GameObject gameObject, 
             CharacterSounds characterSounds)
         {
-            MovementAnimation movementAnimation = new MovementAnimation(gameObject.transform);
+            MovementAnimation movementAnimation = new(gameObject.transform);
 
-            IMovementView movementView = new MovementView(movementAnimation, characterSounds);
+            MovementView movementView = new(movementAnimation, characterSounds);
             _objectResolver.Inject(movementView);
             return movementView;
         }
@@ -130,34 +132,33 @@ namespace Project.CodeBase.Infrastructure.Services.Factories.Characters
         private IHitView CreateHitView(GameObject gameObject,
             CharacterSounds characterSounds)
         {;
-            ScaleAnimation scaleAnimation = new ScaleAnimation(gameObject.transform);
+            ScaleAnimation scaleAnimation = new(gameObject.transform);
 
             SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-            ColorAnimation colorAnimation = new ColorAnimation(spriteRenderer);
+            ColorAnimation colorAnimation = new(spriteRenderer);
             
             HitAnimation hitAnimation = new(scaleAnimation, colorAnimation);
 
-            HitView hitView = new HitView(hitAnimation, characterSounds);
+            HitView hitView = new(hitAnimation, characterSounds);
             _objectResolver.Inject(hitView);
             return hitView;
         }
 
-        private async UniTask CreateHealthBar(Character character)
+        private async UniTask CreateHealthBar(ICharacter character)
         {
             GameObject prefab = await _addressablesLoader.LoadGameObject(_gameplayUIAddresses.HealthBar);
-            GameObject gameObject = _objectResolver.Instantiate(prefab, character.Transform);
+            GameObject gameObject = _objectResolver.Instantiate(prefab, character.GameObject.transform);
 
             HealthBarView healthBarView = gameObject.GetComponent<HealthBarView>();
             HealthBarPresenter healthBarPresenter = new HealthBarPresenter();
             
-            healthBarPresenter.Construct(character.Logic.Health, healthBarView);
+            healthBarPresenter.Construct(character.Logic.Health, character.Logic.Death, healthBarView);
 
-            gameObject.transform.position = character.Transform.position - _offset;
+            gameObject.transform.position = character.GameObject.transform.position - _offset;
             healthBarPresenter.Initialize();
         }
 
-        private CharacterDamage CreateCharacterDamage(CharacterConfig config,
-            CharacterStats stats)
+        private CharacterDamage CreateCharacterDamage(CharacterConfig config, CharacterStats stats)
         {
             CharacterDamage characterDamage = config.CharacterDamage;
 
@@ -167,15 +168,19 @@ namespace Project.CodeBase.Infrastructure.Services.Factories.Characters
             return characterDamage;
         }
         
-        private ICharacterLogic CreateCharacterLogic(GameObject gameObject, 
+        private ICharacterLogic CreateCharacterLogic(ICharacter character,
+            IMovementView movementView,
             CharacterConfig config)
         {
-            Health health = gameObject.GetComponent<Health>();
-            health.Construct(config.HealthPoints);
+            Death death = new(character.GameObject);
+            
+            Health health = new(config.HealthPoints, death);
             _objectResolver.Inject(health);
+
+            Movement movement = new(character, movementView, config.IsMoveThroughObstacles, config.MovePoints);
+            _objectResolver.Inject(movement);
             
-            ICharacterLogic characterLogic = new CharacterLogic(health);
-            
+            ICharacterLogic characterLogic = new CharacterLogic(health, death, movement);
             _objectResolver.Inject(characterLogic);
 
             return characterLogic;

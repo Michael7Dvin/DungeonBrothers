@@ -53,8 +53,10 @@ namespace Project.CodeBase.UI.TurnQueue
                 icon.gameObject.SetActive(false);
         }
 
-        private void ShiftChildPosition(CollectionMoveEvent<CharacterInTurnQueueIcon> charactersIcons)
+        private void ShiftChildPosition(CollectionMoveEvent<CharacterTurnQueueIcon> charactersIcons)
         {
+            Debug.LogError("SCP");
+
             int oldIndex = charactersIcons.OldIndex;
             int newIndex = charactersIcons.NewIndex;
 
@@ -64,6 +66,7 @@ namespace Project.CodeBase.UI.TurnQueue
 
         private void ReorganizeChildPosition()
         {
+            Debug.LogError("RCR");
             for (int i = 0; i < _turnQueueViewModel.CharacterIconsQueue.Count - 1; i++)
                 _turnQueueViewModel.CharacterIconsQueue[i].transform.SetSiblingIndex(i);
         }
@@ -71,7 +74,7 @@ namespace Project.CodeBase.UI.TurnQueue
 
         private void EnableIcons()
         {
-            IReadOnlyReactiveCollection<CharacterInTurnQueueIcon> characterInTurnQueueIcons =
+            IReadOnlyReactiveCollection<CharacterTurnQueueIcon> characterInTurnQueueIcons =
                 _turnQueueViewModel.CharacterIconsQueue;
 
             if (characterInTurnQueueIcons.Count <= MaxVisualizedIcons)

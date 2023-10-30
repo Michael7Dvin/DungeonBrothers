@@ -1,4 +1,4 @@
-namespace Project.CodeBase.Gameplay.Characters.Logic.Health
+namespace Project.CodeBase.Gameplay.Characters.Logic.Healths
 {
     public interface IHealable
     {

@@ -7,20 +7,20 @@ namespace Project.CodeBase.Gameplay.Characters.View
 {
     public class CharacterView : ICharacterView
     {
-        public void Construct(CharacterInTurnQueueIcon characterInTurnQueueIcon,
+        public void Construct(CharacterTurnQueueIcon characterTurnQueueIcon,
             IMovementView movementView, 
             IHitView hitView,
-            CharacterOutline characterOutline)
+            ICharacterOutline characterOutline)
         {
-            Icon = characterInTurnQueueIcon;
+            Icon = characterTurnQueueIcon;
             MovementView = movementView;
             HitView = hitView;
             CharacterOutline = characterOutline;
         }
         
-        public CharacterInTurnQueueIcon Icon { get; private set;}
+        public CharacterTurnQueueIcon Icon { get; private set;}
         public IMovementView MovementView { get; private set; }
         public IHitView HitView { get; private set; }
-        public CharacterOutline CharacterOutline { get; private set; }
+        public ICharacterOutline CharacterOutline { get; private set; }
     }
 }

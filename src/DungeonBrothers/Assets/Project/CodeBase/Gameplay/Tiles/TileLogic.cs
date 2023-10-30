@@ -48,7 +48,7 @@ namespace Project.CodeBase.Gameplay.Tiles
 
             Character = character;
 
-            character.Logic.Health.Died
+            character.Logic.Death.Died
                 .Subscribe(_ => Release())
                 .AddTo(_disposable);
         }
