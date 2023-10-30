@@ -63,10 +63,10 @@ namespace Project.CodeBase.Gameplay.Services.Move
                 PathFindingResults.GetPathTo(destinationTile.Logic.Coordinates, characterMovement.IsMoveThroughObstacles);
 
             List<Tile> tilesPath = GetTilesPathFromCoordinatesPath(coordinatesPath);
-
-            if (characterMovement.CanMove(tilesPath))
-                return;
             
+            if (characterMovement.CanMove(tilesPath) == false)
+                return;
+
             await characterMovement.Move(tilesPath);
 
             _isMoved.Execute(character);

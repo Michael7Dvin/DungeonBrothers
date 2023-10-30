@@ -55,8 +55,6 @@ namespace Project.CodeBase.UI.TurnQueue
 
         private void ShiftChildPosition(CollectionMoveEvent<CharacterTurnQueueIcon> charactersIcons)
         {
-            Debug.LogError("SCP");
-
             int oldIndex = charactersIcons.OldIndex;
             int newIndex = charactersIcons.NewIndex;
 
@@ -66,7 +64,6 @@ namespace Project.CodeBase.UI.TurnQueue
 
         private void ReorganizeChildPosition()
         {
-            Debug.LogError("RCR");
             for (int i = 0; i < _turnQueueViewModel.CharacterIconsQueue.Count - 1; i++)
                 _turnQueueViewModel.CharacterIconsQueue[i].transform.SetSiblingIndex(i);
         }

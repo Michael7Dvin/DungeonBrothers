@@ -35,12 +35,11 @@ namespace Project.CodeBase.Gameplay.Characters.Logic.Movement
         }
 
         public Tile OccupiedTile { get; private set; }
-        public Vector2Int Coordinates => 
-            OccupiedTile.Logic.Coordinates;
-
         public bool IsMoveThroughObstacles { get; }
         public int StartMovePoints { get; }
         public int AvailableMovePoints { get; private set; }
+        public Vector2Int Coordinates => 
+            OccupiedTile.Logic.Coordinates;
 
         public void ResetAvailableMovePoints() => 
             AvailableMovePoints = StartMovePoints;
