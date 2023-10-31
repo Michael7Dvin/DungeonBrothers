@@ -1,11 +1,15 @@
-﻿using _Project.CodeBase.UI.Controls.Button;
+using _Project.CodeBase.UI.TurnQueue.Button;
+using Project.CodeBase.UI.Controls.Button;
+using UniRx;
 using UnityEngine;
 
-namespace _Project.CodeBase.UI.TurnQueue.Button
+namespace Project.CodeBase.UI.TurnQueue.Button
 {
     public class SkipTurnView : MonoBehaviour
     {
         [SerializeField] private SelectableButton _selectableButton;
+        
+        private readonly CompositeDisposable _disposable = new();
         private SkipTurnViewModel _skipTurnViewModel;
 
         public void Construct(SkipTurnViewModel skipTurnViewModel)
@@ -22,16 +26,14 @@ namespace _Project.CodeBase.UI.TurnQueue.Button
         private void Enable() =>
             gameObject.SetActive(true);
         
-        private void OnEnable() 
+        private void OnEnable()
         {
-            _selectableButton.Cliked += OnClick;
-          
+            _selectableButton.Clicked
+                .Subscribe(_ => OnClick())
+                .AddTo(_disposable);
+
         }
-        private void OnDisable()
-        {
-            _selectableButton.Cliked -= OnClick;
-           
-        }
-            
+        private void OnDisable() => 
+            _disposable.Clear();
     }
 }

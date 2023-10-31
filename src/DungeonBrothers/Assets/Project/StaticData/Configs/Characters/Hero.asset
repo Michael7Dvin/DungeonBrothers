@@ -23,13 +23,39 @@ MonoBehaviour:
     SerializationNodes:
     - Name: CharacterDamage
       Entry: 7
-      Data: CodeBase.Gameplay.Characters.CharacterInfo.CharacterDamage, DungeonBrothers
+      Data: 0|Project.CodeBase.Gameplay.Characters.CharacterInfo.CharacterDamage,
+        DungeonBrothers
     - Name: CurrentDamage
       Entry: 3
       Data: 15
     - Name: CharacterAttackType
       Entry: 3
       Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: CharacterStats
+      Entry: 7
+      Data: 1|Project.CodeBase.Gameplay.Characters.CharacterInfo.CharacterStats,
+        DungeonBrothers
+    - Name: Initiative
+      Entry: 3
+      Data: 5
+    - Name: Level
+      Entry: 3
+      Data: 1
+    - Name: MainAttributeID
+      Entry: 3
+      Data: 0
+    - Name: Intelligence
+      Entry: 3
+      Data: 1
+    - Name: Strength
+      Entry: 3
+      Data: 1
+    - Name: Dexterity
+      Entry: 3
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -46,12 +72,5 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   HealthPoints: 500
-  CharacterStats:
-    Initiative: 5
-    Level: 1
-    MainAttributeID: 0
-    Intelligence: 1
-    Strength: 1
-    Dexterity: 1
-    MovePoints: 4
-    IsMoveThroughObstacles: 0
+  IsMoveThroughObstacles: 0
+  MovePoints: 5

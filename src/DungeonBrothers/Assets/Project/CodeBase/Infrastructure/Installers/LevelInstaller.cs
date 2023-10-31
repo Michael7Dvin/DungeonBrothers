@@ -25,6 +25,7 @@ using _Project.CodeBase.Infrastructure.Services.Providers.LevelSpawner;
 using _Project.CodeBase.Infrastructure.StateMachines.Gameplay;
 using _Project.CodeBase.Infrastructure.StateMachines.Gameplay.FSM;
 using _Project.CodeBase.Infrastructure.StateMachines.Gameplay.States;
+using Project.CodeBase.Infrastructure.Services.Factories.Buttons;
 using VContainer;
 using VContainer.Unity;
 
