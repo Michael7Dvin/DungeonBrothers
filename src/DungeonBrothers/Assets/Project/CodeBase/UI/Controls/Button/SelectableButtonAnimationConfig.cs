@@ -1,4 +1,4 @@
-﻿using Project.CodeBase.Gameplay.Animations.Scale;
+﻿using Project.CodeBase.Gameplay.Tweeners.Scale;
 using UnityEngine;
 
 namespace Project.CodeBase.UI.Controls.Button

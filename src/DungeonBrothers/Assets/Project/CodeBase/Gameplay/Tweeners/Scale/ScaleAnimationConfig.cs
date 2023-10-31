@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
-namespace Project.CodeBase.Gameplay.Animations.Scale
+namespace Project.CodeBase.Gameplay.Tweeners.Scale
 {
     [CreateAssetMenu(menuName = "StaticData/Configs/Animations/Scale", fileName = "Scale")]
     public class ScaleAnimationConfig : ScriptableObject

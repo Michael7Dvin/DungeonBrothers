@@ -2,15 +2,15 @@
 using DG.Tweening;
 using UnityEngine;
 
-namespace Project.CodeBase.Gameplay.Animations.Movement
+namespace Project.CodeBase.Gameplay.Tweeners.Move
 {
-    public class MovementAnimation 
+    public class MoveTweener 
     {
         private readonly Transform _transform;
 
         private Tween _currentTween;
         
-        public MovementAnimation(Transform transform)
+        public MoveTweener(Transform transform)
         {
             _transform = transform;
         }

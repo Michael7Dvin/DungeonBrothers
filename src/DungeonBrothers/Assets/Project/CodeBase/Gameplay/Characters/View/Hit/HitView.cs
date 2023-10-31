@@ -1,6 +1,6 @@
 using Cysharp.Threading.Tasks;
-using Project.CodeBase.Gameplay.Animations.Hit;
 using Project.CodeBase.Gameplay.Characters.View.Sounds;
+using Project.CodeBase.Gameplay.Tweeners.Hit;
 using Project.CodeBase.Infrastructure.Services.StaticDataProvider;
 using VContainer;
 
@@ -8,28 +8,28 @@ namespace Project.CodeBase.Gameplay.Characters.View.Hit
 {
     public class HitView : IHitView
     {
-        private readonly HitAnimation _hitAnimation;
+        private readonly HitTweener _hitTweener;
         private readonly CharacterSounds _characterSounds;
         
-        private HitAnimationConfig _config;
+        private HitTweenerConfig _config;
 
         [Inject]
         public void Inject(IStaticDataProvider staticDataProvider)
         {
-            _config = staticDataProvider.AllCharactersConfigs.HitAnimationConfig;
+            _config = staticDataProvider.AllCharactersConfigs.HitTweenerConfig;
         }
         
-        public HitView(HitAnimation hitAnimation,
+        public HitView(HitTweener hitTweener,
             CharacterSounds characterSounds)
         {
-            _hitAnimation = hitAnimation;
+            _hitTweener = hitTweener;
             _characterSounds = characterSounds;
         }
         
         public async UniTask TakeHit()
         {
             _characterSounds.PlaySoundOneTime(CharacterSoundType.Hit);
-            await _hitAnimation.DoHit(_config);
+            await _hitTweener.DoHit(_config);
         }
     }
 }

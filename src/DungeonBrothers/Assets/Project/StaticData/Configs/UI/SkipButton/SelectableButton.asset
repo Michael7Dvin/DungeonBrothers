@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SelectableButton
   m_EditorClassIdentifier: 
   <ScaleAnimationOnEntered>k__BackingField: {fileID: 11400000, guid: c9f99c320b299eb40a914f0ab09ca5c7, type: 2}
-  <ScaleAnimationOnExited>k__BackingField: {fileID: 11400000, guid: 41a9b4f6091e56247ac83ce42e056d7a, type: 2}
+  <ScaleAnimationOnExited>k__BackingField: {fileID: 11400000, guid: c9f99c320b299eb40a914f0ab09ca5c7, type: 2}
   <ScaleAnimationOnDowned>k__BackingField: {fileID: 11400000, guid: f89eac80a7ebd8a489812b64d14b4e36, type: 2}
-  <ScaleAnimationOnUpped>k__BackingField: {fileID: 11400000, guid: 41a9b4f6091e56247ac83ce42e056d7a, type: 2}
+  <ScaleAnimationOnUpped>k__BackingField: {fileID: 11400000, guid: 21f41f4d1743c1a4e8f81c6a682c3a7a, type: 2}

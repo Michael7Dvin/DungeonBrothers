@@ -1,9 +1,5 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Project.CodeBase.Gameplay.Animations.Colors;
-using Project.CodeBase.Gameplay.Animations.Hit;
-using Project.CodeBase.Gameplay.Animations.Movement;
-using Project.CodeBase.Gameplay.Animations.Scale;
 using Project.CodeBase.Gameplay.Characters;
 using Project.CodeBase.Gameplay.Characters.CharacterInfo;
 using Project.CodeBase.Gameplay.Characters.Logic;
@@ -11,12 +7,17 @@ using Project.CodeBase.Gameplay.Characters.Logic.Deaths;
 using Project.CodeBase.Gameplay.Characters.Logic.Healths;
 using Project.CodeBase.Gameplay.Characters.Logic.Movement;
 using Project.CodeBase.Gameplay.Characters.View;
+using Project.CodeBase.Gameplay.Characters.View.Animators;
 using Project.CodeBase.Gameplay.Characters.View.Hit;
 using Project.CodeBase.Gameplay.Characters.View.Move;
 using Project.CodeBase.Gameplay.Characters.View.Outline;
 using Project.CodeBase.Gameplay.Characters.View.Sounds;
 using Project.CodeBase.Gameplay.Characters.View.SpriteFlip;
 using Project.CodeBase.Gameplay.Services.TurnQueue;
+using Project.CodeBase.Gameplay.Tweeners.Color;
+using Project.CodeBase.Gameplay.Tweeners.Hit;
+using Project.CodeBase.Gameplay.Tweeners.Move;
+using Project.CodeBase.Gameplay.Tweeners.Scale;
 using Project.CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI.Gameplay;
 using Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
 using Project.CodeBase.Infrastructure.Services.Factories.TurnQueue;
@@ -98,11 +99,12 @@ namespace Project.CodeBase.Infrastructure.Services.Factories.Characters
 
             IHitView hitView = CreateHitView(gameObject, characterSounds);
             ISpriteFlip spriteFlip = CreateSpriteFlip(gameObject.transform);
-            CharacterOutline characterOutline = CreateOutline(gameObject);
-            IMovementView movementView = CreateMovementView(gameObject, characterSounds, spriteFlip);
+            ICharacterOutline characterOutline = CreateOutline(gameObject);
+            ICharacterAnimator characterAnimator = CreateCharacterAnimator(gameObject);
+            IMovementView movementView = CreateMovementView(gameObject, characterSounds, spriteFlip, characterAnimator);
 
             CharacterView characterView = new();
-            characterView.Construct(icon, movementView, hitView, spriteFlip, characterOutline);
+            characterView.Construct(icon, characterAnimator, movementView, hitView, spriteFlip, characterOutline);
             return characterView;
         }
 
@@ -115,11 +117,14 @@ namespace Project.CodeBase.Infrastructure.Services.Factories.Characters
         private ISpriteFlip CreateSpriteFlip(Transform characterTransform) => 
             new SpriteFlip(characterTransform);
 
-        private IMovementView CreateMovementView(GameObject gameObject, CharacterSounds characterSounds, ISpriteFlip spriteFlip)
+        private IMovementView CreateMovementView(GameObject gameObject,
+            CharacterSounds characterSounds,
+            ISpriteFlip spriteFlip,
+            ICharacterAnimator characterAnimator)
         {
-            MovementAnimation movementAnimation = new(gameObject.transform);
+            MoveTweener moveTweener = new(gameObject.transform);
 
-            MovementView movementView = new(movementAnimation, characterSounds, spriteFlip);
+            MovementView movementView = new(moveTweener, characterSounds, spriteFlip, characterAnimator);
             _objectResolver.Inject(movementView);
             return movementView;
         }
@@ -136,13 +141,19 @@ namespace Project.CodeBase.Infrastructure.Services.Factories.Characters
             ScaleAnimation scaleAnimation = new(gameObject.transform);
 
             SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-            ColorAnimation colorAnimation = new(spriteRenderer);
+            ColorTweener colorTweener = new(spriteRenderer);
             
-            HitAnimation hitAnimation = new(scaleAnimation, colorAnimation);
+            HitTweener hitTweener = new(scaleAnimation, colorTweener);
 
-            HitView hitView = new(hitAnimation, characterSounds);
+            HitView hitView = new(hitTweener, characterSounds);
             _objectResolver.Inject(hitView);
             return hitView;
+        }
+
+        private ICharacterAnimator CreateCharacterAnimator(GameObject gameObject)
+        {
+            Animator animator = gameObject.GetComponent<Animator>();
+            return new CharacterAnimator(animator);
         }
 
         private async UniTask CreateHealthBar(ICharacter character)

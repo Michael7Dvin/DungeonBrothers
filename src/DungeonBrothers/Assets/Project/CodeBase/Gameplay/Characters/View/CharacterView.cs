@@ -1,4 +1,5 @@
-﻿using Project.CodeBase.Gameplay.Characters.View.Hit;
+﻿using Project.CodeBase.Gameplay.Characters.View.Animators;
+using Project.CodeBase.Gameplay.Characters.View.Hit;
 using Project.CodeBase.Gameplay.Characters.View.Move;
 using Project.CodeBase.Gameplay.Characters.View.Outline;
 using Project.CodeBase.Gameplay.Characters.View.SpriteFlip;
@@ -9,12 +10,14 @@ namespace Project.CodeBase.Gameplay.Characters.View
     public class CharacterView : ICharacterView
     {
         public void Construct(CharacterTurnQueueIcon characterTurnQueueIcon,
+            ICharacterAnimator animator,
             IMovementView movementView, 
             IHitView hitView,
             ISpriteFlip spriteFlip,
             ICharacterOutline characterOutline)
         {
             Icon = characterTurnQueueIcon;
+            Animator = animator;
             MovementView = movementView;
             HitView = hitView; 
             SpriteFlip = spriteFlip;
@@ -22,6 +25,7 @@ namespace Project.CodeBase.Gameplay.Characters.View
         }
         
         public CharacterTurnQueueIcon Icon { get; private set;}
+        public ICharacterAnimator Animator { get; private set; }
         public IMovementView MovementView { get; private set; }
         public IHitView HitView { get; private set; }
         public ISpriteFlip SpriteFlip { get; private set; }
