@@ -15,6 +15,7 @@ using Project.CodeBase.Gameplay.Characters.View.Hit;
 using Project.CodeBase.Gameplay.Characters.View.Move;
 using Project.CodeBase.Gameplay.Characters.View.Outline;
 using Project.CodeBase.Gameplay.Characters.View.Sounds;
+using Project.CodeBase.Gameplay.Characters.View.SpriteFlip;
 using Project.CodeBase.Gameplay.Services.TurnQueue;
 using Project.CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI.Gameplay;
 using Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
@@ -88,36 +89,37 @@ namespace Project.CodeBase.Infrastructure.Services.Factories.Characters
             return character;
         }
 
-        private async UniTask<ICharacterView> CreateCharacterView(GameObject gameObject,
-            CharacterConfig config)
+        private async UniTask<ICharacterView> CreateCharacterView(GameObject gameObject, CharacterConfig config)
         {
             CharacterTurnQueueIcon icon = await _turnQueueViewFactory.CreateIcon(config.Image, config.ID);
             icon.gameObject.SetActive(false);
             
             CharacterSounds characterSounds = SetupCharacterSounds(gameObject);
 
-            IMovementView movementView = CreateMovementView(gameObject, characterSounds);
             IHitView hitView = CreateHitView(gameObject, characterSounds);
+            ISpriteFlip spriteFlip = CreateSpriteFlip(gameObject.transform);
             CharacterOutline characterOutline = CreateOutline(gameObject);
-            
+            IMovementView movementView = CreateMovementView(gameObject, characterSounds, spriteFlip);
+
             CharacterView characterView = new();
-            characterView.Construct(icon, movementView, hitView, characterOutline);
+            characterView.Construct(icon, movementView, hitView, spriteFlip, characterOutline);
             return characterView;
         }
 
         private CharacterOutline CreateOutline(GameObject gameObject)
         {
             Material material = gameObject.GetComponent<Renderer>().material;
-            
             return new CharacterOutline(material);
         }
 
-        private IMovementView CreateMovementView(GameObject gameObject, 
-            CharacterSounds characterSounds)
+        private ISpriteFlip CreateSpriteFlip(Transform characterTransform) => 
+            new SpriteFlip(characterTransform);
+
+        private IMovementView CreateMovementView(GameObject gameObject, CharacterSounds characterSounds, ISpriteFlip spriteFlip)
         {
             MovementAnimation movementAnimation = new(gameObject.transform);
 
-            MovementView movementView = new(movementAnimation, characterSounds);
+            MovementView movementView = new(movementAnimation, characterSounds, spriteFlip);
             _objectResolver.Inject(movementView);
             return movementView;
         }
@@ -129,9 +131,8 @@ namespace Project.CodeBase.Infrastructure.Services.Factories.Characters
             return characterSounds;
         }
 
-        private IHitView CreateHitView(GameObject gameObject,
-            CharacterSounds characterSounds)
-        {;
+        private IHitView CreateHitView(GameObject gameObject, CharacterSounds characterSounds)
+        {
             ScaleAnimation scaleAnimation = new(gameObject.transform);
 
             SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();

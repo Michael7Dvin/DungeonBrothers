@@ -34,12 +34,14 @@ namespace Project.CodeBase.Gameplay.Characters.Logic.Movement
             StartMovePoints = startMovePoints;
         }
 
-        public Tile OccupiedTile { get; private set; }
         public bool IsMoveThroughObstacles { get; }
         public int StartMovePoints { get; }
         public int AvailableMovePoints { get; private set; }
+
         public Vector2Int Coordinates => 
             OccupiedTile.Logic.Coordinates;
+
+        private Tile OccupiedTile { get; set; }
 
         public void ResetAvailableMovePoints() => 
             AvailableMovePoints = StartMovePoints;
@@ -57,7 +59,7 @@ namespace Project.CodeBase.Gameplay.Characters.Logic.Movement
             
             OccupiedTile.Logic.Release();
             
-            await _movementView.Move(tilesPath);
+            await _movementView.Move(Coordinates, tilesPath);
             
             Tile destinationTile = tilesPath.Last();
             destinationTile.Logic.Occupy(_character);
