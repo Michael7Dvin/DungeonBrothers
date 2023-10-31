@@ -7,32 +7,43 @@ namespace Project.CodeBase.Gameplay.Animations.Colors
     {
         private readonly SpriteRenderer _spriteRenderer;
 
+        private Tween _currentTween;
+        private Color _lastColor;
+        
         public ColorAnimation(SpriteRenderer spriteRenderer)
         {
             _spriteRenderer = spriteRenderer;
         }
 
-        private Tween _currentTween;
         
-        public Tween DoColor(ColorAnimationConfig colorAnimationConfig)
+        public Tween DoColorWithReset(ColorAnimationConfig config)
         {
-            _currentTween = GetColorTween(colorAnimationConfig);
+            _currentTween = GetColorSequence(config);
             return _currentTween.Play();
         } 
         
-        private Tween GetColorTween(ColorAnimationConfig colorAnimationConfig)
+        private Sequence GetColorSequence(ColorAnimationConfig config)
         {
             if (_currentTween.IsActive())
                 _currentTween.Kill();
 
-            Color endColor = colorAnimationConfig.EndColor;
-            float duration = colorAnimationConfig.Duration;
-            Ease ease = colorAnimationConfig.Ease;
+            _lastColor = _spriteRenderer.material.color;
+
+            Color color = config.EndColor;
+            float duration = config.Duration;
+            Ease ease = config.Ease;
             
-            return _spriteRenderer.material
-                .DOColor(endColor, duration)
+            Sequence sequence = DOTween.Sequence();
+
+            return sequence
+                .Append(GetColorTween(color, duration, ease))
+                .Append(GetColorTween(_lastColor, duration, ease));
+        }
+
+        private Tween GetColorTween(Color color, float duration, Ease ease) =>
+            _spriteRenderer.material
+                .DOColor(color, duration)
                 .SetEase(ease)
                 .SetUpdate(true);
-        }
     }
 }

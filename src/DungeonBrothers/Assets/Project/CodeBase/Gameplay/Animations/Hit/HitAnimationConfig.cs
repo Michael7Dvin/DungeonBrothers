@@ -9,9 +9,7 @@ namespace Project.CodeBase.Gameplay.Animations.Hit
     public class HitAnimationConfig : ScriptableObject
     {
         [FormerlySerializedAs("ScaleInHit")] public ScaleAnimationConfig ScaleAnimationAtHit;
-        [FormerlySerializedAs("ScaleOutHit")] public ScaleAnimationConfig ScaleAnimationAfterHit;
-        
         [FormerlySerializedAs("ColorInHit")] public ColorAnimationConfig ColorAnimationAtHit;
-        [FormerlySerializedAs("ColorOutHit")] public ColorAnimationConfig ColorAnimationAfterHit;
+     
     }
 }

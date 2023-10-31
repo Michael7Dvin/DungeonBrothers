@@ -24,22 +24,40 @@ namespace Project.CodeBase.Gameplay.Characters.View.Sounds
 
         public void PlaySoundOneTime(CharacterSoundType characterSoundType)
         {
+            if (IsHaveAudioClips() == false)
+                return;
+            
             if (_audioClips.TryGetValue(characterSoundType, out AudioClip audioClip))
                 _audioSource.PlayOneShot(audioClip);
             else
-                _customLogger.LogError(new Exception($"{characterSoundType}, doesn't have"));
+                _customLogger.Log(new Exception($"{characterSoundType}, doesn't have"));
         }
 
         public void PlaySoundInLoop(CharacterSoundType characterSoundType)
         {
+            if (IsHaveAudioClips() == false)
+                return;
+            
             if (_audioClips.TryGetValue(characterSoundType, out AudioClip audioClip))
             {
                 _audioSource.clip = audioClip;
                 _audioSource.Play();
             }
             else
-                _customLogger.LogError(new Exception($"{characterSoundType}, doesn't have"));
+                _customLogger.Log(new Exception($"{characterSoundType}, doesn't have"));
         }
+
+        private bool IsHaveAudioClips()
+        {
+            if (_audioClips == null)
+            {
+                _customLogger.Log(new Exception($"He doesn't have any sounds"));
+                return false;
+            }
+
+            return true;
+        }
+            
 
         public void StopPlaySound() => 
             _audioSource.Stop();

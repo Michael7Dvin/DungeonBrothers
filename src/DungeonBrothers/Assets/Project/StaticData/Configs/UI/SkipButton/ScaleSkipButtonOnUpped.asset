@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2541850bc72c4f6fbe00f2756b7ee3b0, type: 3}
-  m_Name: ScaleOutHit
+  m_Name: ScaleSkipButtonOnUpped
   m_EditorClassIdentifier: 
-  <Scale>k__BackingField: {x: 1, y: 1, z: 1}
-  <Duration>k__BackingField: 0.2
-  <Ease>k__BackingField: 12
+  <Multiplier>k__BackingField: 0
+  <Duration>k__BackingField: 0
+  <Ease>k__BackingField: 0

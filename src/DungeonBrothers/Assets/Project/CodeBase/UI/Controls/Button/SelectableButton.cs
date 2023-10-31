@@ -30,15 +30,16 @@ namespace Project.CodeBase.UI.Controls.Button
         }
 
         private void OnPointerUpped(PointerEventData pointerEventData)
-            => _scaleAnimation.DoScale(_config.ScaleAnimationOnUpped);
+            => _scaleAnimation.DoScaleWithoutReset(_config.ScaleAnimationOnUpped);
 
         private void OnPointerDowned(PointerEventData pointerEventData)
-            => _scaleAnimation.DoScale(_config.ScaleAnimationOnDowned);
+            => _scaleAnimation.DoScaleWithoutReset(_config.ScaleAnimationOnDowned);
 
         private void OnPointerEntered(PointerEventData pointerEventData)
-            => _scaleAnimation.DoScale(_config.ScaleAnimationOnEntered);
+            => _scaleAnimation.DoScaleWithoutReset(_config.ScaleAnimationOnEntered);
 
         private void OnPointerExited(PointerEventData pointerEventData)
-            => _scaleAnimation.DoScale(_config.ScaleAnimationOnExited);
+            => _scaleAnimation.DoScaleWithoutReset(_config.ScaleAnimationOnExited);
+        
     }
 }

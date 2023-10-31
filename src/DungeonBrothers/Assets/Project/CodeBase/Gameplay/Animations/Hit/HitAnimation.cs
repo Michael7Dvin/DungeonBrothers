@@ -18,15 +18,13 @@ namespace Project.CodeBase.Gameplay.Animations.Hit
 
         public async UniTask DoHit(HitAnimationConfig config)
         {
-            UniTask scaleAtHit = _scaleAnimation.DoScale(config.ScaleAnimationAtHit).ToUniTask();
-            UniTask colorAtHit = _colorAnimation.DoColor(config.ColorAnimationAtHit).ToUniTask();
+            ScaleAnimationConfig scaleConfig = config.ScaleAnimationAtHit;
+            ColorAnimationConfig colorConfig = config.ColorAnimationAtHit;
+
+            UniTask scaleAtHit = _scaleAnimation.DoScaleWithReset(scaleConfig).ToUniTask();
+            UniTask colorAtHit = _colorAnimation.DoColorWithReset(colorConfig).ToUniTask();
             
             await UniTask.WhenAll(scaleAtHit, colorAtHit);
-
-            UniTask scaleAfterHit = _colorAnimation.DoColor(config.ColorAnimationAfterHit).ToUniTask();
-            UniTask colorAfterHit = _scaleAnimation.DoScale(config.ScaleAnimationAfterHit).ToUniTask();
-            
-            await UniTask.WhenAll(scaleAfterHit, colorAfterHit);
         }
     }
 }
