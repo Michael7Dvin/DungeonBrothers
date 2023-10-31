@@ -1,4 +1,4 @@
-﻿namespace _Project.CodeBase.Gameplay.Characters.CharacterInfo
+﻿namespace Project.CodeBase.Gameplay.Characters.CharacterInfo
 {
     public enum CharacterAttackType
     {

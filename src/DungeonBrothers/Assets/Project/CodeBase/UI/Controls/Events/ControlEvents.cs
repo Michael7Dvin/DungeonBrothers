@@ -2,7 +2,7 @@
 using UniRx;
 using UnityEngine.EventSystems;
 
-namespace _Project.CodeBase.UI.Controls.Events
+namespace Project.CodeBase.UI.Controls.Events
 {
     public class ControlEvents : EventTrigger, IControlEvents
     {

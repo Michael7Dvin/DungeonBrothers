@@ -1,17 +1,17 @@
-using _Project.CodeBase.Gameplay.Services.AI;
-using _Project.CodeBase.Gameplay.Services.TurnQueue;
-using _Project.CodeBase.Gameplay.Services.Visualizers.ActiveCharacter;
-using _Project.CodeBase.Gameplay.Services.Visualizers.Attackable;
-using _Project.CodeBase.Gameplay.Services.Visualizers.Path;
-using _Project.CodeBase.Gameplay.Services.Visualizers.Select;
-using _Project.CodeBase.Gameplay.Services.Visualizers.Walkable;
-using _Project.CodeBase.Gameplay.Tiles;
-using _Project.CodeBase.Infrastructure.Services.InputService;
-using _Project.CodeBase.Infrastructure.Services.Providers.LevelSpawner;
-using _Project.CodeBase.Infrastructure.StateMachines.Common.States;
-using _Project.CodeBase.Infrastructure.StateMachines.Gameplay.FSM;
+using Project.CodeBase.Gameplay.Services.AI;
+using Project.CodeBase.Gameplay.Services.TurnQueue;
+using Project.CodeBase.Gameplay.Services.Visualizers.ActiveCharacter;
+using Project.CodeBase.Gameplay.Services.Visualizers.Attackable;
+using Project.CodeBase.Gameplay.Services.Visualizers.Path;
+using Project.CodeBase.Gameplay.Services.Visualizers.Select;
+using Project.CodeBase.Gameplay.Services.Visualizers.Walkable;
+using Project.CodeBase.Gameplay.Tiles;
+using Project.CodeBase.Infrastructure.Services.InputService;
+using Project.CodeBase.Infrastructure.Services.Providers.LevelSpawner;
+using Project.CodeBase.Infrastructure.StateMachines.Common.States;
+using Project.CodeBase.Infrastructure.StateMachines.Gameplay.FSM;
 
-namespace _Project.CodeBase.Infrastructure.StateMachines.Gameplay.States
+namespace Project.CodeBase.Infrastructure.StateMachines.Gameplay.States
 {
     public class LevelLoadingState : IState
     {

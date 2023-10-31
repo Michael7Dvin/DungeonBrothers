@@ -1,10 +1,10 @@
-﻿using _Project.CodeBase.Gameplay.Characters;
-using _Project.CodeBase.Gameplay.Characters.View.Outline;
-using _Project.CodeBase.Gameplay.Services.TurnQueue;
-using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
+﻿using Project.CodeBase.Gameplay.Characters;
+using Project.CodeBase.Gameplay.Characters.View.Outline;
+using Project.CodeBase.Gameplay.Services.TurnQueue;
+using Project.CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
 
-namespace _Project.CodeBase.Gameplay.Services.Visualizers.ActiveCharacter
+namespace Project.CodeBase.Gameplay.Services.Visualizers.ActiveCharacter
 {
     public class ActiveCharacterVisualizer : IActiveCharacterVisualizer
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _Project.CodeBase.Infrastructure.Audio
+namespace Project.CodeBase.Infrastructure.Audio
 {
     public interface ISoundPlayer
     {

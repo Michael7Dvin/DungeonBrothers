@@ -1,10 +1,10 @@
 ﻿using System.Linq;
-using _Project.CodeBase.Gameplay.Characters;
-using _Project.CodeBase.Gameplay.Services.TurnQueue;
 using FluentAssertions;
 using NUnit.Framework;
+using Project.CodeBase.Gameplay.Characters;
+using Project.CodeBase.Gameplay.Services.TurnQueue;
 
-namespace _Project.CodeBase.Tests.EditMode.TurnQueue
+namespace Project.CodeBase.Tests.EditMode.TurnQueue
 {
     public class TurnQueueTests
     {

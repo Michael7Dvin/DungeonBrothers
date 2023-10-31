@@ -1,4 +1,4 @@
-namespace _Project.CodeBase.Gameplay.Services.Visualizers.Select
+namespace Project.CodeBase.Gameplay.Services.Visualizers.Select
 {
     public interface ISelectedTileVisualizer
     {

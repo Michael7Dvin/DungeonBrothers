@@ -1,9 +1,9 @@
-﻿using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
+﻿using Project.CodeBase.Gameplay.Characters.CharacterInfo;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace _Project.CodeBase.Gameplay.Characters
+namespace Project.CodeBase.Gameplay.Characters
 {
     [CreateAssetMenu(menuName = "StaticData/Configs/Characters/Character", fileName = "CharacterConfig")]
     public class CharacterConfig : SerializedScriptableObject

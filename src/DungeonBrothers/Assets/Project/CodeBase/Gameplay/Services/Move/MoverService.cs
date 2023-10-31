@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Project.CodeBase.Gameplay.Characters;
-using _Project.CodeBase.Gameplay.Services.Map;
-using _Project.CodeBase.Gameplay.Services.PathFinder;
-using _Project.CodeBase.Gameplay.Services.TurnQueue;
-using _Project.CodeBase.Gameplay.Tiles;
 using Cysharp.Threading.Tasks;
+using Project.CodeBase.Gameplay.Characters;
+using Project.CodeBase.Gameplay.Services.Map;
+using Project.CodeBase.Gameplay.Services.PathFinder;
+using Project.CodeBase.Gameplay.Services.TurnQueue;
+using Project.CodeBase.Gameplay.Tiles;
 using UniRx;
 using UnityEngine;
 
-namespace _Project.CodeBase.Gameplay.Services.Move
+namespace Project.CodeBase.Gameplay.Services.Move
 {
     public class MoverService : IMoverService
     {

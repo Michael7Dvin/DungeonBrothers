@@ -1,8 +1,9 @@
-﻿using _Project.CodeBase.Gameplay.Characters;
-using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
-namespace _Project.CodeBase.Tests.EditMode.Damage
+using Project.CodeBase.Gameplay.Characters;
+using Project.CodeBase.Gameplay.Characters.CharacterInfo;
+
+namespace Project.CodeBase.Tests.EditMode.Damage
 {
     public class DamageTests
     {

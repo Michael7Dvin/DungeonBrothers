@@ -1,32 +1,32 @@
 ﻿using System.Collections.Generic;
-using _Project.CodeBase.Gameplay.Animations.Colors;
-using _Project.CodeBase.Gameplay.Animations.Hit;
-using _Project.CodeBase.Gameplay.Animations.Movement;
-using _Project.CodeBase.Gameplay.Animations.Scale;
-using _Project.CodeBase.Gameplay.Characters;
-using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
-using _Project.CodeBase.Gameplay.Characters.Logic;
-using _Project.CodeBase.Gameplay.Characters.Logic.Health;
-using _Project.CodeBase.Gameplay.Characters.View;
-using _Project.CodeBase.Gameplay.Characters.View.Hit;
-using _Project.CodeBase.Gameplay.Characters.View.Move;
-using _Project.CodeBase.Gameplay.Characters.View.Outline;
-using _Project.CodeBase.Gameplay.Characters.View.Sounds;
-using _Project.CodeBase.Gameplay.Services.TurnQueue;
-using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI.Gameplay;
-using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
-using _Project.CodeBase.Infrastructure.Services.Factories.TurnQueue;
-using _Project.CodeBase.Infrastructure.Services.Logger;
-using _Project.CodeBase.Infrastructure.Services.Providers.CharactersProvider;
-using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
-using _Project.CodeBase.UI.HealthBar;
-using _Project.CodeBase.UI.TurnQueue;
 using Cysharp.Threading.Tasks;
+using Project.CodeBase.Gameplay.Animations.Colors;
+using Project.CodeBase.Gameplay.Animations.Hit;
+using Project.CodeBase.Gameplay.Animations.Movement;
+using Project.CodeBase.Gameplay.Animations.Scale;
+using Project.CodeBase.Gameplay.Characters;
+using Project.CodeBase.Gameplay.Characters.CharacterInfo;
+using Project.CodeBase.Gameplay.Characters.Logic;
+using Project.CodeBase.Gameplay.Characters.Logic.Health;
+using Project.CodeBase.Gameplay.Characters.View;
+using Project.CodeBase.Gameplay.Characters.View.Hit;
+using Project.CodeBase.Gameplay.Characters.View.Move;
+using Project.CodeBase.Gameplay.Characters.View.Outline;
+using Project.CodeBase.Gameplay.Characters.View.Sounds;
+using Project.CodeBase.Gameplay.Services.TurnQueue;
+using Project.CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI.Gameplay;
+using Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
+using Project.CodeBase.Infrastructure.Services.Factories.TurnQueue;
+using Project.CodeBase.Infrastructure.Services.Logger;
+using Project.CodeBase.Infrastructure.Services.Providers.CharactersProvider;
+using Project.CodeBase.Infrastructure.Services.StaticDataProvider;
+using Project.CodeBase.UI.HealthBar;
+using Project.CodeBase.UI.TurnQueue;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace _Project.CodeBase.Infrastructure.Services.Factories.Characters
+namespace Project.CodeBase.Infrastructure.Services.Factories.Characters
 {
     public class CharacterFactory : ICharacterFactory
     {

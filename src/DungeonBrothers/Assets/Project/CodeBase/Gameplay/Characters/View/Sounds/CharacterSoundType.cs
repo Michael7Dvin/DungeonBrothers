@@ -1,4 +1,4 @@
-﻿namespace _Project.CodeBase.Gameplay.Characters.View.Sounds
+﻿namespace Project.CodeBase.Gameplay.Characters.View.Sounds
 {
     public enum CharacterSoundType
     {

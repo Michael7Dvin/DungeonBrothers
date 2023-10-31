@@ -3,7 +3,7 @@ using FluentAssertions;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace _Project.CodeBase.Tests.PlayMode
+namespace Project.CodeBase.Tests.PlayMode
 {
     public class ExamplePlayModeTest
     {

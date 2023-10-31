@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using _Project.CodeBase.Gameplay.Characters;
 using Cysharp.Threading.Tasks;
+using Project.CodeBase.Gameplay.Characters;
 
-namespace _Project.CodeBase.Infrastructure.Services.Factories.Characters
+namespace Project.CodeBase.Infrastructure.Services.Factories.Characters
 {
     public interface ICharacterFactory
     {

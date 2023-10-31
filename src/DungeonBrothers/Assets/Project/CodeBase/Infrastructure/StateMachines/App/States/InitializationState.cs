@@ -1,8 +1,8 @@
-﻿using _Project.CodeBase.Infrastructure.StateMachines.App.FSM;
-using _Project.CodeBase.Infrastructure.StateMachines.Common.States;
-using DG.Tweening;
+﻿using DG.Tweening;
+using Project.CodeBase.Infrastructure.StateMachines.App.FSM;
+using Project.CodeBase.Infrastructure.StateMachines.Common.States;
 
-namespace _Project.CodeBase.Infrastructure.StateMachines.App.States
+namespace Project.CodeBase.Infrastructure.StateMachines.App.States
 {
     public class InitializationState : IState
     {

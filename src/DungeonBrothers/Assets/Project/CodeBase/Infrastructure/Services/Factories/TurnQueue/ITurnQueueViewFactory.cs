@@ -1,9 +1,9 @@
-using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
-using _Project.CodeBase.UI.TurnQueue;
 using Cysharp.Threading.Tasks;
+using Project.CodeBase.Gameplay.Characters.CharacterInfo;
+using Project.CodeBase.UI.TurnQueue;
 using UnityEngine.AddressableAssets;
 
-namespace _Project.CodeBase.Infrastructure.Services.Factories.TurnQueue
+namespace Project.CodeBase.Infrastructure.Services.Factories.TurnQueue
 {
     public interface ITurnQueueViewFactory
     {

@@ -1,15 +1,15 @@
-﻿using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
-using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
-using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
-using _Project.CodeBase.UI.Services.UIProvider;
-using _Project.CodeBase.UI.TurnQueue;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
+using Project.CodeBase.Gameplay.Characters.CharacterInfo;
+using Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
+using Project.CodeBase.Infrastructure.Services.StaticDataProvider;
+using Project.CodeBase.UI.Services.UIProvider;
+using Project.CodeBase.UI.TurnQueue;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using VContainer;
 using VContainer.Unity;
 
-namespace _Project.CodeBase.Infrastructure.Services.Factories.TurnQueue
+namespace Project.CodeBase.Infrastructure.Services.Factories.TurnQueue
 {
     public class TurnQueueViewFactory : ITurnQueueViewFactory
     {

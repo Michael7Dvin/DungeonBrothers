@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace _Project.CodeBase.Infrastructure.Services.Logger
+namespace Project.CodeBase.Infrastructure.Services.Logger
 {
     public struct LogMessage
     {

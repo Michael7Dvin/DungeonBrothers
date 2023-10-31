@@ -1,11 +1,11 @@
-﻿using _Project.CodeBase.Gameplay.Animations.Movement;
-using _Project.CodeBase.Gameplay.Characters.View.Sounds;
-using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
+using Project.CodeBase.Gameplay.Animations.Movement;
+using Project.CodeBase.Gameplay.Characters.View.Sounds;
+using Project.CodeBase.Infrastructure.Services.StaticDataProvider;
 using UnityEngine;
 using VContainer;
 
-namespace _Project.CodeBase.Gameplay.Characters.View.Move
+namespace Project.CodeBase.Gameplay.Characters.View.Move
 {
     public class MovementView : IMovementView
     {

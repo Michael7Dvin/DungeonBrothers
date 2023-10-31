@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using _Project.CodeBase.Gameplay.Characters;
-using _Project.CodeBase.Gameplay.Services.Random;
-using _Project.CodeBase.Infrastructure.Services.Providers.CharactersProvider;
+using Project.CodeBase.Gameplay.Characters;
+using Project.CodeBase.Gameplay.Services.Random;
+using Project.CodeBase.Infrastructure.Services.Providers.CharactersProvider;
 using UniRx;
 
-namespace _Project.CodeBase.Gameplay.Services.TurnQueue
+namespace Project.CodeBase.Gameplay.Services.TurnQueue
 {
     public class TurnQueue : ITurnQueue
     {

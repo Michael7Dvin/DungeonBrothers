@@ -1,4 +1,4 @@
-﻿namespace _Project.CodeBase.Gameplay.Characters.Logic
+﻿namespace Project.CodeBase.Gameplay.Characters.Logic
 {
     public class CharacterLogic : ICharacterLogic
     {

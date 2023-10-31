@@ -1,10 +1,10 @@
 using System;
-using _Project.CodeBase.Infrastructure.Services.Logger;
+using Project.CodeBase.Infrastructure.Services.Logger;
 using UniRx;
 using UnityEngine;
 using VContainer;
 
-namespace _Project.CodeBase.Gameplay.Characters.Logic.Health
+namespace Project.CodeBase.Gameplay.Characters.Logic.Health
 {
     public class Health : MonoBehaviour, IDamageable, IHealable
     {

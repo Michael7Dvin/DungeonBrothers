@@ -1,6 +1,6 @@
 using Cysharp.Threading.Tasks;
 
-namespace _Project.CodeBase.Infrastructure.Services.Factories.UI
+namespace Project.CodeBase.Infrastructure.Services.Factories.UI
 {
     public interface ICommonUIFactory
     {

@@ -1,10 +1,10 @@
-using _Project.CodeBase.Gameplay.Animations.Hit;
-using _Project.CodeBase.Gameplay.Characters.View.Sounds;
-using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
 using Cysharp.Threading.Tasks;
+using Project.CodeBase.Gameplay.Animations.Hit;
+using Project.CodeBase.Gameplay.Characters.View.Sounds;
+using Project.CodeBase.Infrastructure.Services.StaticDataProvider;
 using VContainer;
 
-namespace _Project.CodeBase.Gameplay.Characters.View.Hit
+namespace Project.CodeBase.Gameplay.Characters.View.Hit
 {
     public class HitView : IHitView
     {

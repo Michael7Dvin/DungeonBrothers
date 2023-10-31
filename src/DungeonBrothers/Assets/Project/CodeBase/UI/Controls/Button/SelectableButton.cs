@@ -1,5 +1,4 @@
-using _Project.CodeBase.Gameplay.Animations.Scale;
-using _Project.CodeBase.UI.Controls.Button;
+using Project.CodeBase.Gameplay.Animations.Scale;
 using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;

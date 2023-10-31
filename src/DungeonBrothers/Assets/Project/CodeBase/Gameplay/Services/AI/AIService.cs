@@ -1,9 +1,9 @@
-﻿using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
-using _Project.CodeBase.Gameplay.Services.AI.Behaviours;
-using _Project.CodeBase.Gameplay.Services.TurnQueue;
+﻿using Project.CodeBase.Gameplay.Characters.CharacterInfo;
+using Project.CodeBase.Gameplay.Services.AI.Behaviours;
+using Project.CodeBase.Gameplay.Services.TurnQueue;
 using UniRx;
 
-namespace _Project.CodeBase.Gameplay.Services.AI
+namespace Project.CodeBase.Gameplay.Services.AI
 {
     public class AIService : IAIService
     {

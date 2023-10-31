@@ -1,4 +1,4 @@
-namespace _Project.CodeBase.Gameplay.Services.Visualizers.ActiveCharacter
+namespace Project.CodeBase.Gameplay.Services.Visualizers.ActiveCharacter
 {
     public interface IActiveCharacterVisualizer
     {

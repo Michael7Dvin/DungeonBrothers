@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _Project.CodeBase.Gameplay.Services.Raycast
+namespace Project.CodeBase.Gameplay.Services.Raycast
 {
     public interface IRaycastService
     {
