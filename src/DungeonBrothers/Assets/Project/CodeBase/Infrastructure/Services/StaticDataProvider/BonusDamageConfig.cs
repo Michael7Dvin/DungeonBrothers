@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _Project.CodeBase.Infrastructure.Services.StaticDataProvider
+namespace Project.CodeBase.Infrastructure.Services.StaticDataProvider
 {
     [CreateAssetMenu(menuName = "StaticData/Configs/Balance/BonusDamage", fileName = "BonusDamageConfig")]
     public class BonusDamageConfig : ScriptableObject

@@ -1,4 +1,4 @@
-namespace _Project.CodeBase.Gameplay.Services.Visualizers.Walkable
+namespace Project.CodeBase.Gameplay.Services.Visualizers.Walkable
 {
     public interface IWalkableTilesVisualizer
     {

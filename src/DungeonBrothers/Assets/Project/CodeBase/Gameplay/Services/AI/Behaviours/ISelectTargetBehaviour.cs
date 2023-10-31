@@ -1,6 +1,6 @@
-﻿using _Project.CodeBase.Gameplay.Characters;
+﻿using Project.CodeBase.Gameplay.Characters;
 
-namespace _Project.CodeBase.Gameplay.Services.AI.Behaviours
+namespace Project.CodeBase.Gameplay.Services.AI.Behaviours
 {
     public interface ISelectTargetBehaviour
     {

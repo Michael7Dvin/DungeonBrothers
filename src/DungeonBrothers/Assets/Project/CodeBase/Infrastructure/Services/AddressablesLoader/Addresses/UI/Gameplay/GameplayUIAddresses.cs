@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI.Gameplay
+namespace Project.CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI.Gameplay
 {
     [CreateAssetMenu(menuName = "StaticData/Addresses/UI/Gameplay", fileName = "GameplayUIAddresses")]
     public class GameplayUIAddresses : ScriptableObject

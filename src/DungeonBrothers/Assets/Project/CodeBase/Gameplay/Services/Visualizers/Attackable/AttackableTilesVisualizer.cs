@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
-using _Project.CodeBase.Gameplay.Characters;
-using _Project.CodeBase.Gameplay.Characters.CharacterInfo;
-using _Project.CodeBase.Gameplay.Characters.View.Outline;
-using _Project.CodeBase.Gameplay.Services.Attack;
-using _Project.CodeBase.Gameplay.Services.Map;
-using _Project.CodeBase.Gameplay.Services.Move;
-using _Project.CodeBase.Gameplay.Services.PathFinder;
-using _Project.CodeBase.Gameplay.Services.TurnQueue;
-using _Project.CodeBase.Gameplay.Tiles;
-using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
+using Project.CodeBase.Gameplay.Characters;
+using Project.CodeBase.Gameplay.Characters.CharacterInfo;
+using Project.CodeBase.Gameplay.Characters.View.Outline;
+using Project.CodeBase.Gameplay.Services.Attack;
+using Project.CodeBase.Gameplay.Services.Map;
+using Project.CodeBase.Gameplay.Services.Move;
+using Project.CodeBase.Gameplay.Services.PathFinder;
+using Project.CodeBase.Gameplay.Services.TurnQueue;
+using Project.CodeBase.Gameplay.Tiles;
+using Project.CodeBase.Infrastructure.Services.StaticDataProvider;
 using UniRx;
 
-namespace _Project.CodeBase.Gameplay.Services.Visualizers.Attackable
+namespace Project.CodeBase.Gameplay.Services.Visualizers.Attackable
 {
     public class AttackableTilesVisualizer : IAttackableTilesVisualizer
     {

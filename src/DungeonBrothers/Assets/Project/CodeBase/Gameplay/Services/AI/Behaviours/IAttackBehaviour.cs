@@ -1,6 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 
-namespace _Project.CodeBase.Gameplay.Services.AI.Behaviours
+namespace Project.CodeBase.Gameplay.Services.AI.Behaviours
 {
     public interface IAttackBehaviour
     {

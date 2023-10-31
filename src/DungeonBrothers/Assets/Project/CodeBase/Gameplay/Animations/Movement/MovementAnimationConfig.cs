@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
-namespace _Project.CodeBase.Gameplay.Animations.Movement
+namespace Project.CodeBase.Gameplay.Animations.Movement
 {
     [CreateAssetMenu(menuName = "StaticData/Configs/Animations/Movement", fileName = "MovementAnimationConfig")]
     public class MovementAnimationConfig : ScriptableObject

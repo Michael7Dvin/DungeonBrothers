@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using _Project.CodeBase.Infrastructure.Services.Logger;
 using Cysharp.Threading.Tasks;
+using Project.CodeBase.Infrastructure.Services.Logger;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader
+namespace Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader
 {
     public class AddressablesLoader : IAddressablesLoader
     {

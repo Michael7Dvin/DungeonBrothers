@@ -1,5 +1,5 @@
 ﻿using System;
-using _Project.CodeBase.UI.Controls.Events;
+using Project.CodeBase.UI.Controls.Events;
 using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;

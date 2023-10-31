@@ -1,7 +1,7 @@
-﻿using _Project.CodeBase.Gameplay.Animations.Scale;
+﻿using Project.CodeBase.Gameplay.Animations.Scale;
 using UnityEngine;
 
-namespace _Project.CodeBase.UI.Controls.Button
+namespace Project.CodeBase.UI.Controls.Button
 {
     [CreateAssetMenu(menuName = "StaticData/Configs/Buttons/Animation/SelectableButton", fileName = "SelectableButton")]
     public class SelectableButtonAnimationConfig : ScriptableObject

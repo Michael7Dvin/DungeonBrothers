@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Project.CodeBase.Gameplay.Characters;
-using _Project.CodeBase.UI.TurnQueue;
+using Project.CodeBase.Gameplay.Characters;
+using Project.CodeBase.UI.TurnQueue;
 
-namespace _Project.CodeBase.Infrastructure.Services.Providers.CharactersProvider
+namespace Project.CodeBase.Infrastructure.Services.Providers.CharactersProvider
 {
     public interface ICharactersProvider
     {

@@ -1,4 +1,4 @@
-namespace _Project.CodeBase.Gameplay.Characters
+namespace Project.CodeBase.Gameplay.Characters
 {
     public enum MainAttributeID
     {

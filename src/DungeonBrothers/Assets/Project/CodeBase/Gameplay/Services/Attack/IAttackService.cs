@@ -1,8 +1,8 @@
-﻿using _Project.CodeBase.Gameplay.Characters;
-using _Project.CodeBase.Gameplay.Services.PathFinder;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
+using Project.CodeBase.Gameplay.Characters;
+using Project.CodeBase.Gameplay.Services.PathFinder;
 
-namespace _Project.CodeBase.Gameplay.Services.Attack
+namespace Project.CodeBase.Gameplay.Services.Attack
 {
     public interface IAttackService
     {

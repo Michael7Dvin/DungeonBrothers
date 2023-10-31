@@ -1,8 +1,8 @@
-﻿using _Project.CodeBase.Gameplay.Services.InteractionsService;
-using _Project.CodeBase.Gameplay.Services.TurnQueue;
+﻿using Project.CodeBase.Gameplay.Services.InteractionsService;
+using Project.CodeBase.Gameplay.Services.TurnQueue;
 using VContainer;
 
-namespace _Project.CodeBase.UI.TurnQueue.Button
+namespace Project.CodeBase.UI.TurnQueue.Button
 {
     public class SkipTurnViewModel
     {

@@ -1,14 +1,14 @@
-﻿using _Project.CodeBase.Gameplay.Services.Move;
-using _Project.CodeBase.Gameplay.Services.TurnQueue;
-using _Project.CodeBase.Infrastructure.Audio;
-using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
-using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
-using _Project.CodeBase.Infrastructure.StateMachines.Common.States;
+﻿using Project.CodeBase.Gameplay.Services.Move;
+using Project.CodeBase.Gameplay.Services.TurnQueue;
+using Project.CodeBase.Infrastructure.Audio;
+using Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
+using Project.CodeBase.Infrastructure.Services.StaticDataProvider;
+using Project.CodeBase.Infrastructure.StateMachines.Common.States;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace _Project.CodeBase.Infrastructure.StateMachines.Gameplay.States
+namespace Project.CodeBase.Infrastructure.StateMachines.Gameplay.States
 {
     public class BattleState : IState
     {

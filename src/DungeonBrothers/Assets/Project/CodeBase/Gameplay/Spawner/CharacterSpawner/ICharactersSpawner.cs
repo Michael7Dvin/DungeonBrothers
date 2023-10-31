@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using _Project.CodeBase.Gameplay.Characters;
 using Cysharp.Threading.Tasks;
+using Project.CodeBase.Gameplay.Characters;
 using UnityEngine;
 
-namespace _Project.CodeBase.Gameplay.Spawner.CharacterSpawner
+namespace Project.CodeBase.Gameplay.Spawner.CharacterSpawner
 {
     public interface ICharactersSpawner
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace _Project.CodeBase.Infrastructure.Services.SceneLoader
+namespace Project.CodeBase.Infrastructure.Services.SceneLoader
 {
     [Serializable]
     public enum SceneType

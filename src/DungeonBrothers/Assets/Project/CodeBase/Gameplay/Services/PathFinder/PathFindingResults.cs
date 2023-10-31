@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using _Project.CodeBase.Gameplay.Tiles;
+using Project.CodeBase.Gameplay.Tiles;
 using UnityEngine;
 
-namespace _Project.CodeBase.Gameplay.Services.PathFinder
+namespace Project.CodeBase.Gameplay.Services.PathFinder
 {
     public readonly struct PathFindingResults
     {

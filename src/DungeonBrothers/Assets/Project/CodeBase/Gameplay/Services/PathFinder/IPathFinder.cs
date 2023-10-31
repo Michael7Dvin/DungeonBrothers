@@ -1,7 +1,7 @@
 ﻿using UniRx;
 using UnityEngine;
 
-namespace _Project.CodeBase.Gameplay.Services.PathFinder
+namespace Project.CodeBase.Gameplay.Services.PathFinder
 {
     public interface IPathFinder
     {

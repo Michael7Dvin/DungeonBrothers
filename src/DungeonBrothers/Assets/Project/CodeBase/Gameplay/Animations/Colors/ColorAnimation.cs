@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
-namespace _Project.CodeBase.Gameplay.Animations.Colors
+namespace Project.CodeBase.Gameplay.Animations.Colors
 {
     public class ColorAnimation 
     {

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using _Project.CodeBase.Gameplay.Services.Map;
-using _Project.CodeBase.Gameplay.Tiles;
+using Project.CodeBase.Gameplay.Services.Map;
+using Project.CodeBase.Gameplay.Tiles;
 using UniRx;
 using UnityEngine;
 
-namespace _Project.CodeBase.Gameplay.Services.PathFinder
+namespace Project.CodeBase.Gameplay.Services.PathFinder
 {
     public class PathFinder : IPathFinder
     {

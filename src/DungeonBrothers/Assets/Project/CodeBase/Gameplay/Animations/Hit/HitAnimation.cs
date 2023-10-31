@@ -1,8 +1,8 @@
-﻿using _Project.CodeBase.Gameplay.Animations.Colors;
-using _Project.CodeBase.Gameplay.Animations.Scale;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
+using Project.CodeBase.Gameplay.Animations.Colors;
+using Project.CodeBase.Gameplay.Animations.Scale;
 
-namespace _Project.CodeBase.Gameplay.Animations.Hit
+namespace Project.CodeBase.Gameplay.Animations.Hit
 {
     public class HitAnimation
     {

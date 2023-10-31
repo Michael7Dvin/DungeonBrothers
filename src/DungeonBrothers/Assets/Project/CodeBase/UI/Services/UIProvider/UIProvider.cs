@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.EventSystems;
 
-namespace _Project.CodeBase.UI.Services.UIProvider
+namespace Project.CodeBase.UI.Services.UIProvider
 {
     public class UIProvider : IUIProvider
     {

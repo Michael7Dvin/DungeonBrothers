@@ -1,4 +1,4 @@
-namespace _Project.CodeBase.Gameplay.Services.Random
+namespace Project.CodeBase.Gameplay.Services.Random
 {
     public interface IRandomService
     {

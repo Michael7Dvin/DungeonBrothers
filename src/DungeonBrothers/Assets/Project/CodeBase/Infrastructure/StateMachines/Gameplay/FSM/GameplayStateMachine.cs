@@ -1,8 +1,8 @@
-﻿using _Project.CodeBase.Infrastructure.Services.Logger;
-using _Project.CodeBase.Infrastructure.StateMachines.Common;
-using _Project.CodeBase.Infrastructure.StateMachines.Common.States;
+﻿using Project.CodeBase.Infrastructure.Services.Logger;
+using Project.CodeBase.Infrastructure.StateMachines.Common;
+using Project.CodeBase.Infrastructure.StateMachines.Common.States;
 
-namespace _Project.CodeBase.Infrastructure.StateMachines.Gameplay.FSM
+namespace Project.CodeBase.Infrastructure.StateMachines.Gameplay.FSM
 {
     public class GameplayStateMachine : IGameplayStateMachine
     {

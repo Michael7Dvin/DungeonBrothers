@@ -1,14 +1,13 @@
-﻿using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI.Common;
-using _Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
-using _Project.CodeBase.Infrastructure.Services.StaticDataProvider;
-using _Project.CodeBase.UI.Services.UIProvider;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
+using Project.CodeBase.Infrastructure.Services.AddressablesLoader.Addresses.UI.Common;
+using Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
+using Project.CodeBase.Infrastructure.Services.StaticDataProvider;
+using Project.CodeBase.UI.Services.UIProvider;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using VContainer;
 using VContainer.Unity;
 
-namespace _Project.CodeBase.Infrastructure.Services.Factories.UI
+namespace Project.CodeBase.Infrastructure.Services.Factories.UI
 {
     public class CommonUIFactory : ICommonUIFactory
     {
