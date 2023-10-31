@@ -1,24 +1,31 @@
 ﻿using System;
+using UniRx;
 using UnityEngine.EventSystems;
 
 namespace Project.CodeBase.UI.Controls.Events
 {
     public class ControlEvents : EventTrigger, IControlEvents
     {
-        public event Action<PointerEventData> PointerEntered;
-        public event Action<PointerEventData> PointerExited;
-        public event Action<PointerEventData> PointerDowned;
-        public event Action<PointerEventData> PointerUpped;
-        public event Action<PointerEventData> PointerClicked;
-        
-        public override void OnPointerEnter(PointerEventData eventData) => PointerEntered?.Invoke(eventData);
+        private readonly ReactiveCommand<PointerEventData> _pointerEntered = new();
+        private readonly ReactiveCommand<PointerEventData> _pointerExited = new();
+        private readonly ReactiveCommand<PointerEventData> _pointerDowned = new();
+        private readonly ReactiveCommand<PointerEventData> _pointerUpped = new();
+        private readonly ReactiveCommand<PointerEventData> _pointerClicked = new();
 
-        public override void OnPointerExit(PointerEventData eventData) => PointerExited?.Invoke(eventData);
+        public IObservable<PointerEventData> PointerEntered => _pointerEntered;
+        public IObservable<PointerEventData> PointerExited => _pointerExited;
+        public IObservable<PointerEventData> PointerDowned => _pointerDowned;
+        public IObservable<PointerEventData> PointerUpped => _pointerUpped;
+        public IObservable<PointerEventData> PointerClicked => _pointerClicked;
 
-        public override void OnPointerDown(PointerEventData eventData) => PointerDowned?.Invoke(eventData);
+        public override void OnPointerEnter(PointerEventData eventData) => _pointerEntered.Execute(eventData);
 
-        public override void OnPointerUp(PointerEventData eventData) => PointerUpped?.Invoke(eventData);
+        public override void OnPointerExit(PointerEventData eventData) => _pointerExited.Execute(eventData);
 
-        public override void OnPointerClick(PointerEventData eventData) => PointerClicked?.Invoke(eventData);
+        public override void OnPointerDown(PointerEventData eventData) => _pointerDowned.Execute(eventData);
+
+        public override void OnPointerUp(PointerEventData eventData) => _pointerUpped.Execute(eventData);
+
+        public override void OnPointerClick(PointerEventData eventData) => _pointerClicked.Execute(eventData);
     }
 }

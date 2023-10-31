@@ -16,17 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 6bdcaef20799c3f4789ccd90c696e085
-  m_SerializeEntries:
-  - m_GUID: f827bb6a15f666041843ac0f8dd77be3
-    m_Address: Assets/_Project/Prefabs/Sound/SountrackPlayer.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c7b9828eb9f0e8040a84528e6d9670c3
-    m_Address: Assets/_Project/Audio/Fantasy_Activity_1.mp3
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9c68bd8dbd4afbe4a9ba008537298eab, type: 2}
   m_SchemaSet:

@@ -1,4 +1,5 @@
 ﻿using Project.CodeBase.Gameplay.Animations.Scale;
+using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,19 +15,21 @@ namespace Project.CodeBase.UI.Controls.Button
             _scaleAnimation = new ScaleAnimation(transform);
             
             base.OnEnable();
-            Events.PointerUpped += OnPointerUpped;
-            Events.PointerDowned += OnPointerDowned;
-            Events.PointerEntered += OnPointerEntered;
-            Events.PointerExited += OnPointerExited;
-        }
-
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-            Events.PointerUpped -= OnPointerUpped;
-            Events.PointerDowned -= OnPointerDowned;
-            Events.PointerEntered -= OnPointerEntered;
-            Events.PointerExited -= OnPointerExited;
+            Events.PointerUpped
+                .Subscribe(OnPointerUpped)
+                .AddTo(Disposable);
+            
+            Events.PointerDowned
+                .Subscribe(OnPointerDowned)
+                .AddTo(Disposable);
+            
+            Events.PointerEntered
+                .Subscribe(OnPointerEntered)
+                .AddTo(Disposable);
+            
+            Events.PointerExited
+                .Subscribe(OnPointerExited)
+                .AddTo(Disposable);
         }
 
         private void OnPointerUpped(PointerEventData pointerEventData)
