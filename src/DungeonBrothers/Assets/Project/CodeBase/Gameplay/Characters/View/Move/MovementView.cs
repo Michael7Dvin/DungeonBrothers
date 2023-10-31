@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Project.CodeBase.Gameplay.Animations.Movement;
 using Project.CodeBase.Gameplay.Characters.View.Sounds;
 using Project.CodeBase.Gameplay.Characters.View.SpriteFlip;
@@ -34,19 +32,20 @@ namespace Project.CodeBase.Gameplay.Characters.View.Move
             _spriteFlip = spriteFlip;
         }
 
-        public async UniTask Move(Vector2Int characterCoordinates, List<Tile> tilesPath)
+        public async UniTask Move(Vector2Int characterCoordinates, Tile destinationTile)
         {
-            Vector2Int firstPathTileCoordinates = tilesPath.First().Logic.Coordinates;
+            Vector2Int firstPathTileCoordinates = destinationTile.Logic.Coordinates;
             _spriteFlip.FlipToCoordinates(characterCoordinates, firstPathTileCoordinates);
 
-            Vector3[] worldPositionsPath = CalculateWorldPositionsPath(tilesPath);
+            Vector3 tileWorldPosition = destinationTile.transform.position;
 
-            _characterSounds.PlaySoundInLoop(CharacterSoundType.Walk);
-            await _movementAnimation.Move(worldPositionsPath, _config.Speed, _config.Ease);
-            _characterSounds.StopPlaySound();
+            await _movementAnimation.Move(tileWorldPosition, _config.Speed, _config.Ease);
         }
 
-        private Vector3[] CalculateWorldPositionsPath(IEnumerable<Tile> tilesPath) =>
-            tilesPath.Select(tile => tile.transform.position).ToArray();
+        public void StopMovement() => 
+            _characterSounds.StopPlaySound();
+
+        public void StartMovement() => 
+            _characterSounds.PlaySoundInLoop(CharacterSoundType.Walk);
     }
 }

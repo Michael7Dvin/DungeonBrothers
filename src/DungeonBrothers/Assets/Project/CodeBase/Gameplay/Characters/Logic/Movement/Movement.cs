@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Project.CodeBase.Gameplay.Characters.View.Move;
 using Project.CodeBase.Gameplay.Tiles;
@@ -57,15 +58,12 @@ namespace Project.CodeBase.Gameplay.Characters.Logic.Movement
                 return;
             }
             
-            OccupiedTile.Logic.Release();
+            _movementView.StartMovement();
             
-            await _movementView.Move(Coordinates, tilesPath);
-            
-            Tile destinationTile = tilesPath.Last();
-            destinationTile.Logic.Occupy(_character);
-            OccupiedTile = destinationTile;
+            foreach (Tile tile in tilesPath) 
+                await MoveToTile(tile);
 
-            AvailableMovePoints -= tilesPath.Count;
+            _movementView.StopMovement();
         }
 
         public void Teleport(Tile destinationTile)
@@ -75,6 +73,15 @@ namespace Project.CodeBase.Gameplay.Characters.Logic.Movement
 
             destinationTile.Logic.Occupy(_character);
             OccupiedTile = destinationTile;
+        }
+
+        private async Task MoveToTile(Tile tile)
+        {
+            OccupiedTile.Logic.Release();
+            await _movementView.Move(Coordinates, tile);
+            tile.Logic.Occupy(_character);
+            OccupiedTile = tile;
+            AvailableMovePoints--;
         }
     }
 }
