@@ -19,7 +19,7 @@ namespace Project.CodeBase.UI.TurnQueue.Button
 
         public void SkipTurn()
         {
-            if (_interactionService.IsInteract == false)
+            if (_interactionService.IsInteract == false) 
                 _turnQueue.SetNextTurn();
         }
     }

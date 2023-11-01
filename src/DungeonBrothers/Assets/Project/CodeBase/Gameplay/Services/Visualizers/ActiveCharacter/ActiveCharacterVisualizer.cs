@@ -13,7 +13,7 @@ namespace Project.CodeBase.Gameplay.Services.Visualizers.ActiveCharacter
 
         private readonly CompositeDisposable _disposable = new();
 
-        private CharacterOutline _visualizedCharacterOutline;
+        private ICharacterOutline _visualizedCharacterOutline;
 
         public ActiveCharacterVisualizer(ITurnQueue turnQueue, IStaticDataProvider staticDataProvider)
         {
@@ -36,7 +36,7 @@ namespace Project.CodeBase.Gameplay.Services.Visualizers.ActiveCharacter
         {
             _visualizedCharacterOutline?.SwitchOutLine(false);
 
-            CharacterOutline characterOutline = character.View.CharacterOutline;
+            ICharacterOutline characterOutline = character.View.CharacterOutline;
             characterOutline.ChangeColor(_characterOutlineColors.Active);
             characterOutline.SwitchOutLine(true);
 

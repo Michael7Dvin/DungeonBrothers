@@ -1,26 +1,34 @@
-﻿using Project.CodeBase.Gameplay.Characters.View.Hit;
+using Project.CodeBase.Gameplay.Characters.View.Animators;
+using Project.CodeBase.Gameplay.Characters.View.Hit;
 using Project.CodeBase.Gameplay.Characters.View.Move;
 using Project.CodeBase.Gameplay.Characters.View.Outline;
+using Project.CodeBase.Gameplay.Characters.View.SpriteFlip;
 using Project.CodeBase.UI.TurnQueue;
 
 namespace Project.CodeBase.Gameplay.Characters.View
 {
     public class CharacterView : ICharacterView
     {
-        public void Construct(CharacterInTurnQueueIcon characterInTurnQueueIcon,
+        public void Construct(CharacterTurnQueueIcon characterTurnQueueIcon,
+            ICharacterAnimator animator,
             IMovementView movementView, 
             IHitView hitView,
-            CharacterOutline characterOutline)
+            ISpriteFlip spriteFlip,
+            ICharacterOutline characterOutline)
         {
-            Icon = characterInTurnQueueIcon;
+            Icon = characterTurnQueueIcon;
+            Animator = animator;
             MovementView = movementView;
-            HitView = hitView;
+            HitView = hitView; 
+            SpriteFlip = spriteFlip;
             CharacterOutline = characterOutline;
         }
         
-        public CharacterInTurnQueueIcon Icon { get; private set;}
+        public CharacterTurnQueueIcon Icon { get; private set;}
+        public ICharacterAnimator Animator { get; private set; }
         public IMovementView MovementView { get; private set; }
         public IHitView HitView { get; private set; }
-        public CharacterOutline CharacterOutline { get; private set; }
+        public ISpriteFlip SpriteFlip { get; private set; }
+        public ICharacterOutline CharacterOutline { get; private set; }
     }
 }

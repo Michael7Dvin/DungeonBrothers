@@ -36,7 +36,7 @@ namespace Project.CodeBase.Gameplay.Services.Attack
         {
             ICharacter activeCharacter = _turnQueue.ActiveCharacter.Value;
 
-            if (TryAttackEnemy(character, activeCharacter) == false)
+            if (CanAttackEnemy(character, activeCharacter) == false)
                 return;
 
             await character.View.HitView.TakeHit();
@@ -45,7 +45,7 @@ namespace Project.CodeBase.Gameplay.Services.Attack
             _turnQueue.SetNextTurn();
         }
 
-        public bool TryAttackEnemy(ICharacter character, ICharacter activeCharacter)
+        public bool CanAttackEnemy(ICharacter character, ICharacter activeCharacter)
         {
             if (IsSelf(character, activeCharacter))
                 return false;
@@ -64,7 +64,7 @@ namespace Project.CodeBase.Gameplay.Services.Attack
         {
             PathFindingResults pathFindingResults = GetPathFindingResults(activeCharacter);
 
-            return pathFindingResults.ObstaclesCoordinates.Contains(character.Coordinate);
+            return pathFindingResults.ObstaclesCoordinates.Contains(character.Logic.Movement.Coordinates);
         }
 
         public PathFindingResults GetPathFindingResults(ICharacter activeCharacter)
@@ -72,11 +72,11 @@ namespace Project.CodeBase.Gameplay.Services.Attack
             switch (activeCharacter.Damage.CharacterAttackType)
             {
                 case CharacterAttackType.Melee:
-                    return _pathFinder.CalculatePaths(activeCharacter.Coordinate, _meleeRange, 
+                    return _pathFinder.CalculatePaths(activeCharacter.Logic.Movement.Coordinates, _meleeRange, 
                         false);
                 
                 case CharacterAttackType.Ranged:
-                    return _pathFinder.CalculatePaths(activeCharacter.Coordinate, _rangedRange, 
+                    return _pathFinder.CalculatePaths(activeCharacter.Logic.Movement.Coordinates, _rangedRange, 
                         true);
                 default:
                     _customLogger.LogError(

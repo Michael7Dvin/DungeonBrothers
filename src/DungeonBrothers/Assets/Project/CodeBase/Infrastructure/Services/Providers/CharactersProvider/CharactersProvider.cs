@@ -8,22 +8,22 @@ namespace Project.CodeBase.Infrastructure.Services.Providers.CharactersProvider
 {
     public class CharactersProvider : ICharactersProvider
     {
-        private readonly Dictionary<ICharacter, CharacterInTurnQueueIcon> _characters = new();
+        private readonly Dictionary<ICharacter, CharacterTurnQueueIcon> _characters = new();
         private readonly ReactiveCommand<ICharacter> _spawned = new();
         private readonly ReactiveCommand<ICharacter> _died = new();
 
         public IObservable<ICharacter> Spawned => _spawned;
         public IObservable<ICharacter> Died => _died;
-        public IReadOnlyDictionary<ICharacter, CharacterInTurnQueueIcon> Characters => _characters;
+        public IReadOnlyDictionary<ICharacter, CharacterTurnQueueIcon> Characters => _characters;
         
         public void Add(ICharacter character,
-            CharacterInTurnQueueIcon characterInTurnQueueIcon)
+            CharacterTurnQueueIcon characterTurnQueueIcon)
         {
-            _characters.Add(character, characterInTurnQueueIcon);
+            _characters.Add(character, characterTurnQueueIcon);
 
             CompositeDisposable disposable = new CompositeDisposable();
             
-            character.Logic.Health.Died
+            character.Logic.Death.Died
                 .Subscribe(_ => OnUnitDied())
                 .AddTo(disposable);
             

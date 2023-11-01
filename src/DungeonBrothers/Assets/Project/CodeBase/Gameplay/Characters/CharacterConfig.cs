@@ -17,11 +17,17 @@ namespace Project.CodeBase.Gameplay.Characters
         public AssetReferenceGameObject Image;
         [TitleGroup("Prefabs")]
         public AssetReferenceGameObject Prefab;
-
-        [TitleGroup("Stats")]
+        
+        [TitleGroup("Health")]
         public int HealthPoints;
-
-        [TitleGroup("Stats")]
+        
+        [TitleGroup("Movement")]
+        public bool IsMoveThroughObstacles;
+        
+        [TitleGroup("Movement")]
+        public int MovePoints;
+        
+        [TitleGroup("Damage")]
         public CharacterDamage CharacterDamage;
         
         [TitleGroup("Stats")]

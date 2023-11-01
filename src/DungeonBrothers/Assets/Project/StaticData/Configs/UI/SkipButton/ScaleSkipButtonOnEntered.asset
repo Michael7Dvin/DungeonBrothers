@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2541850bc72c4f6fbe00f2756b7ee3b0, type: 3}
   m_Name: ScaleSkipButtonOnEntered
   m_EditorClassIdentifier: 
-  <Scale>k__BackingField: {x: 1.1, y: 1.1, z: 1}
+  <Multiplier>k__BackingField: 1.1
   <Duration>k__BackingField: 0.2
   <Ease>k__BackingField: 12

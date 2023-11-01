@@ -8,7 +8,7 @@ namespace Project.CodeBase.Gameplay.Services.Move
 {
     public interface IMoverService
     {
-        public UniTask Move(Tile tile);
+        public UniTask Move(Tile destinationTile);
 
         public void Enable();
         public void Disable();

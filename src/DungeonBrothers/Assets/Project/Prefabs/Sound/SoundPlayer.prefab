@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4829432962562211773}
   - component: {fileID: 8897635272643271819}
-  - component: {fileID: -6001804382035729186}
+  - component: {fileID: 8062986269167918934}
   - component: {fileID: 6820211315138650702}
   m_Layer: 0
   m_Name: SoundPlayer
@@ -130,7 +130,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-6001804382035729186
+--- !u!114 &8062986269167918934
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

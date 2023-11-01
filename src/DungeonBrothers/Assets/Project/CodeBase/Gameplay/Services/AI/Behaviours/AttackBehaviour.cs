@@ -41,7 +41,7 @@ namespace Project.CodeBase.Gameplay.Services.AI.Behaviours
 
         private async UniTask<bool> TryAttack(ICharacter target)
         {
-            if (_attackService.TryAttackEnemy(target, _turnQueue.ActiveCharacter.Value))
+            if (_attackService.CanAttackEnemy(target, _turnQueue.ActiveCharacter.Value))
             {
                 await _attackService.Attack(target);
                 return true;

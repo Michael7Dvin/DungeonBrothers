@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Project.CodeBase.Gameplay.Animations.Hit;
-using Project.CodeBase.Gameplay.Animations.Movement;
 using Project.CodeBase.Gameplay.Characters.CharacterInfo;
+using Project.CodeBase.Gameplay.Tweeners.Hit;
+using Project.CodeBase.Gameplay.Tweeners.Move;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
@@ -13,7 +13,7 @@ namespace Project.CodeBase.Gameplay.Characters
     {
         [OdinSerialize] public Dictionary<CharacterID, CharacterConfig> CharacterConfigs;
 
-        public HitAnimationConfig HitAnimationConfig;
-        public MovementAnimationConfig MovementAnimationConfig;
+        public HitTweenerConfig HitTweenerConfig;
+        public MoveTweenerConfig MoveTweenerConfig;
     }
 }

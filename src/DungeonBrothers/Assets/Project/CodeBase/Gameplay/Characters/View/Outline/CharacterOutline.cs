@@ -2,7 +2,7 @@
 
 namespace Project.CodeBase.Gameplay.Characters.View.Outline
 {
-    public class CharacterOutline
+    public class CharacterOutline : ICharacterOutline
     {
         private readonly int _enableOutlineID = Shader.PropertyToID("_EnableOutline");
         private readonly int _outlineColorID = Shader.PropertyToID("_OutlineColor");

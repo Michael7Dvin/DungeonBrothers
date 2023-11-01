@@ -53,7 +53,7 @@ namespace Project.CodeBase.UI.TurnQueue
                 icon.gameObject.SetActive(false);
         }
 
-        private void ShiftChildPosition(CollectionMoveEvent<CharacterInTurnQueueIcon> charactersIcons)
+        private void ShiftChildPosition(CollectionMoveEvent<CharacterTurnQueueIcon> charactersIcons)
         {
             int oldIndex = charactersIcons.OldIndex;
             int newIndex = charactersIcons.NewIndex;
@@ -71,7 +71,7 @@ namespace Project.CodeBase.UI.TurnQueue
 
         private void EnableIcons()
         {
-            IReadOnlyReactiveCollection<CharacterInTurnQueueIcon> characterInTurnQueueIcons =
+            IReadOnlyReactiveCollection<CharacterTurnQueueIcon> characterInTurnQueueIcons =
                 _turnQueueViewModel.CharacterIconsQueue;
 
             if (characterInTurnQueueIcons.Count <= MaxVisualizedIcons)

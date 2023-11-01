@@ -4,6 +4,7 @@ using Project.CodeBase.Gameplay.Characters;
 using Project.CodeBase.Gameplay.Services.Random;
 using Project.CodeBase.Infrastructure.Services.Providers.CharactersProvider;
 using UniRx;
+using UnityEngine;
 
 namespace Project.CodeBase.Gameplay.Services.TurnQueue
 {
@@ -16,8 +17,8 @@ namespace Project.CodeBase.Gameplay.Services.TurnQueue
         
         private readonly ReactiveCollection<ICharacter> _characters = new();
         private readonly ReactiveProperty<ICharacter> _activeCharacter = new();
+        
         private readonly ReactiveCommand _newTurnStarted = new();
-
         private readonly ReactiveCommand _reseted = new();
 
         public TurnQueue(IRandomService randomService, 

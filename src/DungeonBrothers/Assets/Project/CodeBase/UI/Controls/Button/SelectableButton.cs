@@ -1,4 +1,4 @@
-using Project.CodeBase.Gameplay.Animations.Scale;
+using Project.CodeBase.Gameplay.Tweeners.Scale;
 using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,12 +7,12 @@ namespace Project.CodeBase.UI.Controls.Button
 {
     public class SelectableButton : BaseButton
     {
-        private ScaleAnimation _scaleAnimation;
+        private ScaleTweener _scaleTweener;
         [SerializeField] private SelectableButtonAnimationConfig _config;
 
         protected override void OnEnable()
         {
-            _scaleAnimation = new ScaleAnimation(transform);
+            _scaleTweener = new ScaleTweener(transform);
             
             base.OnEnable();
             Events.PointerUpped
@@ -33,15 +33,15 @@ namespace Project.CodeBase.UI.Controls.Button
         }
 
         private void OnPointerUpped(PointerEventData pointerEventData)
-            => _scaleAnimation.DoScale(_config.ScaleAnimationOnUpped);
+            => _scaleTweener.DoScaleWithoutReset(_config.ScaleTweenerOnUpped);
 
         private void OnPointerDowned(PointerEventData pointerEventData)
-            => _scaleAnimation.DoScale(_config.ScaleAnimationOnDowned);
+            => _scaleTweener.DoScaleWithoutReset(_config.ScaleTweenerOnDowned);
 
         private void OnPointerEntered(PointerEventData pointerEventData)
-            => _scaleAnimation.DoScale(_config.ScaleAnimationOnEntered);
+            => _scaleTweener.DoScaleWithoutReset(_config.ScaleTweenerOnEntered);
 
         private void OnPointerExited(PointerEventData pointerEventData)
-            => _scaleAnimation.DoScale(_config.ScaleAnimationOnExited);
+            => _scaleTweener.DoScaleWithoutReset(_config.ScaleTweenerOnExited);
     }
 }

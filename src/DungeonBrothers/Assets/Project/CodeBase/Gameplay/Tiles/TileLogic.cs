@@ -16,9 +16,7 @@ namespace Project.CodeBase.Gameplay.Tiles
         public void Inject(ICustomLogger customLogger) =>
             _customLogger = customLogger;
 
-        public TileLogic(bool isOccupied,
-            bool isWalkable, 
-            Vector2Int coordinates)
+        public TileLogic(bool isOccupied, bool isWalkable, Vector2Int coordinates)
         {
             IsOccupied = isOccupied;
             IsWalkable = isWalkable;
@@ -48,7 +46,7 @@ namespace Project.CodeBase.Gameplay.Tiles
 
             Character = character;
 
-            character.Logic.Health.Died
+            character.Logic.Death.Died
                 .Subscribe(_ => Release())
                 .AddTo(_disposable);
         }

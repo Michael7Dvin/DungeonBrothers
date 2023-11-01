@@ -39,17 +39,17 @@ namespace Project.CodeBase.Gameplay.Services.AI.Behaviours
         }
 
         private PathFindingResults GetPathFindingResults(ICharacter activeCharacter) =>
-            _pathFinder.CalculatePaths(activeCharacter.Coordinate,
-                activeCharacter.Stats.MovePoints, false);
+            _pathFinder.CalculatePaths(activeCharacter.Logic.Movement.Coordinates,
+                activeCharacter.Logic.Movement.StartMovePoints, false);
 
         private Vector2Int GetCoordinate(PathFindingResults pathFindingResults,
             ICharacter target)
         {
             foreach (var coordinate in pathFindingResults.WalkableCoordinates)
             {
-                float distance = Vector2.Distance(coordinate, target.Coordinate);
+                float distance = Vector2.Distance(coordinate, target.Logic.Movement.Coordinates);
 
-                if (Vector2.Distance(_currentCoordinate, target.Coordinate) > distance) 
+                if (Vector2.Distance(_currentCoordinate, target.Logic.Movement.Coordinates) > distance) 
                     _currentCoordinate = coordinate;
             }
 
