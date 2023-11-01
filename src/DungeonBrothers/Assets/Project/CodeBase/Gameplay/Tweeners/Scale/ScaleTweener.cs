@@ -3,24 +3,24 @@ using UnityEngine;
 
 namespace Project.CodeBase.Gameplay.Tweeners.Scale
 {
-    public class ScaleAnimation 
+    public class ScaleTweener 
     {
         private readonly Transform _transform;
         
         private Tween _currentTween;
-        private ScaleAnimationConfig _currentConfig;
+        private ScaleTweenerConfig _currentConfig;
 
         private Vector3 _lastScale;
         private readonly Vector3 _startScale;
         
-        public ScaleAnimation(Transform transform)
+        public ScaleTweener(Transform transform)
         {
             _transform = transform;
 
             _startScale = transform.localScale;
         }
         
-        public Tween DoScaleWithReset(ScaleAnimationConfig config)
+        public Tween DoScaleWithReset(ScaleTweenerConfig config)
         {
             TryKillActiveTween();
             
@@ -28,7 +28,7 @@ namespace Project.CodeBase.Gameplay.Tweeners.Scale
             return _currentTween.Play();
         }
 
-        public Tween DoScaleWithoutReset(ScaleAnimationConfig config)
+        public Tween DoScaleWithoutReset(ScaleTweenerConfig config)
         {
             TryKillActiveTween();
             
@@ -40,7 +40,7 @@ namespace Project.CodeBase.Gameplay.Tweeners.Scale
             return _currentTween.Play();
         }
 
-        private Sequence GetScaleSequence(ScaleAnimationConfig config)
+        private Sequence GetScaleSequence(ScaleTweenerConfig config)
         {
             _lastScale = _transform.localScale;
             

@@ -5,10 +5,10 @@ namespace Project.CodeBase.UI.Controls.Events
 {
     public interface IControlEvents
     {
-        public event Action<PointerEventData> PointerEntered;
-        public event Action<PointerEventData> PointerExited;
-        public event Action<PointerEventData> PointerDowned;
-        public event Action<PointerEventData> PointerUpped;
-        public event Action<PointerEventData> PointerClicked;
+        public IObservable<PointerEventData> PointerEntered { get; }
+        public IObservable<PointerEventData> PointerExited { get; }
+        public IObservable<PointerEventData> PointerDowned { get; }
+        public IObservable<PointerEventData> PointerUpped { get; }
+        public IObservable<PointerEventData> PointerClicked { get; }
     }
 }

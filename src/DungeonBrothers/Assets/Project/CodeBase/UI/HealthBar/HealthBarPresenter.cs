@@ -1,4 +1,4 @@
-﻿using Project.CodeBase.Gameplay.Characters.Logic.Deaths;
+using Project.CodeBase.Gameplay.Characters.Logic.Deaths;
 using Project.CodeBase.Gameplay.Characters.Logic.Healths;
 using UniRx;
 

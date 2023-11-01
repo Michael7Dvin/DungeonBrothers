@@ -9,7 +9,7 @@ namespace Project.CodeBase.Gameplay.Tweeners.Hit
     public class 
         HitTweenerConfig : ScriptableObject
     {
-        [FormerlySerializedAs("ScaleInHit")] public ScaleAnimationConfig ScaleAnimationAtHit;
+        [FormerlySerializedAs("ScaleInHit")] public ScaleTweenerConfig ScaleTweenerAtHit;
         [FormerlySerializedAs("ColorInHit")] public ColorTweenerConfig ColorTweenerAtHit;
      
     }

@@ -1,4 +1,4 @@
-﻿using Project.CodeBase.Gameplay.Characters.View.Animators;
+using Project.CodeBase.Gameplay.Characters.View.Animators;
 using Project.CodeBase.Gameplay.Characters.View.Hit;
 using Project.CodeBase.Gameplay.Characters.View.Move;
 using Project.CodeBase.Gameplay.Characters.View.Outline;

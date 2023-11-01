@@ -6,22 +6,22 @@ namespace Project.CodeBase.Gameplay.Tweeners.Hit
 {
     public class HitTweener
     {
-        private readonly ScaleAnimation _scaleAnimation;
+        private readonly ScaleTweener _scaleTweener;
         private readonly ColorTweener _colorTweener;
 
-        public HitTweener(ScaleAnimation scaleAnimation, 
+        public HitTweener(ScaleTweener scaleTweener, 
             ColorTweener colorTweener)
         {
-            _scaleAnimation = scaleAnimation;
+            _scaleTweener = scaleTweener;
             _colorTweener = colorTweener;
         }
 
         public async UniTask DoHit(HitTweenerConfig config)
         {
-            ScaleAnimationConfig scaleConfig = config.ScaleAnimationAtHit;
+            ScaleTweenerConfig scaleConfig = config.ScaleTweenerAtHit;
             ColorTweenerConfig colorConfig = config.ColorTweenerAtHit;
 
-            UniTask scaleAtHit = _scaleAnimation.DoScaleWithReset(scaleConfig).ToUniTask();
+            UniTask scaleAtHit = _scaleTweener.DoScaleWithReset(scaleConfig).ToUniTask();
             UniTask colorAtHit = _colorTweener.DoColorWithReset(colorConfig).ToUniTask();
             
             await UniTask.WhenAll(scaleAtHit, colorAtHit);

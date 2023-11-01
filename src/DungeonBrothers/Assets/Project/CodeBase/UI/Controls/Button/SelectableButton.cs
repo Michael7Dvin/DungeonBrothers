@@ -1,4 +1,5 @@
-﻿using Project.CodeBase.Gameplay.Tweeners.Scale;
+using Project.CodeBase.Gameplay.Tweeners.Scale;
+using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -6,40 +7,41 @@ namespace Project.CodeBase.UI.Controls.Button
 {
     public class SelectableButton : BaseButton
     {
-        private ScaleAnimation _scaleAnimation;
+        private ScaleTweener _scaleTweener;
         [SerializeField] private SelectableButtonAnimationConfig _config;
 
         protected override void OnEnable()
         {
-            _scaleAnimation = new ScaleAnimation(transform);
+            _scaleTweener = new ScaleTweener(transform);
             
             base.OnEnable();
-            Events.PointerUpped += OnPointerUpped;
-            Events.PointerDowned += OnPointerDowned;
-            Events.PointerEntered += OnPointerEntered;
-            Events.PointerExited += OnPointerExited;
-        }
-
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-            Events.PointerUpped -= OnPointerUpped;
-            Events.PointerDowned -= OnPointerDowned;
-            Events.PointerEntered -= OnPointerEntered;
-            Events.PointerExited -= OnPointerExited;
+            Events.PointerUpped
+                .Subscribe(OnPointerUpped)
+                .AddTo(Disposable);
+            
+            Events.PointerDowned
+                .Subscribe(OnPointerDowned)
+                .AddTo(Disposable);
+            
+            Events.PointerEntered
+                .Subscribe(OnPointerEntered)
+                .AddTo(Disposable);
+            
+            Events.PointerExited
+                .Subscribe(OnPointerExited)
+                .AddTo(Disposable);
         }
 
         private void OnPointerUpped(PointerEventData pointerEventData)
-            => _scaleAnimation.DoScaleWithoutReset(_config.ScaleAnimationOnUpped);
+            => _scaleTweener.DoScaleWithoutReset(_config.ScaleTweenerOnUpped);
 
         private void OnPointerDowned(PointerEventData pointerEventData)
-            => _scaleAnimation.DoScaleWithoutReset(_config.ScaleAnimationOnDowned);
+            => _scaleTweener.DoScaleWithoutReset(_config.ScaleTweenerOnDowned);
 
         private void OnPointerEntered(PointerEventData pointerEventData)
-            => _scaleAnimation.DoScaleWithoutReset(_config.ScaleAnimationOnEntered);
+            => _scaleTweener.DoScaleWithoutReset(_config.ScaleTweenerOnEntered);
 
         private void OnPointerExited(PointerEventData pointerEventData)
-            => _scaleAnimation.DoScaleWithoutReset(_config.ScaleAnimationOnExited);
-        
+            => _scaleTweener.DoScaleWithoutReset(_config.ScaleTweenerOnExited);
     }
 }

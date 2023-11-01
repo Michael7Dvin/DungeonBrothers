@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Project.CodeBase.Gameplay.Tweeners.Scale
 {
     [CreateAssetMenu(menuName = "StaticData/Configs/Animations/Scale", fileName = "Scale")]
-    public class ScaleAnimationConfig : ScriptableObject
+    public class ScaleTweenerConfig : ScriptableObject
     {
         [field: SerializeField] public float Multiplier { get; private set; }
         [field: SerializeField] public float Duration { get; private set; }

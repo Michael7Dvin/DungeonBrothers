@@ -138,12 +138,12 @@ namespace Project.CodeBase.Infrastructure.Services.Factories.Characters
 
         private IHitView CreateHitView(GameObject gameObject, CharacterSounds characterSounds)
         {
-            ScaleAnimation scaleAnimation = new(gameObject.transform);
+            ScaleTweener scaleTweener = new(gameObject.transform);
 
             SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
             ColorTweener colorTweener = new(spriteRenderer);
             
-            HitTweener hitTweener = new(scaleAnimation, colorTweener);
+            HitTweener hitTweener = new(scaleTweener, colorTweener);
 
             HitView hitView = new(hitTweener, characterSounds);
             _objectResolver.Inject(hitView);
