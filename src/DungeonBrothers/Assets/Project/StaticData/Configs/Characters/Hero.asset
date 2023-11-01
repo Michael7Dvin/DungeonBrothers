@@ -72,5 +72,5 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   HealthPoints: 500
-  IsMoveThroughObstacles: 0
+  IsMoveThroughObstacles: 1
   MovePoints: 5
