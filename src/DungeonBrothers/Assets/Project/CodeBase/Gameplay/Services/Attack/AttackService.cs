@@ -72,11 +72,11 @@ namespace Project.CodeBase.Gameplay.Services.Attack
             switch (activeCharacter.Damage.CharacterAttackType)
             {
                 case CharacterAttackType.Melee:
-                    return _pathFinder.CalculatePaths(activeCharacter.Logic.Movement.Coordinates, _meleeRange, 
+                    return _pathFinder.CalculatePathsByDistance(activeCharacter.Logic.Movement.Coordinates, _meleeRange, 
                         false);
                 
                 case CharacterAttackType.Ranged:
-                    return _pathFinder.CalculatePaths(activeCharacter.Logic.Movement.Coordinates, _rangedRange, 
+                    return _pathFinder.CalculatePathsByDistance(activeCharacter.Logic.Movement.Coordinates, _rangedRange, 
                         true);
                 default:
                     _customLogger.LogError(

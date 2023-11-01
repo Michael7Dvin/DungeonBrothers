@@ -86,8 +86,13 @@ namespace Project.CodeBase.Gameplay.Characters.Logic.Movement
         {
             OccupiedTile.Logic.Release();
             await _movementView.Move(Coordinates, tile);
-            tile.Logic.Occupy(_character);
-            OccupiedTile = tile;
+
+            if (tile.Logic.IsOccupied == false)
+            {
+                tile.Logic.Occupy(_character);
+                OccupiedTile = tile;
+            }
+            
             AvailableMovePoints--;
         }
     }

@@ -92,7 +92,7 @@ namespace Project.CodeBase.Gameplay.Services.Move
             bool isMoveThroughObstacles = characterMovement.IsMoveThroughObstacles;
 
             PathFindingResults pathFindingResults =
-                _pathFinder.CalculatePaths(startPosition, characterMovement.AvailableMovePoints, isMoveThroughObstacles);
+                _pathFinder.CalculatePathsByDistance(startPosition, characterMovement.AvailableMovePoints, isMoveThroughObstacles);
             
             _pathFinder.SetPathFindingResults(pathFindingResults);
 
