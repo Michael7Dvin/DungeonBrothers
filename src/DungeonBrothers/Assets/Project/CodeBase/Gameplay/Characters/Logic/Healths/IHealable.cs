@@ -2,6 +2,6 @@ namespace Project.CodeBase.Gameplay.Characters.Logic.Healths
 {
     public interface IHealable
     {
-        void Heal(int value);
+        void Heal(int heal);
     }
 }

@@ -2,6 +2,6 @@ namespace Project.CodeBase.Gameplay.Characters.Logic.Healths
 {
     public interface IDamageable
     {
-        void TakeDamage(int value);
+        void TakeDamage(int damage);
     }
 }

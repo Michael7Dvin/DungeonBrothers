@@ -33,27 +33,27 @@ namespace Project.CodeBase.Gameplay.Characters.Logic.Healths
         public int MaxHealthPoints { get; }
         public IReadOnlyReactiveProperty<int> HealthPoints => _healthPoints;
         
-        public void TakeDamage(int value)
+        public void TakeDamage(int damage)
         {
-            if (value < 0)
+            if (damage < 0)
             {
-                _customLogger.LogError(new Exception($"{value} can't be less than zero"));
+                _customLogger.LogError(new ArgumentException($"{damage} can't be less than zero"));
                 return;
             }
             
-            _healthPoints.Value = Mathf.Clamp(_healthPoints.Value - value, MinHealth, MaxHealthPoints);
+            _healthPoints.Value = Mathf.Clamp(_healthPoints.Value - damage, MinHealth, MaxHealthPoints);
             TryDie();
         }
 
-        public void Heal(int value)
+        public void Heal(int heal)
         {
-            if (value < 0)
+            if (heal < 0)
             {
-                _customLogger.LogError(new Exception($"{value} can't be less than zero"));
+                _customLogger.LogError(new ArgumentException($"{heal} can't be less than zero"));
                 return;                
             }
             
-            _healthPoints.Value = Mathf.Clamp(_healthPoints.Value + value, MinHealth, MaxHealthPoints);
+            _healthPoints.Value = Mathf.Clamp(_healthPoints.Value + heal, MinHealth, MaxHealthPoints);
         }
 
         private void TryDie()
