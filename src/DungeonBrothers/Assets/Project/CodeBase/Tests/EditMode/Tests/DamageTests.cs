@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Project.CodeBase.Gameplay.Characters;
 using Project.CodeBase.Gameplay.Characters.CharacterInfo;
 
-namespace Project.CodeBase.Tests.EditMode.Damage
+namespace Project.CodeBase.Tests.EditMode.Tests
 {
     public class DamageTests
     {

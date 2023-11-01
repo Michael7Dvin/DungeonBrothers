@@ -12,7 +12,7 @@ namespace Project.CodeBase.Gameplay.Characters.Logic.Movement
         int StartMovePoints { get; }
         int AvailableMovePoints { get; }
         void ResetAvailableMovePoints();
-        bool CanMove(IEnumerable<Tile> tilePath);
+        bool CanMove(List<Tile> tilePath);
         UniTask Move(List<Tile> tilePath);
         void Teleport(Tile destinationTile);
     }

@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Project.CodeBase.Gameplay.Characters;
 using Project.CodeBase.Gameplay.Services.TurnQueue;
 
-namespace Project.CodeBase.Tests.EditMode.TurnQueue
+namespace Project.CodeBase.Tests.EditMode.Tests
 {
     public class TurnQueueTests
     {
@@ -12,10 +12,10 @@ namespace Project.CodeBase.Tests.EditMode.TurnQueue
         public void WhenAddingInQueue_AndOneInitiativeIsBigger_ThenBiggerInitiativeShouldBeLast()
         {
             // Arrange.
-            ICharacter characterWithLessInitiative = Setup.CharacterForTurnQueue(1, 1);
-            ICharacter characterWithBiggerInitiative = Setup.CharacterForTurnQueue(1, 5);
+            ICharacter characterWithLessInitiative = Create.CharacterForTurnQueue(1, 1);
+            ICharacter characterWithBiggerInitiative = Create.CharacterForTurnQueue(1, 5);
             
-            ITurnQueue turnQueue = Setup.TurnQueue(characterWithLessInitiative, characterWithBiggerInitiative);
+            ITurnQueue turnQueue = Create.TurnQueue(characterWithLessInitiative, characterWithBiggerInitiative);
 
             // Act.
             turnQueue.SetFirstTurn();

@@ -33,6 +33,8 @@ namespace Project.CodeBase.Gameplay.Characters.Logic.Movement
             _character = character;
             IsMoveThroughObstacles = isMoveThroughObstacles;
             StartMovePoints = startMovePoints;
+
+            AvailableMovePoints = StartMovePoints;
         }
 
         public bool IsMoveThroughObstacles { get; }
@@ -47,8 +49,13 @@ namespace Project.CodeBase.Gameplay.Characters.Logic.Movement
         public void ResetAvailableMovePoints() => 
             AvailableMovePoints = StartMovePoints;
 
-        public bool CanMove(IEnumerable<Tile> tilesPath) => 
-            tilesPath.Count() <= AvailableMovePoints;
+        public bool CanMove(List<Tile> tilesPath)
+        {
+            bool isDestinationNotAtCharacterCoordinates = tilesPath.Last().Logic.Coordinates != Coordinates;
+            bool isEnoughMovePoints = tilesPath.Count <= AvailableMovePoints;
+
+            return isDestinationNotAtCharacterCoordinates && isEnoughMovePoints;
+        }
 
         public async UniTask Move(List<Tile> tilesPath)
         {

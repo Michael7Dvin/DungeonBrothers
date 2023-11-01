@@ -7,8 +7,6 @@ using Project.CodeBase.Gameplay.Characters.Logic.Healths;
 using Project.CodeBase.Gameplay.Characters.Logic.Movement;
 using Project.CodeBase.Gameplay.Characters.View.Move;
 using Project.CodeBase.Gameplay.Services.Map;
-using Project.CodeBase.Gameplay.Services.Move;
-using Project.CodeBase.Gameplay.Services.PathFinder;
 using Project.CodeBase.Gameplay.Services.Random;
 using Project.CodeBase.Gameplay.Services.TurnQueue;
 using Project.CodeBase.Gameplay.Tiles;
@@ -22,15 +20,7 @@ namespace Project.CodeBase.Tests.EditMode
     {
         public static ICustomLogger CustomLogger() =>
             new CustomLogger(new LogWriter());
-        
-        public static Tile Tile()
-        {
-            GameObject prefab = new GameObject();
-            prefab.AddComponent<SpriteRenderer>();
-            Tile tile = prefab.AddComponent<Tile>();
-            
-            return tile;
-        }
+
 
         public static Health Health(int healthPoints)
         {
@@ -54,7 +44,7 @@ namespace Project.CodeBase.Tests.EditMode
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    var tile = Setup.Tile(new Vector2Int(i, j));
+                    var tile = Tile(new Vector2Int(i, j));
                     tiles.Add(tile);
                 }
             }
@@ -73,13 +63,7 @@ namespace Project.CodeBase.Tests.EditMode
 
         public static TileView TileView(Material material) => 
             new(material);
-
-        public static IPathFinder PathFinder(IMapService mapService) => 
-            new PathFinder(mapService);
-
-        public static IMoverService MoverService(IPathFinder pathFinder, ITurnQueue turnQueue, IMapService mapService) => 
-            new Gameplay.Services.Move.MoverService(pathFinder, turnQueue, mapService);
-
+        
         public static TileLogic TileLogic(Vector2Int coordinate) =>
             new(false, true, coordinate);
         
@@ -117,11 +101,108 @@ namespace Project.CodeBase.Tests.EditMode
             };
             return characterStats;
         }
-
-        public static Movement Movement(ICharacter character, int movePoints, bool isMoveThroughObstacles)
+        
+        public static Tile Tile(Vector2Int coordinates)
         {
+            GameObject prefab = new GameObject();
+            prefab.AddComponent<SpriteRenderer>();
+            Tile tile = prefab.AddComponent<Tile>();
+            
+            TileView tileView = TileView(tile.GetComponent<Material>());
+            TileLogic tileLogic = TileLogic(coordinates);
+
+            tile.Construct(tileLogic, tileView);
+            return tile;
+        }
+
+        public static IMapService MapService(List<Tile> tiles)
+        {
+            IMapService mapService = MapService();
+            mapService.ResetMap(tiles);
+            return mapService;
+        }
+        
+        public static IMapService MapService(int rows, int columns)
+        {
+            List<Tile> tiles = TileMap(rows, columns); 
+            IMapService mapService = MapService();
+            mapService.ResetMap(tiles);
+            return mapService;
+        }
+        
+        public static ITurnQueue TurnQueue(params ICharacter[] characters)
+        {
+            ICharactersProvider charactersProvider = CharactersProvider();
+
+            ITurnQueue turnQueue = TurnQueue(charactersProvider);
+            turnQueue.Initialize();
+
+            foreach (ICharacter character in characters) 
+                charactersProvider.Add(character, null);
+            
+            return turnQueue;
+        }
+
+        public static ICharacter CharacterForTurnQueue(int level, int initiative)
+        {
+            ICharacter character = Substitute.For<ICharacter>();
+            CharacterStats characterStats = CharacterStats(level: level, initiative: initiative);
+
+            character.Stats.Returns(characterStats);
+            
+            Health health = Health(20);
+            character.Logic.Health.Returns(health);
+
+            return character;
+        }
+
+        public static List<Tile> TilePath(Vector2Int start, Vector2Int end)
+        {
+            List<Tile> path = new();
+            
+            for (Vector2Int coordinate = start; coordinate != end;)
+            {
+                IterateByXAndCreateTile();
+                IterateByYAndCreateTile();
+
+                void IterateByXAndCreateTile()
+                {
+                    if (coordinate.x != end.x)
+                    {
+                        if (coordinate.x > end.x)
+                            coordinate.x--;
+                        else
+                            coordinate.x++;
+
+                        path.Add(Tile(coordinate));
+                    }
+                }
+
+                void IterateByYAndCreateTile()
+                {
+                    if (coordinate.y != end.y)
+                    {
+                        if (coordinate.y > end.y)
+                            coordinate.y--;
+                        else
+                            coordinate.y++;
+
+                        path.Add(Tile(coordinate));
+                    }
+                }
+            }
+
+            return path;
+        }
+
+        public static IMovement Movement(Tile startTile, bool isMoveThroughObstacles, int startMovePoints)
+        {
+            ICharacter character = Substitute.For<ICharacter>();
             IMovementView movementView = Substitute.For<IMovementView>();
-            return new Movement(character, movementView, isMoveThroughObstacles, movePoints);
+            
+            Movement movement = new(character, movementView, isMoveThroughObstacles, startMovePoints);
+            movement.Teleport(startTile);
+            return movement;
         }
     }
 }

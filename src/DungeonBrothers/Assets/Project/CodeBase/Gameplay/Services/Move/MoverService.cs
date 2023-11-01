@@ -53,16 +53,13 @@ namespace Project.CodeBase.Gameplay.Services.Move
             ICharacter character = _turnQueue.ActiveCharacter.Value;
             IMovement characterMovement = character.Logic.Movement;
 
-            if (destinationTile.Logic.Coordinates == characterMovement.Coordinates)
-                return;
-
             if (PathFindingResults.IsMovableAt(destinationTile.Logic.Coordinates) == false)
                 return;
             
             List<Vector2Int> coordinatesPath = 
                 PathFindingResults.GetPathTo(destinationTile.Logic.Coordinates, characterMovement.IsMoveThroughObstacles);
 
-            List<Tile> tilesPath = GetTilesPathFromCoordinatesPath(coordinatesPath);
+            List<Tile> tilesPath = GetTilesFromCoordinates(coordinatesPath);
             
             if (characterMovement.CanMove(tilesPath) == false)
                 return;
@@ -73,7 +70,7 @@ namespace Project.CodeBase.Gameplay.Services.Move
             RecalculatePaths(characterMovement);
         }
 
-        private List<Tile> GetTilesPathFromCoordinatesPath(List<Vector2Int> coordinatesPath)
+        private List<Tile> GetTilesFromCoordinates(List<Vector2Int> coordinatesPath)
         {
             List<Tile> tilesPath = new();
 

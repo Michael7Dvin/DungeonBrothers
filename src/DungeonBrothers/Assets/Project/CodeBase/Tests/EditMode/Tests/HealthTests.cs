@@ -3,7 +3,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using Project.CodeBase.Gameplay.Characters.Logic.Healths;
 
-namespace Project.CodeBase.Tests.EditMode.CharacterHealth
+namespace Project.CodeBase.Tests.EditMode.Tests
 {
     public class HealthTests
     {
