@@ -27,16 +27,32 @@ namespace Project.CodeBase.Infrastructure.Services.Factories.TileFactory
         public async UniTask WarmUp() => 
             await _addressablesLoader.LoadComponent<Tile>(_tileReference);
 
+        public async UniTask<TransitionTile> CreateTransitionTile(Vector3 position, Vector2Int coordinates,
+            Transform parent)
+        {
+            TransitionTile prefab = await _addressablesLoader.LoadComponent<TransitionTile>(_tileReference);
+            TransitionTile tile = _objectResolver.Instantiate(prefab, position, Quaternion.identity, parent);
+            
+            SetupTile(coordinates, tile);
+
+            return tile;
+        }
+
         public async UniTask<Tile> Create(Vector3 position, Vector2Int coordinates, Transform parent)
         {
             Tile prefab = await _addressablesLoader.LoadComponent<Tile>(_tileReference);
             Tile tile = _objectResolver.Instantiate(prefab, position, Quaternion.identity, parent);
 
+            SetupTile(coordinates, tile);
+
+            return tile;
+        }
+
+        private void SetupTile(Vector2Int coordinates, Tile tile)
+        {
             TileView tileView = CreateTileView(tile);
             TileLogic tileLogic = CreateTileLogic(coordinates);
             tile.Construct(tileLogic, tileView);
-            
-            return tile;
         }
 
         private TileLogic CreateTileLogic(Vector2Int coordinate)

@@ -13,7 +13,7 @@ using Project.CodeBase.Gameplay.Services.Visualizers.Attackable;
 using Project.CodeBase.Gameplay.Services.Visualizers.Path;
 using Project.CodeBase.Gameplay.Services.Visualizers.Select;
 using Project.CodeBase.Gameplay.Services.Visualizers.Walkable;
-using Project.CodeBase.Gameplay.Spawner.CharacterSpawner;
+using Project.CodeBase.Gameplay.Spawner.Character;
 using Project.CodeBase.Gameplay.Tiles;
 using Project.CodeBase.Infrastructure.Services.Factories.Buttons;
 using Project.CodeBase.Infrastructure.Services.Factories.Cameras;

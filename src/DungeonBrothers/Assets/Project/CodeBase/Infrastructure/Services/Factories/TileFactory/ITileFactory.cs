@@ -8,5 +8,8 @@ namespace Project.CodeBase.Infrastructure.Services.Factories.TileFactory
     {
         UniTask WarmUp();
         UniTask<Tile> Create(Vector3 position, Vector2Int coordinates, Transform parent = null);
+
+        public UniTask<TransitionTile> CreateTransitionTile(Vector3 position, Vector2Int coordinates,
+            Transform parent);
     }
 }

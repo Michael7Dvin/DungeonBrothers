@@ -6,7 +6,7 @@ using Project.CodeBase.Gameplay.Characters.CharacterInfo;
 using Project.CodeBase.Gameplay.Services.InteractionsService;
 using Project.CodeBase.Gameplay.Services.Map;
 using Project.CodeBase.Gameplay.Services.MapGenerator;
-using Project.CodeBase.Gameplay.Spawner.CharacterSpawner;
+using Project.CodeBase.Gameplay.Spawner.Character;
 using Project.CodeBase.Infrastructure.Services.Factories.Buttons;
 using Project.CodeBase.Infrastructure.Services.Factories.Cameras;
 using Project.CodeBase.Infrastructure.Services.Factories.Characters;
