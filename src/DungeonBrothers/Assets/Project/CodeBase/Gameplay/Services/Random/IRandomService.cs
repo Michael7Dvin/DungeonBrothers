@@ -2,7 +2,7 @@ namespace Project.CodeBase.Gameplay.Services.Random
 {
     public interface IRandomService
     {
-        public float DoRandomInRange(float min, float max);
+        public int DoRandomInRange(int min, int max);
         public bool DoFiftyFifty();
     }
 }

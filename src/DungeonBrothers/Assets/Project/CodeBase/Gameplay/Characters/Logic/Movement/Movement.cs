@@ -87,7 +87,7 @@ namespace Project.CodeBase.Gameplay.Characters.Logic.Movement
             OccupiedTile.Logic.Release();
             await _movementView.Move(Coordinates, tile);
 
-            if (tile.Logic.IsOccupied == false)
+            if (tile.Logic.IsOccupied.Value == false)
             {
                 tile.Logic.Occupy(_character);
                 OccupiedTile = tile;

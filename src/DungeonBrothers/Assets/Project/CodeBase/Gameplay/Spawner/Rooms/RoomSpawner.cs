@@ -1,30 +1,36 @@
-﻿using System;
+﻿using Project.CodeBase.Gameplay.Characters;
 using Project.CodeBase.Gameplay.Rooms;
+using Project.CodeBase.Gameplay.Services.Random;
 
 namespace Project.CodeBase.Gameplay.Spawner.Rooms
 {
     public class RoomSpawner : IRoomSpawner
     {
+        private IRandomService _randomService;
+        private AllRoomsConfig _roomsConfig;
+        private AllCharactersConfigs _allCharactersConfigs;
 
-
-        public Room CreateRoom(RoomType roomType)
+        public Room CreateWithLeftExit()
         {
-            switch (roomType)
-            {
-                case RoomType.Start:
-                    break;
-                case RoomType.Boss:
-                    break;
-                case RoomType.Common:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(roomType), roomType, null);
-            }
+            int randomRoom = _randomService.DoRandomInRange(0, _roomsConfig.LeftExit.Count);
+
+            RoomConfig roomConfig = _roomsConfig.LeftExit[randomRoom];
+            return null;
         }
 
-        private Room Create()
+        public Room CreateWithRightExit()
         {
-            
+            return null;
+        }
+
+        public Room CreateWithUpExit()
+        {
+            return null;
+        }
+
+        public Room CreateWithDownExit()
+        {
+            return null;
         }
     }
 }
