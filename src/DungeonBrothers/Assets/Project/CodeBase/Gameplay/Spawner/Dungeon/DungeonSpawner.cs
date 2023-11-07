@@ -28,7 +28,7 @@ namespace Project.CodeBase.Gameplay.Spawner.Dungeon
             _randomService = randomService;
         }
 
-        public void SpawnDungeon(out Dictionary<Room, RoomInfo> leftBranchRooms, 
+        public Room SpawnDungeon(out Dictionary<Room, RoomInfo> leftBranchRooms, 
             out Dictionary<Room, RoomInfo> rightBranchRooms,
             out Dictionary<Room, RoomInfo> downBranchRooms,
             out Dictionary<Room, RoomInfo> topBranchRooms)
@@ -52,7 +52,11 @@ namespace Project.CodeBase.Gameplay.Spawner.Dungeon
             rightBranchRooms = _rightBranchRooms;
             downBranchRooms = _downBranchRooms;
             topBranchRooms = _topBranchRooms;
+            return CreateStartRoom();
         }
+
+        private Room CreateStartRoom() => 
+            _roomSpawner.CreateStartRoom();
 
         private bool TrySpawnInLeftBranch()
         {

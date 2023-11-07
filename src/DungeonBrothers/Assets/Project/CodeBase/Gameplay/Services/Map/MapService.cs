@@ -28,14 +28,6 @@ namespace Project.CodeBase.Gameplay.Services.Map
             }
         }
 
-        public void AddTile(Tile tile)
-        {
-            if (_tiles.ContainsKey(tile.Logic.Coordinates))
-                return;
-            
-            _tiles.Add(tile.Logic.Coordinates, tile);
-        }
-
         public bool TryGetTile(Vector2Int coordinates, out Tile tile) => 
             _tiles.TryGetValue(coordinates, out tile);
 

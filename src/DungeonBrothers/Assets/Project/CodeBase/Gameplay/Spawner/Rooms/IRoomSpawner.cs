@@ -4,6 +4,7 @@ namespace Project.CodeBase.Gameplay.Spawner.Rooms
 {
     public interface IRoomSpawner
     {
+        public Room CreateStartRoom();
         public Room CreateWithLeftExit();
         public Room CreateWithRightExit();
         public Room CreateWithUpExit();

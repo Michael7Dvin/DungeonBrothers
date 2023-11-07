@@ -18,6 +18,11 @@ namespace Project.CodeBase.Gameplay.Spawner.Rooms
             return null;
         }
 
+        public Room CreateStartRoom()
+        {
+            return null;
+        }
+        
         public Room CreateWithRightExit()
         {
             return null;
