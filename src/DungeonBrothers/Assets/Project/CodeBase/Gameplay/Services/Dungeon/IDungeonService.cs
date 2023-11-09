@@ -2,5 +2,6 @@
 {
     public interface IDungeonService
     {
+        public void CreateDungeon();
     }
 }

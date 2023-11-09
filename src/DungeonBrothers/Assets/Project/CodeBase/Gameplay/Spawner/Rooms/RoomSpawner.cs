@@ -22,7 +22,7 @@ namespace Project.CodeBase.Gameplay.Spawner.Rooms
         {
             return null;
         }
-        
+
         public Room CreateWithRightExit()
         {
             return null;

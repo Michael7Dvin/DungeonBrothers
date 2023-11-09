@@ -7,7 +7,7 @@ namespace Project.CodeBase.Gameplay.Rooms
 {
     public class Room : SerializedMonoBehaviour
     {
-        public Dictionary<ExitDirection, Door> Doors { get; private set; }
+        public Dictionary<Direction, Door> Doors { get; private set; }
 
         private readonly ReactiveCollection<ICharacter> _enemies = new();
         

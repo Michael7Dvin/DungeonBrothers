@@ -5,9 +5,6 @@ namespace Project.CodeBase.Gameplay.Spawner.Dungeon
 {
     public interface IDungeonSpawner
     {
-        public Room SpawnDungeon(out Dictionary<Room, RoomInfo> leftBranchRooms,
-            out Dictionary<Room, RoomInfo> rightBranchRooms,
-            out Dictionary<Room, RoomInfo> downBranchRooms,
-            out Dictionary<Room, RoomInfo> topBranchRooms);
+        public Dictionary<Direction, Dictionary<Room, RoomInfo>> SpawnDungeon(out Room startRoom);
     }
 }

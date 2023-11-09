@@ -9,6 +9,11 @@ namespace Project.CodeBase.Gameplay.Rooms
         private ReactiveCommand _entered;
         public IObservable<Unit> Entered => _entered;
 
+        public bool IsReturnExit { get; private set; }
+
+        public void SetIsReturnExit(bool condition) => 
+            IsReturnExit = condition;
+
         public void Enter() => 
             _entered.Execute();
     }

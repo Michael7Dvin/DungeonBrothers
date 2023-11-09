@@ -1,6 +1,6 @@
 ﻿namespace Project.CodeBase.Gameplay.Rooms
 {
-    public enum ExitDirection
+    public enum Direction
     {
         Top = 0,
         Down = 1,
