@@ -15,20 +15,18 @@ namespace Project.CodeBase.Infrastructure.StateMachines.Gameplay.States
         private readonly ITurnQueue _turnQueue;
         private readonly IMoverService _moverService;
         private readonly ISoundPlayer _soundPlayer;
-        private readonly IAddressablesLoader _addressablesLoader;
 
         private AssetReference _audio;
 
         public BattleState(ITurnQueue turnQueue, 
             IMoverService moverService,
             ISoundPlayer soundPlayer,
-            IAddressablesLoader addressablesLoader,
             IStaticDataProvider staticDataProvider)
         {
             _turnQueue = turnQueue;
             _moverService = moverService;
             _soundPlayer = soundPlayer;
-            _addressablesLoader = addressablesLoader;
+            
             _audio = staticDataProvider.AssetsAddresses.AllGameplayAddresses.SoundAddresses.DungeonSoundtrack;
         }
 

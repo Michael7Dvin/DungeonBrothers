@@ -17,3 +17,4 @@ MonoBehaviour:
   TileColorsConfig: {fileID: 11400000, guid: e15343e6d016bfd499ee92ffbffc3a1e, type: 2}
   GameBalanceConfig: {fileID: 11400000, guid: 3a2d8f264c79b4a4ba04c60e0fce6ce7, type: 2}
   CharacterOutlineColors: {fileID: 11400000, guid: 9204133c0a330bb479521e37a0bdd02c, type: 2}
+  AllRoomsConfig: {fileID: 11400000, guid: 2976bf96880bf164f8e474b3767f848c, type: 2}

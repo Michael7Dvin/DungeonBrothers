@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Project.CodeBase.Gameplay.Rooms;
 using Project.CodeBase.Gameplay.Spawner.Dungeon;
 using Project.CodeBase.Infrastructure.Services.Logger;
 using UniRx;
+using UnityEngine;
 
 namespace Project.CodeBase.Gameplay.Services.Dungeon
 {
@@ -16,12 +18,10 @@ namespace Project.CodeBase.Gameplay.Services.Dungeon
         private readonly CompositeDisposable _startRoomDisposable = new();
         private readonly CompositeDisposable _currentRoomDisposable = new();
         
-        private Dictionary<Direction, Dictionary<Room, RoomInfo>> _branches;
+        private Dictionary<Direction, List<Room>> _branches;
 
         private Room _currentRoom;
-
         private Room _startRoom;
-
         private Room _previousRoom;
 
         public DungeonService(IDungeonSpawner dungeonSpawner, 
@@ -31,11 +31,11 @@ namespace Project.CodeBase.Gameplay.Services.Dungeon
             _logger = logger;
         }
 
-        public void CreateDungeon()
+        public async UniTask CreateDungeon()
         {
-            _branches = _dungeonSpawner.SpawnDungeon(out Room startRoom);
+            _branches = await _dungeonSpawner.SpawnDungeon();
 
-            _startRoom = startRoom;
+            _startRoom = _dungeonSpawner.StartRoom;
             _currentRoom = _startRoom;
             
             SubscribeStartRoom();
@@ -45,8 +45,8 @@ namespace Project.CodeBase.Gameplay.Services.Dungeon
         {
             foreach (var branch in _branches.Values)
             {
-                if (branch.Keys.Contains(_currentRoom))
-                    return branch.Keys.ToList();
+                if (branch.Contains(_currentRoom))
+                    return branch;
             }
 
             return null;
@@ -82,6 +82,8 @@ namespace Project.CodeBase.Gameplay.Services.Dungeon
 
         private void SubscribeStartRoom()
         {
+            Debug.Log(_startRoom.Doors.Count);
+            
             foreach (var room in _startRoom.Doors.Keys)
             {
                 _startRoom.Doors[room].Entered
@@ -140,25 +142,25 @@ namespace Project.CodeBase.Gameplay.Services.Dungeon
             {
                 case Direction.Top:
                 {
-                    EnterInRoom(_branches[Direction.Top].Keys.First());
+                    EnterInRoom(_branches[Direction.Top].First());
                     SubscribeCurrentRoomExits(Direction.Down);
                 }
                     break;
                 case Direction.Down:
                 {
-                    EnterInRoom(_branches[Direction.Down].Keys.First());
+                    EnterInRoom(_branches[Direction.Down].First());
                     SubscribeCurrentRoomExits(Direction.Top);
                 }
                     break;
                 case Direction.Right:
                 {
-                    EnterInRoom(_branches[Direction.Right].Keys.First());
+                    EnterInRoom(_branches[Direction.Right].First());
                     SubscribeCurrentRoomExits(Direction.Left);
                 }
                     break;
                 case Direction.Left:
                 {
-                    EnterInRoom(_branches[Direction.Left].Keys.First());
+                    EnterInRoom(_branches[Direction.Left].First());
                     SubscribeCurrentRoomExits(Direction.Right);
                 }
                     break;

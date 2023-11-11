@@ -6,7 +6,7 @@ namespace Project.CodeBase.Gameplay.Rooms
 {
     public class Door : MonoBehaviour
     {
-        private ReactiveCommand _entered;
+        private readonly ReactiveCommand _entered = new();
         public IObservable<Unit> Entered => _entered;
 
         public bool IsReturnExit { get; private set; }

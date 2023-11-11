@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Project.CodeBase.Gameplay.Rooms;
 using Project.CodeBase.Gameplay.Services.Random;
 using Project.CodeBase.Gameplay.Spawner.Rooms;
@@ -13,7 +15,7 @@ namespace Project.CodeBase.Gameplay.Spawner.Dungeon
         private readonly IRandomService _randomService;
         private readonly IRoomSpawner _roomSpawner;
         
-        private Dictionary<Direction, Dictionary<Room, RoomInfo>> _branches;
+        private readonly Dictionary<Direction, List<Room>> _branches = new();
 
         private int _lenghtDungeon;
         private int _maxLenghtBranch;
@@ -21,18 +23,22 @@ namespace Project.CodeBase.Gameplay.Spawner.Dungeon
         private int _maxRooms;
         private int _maxRoomsInBranch;
 
+        private Room _currentRoom;
+        public Room StartRoom { get; private set; }
+
         public DungeonSpawner(IRandomService randomService,
-            IStaticDataProvider staticDataProvider)
+            IRoomSpawner roomSpawner)
         {
             _randomService = randomService;
+            _roomSpawner = roomSpawner;
         }
 
         private void InitializeBranches()
         {
-            Dictionary<Room, RoomInfo> leftBranchRooms = new();
-            Dictionary<Room, RoomInfo> rightBranchRooms = new();
-            Dictionary<Room, RoomInfo> downBranchRooms = new();
-            Dictionary<Room, RoomInfo> topBranchRooms = new();
+            List<Room> leftBranchRooms = new();
+            List<Room> rightBranchRooms = new();
+            List<Room> downBranchRooms = new();
+            List<Room> topBranchRooms = new();
             
             _branches.Add(Direction.Left, leftBranchRooms);
             _branches.Add(Direction.Right, rightBranchRooms);
@@ -40,7 +46,7 @@ namespace Project.CodeBase.Gameplay.Spawner.Dungeon
             _branches.Add(Direction.Top, topBranchRooms);
         }
 
-        public Dictionary<Direction, Dictionary<Room, RoomInfo>> SpawnDungeon(out Room startRoom)
+        public async UniTask<Dictionary<Direction, List<Room>>> SpawnDungeon()
         {
             InitializeBranches();
             
@@ -49,29 +55,91 @@ namespace Project.CodeBase.Gameplay.Spawner.Dungeon
 
             while (_lenghtDungeon <= 0)
             {
-                if (TrySpawnInRandomBranch())
+                if (await TrySpawnInBranch(Direction.Left))
                 {
-                    _lenghtDungeon--;
+                    _branches[Direction.Left].Add(_currentRoom);
                     continue;
                 }
-                
-                
+
+                if (await TrySpawnInBranch(Direction.Right))
+                {
+                   _branches[Direction.Right].Add(_currentRoom);
+                    continue;
+                }
+
+                if (await TrySpawnInBranch(Direction.Down))
+                {
+                   _branches[Direction.Down].Add(_currentRoom);
+                    continue;
+                }
+
+                if (await TrySpawnInBranch(Direction.Top)) 
+                    _branches[Direction.Top].Add(_currentRoom);
             }
 
-            startRoom = CreateStartRoom();
+            StartRoom = await CreateStartRoom();
 
             return _branches;
         }
 
-        private Room CreateStartRoom() => 
-            _roomSpawner.CreateStartRoom();
+        private async UniTask<Room> CreateStartRoom() => 
+            await _roomSpawner.CreateStartRoom();
 
-        private bool TrySpawnInRandomBranch()
+        private async UniTask<bool> TrySpawnInBranch(Direction direction)
         {
-            
+            if (IsBranchComplete(direction))
+            {
+                _currentRoom = null;
+                return false;
+            }
 
-            _roomSpawner.CreateWithLeftExit();
+            if (IsBranchFirst(direction))
+            {
+                _currentRoom = await _roomSpawner.CreateRoom(direction);
+                return true;
+            }
+
+            FindNewExitInNewRoom(direction, out Direction newDirection);
+            
+            _currentRoom = await _roomSpawner.CreateRoom(newDirection);
+            _lenghtDungeon--;
+            
             return true;
+        }
+
+        private bool IsBranchFirst(Direction direction) => 
+            _branches[direction].Count == 0;
+
+        private bool IsBranchComplete(Direction direction) => 
+            _branches[direction].Count >= _maxRoomsInBranch;
+
+        private void FindNewExitInNewRoom(Direction currentDirection, out Direction newDirection)
+        {
+            Dictionary<Direction, Door> doors = _branches[currentDirection].Last().Doors;
+
+            foreach (var direction in doors.Keys)
+            {
+                if (doors[direction].IsReturnExit == false)
+                {
+                    switch (direction)
+                    {
+                        case Direction.Top:
+                            newDirection = Direction.Down;
+                            break;
+                        case Direction.Down:
+                            newDirection = Direction.Top;
+                            break;
+                        case Direction.Right:
+                            newDirection = Direction.Left;
+                            break;
+                        case Direction.Left:
+                            newDirection = Direction.Right;
+                            break;
+                    }
+                }
+            }
+
+            newDirection = currentDirection;
         }
     }
 }

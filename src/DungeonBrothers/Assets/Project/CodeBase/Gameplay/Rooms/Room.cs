@@ -7,20 +7,18 @@ namespace Project.CodeBase.Gameplay.Rooms
 {
     public class Room : SerializedMonoBehaviour
     {
-        public Dictionary<Direction, Door> Doors { get; private set; }
+        public RoomInfo RoomInfo;
+
+        public Dictionary<Direction, Door> Doors;
 
         private readonly ReactiveCollection<ICharacter> _enemies = new();
         
-        public void EnableRoom()
-        {
+        public void EnableRoom() => 
             gameObject.SetActive(true);
-        }
 
-        public void DisableRoom()
-        {
+        public void DisableRoom() => 
             gameObject.SetActive(false);
-        }
-        
+
         public void AddEnemy(ICharacter character)
         {
             _enemies.Add(character);

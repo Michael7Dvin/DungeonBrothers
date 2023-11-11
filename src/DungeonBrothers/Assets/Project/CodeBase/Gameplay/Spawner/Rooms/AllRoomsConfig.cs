@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
+using Project.CodeBase.Gameplay.Rooms;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Project.CodeBase.Gameplay.Spawner.Rooms
 {
     [CreateAssetMenu(menuName = "StaticData/Configs/AllRooms", fileName = "AllRoomsConfig")]
-    public class AllRoomsConfig : ScriptableObject
+    public class AllRoomsConfig : SerializedScriptableObject
     {
-        public List<RoomConfig> RightExit;
-        public List<RoomConfig> LeftExit;
-        public List<RoomConfig> TopExit;
-        public List<RoomConfig> DownExit;
+        public Dictionary<Direction, List<RoomConfig>> Rooms;
+        public RoomConfig StartRoom;
     }
 }
