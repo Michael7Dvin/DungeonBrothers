@@ -72,7 +72,6 @@ namespace Project.CodeBase.Infrastructure.StateMachines.Gameplay.States
             _aiService.Initialize();
             await _dungeonService.CreateDungeon();
             
-            await _levelSpawner.Spawn();
             _gameplayStateMachine.Enter<BattleState>();
         }
 

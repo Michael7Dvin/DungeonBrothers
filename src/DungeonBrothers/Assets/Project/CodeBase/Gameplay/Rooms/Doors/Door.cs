@@ -2,7 +2,7 @@
 using UniRx;
 using UnityEngine;
 
-namespace Project.CodeBase.Gameplay.Rooms
+namespace Project.CodeBase.Gameplay.Rooms.Doors
 {
     public class Door : MonoBehaviour
     {

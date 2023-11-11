@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using Project.CodeBase.Gameplay.Rooms;
+using Project.CodeBase.Gameplay.Services.Map;
 using Project.CodeBase.Gameplay.Spawner.Dungeon;
 using Project.CodeBase.Infrastructure.Services.Logger;
 using UniRx;
-using UnityEngine;
 
 namespace Project.CodeBase.Gameplay.Services.Dungeon
 {
     public class DungeonService : IDungeonService
     {
         private readonly IDungeonSpawner _dungeonSpawner;
+        private readonly IMapService _mapService;
         private readonly ICustomLogger _logger;
         
         private readonly CompositeDisposable _startRoomDisposable = new();
@@ -25,9 +26,11 @@ namespace Project.CodeBase.Gameplay.Services.Dungeon
         private Room _previousRoom;
 
         public DungeonService(IDungeonSpawner dungeonSpawner, 
+            IMapService mapService,
             ICustomLogger logger)
         {
             _dungeonSpawner = dungeonSpawner;
+            _mapService = mapService;
             _logger = logger;
         }
 
@@ -37,7 +40,7 @@ namespace Project.CodeBase.Gameplay.Services.Dungeon
 
             _startRoom = _dungeonSpawner.StartRoom;
             _currentRoom = _startRoom;
-            
+
             SubscribeStartRoom();
         }
 
@@ -73,7 +76,7 @@ namespace Project.CodeBase.Gameplay.Services.Dungeon
             if (index == 0)
             {
                 room = _startRoom;
-                return false;
+                return true;
             }
 
             room = currentBranch[index - 1];
@@ -82,8 +85,6 @@ namespace Project.CodeBase.Gameplay.Services.Dungeon
 
         private void SubscribeStartRoom()
         {
-            Debug.Log(_startRoom.Doors.Count);
-            
             foreach (var room in _startRoom.Doors.Keys)
             {
                 _startRoom.Doors[room].Entered
@@ -101,19 +102,20 @@ namespace Project.CodeBase.Gameplay.Services.Dungeon
                     switch (direction)
                     {
                         case Direction.Top:
-                            SubscribeCurrentRoomExits(Direction.Down);
+                            SubscribeCurrentRoomExits(Direction.Top);
                             break;
                         case Direction.Down:
-                            SubscribeCurrentRoomExits(Direction.Top);
+                            SubscribeCurrentRoomExits(Direction.Down);
                             break;
                         case Direction.Right:
-                            SubscribeCurrentRoomExits(Direction.Left);
+                            SubscribeCurrentRoomExits(Direction.Right);
                             break;
                         case Direction.Left:
-                            SubscribeCurrentRoomExits(Direction.Top);
+                            SubscribeCurrentRoomExits(Direction.Left);
                             break;
                         default:
-                            throw new ArgumentOutOfRangeException();
+                            _logger.LogError(new Exception($"{direction} not found"));
+                            break;
                     }
                 }
             }
@@ -128,7 +130,9 @@ namespace Project.CodeBase.Gameplay.Services.Dungeon
             foreach (var direction in _currentRoom.Doors.Keys)
             {
                 if (direction == exitDirection)
-                    return;
+                    continue;
+                
+                _currentRoom.Doors[direction].SetIsReturnExit(true);
 
                 _currentRoom.Doors[direction].Entered
                     .Subscribe(_ => GoToNextRoomInBranch())
@@ -144,28 +148,29 @@ namespace Project.CodeBase.Gameplay.Services.Dungeon
                 {
                     EnterInRoom(_branches[Direction.Top].First());
                     SubscribeCurrentRoomExits(Direction.Down);
-                }
                     break;
+                }
                 case Direction.Down:
                 {
                     EnterInRoom(_branches[Direction.Down].First());
                     SubscribeCurrentRoomExits(Direction.Top);
-                }
                     break;
+                }
                 case Direction.Right:
                 {
                     EnterInRoom(_branches[Direction.Right].First());
                     SubscribeCurrentRoomExits(Direction.Left);
-                }
                     break;
+                }
                 case Direction.Left:
                 {
                     EnterInRoom(_branches[Direction.Left].First());
                     SubscribeCurrentRoomExits(Direction.Right);
-                }
                     break;
+                }
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+                    _logger.LogError(new Exception($"{direction} not found"));
+                    break;;
             }
         }
 
@@ -176,15 +181,25 @@ namespace Project.CodeBase.Gameplay.Services.Dungeon
             _previousRoom = _currentRoom;
             _currentRoom = room;
 
-            if (_previousRoom != _startRoom)
-            {
+            _currentRoomDisposable.Clear();
+            
+            if (IsNotStartRoom()) 
                 TryFindExitInNextRoom();
-                _currentRoomDisposable.Clear();;
-            }
 
+            ResetLastDoors();
+            
             room.EnableRoom();
         }
-        
+
+        private void ResetLastDoors()
+        {
+            foreach (var door in _previousRoom.Doors.Values) 
+                door.SetIsReturnExit(false);
+        }
+
+        private bool IsNotStartRoom() => 
+            _previousRoom != _startRoom && _currentRoom != _startRoom;
+
         private void GoToNextRoomInBranch()
         {
             if (TryFindNextRoom(out Room room)) 

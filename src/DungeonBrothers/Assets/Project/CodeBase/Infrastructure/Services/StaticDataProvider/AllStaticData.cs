@@ -16,5 +16,6 @@ namespace Project.CodeBase.Infrastructure.Services.StaticDataProvider
         public AllGameBalanceConfig GameBalanceConfig;
         public CharacterOutlineColors CharacterOutlineColors;
         public AllRoomsConfig AllRoomsConfig;
+        public DungeonConfig DungeonConfig;
     }
 }

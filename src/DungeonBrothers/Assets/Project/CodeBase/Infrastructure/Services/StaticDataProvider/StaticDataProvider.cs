@@ -16,6 +16,7 @@ namespace Project.CodeBase.Infrastructure.Services.StaticDataProvider
             GameBalanceConfig = allStaticData.GameBalanceConfig;
             CharacterOutlineColors = allStaticData.CharacterOutlineColors;
             AllRoomsConfig = allStaticData.AllRoomsConfig;
+            DungeonConfig = allStaticData.DungeonConfig;
         }
 
         public AllAssetsAddresses AssetsAddresses { get; }
@@ -24,5 +25,6 @@ namespace Project.CodeBase.Infrastructure.Services.StaticDataProvider
         public AllGameBalanceConfig GameBalanceConfig { get; }
         public CharacterOutlineColors CharacterOutlineColors { get; }
         public AllRoomsConfig AllRoomsConfig { get; }
+        public DungeonConfig DungeonConfig { get; }
     }
 }

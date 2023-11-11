@@ -1,36 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Project.CodeBase.Gameplay.Rooms;
-using Project.CodeBase.Gameplay.Services.Random;
 using Project.CodeBase.Gameplay.Spawner.Rooms;
+using Project.CodeBase.Gameplay.Tiles;
+using Project.CodeBase.Infrastructure.Services.Logger;
+using Project.CodeBase.Infrastructure.Services.Providers.LevelSpawner;
 using Project.CodeBase.Infrastructure.Services.StaticDataProvider;
-using UniRx;
 
 namespace Project.CodeBase.Gameplay.Spawner.Dungeon
 {
     public class DungeonSpawner : IDungeonSpawner
     {
-        private readonly IRandomService _randomService;
         private readonly IRoomSpawner _roomSpawner;
-        
+        private readonly ILevelSpawner _levelSpawner;
+
         private readonly Dictionary<Direction, List<Room>> _branches = new();
 
-        private int _lenghtDungeon;
-        private int _maxLenghtBranch;
+        private readonly int _maxRooms;
+        private readonly int _maxRoomsInBranch;
         
-        private int _maxRooms;
-        private int _maxRoomsInBranch;
+        private int _currentMaxLenghtDungeon;
+        private int _currentMaxRoomsInBranch;
 
         private Room _currentRoom;
+        
+        public List<Tile> Tiles { get; private set; }
         public Room StartRoom { get; private set; }
 
-        public DungeonSpawner(IRandomService randomService,
-            IRoomSpawner roomSpawner)
+        public DungeonSpawner(RoomSpawner roomSpawner,
+            ILevelSpawner levelSpawner,
+            IStaticDataProvider staticDataProvider)
         {
-            _randomService = randomService;
             _roomSpawner = roomSpawner;
+            _levelSpawner = levelSpawner;
+
+            _maxRooms = staticDataProvider.DungeonConfig.MaxRoomsInDungeon;
+            _maxRoomsInBranch = staticDataProvider.DungeonConfig.MaxRoomsInBranch;
         }
 
         private void InitializeBranches()
@@ -49,11 +54,11 @@ namespace Project.CodeBase.Gameplay.Spawner.Dungeon
         public async UniTask<Dictionary<Direction, List<Room>>> SpawnDungeon()
         {
             InitializeBranches();
-            
-            _lenghtDungeon = _randomService.DoRandomInRange(1, _maxRooms + 1);
-            _maxLenghtBranch = _randomService.DoRandomInRange(1, _maxRoomsInBranch + 1);
 
-            while (_lenghtDungeon <= 0)
+            _currentMaxLenghtDungeon = _maxRooms;
+            _currentMaxRoomsInBranch = _maxRoomsInBranch;
+
+            while (_currentMaxLenghtDungeon > 0)
             {
                 if (await TrySpawnInBranch(Direction.Left))
                 {
@@ -75,7 +80,11 @@ namespace Project.CodeBase.Gameplay.Spawner.Dungeon
 
                 if (await TrySpawnInBranch(Direction.Top)) 
                     _branches[Direction.Top].Add(_currentRoom);
+                
+                _currentMaxLenghtDungeon--;
             }
+            
+            await _levelSpawner.Spawn();
 
             StartRoom = await CreateStartRoom();
 
@@ -93,53 +102,14 @@ namespace Project.CodeBase.Gameplay.Spawner.Dungeon
                 return false;
             }
 
-            if (IsBranchFirst(direction))
-            {
-                _currentRoom = await _roomSpawner.CreateRoom(direction);
-                return true;
-            }
-
-            FindNewExitInNewRoom(direction, out Direction newDirection);
+            _currentRoom = await _roomSpawner.CreateRoom(direction);
             
-            _currentRoom = await _roomSpawner.CreateRoom(newDirection);
-            _lenghtDungeon--;
+            _currentMaxLenghtDungeon--;
             
             return true;
         }
 
-        private bool IsBranchFirst(Direction direction) => 
-            _branches[direction].Count == 0;
-
         private bool IsBranchComplete(Direction direction) => 
-            _branches[direction].Count >= _maxRoomsInBranch;
-
-        private void FindNewExitInNewRoom(Direction currentDirection, out Direction newDirection)
-        {
-            Dictionary<Direction, Door> doors = _branches[currentDirection].Last().Doors;
-
-            foreach (var direction in doors.Keys)
-            {
-                if (doors[direction].IsReturnExit == false)
-                {
-                    switch (direction)
-                    {
-                        case Direction.Top:
-                            newDirection = Direction.Down;
-                            break;
-                        case Direction.Down:
-                            newDirection = Direction.Top;
-                            break;
-                        case Direction.Right:
-                            newDirection = Direction.Left;
-                            break;
-                        case Direction.Left:
-                            newDirection = Direction.Right;
-                            break;
-                    }
-                }
-            }
-
-            newDirection = currentDirection;
-        }
+            _branches[direction].Count >= _currentMaxRoomsInBranch;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Project.CodeBase.Gameplay.Characters;
+using Project.CodeBase.Gameplay.Rooms.Doors;
 using Sirenix.OdinInspector;
 using UniRx;
 

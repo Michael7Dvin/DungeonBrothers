@@ -1,3 +1,4 @@
+using Project.CodeBase.Gameplay.Rooms.Doors;
 using Project.CodeBase.Gameplay.Services.AI;
 using Project.CodeBase.Gameplay.Services.AI.Behaviours;
 using Project.CodeBase.Gameplay.Services.Attack;
@@ -80,6 +81,7 @@ namespace Project.CodeBase.Infrastructure.Installers
             builder.Register<IRoomSpawner, RoomSpawner>(Lifetime.Singleton);
             builder.Register<IDungeonSpawner, DungeonSpawner>(Lifetime.Singleton);
             builder.Register<IDungeonService, DungeonService>(Lifetime.Singleton);
+            builder.Register<IDoorSelector, DoorSelector>(Lifetime.Singleton);
             
             builder.Register<IAIService, AIService>(Lifetime.Singleton);
             builder.Register<ISelectTargetBehaviour, SelectTargetBehaviour>(Lifetime.Singleton);

@@ -1,4 +1,5 @@
-﻿using Project.CodeBase.Gameplay.Services.Move;
+﻿using Project.CodeBase.Gameplay.Rooms.Doors;
+using Project.CodeBase.Gameplay.Services.Move;
 using Project.CodeBase.Gameplay.Services.TurnQueue;
 using Project.CodeBase.Infrastructure.Audio;
 using Project.CodeBase.Infrastructure.Services.AddressablesLoader.Loader;
@@ -15,17 +16,20 @@ namespace Project.CodeBase.Infrastructure.StateMachines.Gameplay.States
         private readonly ITurnQueue _turnQueue;
         private readonly IMoverService _moverService;
         private readonly ISoundPlayer _soundPlayer;
+        private readonly IDoorSelector _doorSelector;
 
         private AssetReference _audio;
 
         public BattleState(ITurnQueue turnQueue, 
             IMoverService moverService,
             ISoundPlayer soundPlayer,
+            IDoorSelector doorSelector,
             IStaticDataProvider staticDataProvider)
         {
             _turnQueue = turnQueue;
             _moverService = moverService;
             _soundPlayer = soundPlayer;
+            _doorSelector = doorSelector;
             
             _audio = staticDataProvider.AssetsAddresses.AllGameplayAddresses.SoundAddresses.DungeonSoundtrack;
         }
@@ -37,7 +41,7 @@ namespace Project.CodeBase.Infrastructure.StateMachines.Gameplay.States
             await async.Task;
             
             _soundPlayer.StartSoundtrack(async.Result);
-            
+            _doorSelector.Initialize();
             _moverService.Enable();
             _turnQueue.SetFirstTurn();
         }

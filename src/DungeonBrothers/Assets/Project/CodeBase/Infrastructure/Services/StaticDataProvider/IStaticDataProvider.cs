@@ -14,5 +14,6 @@ namespace Project.CodeBase.Infrastructure.Services.StaticDataProvider
         AllGameBalanceConfig GameBalanceConfig { get; }
         CharacterOutlineColors CharacterOutlineColors { get; }
         AllRoomsConfig AllRoomsConfig { get; }
+        DungeonConfig DungeonConfig { get; }
     }
 }
