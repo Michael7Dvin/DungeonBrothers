@@ -18,3 +18,4 @@ MonoBehaviour:
   GameBalanceConfig: {fileID: 11400000, guid: 3a2d8f264c79b4a4ba04c60e0fce6ce7, type: 2}
   CharacterOutlineColors: {fileID: 11400000, guid: 9204133c0a330bb479521e37a0bdd02c, type: 2}
   AllRoomsConfig: {fileID: 11400000, guid: 2976bf96880bf164f8e474b3767f848c, type: 2}
+  DungeonConfig: {fileID: 11400000, guid: d48ba6149a1134a43916b46cb76829de, type: 2}

@@ -56,7 +56,7 @@ namespace Project.CodeBase.Tests.EditMode
             new Gameplay.Services.Map.MapService();
 
         public static ICharactersProvider CharactersProvider() => 
-            new CharactersProvider();
+            new CharactersProvider(CustomLogger());
 
         public static ITurnQueue TurnQueue(ICharactersProvider charactersProvider) => 
             new Gameplay.Services.TurnQueue.TurnQueue(new RandomService(), charactersProvider);

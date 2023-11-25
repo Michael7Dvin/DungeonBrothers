@@ -27,7 +27,7 @@ namespace Project.CodeBase.Gameplay.Spawner.Dungeon
         public List<Tile> Tiles { get; private set; }
         public Room StartRoom { get; private set; }
 
-        public DungeonSpawner(RoomSpawner roomSpawner,
+        public DungeonSpawner(IRoomSpawner roomSpawner,
             ILevelSpawner levelSpawner,
             IStaticDataProvider staticDataProvider)
         {

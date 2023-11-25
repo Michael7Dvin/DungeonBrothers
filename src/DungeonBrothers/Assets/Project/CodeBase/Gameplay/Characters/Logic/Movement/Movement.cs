@@ -93,7 +93,8 @@ namespace Project.CodeBase.Gameplay.Characters.Logic.Movement
                 OccupiedTile = tile;
             }
             
-            AvailableMovePoints--;
+            if (_character.IsInBattle)
+                AvailableMovePoints--;
         }
     }
 }

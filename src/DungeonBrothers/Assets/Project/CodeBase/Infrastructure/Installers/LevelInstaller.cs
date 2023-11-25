@@ -51,6 +51,7 @@ namespace Project.CodeBase.Infrastructure.Installers
             builder.Register<IGameplayStateMachine, GameplayStateMachine>(Lifetime.Singleton);
 
             builder.Register<LevelLoadingState>(Lifetime.Singleton);
+            builder.Register<IdleState>(Lifetime.Singleton);
             builder.Register<BattleState>(Lifetime.Singleton);
         }
 

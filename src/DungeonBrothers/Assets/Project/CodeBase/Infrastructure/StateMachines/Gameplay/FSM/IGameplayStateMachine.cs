@@ -7,5 +7,6 @@ namespace Project.CodeBase.Infrastructure.StateMachines.Gameplay.FSM
         void Enter<TState>() where TState : IState;
         void Enter<TState, TArgument>(TArgument argument) where TState : IStateWithArgument<TArgument>;
         void Add<TState>(TState state) where TState : IExitableState;
+        public IExitableState ActiveState { get; }
     }
 }

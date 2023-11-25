@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c83ffcf339034aab94debae4fe3524e2, type: 3}
   m_Name: DungeonConfig
   m_EditorClassIdentifier: 
-  MaxRoomsInDungeon: 0
-  MaxRoomsInBranch: 0
+  MaxRoomsInDungeon: 3
+  MaxRoomsInBranch: 1

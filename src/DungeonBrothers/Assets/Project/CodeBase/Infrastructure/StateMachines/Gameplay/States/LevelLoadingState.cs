@@ -72,7 +72,7 @@ namespace Project.CodeBase.Infrastructure.StateMachines.Gameplay.States
             _aiService.Initialize();
             await _dungeonService.CreateDungeon();
             
-            _gameplayStateMachine.Enter<BattleState>();
+            _gameplayStateMachine.Enter<IdleState>();
         }
 
         public void Exit()

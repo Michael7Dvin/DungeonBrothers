@@ -13,6 +13,7 @@ namespace Project.CodeBase.Gameplay.Characters
         public CharacterDamage Damage { get; }
         public ICharacterLogic Logic { get; }
         public ICharacterView View { get; }
+        public bool IsInBattle { get; set; }
         public GameObject GameObject { get; }
     }
 }
