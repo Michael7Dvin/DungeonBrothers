@@ -199,6 +199,7 @@ namespace Project.CodeBase.Tests.EditMode
         {
             ICharacter character = Substitute.For<ICharacter>();
             IMovementView movementView = Substitute.For<IMovementView>();
+            character.IsInBattle = true;
             
             Movement movement = new(character, movementView, isMoveThroughObstacles, startMovePoints);
             movement.Teleport(startTile);
