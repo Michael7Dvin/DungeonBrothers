@@ -9,6 +9,8 @@ namespace Project.CodeBase.Infrastructure.StateMachines.Gameplay.FSM
         private readonly ICustomLogger _logger;
         private readonly StateMachine _stateMachine;
 
+        public IExitableState ActiveState => _stateMachine.ActiveState;
+
         public GameplayStateMachine(ICustomLogger logger)
         {
             _logger = logger;

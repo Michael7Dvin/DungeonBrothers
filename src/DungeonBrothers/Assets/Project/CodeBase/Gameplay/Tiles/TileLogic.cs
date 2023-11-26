@@ -1,5 +1,6 @@
 ﻿using System;
 using Project.CodeBase.Gameplay.Characters;
+using Project.CodeBase.Gameplay.Rooms;
 using Project.CodeBase.Infrastructure.Services.Logger;
 using UniRx;
 using UnityEngine;
@@ -11,19 +12,27 @@ namespace Project.CodeBase.Gameplay.Tiles
     {
         private ICustomLogger _customLogger;
         private readonly CompositeDisposable _disposable = new();
-        
+        private readonly ReactiveProperty<bool> _isOccupied = new();
+
+        public Direction PassageDirection;
+        public bool IsPassage;
+        public bool IsEnterInNewRoom;
+        public bool IsEnterInPreviousRoom;
+
         [Inject]
         public void Inject(ICustomLogger customLogger) =>
             _customLogger = customLogger;
 
-        public TileLogic(bool isOccupied, bool isWalkable, Vector2Int coordinates)
+        public TileLogic(bool isOccupied,
+            bool isWalkable, 
+            Vector2Int coordinates)
         {
-            IsOccupied = isOccupied;
+            _isOccupied.Value = isOccupied;
             IsWalkable = isWalkable;
             Coordinates = coordinates;
         }
-        
-        public bool IsOccupied { get; private set; }
+
+        public IReadOnlyReactiveProperty<bool> IsOccupied => _isOccupied;
         public bool IsWalkable { get; private set; }
         public Vector2Int Coordinates { get; private set; }
         public ICharacter Character { get; private set; }
@@ -32,16 +41,16 @@ namespace Project.CodeBase.Gameplay.Tiles
         {
             _disposable.Clear();
             Character = null;
-            IsOccupied = false;
+            _isOccupied.Value = false;
             IsWalkable = true;
         }
         
         public void Occupy(ICharacter character)
         {
-            if (IsOccupied)
+            if (_isOccupied.Value)
                 _customLogger.LogError(new Exception("Tile is occupied"));
 
-            IsOccupied = true;
+            _isOccupied.Value = true;
             IsWalkable = false;
 
             Character = character;

@@ -6,7 +6,7 @@ using Project.CodeBase.Gameplay.Characters.CharacterInfo;
 using Project.CodeBase.Gameplay.Services.InteractionsService;
 using Project.CodeBase.Gameplay.Services.Map;
 using Project.CodeBase.Gameplay.Services.MapGenerator;
-using Project.CodeBase.Gameplay.Spawner.CharacterSpawner;
+using Project.CodeBase.Gameplay.Spawner.Character;
 using Project.CodeBase.Infrastructure.Services.Factories.Buttons;
 using Project.CodeBase.Infrastructure.Services.Factories.Cameras;
 using Project.CodeBase.Infrastructure.Services.Factories.Characters;
@@ -87,9 +87,6 @@ namespace Project.CodeBase.Infrastructure.Services.Providers.LevelSpawner
             Dictionary<Vector2Int, CharacterConfig> charactersToSpawn = new()
             {
                 { new Vector2Int(0, 0), _charactersConfigs[CharacterID.Hero] },
-                { new Vector2Int(2,0), _charactersConfigs[CharacterID.Skeleton] },
-                { new Vector2Int(3,0), _charactersConfigs[CharacterID.Skeleton] },
-                { new Vector2Int(4,0), _charactersConfigs[CharacterID.Skeleton] }
             };
             
             await _charactersSpawner.Spawn(charactersToSpawn);

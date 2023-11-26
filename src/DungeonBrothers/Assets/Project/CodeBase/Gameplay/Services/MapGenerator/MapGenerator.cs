@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Project.CodeBase.Gameplay.Rooms;
 using Project.CodeBase.Gameplay.Tiles;
 using Project.CodeBase.Infrastructure.Services.Factories.TileFactory;
 using UnityEngine;
@@ -36,6 +37,7 @@ namespace Project.CodeBase.Gameplay.Services.MapGenerator
                     
                     Tile tile = await _tileFactory.Create(position, coordinates, root.transform);
                     tiles.Add(tile);
+                    TrySetPassageTile(tile, col, row);
                 }
             }
             
@@ -43,5 +45,68 @@ namespace Project.CodeBase.Gameplay.Services.MapGenerator
 
             return tiles;
         }
+
+        private void TrySetPassageTile(Tile tile, int x, int y)
+        {
+            if (IsTopOrDownDoor(tile, x, y)) 
+                return;
+
+            IsLeftOrRightDoor(tile, x, y);
+        }
+
+        private bool IsTopOrDownDoor(Tile tile, int x, int y)
+        {
+            if (x == ColumnsCount / 2 - 1 || x == ColumnsCount / 2)
+            {
+                
+                if (IsDownDoor(y))
+                {
+                    SetPassageTile(tile, Direction.Down);
+                    return true;
+                }
+
+                if (IsTopDoor(y))
+                {
+                    SetPassageTile(tile, Direction.Top);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void IsLeftOrRightDoor(Tile tile, int x, int y)
+        {
+            if (y == RowsCount / 2 - 1 || y == RowsCount / 2)
+            {
+                if (IsLeftRoom(x))
+                {
+                    SetPassageTile(tile, Direction.Left);
+                    return;
+                }
+
+                if (IsRightRoom(x)) 
+                    SetPassageTile(tile, Direction.Right);
+            }
+        }
+
+        private void SetPassageTile(Tile tile, Direction direction)
+        {
+            tile.Logic.PassageDirection = direction;
+            tile.Logic.IsPassage = true;
+            tile.Logic.IsEnterInNewRoom = true;
+        }
+
+        private bool IsRightRoom(int x) => 
+            x == ColumnsCount - 1;
+
+        private bool IsLeftRoom(int x) => 
+            x == 0;
+
+        private bool IsDownDoor(int y) => 
+            y == 0;
+
+        private bool IsTopDoor(int y) => 
+            y == RowsCount - 1;
     }
 }

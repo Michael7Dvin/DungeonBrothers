@@ -9,11 +9,13 @@ namespace Project.CodeBase.Infrastructure.StateMachines.Gameplay
         private readonly IGameplayStateMachine _gameplayStateMachine;
 
         public GameplayBootstrapper(IGameplayStateMachine gameplayStateMachine,
+            IdleState idleState,
             LevelLoadingState levelLoadingState,
             BattleState battleState)
         {
             _gameplayStateMachine = gameplayStateMachine;
             
+            _gameplayStateMachine.Add(idleState);
             _gameplayStateMachine.Add(levelLoadingState);
             _gameplayStateMachine.Add(battleState);
         }

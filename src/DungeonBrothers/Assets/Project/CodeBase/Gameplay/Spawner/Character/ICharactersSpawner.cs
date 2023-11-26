@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using Project.CodeBase.Gameplay.Characters;
 using UnityEngine;
 
-namespace Project.CodeBase.Gameplay.Spawner.CharacterSpawner
+namespace Project.CodeBase.Gameplay.Spawner.Character
 {
     public interface ICharactersSpawner
     {

@@ -10,6 +10,8 @@ namespace Project.CodeBase.Infrastructure.StateMachines.Common
 
         private IExitableState _activeState;
 
+        public IExitableState ActiveState => _activeState;
+
         public void Enter<TState>() where TState : IState
         {
             _activeState?.Exit();

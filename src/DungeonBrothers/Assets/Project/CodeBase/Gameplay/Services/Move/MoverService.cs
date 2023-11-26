@@ -7,6 +7,7 @@ using Project.CodeBase.Gameplay.Services.Map;
 using Project.CodeBase.Gameplay.Services.PathFinder;
 using Project.CodeBase.Gameplay.Services.TurnQueue;
 using Project.CodeBase.Gameplay.Tiles;
+using Project.CodeBase.Infrastructure.StateMachines.Gameplay.FSM;
 using UniRx;
 using UnityEngine;
 
@@ -21,7 +22,9 @@ namespace Project.CodeBase.Gameplay.Services.Move
         private readonly CompositeDisposable _disposable = new();
         private readonly ReactiveCommand<ICharacter> _isMoved = new();
 
-        public MoverService(IPathFinder pathFinder, ITurnQueue turnQueue, IMapService mapService)
+        public MoverService(IPathFinder pathFinder, 
+            ITurnQueue turnQueue, 
+            IMapService mapService)
         {
             _pathFinder = pathFinder;
             _turnQueue = turnQueue;

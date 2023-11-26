@@ -1,4 +1,5 @@
 ﻿using Project.CodeBase.Gameplay.Characters.CharacterInfo;
+using Project.CodeBase.Gameplay.Rooms.Doors;
 using Project.CodeBase.Gameplay.Services.Attack;
 using Project.CodeBase.Gameplay.Services.Move;
 using Project.CodeBase.Gameplay.Services.TurnQueue;
@@ -12,6 +13,7 @@ namespace Project.CodeBase.Gameplay.Services.InteractionsService
         private readonly IMoverService _moverService;
         private readonly IAttackService _attackService;
         private readonly ITileSelector _tileSelector;
+        private readonly IDoorSelector _doorSelector;
         private readonly ITurnQueue _turnQueue;
         
         private readonly CompositeDisposable _disposable = new();
@@ -19,11 +21,13 @@ namespace Project.CodeBase.Gameplay.Services.InteractionsService
         public InteractionService(IMoverService moverService,
             IAttackService attackService,
             ITurnQueue turnQueue,
+            IDoorSelector doorSelector,
             ITileSelector tileSelector)
         {
             _moverService = moverService;
             _attackService = attackService;
             _turnQueue = turnQueue;
+            _doorSelector = doorSelector;
             _tileSelector = tileSelector;
         }
         

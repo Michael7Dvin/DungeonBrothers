@@ -10,6 +10,8 @@ namespace Project.CodeBase.Gameplay.Services.Map
         
         private readonly Dictionary<Vector2Int, Tile> _tiles = new();
 
+        public Dictionary<Vector2Int, Tile> Tiles => _tiles;
+        
         private readonly Vector2Int[] _neighborsDirections = 
         {
             new (1, 0), 
@@ -27,7 +29,7 @@ namespace Project.CodeBase.Gameplay.Services.Map
                 _tiles[tile.Logic.Coordinates] = tile;
             }
         }
-        
+
         public bool TryGetTile(Vector2Int coordinates, out Tile tile) => 
             _tiles.TryGetValue(coordinates, out tile);
 

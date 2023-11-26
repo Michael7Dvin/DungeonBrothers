@@ -29,6 +29,8 @@ namespace Project.CodeBase.Gameplay.Characters
         public ICharacterLogic Logic { get; private set; }
         public ICharacterView View { get; private set; }
 
+        public bool IsInBattle { get; set; }
+
         public GameObject GameObject => 
             gameObject;
     }

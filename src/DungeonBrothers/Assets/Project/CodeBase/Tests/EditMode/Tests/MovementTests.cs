@@ -91,7 +91,7 @@ namespace Project.CodeBase.Tests.EditMode.Tests
 
             const int movePoints = 5;
             IMovement movement = Create.Movement(path.First(), false, movePoints);
-            
+
             // Act.
             movement.Move(path);
 

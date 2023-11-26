@@ -1,6 +1,8 @@
+using Project.CodeBase.Gameplay.Rooms.Doors;
 using Project.CodeBase.Gameplay.Services.AI;
 using Project.CodeBase.Gameplay.Services.AI.Behaviours;
 using Project.CodeBase.Gameplay.Services.Attack;
+using Project.CodeBase.Gameplay.Services.Dungeon;
 using Project.CodeBase.Gameplay.Services.InteractionsService;
 using Project.CodeBase.Gameplay.Services.Map;
 using Project.CodeBase.Gameplay.Services.MapGenerator;
@@ -13,11 +15,14 @@ using Project.CodeBase.Gameplay.Services.Visualizers.Attackable;
 using Project.CodeBase.Gameplay.Services.Visualizers.Path;
 using Project.CodeBase.Gameplay.Services.Visualizers.Select;
 using Project.CodeBase.Gameplay.Services.Visualizers.Walkable;
-using Project.CodeBase.Gameplay.Spawner.CharacterSpawner;
+using Project.CodeBase.Gameplay.Spawner.Character;
+using Project.CodeBase.Gameplay.Spawner.Dungeon;
+using Project.CodeBase.Gameplay.Spawner.Rooms;
 using Project.CodeBase.Gameplay.Tiles;
 using Project.CodeBase.Infrastructure.Services.Factories.Buttons;
 using Project.CodeBase.Infrastructure.Services.Factories.Cameras;
 using Project.CodeBase.Infrastructure.Services.Factories.Characters;
+using Project.CodeBase.Infrastructure.Services.Factories.Rooms;
 using Project.CodeBase.Infrastructure.Services.Factories.TileFactory;
 using Project.CodeBase.Infrastructure.Services.Factories.TurnQueue;
 using Project.CodeBase.Infrastructure.Services.Factories.UI;
@@ -46,6 +51,7 @@ namespace Project.CodeBase.Infrastructure.Installers
             builder.Register<IGameplayStateMachine, GameplayStateMachine>(Lifetime.Singleton);
 
             builder.Register<LevelLoadingState>(Lifetime.Singleton);
+            builder.Register<IdleState>(Lifetime.Singleton);
             builder.Register<BattleState>(Lifetime.Singleton);
         }
 
@@ -57,6 +63,7 @@ namespace Project.CodeBase.Infrastructure.Installers
             builder.Register<ICharacterFactory, CharacterFactory>(Lifetime.Singleton);
             builder.Register<IButtonsFactory, ButtonsFactory>(Lifetime.Singleton);
             builder.Register<ICameraFactory, CameraFactory>(Lifetime.Singleton);
+            builder.Register<IRoomFactory, RoomFactory>(Lifetime.Singleton);
         }
 
         private void RegisterServices(IContainerBuilder builder)
@@ -72,6 +79,10 @@ namespace Project.CodeBase.Infrastructure.Installers
             builder.Register<IRaycastService, RaycastService>(Lifetime.Singleton);
             builder.Register<ITileSelector, TileSelector>(Lifetime.Singleton);
             builder.Register<IAttackService, AttackService>(Lifetime.Singleton);
+            builder.Register<IRoomSpawner, RoomSpawner>(Lifetime.Singleton);
+            builder.Register<IDungeonSpawner, DungeonSpawner>(Lifetime.Singleton);
+            builder.Register<IDungeonService, DungeonService>(Lifetime.Singleton);
+            builder.Register<IDoorSelector, DoorSelector>(Lifetime.Singleton);
             
             builder.Register<IAIService, AIService>(Lifetime.Singleton);
             builder.Register<ISelectTargetBehaviour, SelectTargetBehaviour>(Lifetime.Singleton);

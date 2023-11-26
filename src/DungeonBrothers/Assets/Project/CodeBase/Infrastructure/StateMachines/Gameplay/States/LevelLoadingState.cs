@@ -1,4 +1,5 @@
 using Project.CodeBase.Gameplay.Services.AI;
+using Project.CodeBase.Gameplay.Services.Dungeon;
 using Project.CodeBase.Gameplay.Services.TurnQueue;
 using Project.CodeBase.Gameplay.Services.Visualizers.ActiveCharacter;
 using Project.CodeBase.Gameplay.Services.Visualizers.Attackable;
@@ -25,6 +26,7 @@ namespace Project.CodeBase.Infrastructure.StateMachines.Gameplay.States
         private readonly ITileSelector _tileSelector;
         private readonly IPathVisualizer _pathVisualizer;
         private readonly IAttackableTilesVisualizer _visualizationAttack;
+        private readonly IDungeonService _dungeonService;
 
         private readonly IAIService _aiService;
         
@@ -38,6 +40,7 @@ namespace Project.CodeBase.Infrastructure.StateMachines.Gameplay.States
             ITileSelector tileSelector,
             IPathVisualizer pathVisualizer,
             IAttackableTilesVisualizer visualizationAttack,
+            IDungeonService dungeonService,
             IAIService aiService)
         {
             _levelSpawner = levelSpawner;
@@ -50,6 +53,7 @@ namespace Project.CodeBase.Infrastructure.StateMachines.Gameplay.States
             _tileSelector = tileSelector;
             _pathVisualizer = pathVisualizer;
             _visualizationAttack = visualizationAttack;
+            _dungeonService = dungeonService;
 
             _aiService = aiService;
         }
@@ -66,9 +70,9 @@ namespace Project.CodeBase.Infrastructure.StateMachines.Gameplay.States
             _walkableTilesVisualizer.Initialize();
             _visualizationAttack.Initialize();
             _aiService.Initialize();
+            await _dungeonService.CreateDungeon();
             
-            await _levelSpawner.Spawn();
-            _gameplayStateMachine.Enter<BattleState>();
+            _gameplayStateMachine.Enter<IdleState>();
         }
 
         public void Exit()

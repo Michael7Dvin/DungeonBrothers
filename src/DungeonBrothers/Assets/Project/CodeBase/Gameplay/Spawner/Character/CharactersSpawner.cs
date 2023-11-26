@@ -6,7 +6,7 @@ using Project.CodeBase.Gameplay.Tiles;
 using Project.CodeBase.Infrastructure.Services.Factories.Characters;
 using UnityEngine;
 
-namespace Project.CodeBase.Gameplay.Spawner.CharacterSpawner
+namespace Project.CodeBase.Gameplay.Spawner.Character
 {
     public class CharactersSpawner : ICharactersSpawner
     {
@@ -25,7 +25,7 @@ namespace Project.CodeBase.Gameplay.Spawner.CharacterSpawner
             {
                 if (_mapService.TryGetTile(characterSpawnData.Key, out Tile tile))
                 {
-                    Character character = await _characterFactory.Create(characterSpawnData.Value);
+                    Characters.Character character = await _characterFactory.Create(characterSpawnData.Value);
                     Transform transform = tile.transform;
 
                     Vector3 position = transform.position;
