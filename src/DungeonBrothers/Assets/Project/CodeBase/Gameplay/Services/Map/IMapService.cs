@@ -9,5 +9,6 @@ namespace Project.CodeBase.Gameplay.Services.Map
         void ResetMap(IEnumerable<Tile> map);
         bool TryGetTile(Vector2Int coordinates, out Tile tile);
         List<Tile> GetNeighbors(Vector2Int coordinates);
+        public Dictionary<Vector2Int, Tile> Tiles { get; }
     }
 }

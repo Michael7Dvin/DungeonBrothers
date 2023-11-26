@@ -7,6 +7,7 @@ using Project.CodeBase.Gameplay.Services.Map;
 using Project.CodeBase.Gameplay.Spawner.Dungeon;
 using Project.CodeBase.Infrastructure.Services.Logger;
 using UniRx;
+using UnityEngine;
 
 namespace Project.CodeBase.Gameplay.Services.Dungeon
 {
@@ -26,7 +27,7 @@ namespace Project.CodeBase.Gameplay.Services.Dungeon
         private Room _previousRoom;
 
         public DungeonService(IDungeonSpawner dungeonSpawner, 
-            IMapService mapService,
+            IMapService mapService, 
             ICustomLogger logger)
         {
             _dungeonSpawner = dungeonSpawner;
@@ -133,10 +134,32 @@ namespace Project.CodeBase.Gameplay.Services.Dungeon
                     continue;
                 
                 _currentRoom.Doors[direction].SetIsReturnExit(true);
+                SetTilePassages(exitDirection, direction);
 
                 _currentRoom.Doors[direction].Entered
                     .Subscribe(_ => GoToNextRoomInBranch())
                     .AddTo(_currentRoomDisposable);
+            }
+        }
+
+        private void SetTilePassages(Direction exitDirection, Direction direction)
+        {
+            foreach (var tile in _mapService.Tiles.Values)
+            { 
+                if (tile.Logic.IsPassage == false)
+                    continue;
+                
+                tile.Logic.IsEnterInPreviousRoom = false;
+                tile.Logic.IsEnterInNewRoom = false;
+
+                if (tile.Logic.PassageDirection == exitDirection)
+                {
+                    tile.Logic.IsEnterInPreviousRoom = true;
+                    continue;
+                }
+
+                if (tile.Logic.PassageDirection == direction)
+                    tile.Logic.IsEnterInNewRoom = true;
             }
         }
 

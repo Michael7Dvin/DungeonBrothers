@@ -1,5 +1,6 @@
 ﻿using System;
 using Project.CodeBase.Gameplay.Characters;
+using Project.CodeBase.Gameplay.Rooms;
 using Project.CodeBase.Infrastructure.Services.Logger;
 using UniRx;
 using UnityEngine;
@@ -12,6 +13,11 @@ namespace Project.CodeBase.Gameplay.Tiles
         private ICustomLogger _customLogger;
         private readonly CompositeDisposable _disposable = new();
         private readonly ReactiveProperty<bool> _isOccupied = new();
+
+        public Direction PassageDirection;
+        public bool IsPassage;
+        public bool IsEnterInNewRoom;
+        public bool IsEnterInPreviousRoom;
 
         [Inject]
         public void Inject(ICustomLogger customLogger) =>
